@@ -1,9 +1,9 @@
 # Compra Local
 
 [![HitCount](http://hits.dwyl.io/carlotacb/compra-local.svg)](http://hits.dwyl.io/carlotacb/compra-local)
-[![GitHub stars](https://img.shields.io/github/stars/carlotacb/compra-local.svg)](https://GitHub.com/carlotacb/compra-local/stargazers/)
-[![GitHub forks](https://img.shields.io/github/forks/carlotacb/compra-local.svg)](https://GitHub.com/carlotacb/compra-local/network/)
-[![GitHub contributors](https://img.shields.io/github/contributors/carlotacb/compra-local.svg)](https://GitHub.com/carlotacb/compra-local/graphs/contributors/)
+[![GitHub stars](https://img.shields.io/github/stars/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/stargazers/)
+[![GitHub forks](https://img.shields.io/github/forks/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/network/)
+[![GitHub contributors](https://img.shields.io/github/contributors/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/graphs/contributors/)
 [![GitHub license](https://img.shields.io/github/license/carlotacb/compra-local.svg)](https://github.com/carlotacb/compra-local/blob/master/LICENSE)
 
 [Demo](https://compralocal.cat)
