@@ -22,6 +22,14 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.7
+    - name: Create .env file
+      working-directory: ${{env.api-directory}}
+      run: |
+        echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+        echo "DB_DB=${{ secrets.DB_DB }}" >> .env
+        echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+        echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
     - name: Install dependencies
       working-directory: ${{env.api-directory}}
       run: |
