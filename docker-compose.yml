@@ -4,6 +4,8 @@ services:
   compra_local_api:
     image: compra_local_api
     container_name: compra_local_api
+    env_file:
+      - "./api/.env"
     build: api
     restart: always
     ports:
