@@ -1,1 +1,1 @@
-web: bin/start-nginx uwsgi uwsgi.ini
+web: uwsgi uwsgi.ini
