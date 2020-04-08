@@ -1,0 +1,66 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+.button-primary:hover, .button-secondary:hover, .button-white:hover {
+    box-shadow: 0px 1px 5px rgba(119, 29, 0, 0.8);
+    color: #000;
+    transform: translateY(-1px);
+}
+
+.hover-disabled {
+  pointer-events: none;
+}
+
+/*
+ Ripple
+*/
+
+.md-btn-ripple-white:after {
+  background: rgba(119, 29, 0, 0.4) !important;
+}
+
+.md-btn-ripple {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .md-btn-ripple:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 120px;
+    height: 120px;
+    margin-left: -60px;
+    margin-top: -60px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 100%;
+    transform: scale(0);
+  }
+  
+  @keyframes md-btn-ripple {
+    0% {
+      transform: scale(0);
+    }
+    20% {
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+  
+  .md-btn-ripple:not(:active):after {
+    animation: md-btn-ripple 0.6s ease-out;
+  }
+  
+  .md-btn-ripple:after {
+    visibility: hidden;
+  }
+  
+  .md-btn-ripple:focus:after {
+    visibility: visible;
+  }

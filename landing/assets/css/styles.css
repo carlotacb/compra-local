@@ -1,0 +1,297 @@
+html, body {
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+header {
+    display: inline-block;
+    height: 100vh;
+    position: relative;
+    padding-top: 3.5rem;
+}
+
+
+/**   Navbar   **/
+nav {
+    padding-left: 3% !important;
+    padding-right: 3% !important;
+    background-color: #ffffff;
+}
+
+.navbar-brand {
+    margin-right: 0 !important;
+    font-weight: bold;
+}
+
+.nav-link{
+    font-weight: 500 !important;
+}
+
+/**   Header   **/
+.background-cover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: url('../img/background/mercat.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.summary {
+    padding-left: 0em;
+    padding-right: 0em;
+    height: 100%;
+}
+
+.summary-texts {
+    text-align: center; 
+    text-shadow: 0 0 1rem rgba(51, 62, 84, 0.25);
+}
+
+.title {
+    font-weight: bolder;
+    font-size: 2em;
+    text-align: center;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+
+/**  FAQs  **/
+
+#FAQs .section-heading {
+    text-align: left;
+    padding-top: 4em;
+    padding-bottom: 2.5em;
+}
+
+#FAQs .section-title {
+    letter-spacing: 0em;
+    font-weight: 600;
+    font-size: 48px;
+    color: #1E1E1E;
+}
+
+#FAQs .section-content {
+    padding-bottom: 4em;
+}
+
+#FAQs .paragrafs {
+    margin-top: 10px;
+}
+
+/**  Comerços  **/
+
+.bg-image-locals {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-image: url('../img/background/mercat.jpg');
+}
+
+.paralax-mf {
+    position: relative;
+}
+
+.overlay-mf {
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    opacity: .5;
+  }
+
+#Locals .section-heading {
+    text-align: right;
+    padding-top: 4em;
+    padding-bottom: 2.5em;
+}
+
+#Locals .section-title {
+    letter-spacing: 0em;
+    font-weight: 600;
+    font-size: 48px;
+    color: #1E1E1E;
+}
+
+#Locals .section-content {
+    padding-bottom: 10px;
+}
+
+#Locals .subtitle {
+    margin-top: 10px;
+}
+
+#Locals .section-buttons {
+    margin-left: 0px !important;
+    text-align: center;
+}
+
+
+/**   Utils   **/
+
+.auto-center {
+    margin: 0 auto !important;
+}
+
+/**   Buttons   **/
+
+.button-contianer {
+    display: flex;
+    margin-left: -15px;
+}
+
+.button-primary {
+	border: none;
+	background-color: #9777B5;
+    color: #1E1E1E;
+    padding: 0.625em 1.25em;
+	cursor: pointer;
+    width: inherit;
+	font-weight: bold;
+	position: relative;
+	text-decoration: none !important;
+	text-transform: uppercase;
+	transition: transform 50ms ease-out;
+	display: block;
+	z-index: 0;
+	margin: 1em 0.5em 1.625em;
+    -webkit-tap-highlight-color: none;
+}
+
+.button--hero {
+	font-size: 1.2em;
+	z-index: 0;
+}
+
+/** Footer **/
+
+footer {
+    padding-left: 10vh !important;
+    padding-right: 10vh !important;
+    padding-bottom: 2em;
+}
+
+footer a:hover {
+    color: black !important;
+}
+
+footer a {
+    color: #1E1E1E !important;
+}
+
+footer .row {
+    padding-top: 1em;
+}
+
+footer p {
+    text-align: center;
+    font-size: 14px;
+    color: #1E1E1E;
+    margin-bottom: 0 !important;
+}
+
+
+/** Responsive **/ 
+
+@media screen and (min-width: 200px) { 
+    .title {
+        font-size: 2em;
+    }
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media screen and (min-width: 415px) { 
+
+    .title {
+        font-size: 2.5em;
+    }
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media  screen and (min-width: 768px) { 
+    .title {
+        font-size: 3em;
+    }
+
+    .subtitle {
+        text-align: center;
+    }
+
+    footer {
+        padding-left: 15vh !important;
+        padding-right: 15vh !important;
+    }
+
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media screen and (min-width: 992px) { 
+    .title {
+        font-size: 3.2em;
+    }
+
+    #students h3 {
+        text-align: start;
+    }
+
+    #students .subtitle {
+        text-align: end;
+        margin-right: 3em;
+    }
+
+    #location .info {
+        padding: 2.5em;
+    }
+
+    footer .social-icons {
+        text-align: left;
+    }
+    
+    footer .web-links {
+        text-align: right;
+    }
+
+ }
+
+/*Extra large devices (large desktops, 1200px and up) */
+@media screen and (min-width: 1200px) { 
+    .title {
+        font-size: 4.25em;
+    }
+
+    #students .subtitle {
+        margin-right: 4em;
+    }
+
+    .summary {
+        padding-left: 12em;
+        padding-right: 12em;
+    }
+
+    footer {
+        padding-left: 20vh !important;
+        padding-right: 20vh !important;
+    }
+
+    #advent .image {
+        width: 40em;   
+    }
+    
+ }
