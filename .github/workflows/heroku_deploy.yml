@@ -1,0 +1,20 @@
+name: Deploy to GitHub Pages
+on:
+  push:	
+    branches:	
+      - master
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Deploy
+      uses: s0/git-publish-subdir-action@master
+      env:
+        REPO: self
+        BRANCH: backend-heroku
+        FOLDER: api
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
