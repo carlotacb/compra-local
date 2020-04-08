@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SpanAlert(props){
+export function SpanAlert(props){
     const classes = useStyles();
     const theme = useTheme();
 
@@ -33,5 +33,3 @@ function SpanAlert(props){
         </div>
     )
 }
-
-export default SpanAlert; 

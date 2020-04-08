@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SidebarItem(props) {
+export function SidebarItem(props) {
 
     const classes = useStyles();
     
@@ -24,5 +24,3 @@ function SidebarItem(props) {
     )
 }
 
-
-export default SidebarItem;

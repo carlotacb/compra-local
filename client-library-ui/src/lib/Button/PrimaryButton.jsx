@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function PrimaryButton(props) {
+export function PrimaryButton(props) {
     const classes = useStyles();
     return (
         <Button className={classes.root} variant="contained" color="primary">
@@ -21,5 +21,3 @@ function PrimaryButton(props) {
         </Button>
     )
 }
-
-export default PrimaryButton;

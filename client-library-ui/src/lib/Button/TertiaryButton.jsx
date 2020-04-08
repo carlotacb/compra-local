@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function TertiaryButton(props) {
+export function TertiaryButton(props) {
     const classes = useStyles();
     return (
         <Button className={classes.root} variant="outlined" color="primary">
@@ -21,5 +21,3 @@ function TertiaryButton(props) {
         </Button>
     )
 }
-
-export default TertiaryButton;

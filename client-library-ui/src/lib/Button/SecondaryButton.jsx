@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function SecondaryButton(props) {
+export function SecondaryButton(props) {
     const classes = useStyles();
     return (
         <Button className={classes.root} variant="contained" color="secondary">
@@ -21,5 +21,3 @@ function SecondaryButton(props) {
         </Button>
     )
 }
-
-export default SecondaryButton;
