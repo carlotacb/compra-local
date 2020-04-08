@@ -7,8 +7,11 @@ from src.helper import env
 
 def _connect():
     url = 'postgresql://{}:{}@{}:{}/{}'.format(
-        env.get_db_user(), env.get_db_password(), env.get_db_host(), env.get_db_port(), env.get_db_database()
-    )
+        env.get_db_user(),
+        env.get_db_password(),
+        env.get_db_host(),
+        env.get_db_port(),
+        env.get_db_database())
     _engine = create_engine(url, client_encoding='utf8')
     _meta = MetaData(bind=_engine, reflect=True)
     return _engine, _meta
