@@ -18,7 +18,7 @@ jobs:
         uses: peter-evans/create-pull-request@v2
         with:
           commit-message: autopep8 action fixes
-          committer: Peter Evans <peter-evans@users.noreply.github.com>
+          committer: Albert Suarez <alsumo95@gmail.com>
           title: Fixes by autopep8 action
           body: This is an auto-generated PR with fixes by autopep8.
           labels: autopep8, automated pr
