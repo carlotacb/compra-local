@@ -1,9 +1,8 @@
 import React from "react";
 
-function UserProfile() {
+export function Profile() {
     return (
         <h1>This is the UserProfile page</h1>
     )
 }
 
-export default UserProfile;
