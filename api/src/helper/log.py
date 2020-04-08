@@ -4,7 +4,8 @@ import logging
 
 __logger_stdout = logging.getLogger('compra_local_api')
 
-__formatter = logging.Formatter('{%(name)s} - <%(asctime)s> - [%(levelname)-7s] - %(message)s')
+__formatter = logging.Formatter(
+    '{%(name)s} - <%(asctime)s> - [%(levelname)-7s] - %(message)s')
 
 __handler_stdout = logging.StreamHandler(sys.stdout)
 __handler_stdout.setFormatter(__formatter)
