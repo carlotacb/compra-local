@@ -2,6 +2,7 @@
 
 [![HitCount](http://hits.dwyl.io/carlotacb/compra-local.svg)](http://hits.dwyl.io/carlotacb/compra-local)
 ![Python application](https://github.com/carlotacb/compra-local/workflows/Python%20application/badge.svg)
+![AutoPEP8](https://github.com/carlotacb/compra-local/workflows/AutoPEP8/badge.svg)
 [![GitHub stars](https://img.shields.io/github/stars/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/stargazers/)
 [![GitHub forks](https://img.shields.io/github/forks/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/network/)
 [![GitHub contributors](https://img.shields.io/github/contributors/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/graphs/contributors/)
@@ -56,7 +57,17 @@ To run the API, please execute the following commands from the root directory:
     pip3 install -r requirements.lock
     ```
 
-4. Run the server using uWSGI
+4. Set up environment creating the .env file. This file must have this structure (without the brackets):
+
+    ```bash
+    DB_USER={DB_USER}
+    DB_PASSWORD={DB_PASSWORD}
+    DB_DB={DB_DB}
+    DB_HOST={DB_HOST}
+    DB_PORT={DB_PORT}
+    ```
+
+5. Run the server using uWSGI
 
     ```bash
     uwsgi --ini uwsgi.ini -H env
