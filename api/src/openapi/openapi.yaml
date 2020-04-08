@@ -1,0 +1,60 @@
+openapi: '3.0.0'
+
+info:
+  description: API for managing Compra Local backend service.
+  version: '1.0'
+  title: Compra Local API
+
+servers:
+  - url: https://api.compralocal.cat
+    description: Production endpoint.
+  - url: http://localhost:8080
+    description: Development endpoint.
+
+tags:
+  - name: health check
+    description: endpoint for managing health checks.
+
+paths:
+
+  /status:
+    get:
+      tags:
+        - health check
+      summary: Checks the status of the API.
+      description: Invoke this endpoint to checks the status of the API.
+      operationId: src.api.status.get
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+components:
+
+  schemas:
+
+    APIResponse:
+      type: object
+      properties:
+        error:
+          type: boolean
+          description: Whether or not the request was successfully processed or not.
+        message:
+          type: string
+          description: Error message if the request was unsuccessful.
+        response:
+          type: object
+          description: Contains the response data if the request was successful.
+
+    UnexpectedError:
+      type: string
+      description: Error description.
