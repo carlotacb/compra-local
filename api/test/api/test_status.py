@@ -17,4 +17,6 @@ class APIStatusTest(unittest.TestCase):
 
     def test_response_message(self):
         response = requests.get(self.url).json()
-        self.assertEqual(response.get('response').get('ok'), self.response_message)
+        self.assertEqual(
+            response.get('response').get('ok'),
+            self.response_message)
