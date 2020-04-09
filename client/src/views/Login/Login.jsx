@@ -7,6 +7,7 @@ import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,8 +37,14 @@ const useStyles = makeStyles((theme) => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
-    registerGrid: {
-        marginTop: '15px'
+    localGrid: {
+        marginTop: '30px',
+        display: 'flex',
+	    flexDirection: 'column',
+	    flexWrap: 'wrap',
+	    justifyContent: 'flex-end',
+	    alignItems: 'flex-end',
+	    alignContent: 'center',
     },
   }));
 
@@ -89,13 +96,16 @@ export function Login() {
                         onChange={(e)=>setPassword(e.target.value)}
                         autoComplete="current-password" />
                     <PrimaryButton onClick={() => handleLogin()}> Entra </ PrimaryButton>
-                    <Grid container className={classes.registerGrid}>
+                    <Grid container>
                         <Grid item xs>
                             {/* <Link href="#" variant="body2"> Forgot password? </Link> */}
                         </Grid>
                         <Grid item>
-                            <Link href="/registre"> {"Don't have an account? Sign Up"} </Link>
+                            <Link href="/registre"> {"No disposes d'un compte? Registra't"} </Link>
                         </Grid>
+                    </Grid>
+                    <Grid container className={classes.localGrid}>
+                        <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Incia sessió aquí"} </Link></Typography> 
                     </Grid>
                 </form>
                 {/*<h1>Entra a Compra Local</h1>
