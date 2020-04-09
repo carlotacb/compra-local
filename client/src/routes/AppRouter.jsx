@@ -19,10 +19,10 @@ export function AppRouter() {
     const classes = useStyles();
     return (
         <Grid container className={classes.root}>
-            <Grid item>
+            <Grid item xs={2}>
                 <Sidebar />
             </Grid>
-            <Grid item>
+            <Grid item xs={10}>
                 <Switch>
                     <Route path={`${match.path}/veinat`}>
                         <p>veinat</p>
@@ -34,8 +34,7 @@ export function AppRouter() {
                         <p>perfil</p>
                     </Route>
                     <Route path={`${match.path}/`}>
-                        shop
-                    <ShopRouter />
+                        <ShopRouter />
                     </Route>
                 </Switch>
             </Grid>

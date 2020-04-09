@@ -13,8 +13,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
         height: '95%',
-        position: 'fixed',
-        width: '20em',
         backgroundColor: theme.palette.secondary.light,
         display: 'flex',
         flexDirection: 'column',
@@ -43,7 +41,7 @@ export function Sidebar() {
             <div className={classes.item}>
                 <ul className={classes.ul}>
                     <li>
-                        <Button className={classes.button}  href="/in/comprar">
+                        <Button className={classes.button}  href="/in/">
                             <StoreIcon /> Comprar
                         </Button>
                     </li>
