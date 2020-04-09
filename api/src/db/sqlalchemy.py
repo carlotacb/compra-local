@@ -30,6 +30,8 @@ def _create_tables(engine_object):
     from src.model.order_group import OrderGroup
     from src.model.order import Order
     from src.model.order_item import OrderItem
+    from src.model.review_local import ReviewLocal
+    from src.model.review_user import ReviewUser
     log.info('Creating tables if they do not exist...')
     Category.__table__.create(bind=engine_object, checkfirst=True)
     Local.__table__.create(bind=engine_object, checkfirst=True)
@@ -40,6 +42,8 @@ def _create_tables(engine_object):
     OrderGroup.__table__.create(bind=engine_object, checkfirst=True)
     Order.__table__.create(bind=engine_object, checkfirst=True)
     OrderItem.__table__.create(bind=engine_object, checkfirst=True)
+    ReviewLocal.__table__.create(bind=engine_object, checkfirst=True)
+    ReviewUser.__table__.create(bind=engine_object, checkfirst=True)
     log.info('Tables created (or not).')
 
 
