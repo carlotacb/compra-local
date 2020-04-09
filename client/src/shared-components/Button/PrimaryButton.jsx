@@ -11,13 +11,15 @@ export function PrimaryButton(props) {
           borderRadius: '0',
           padding: theme.spacing(1),
           paddingLeft: theme.spacing(2),
-          paddingRight: theme.spacing(2)
+          paddingRight: theme.spacing(2),
+          marginTop: '15px',
+          marginBottom: '15px'
         },
     }));
     
     const classes = useStyles();
     return (
-        <Button className={classes.root} variant="contained" color="primary">
+        <Button className={classes.root} variant="contained" color="primary" onClick={props.onClick}>
             {props.children}
         </Button>
     )

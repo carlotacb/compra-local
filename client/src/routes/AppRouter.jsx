@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { ShopRouter } from './ShopRouter';
 import Sidebar from '../components/SideBar';
-import {PrimaryButton} from '../shared-components';
+
 
 export function AppRouter() {
 
@@ -10,7 +10,7 @@ export function AppRouter() {
 
     return (
         <div>
-            <Sidebar />    
+            <Sidebar />
             <Switch>
                 <Route path={`${match.path}/veinat`}>
                     <p>veinat</p>
