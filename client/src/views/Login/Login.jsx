@@ -1,41 +1,39 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
+import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
 
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
-import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      height: '100vh',
+        height: '100vh',
     },
     image: {
-      backgroundImage: 'url(https://source.unsplash.com/random)',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
+        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
     },
     paper: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-	    justifyContent: 'center',
-	    alignContent: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
     },
     form: {
-      width: '80%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
+        width: '80%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
     localGrid: {
         marginTop: '30px',
