@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         alignContent: 'center',
     },
     form: {
-        width: '80%', // Fix IE 11 issue.
+        width: '80%',
         marginTop: theme.spacing(1),
         display: 'flex',
         flexDirection: 'column',
@@ -106,9 +106,6 @@ export function Login() {
                         <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Incia sessió aquí"} </Link></Typography> 
                     </Grid>
                 </form>
-                {/*<h1>Entra a Compra Local</h1>
-                <pre>{JSON.stringify(user, null, 2)}</pre>
-                <button onClick={() => { setUser({ id: 4, username: "bob", email: "me@bob.com" });}}>Login</button> */}
             </Grid>
         </ Grid>
     )
