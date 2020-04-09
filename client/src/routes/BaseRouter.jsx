@@ -12,12 +12,6 @@ export function BaseRouter() {
     return (
         <Router>
             <div>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/in">IDK</Link></li>
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/register">Registre</Link></li>
-                </ul>
                 <UserContext.Provider value={providerValue}>
                 <Route exact path="/">
                     {JSON.stringify(user, null, 2)}
