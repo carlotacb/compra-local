@@ -19,6 +19,5 @@ class OrderGroup(Base):
     helper_id = db.Column(db.Integer, db.ForeignKey(f'{User.__tablename__}.id'))
     order_group_status = db.Column(db.Enum(OrderGroupStatus), nullable=False, default=OrderGroupStatus.PENDING_PICKUP)
 
-
     user = relationship(User.__name__, foreign_keys=[user_id])
     helper = relationship(User.__name__, foreign_keys=[helper_id])
