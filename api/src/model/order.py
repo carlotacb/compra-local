@@ -15,6 +15,7 @@ class Order(Base):
     id = db.Column(db.Integer, helper.get_sequence(__tablename__), primary_key=True)
     local_id = db.Column(db.Integer, db.ForeignKey(f'{Local.__tablename__}.id'), nullable=False)
     order_group_id = db.Column(db.Integer, db.ForeignKey(f'{OrderGroup.__tablename__}.id'), nullable=False)
+    order_time = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     local = relationship(Local.__name__)
     order_group = relationship(OrderGroup.__name__)
