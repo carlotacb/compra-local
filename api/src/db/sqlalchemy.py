@@ -22,8 +22,12 @@ def _connect():
 def _create_tables(engine_object):
     log.info('Importing tables...')
     from src.model.user import User
+    from src.model.category import Category
+    from src.model.local import Local
     log.info('Creating tables if they do not exist...')
     User.__table__.create(bind=engine_object, checkfirst=True)
+    Category.__table__.create(bind=engine_object, checkfirst=True)
+    Local.__table__.create(bind=engine_object, checkfirst=True)
     log.info('Tables created (or not).')
 
 
