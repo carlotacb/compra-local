@@ -14,11 +14,23 @@ class Order(Base):
 
     __tablename__ = 'compra_local_order'
 
-    id = db.Column(db.Integer, helper.get_sequence(__tablename__), primary_key=True)
-    completed_time = db.Column(db.DateTime(timezone=False), nullable=False, default=datetime.datetime.utcnow())
-    local_id = db.Column(db.Integer, db.ForeignKey(f'{Local.__tablename__}.id'), nullable=False)
-    order_group_id = db.Column(db.Integer, db.ForeignKey(f'{OrderGroup.__tablename__}.id'), nullable=False)
-    order_status = db.Column(db.Enum(OrderStatus), nullable=False, default=OrderStatus.PENDING_STORE)
+    id = db.Column(
+        db.Integer,
+        helper.get_sequence(__tablename__),
+        primary_key=True)
+    completed_time = db.Column(
+        db.DateTime(
+            timezone=False),
+        nullable=False,
+        default=datetime.datetime.utcnow())
+    local_id = db.Column(db.Integer, db.ForeignKey(
+        f'{Local.__tablename__}.id'), nullable=False)
+    order_group_id = db.Column(db.Integer, db.ForeignKey(
+        f'{OrderGroup.__tablename__}.id'), nullable=False)
+    order_status = db.Column(
+        db.Enum(OrderStatus),
+        nullable=False,
+        default=OrderStatus.PENDING_STORE)
 
     local = relationship(Local.__name__)
     order_group = relationship(OrderGroup.__name__)

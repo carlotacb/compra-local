@@ -12,12 +12,17 @@ class User(Base):
 
     __tablename__ = 'compra_local_user'
 
-    id = db.Column(db.Integer, helper.get_sequence(__tablename__), primary_key=True)
+    id = db.Column(
+        db.Integer,
+        helper.get_sequence(__tablename__),
+        primary_key=True)
     name = db.Column(db.String(64), nullable=False)
     email_address = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
     type = db.Column(db.Enum(UserType), nullable=False)
     image = db.Column(db.LargeBinary)
-    local_id = db.Column(db.Integer, db.ForeignKey(f'{Local.__tablename__}.id'))
+    local_id = db.Column(
+        db.Integer,
+        db.ForeignKey(f'{Local.__tablename__}.id'))
 
     local = relationship(Local.__name__)
