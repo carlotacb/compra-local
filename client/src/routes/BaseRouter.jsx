@@ -1,7 +1,7 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter as Router, Link } from "react-router-dom";
+import { Route, BrowserRouter as Router, Link } from "react-router-dom";
 import { UserContext } from '../context';
-import { Login, Registration } from '../views';
+import { Login, Register } from '../views';
 import { AppRouter } from './index';
 
 export function BaseRouter() {
@@ -11,8 +11,7 @@ export function BaseRouter() {
     
     return (
         <Router>
-            <div>
-                <UserContext.Provider value={providerValue}>
+            <UserContext.Provider value={providerValue}>
                 <Route exact path="/">
                     {JSON.stringify(user, null, 2)}
                     {/*TODO: Decide where to redirect*/}
@@ -24,13 +23,12 @@ export function BaseRouter() {
                     <Login />
                 </Route>
                 <Route exact path="/registre">
-                    <Registration />
+                    <Register />
                 </Route>
                 <Route>
                     {/*TODO: Where to redirect with a not existing URL*/}
                 </Route>
-                </UserContext.Provider>
-            </div>
+            </UserContext.Provider>
         </Router>
     )
 }
