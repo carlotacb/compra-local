@@ -15,10 +15,13 @@ class Local(Base):
     name = db.Column(db.String(64), nullable=False)
     description = db.Column(db.String(256))
     postal_address = db.Column(db.String(256), nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
     website = db.Column(db.String(256))
     phone_number = db.Column(db.String(64))
     pick_up = db.Column(db.Boolean, nullable=False, default=True)
     delivery = db.Column(db.Boolean, nullable=False, default=False)
+    image = db.Column(db.LargeBinary)
     category_id = db.Column(db.Integer, db.ForeignKey(f'{Category.__tablename__}.id'))
 
     category = relationship(Category.__name__)
