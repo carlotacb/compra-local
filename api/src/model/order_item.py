@@ -6,6 +6,7 @@ from src.db import helper
 from src.db.sqlalchemy import Base
 from src.model.order import Order
 from src.model.product import Product
+from src.enum.order_status import OrderStatus
 
 
 class OrderItem(Base):
@@ -16,6 +17,7 @@ class OrderItem(Base):
     quantity = db.Column(db.Float, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey(f'{Product.__tablename__}.id'), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey(f'{Order.__tablename__}.id'), nullable=False)
+    order_group_status = db.Column(db.Enum(OrderGroupStatus), nullable=False, default=OrderGroupStatus.PENDING_STORE)
 
     product = relationship(Product.__name__)
     order = relationship(Order.__name__)
