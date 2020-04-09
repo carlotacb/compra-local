@@ -10,9 +10,6 @@ export function AppRouter() {
 
     return (
         <div>
-            <PrimaryButton>
-                CERCAR
-            </PrimaryButton>
             <Sidebar />    
             <Switch>
                 <Route path={`${match.path}/veinat`}>
