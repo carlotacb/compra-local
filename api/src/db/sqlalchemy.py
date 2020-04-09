@@ -25,11 +25,15 @@ def _create_tables(engine_object):
     from src.model.category import Category
     from src.model.local import Local
     from src.model.opening_hours_item import OpeningHoursItem
+    from src.model.product_group import ProductGroup
+    from src.model.product import Product
     log.info('Creating tables if they do not exist...')
     User.__table__.create(bind=engine_object, checkfirst=True)
     Category.__table__.create(bind=engine_object, checkfirst=True)
     Local.__table__.create(bind=engine_object, checkfirst=True)
     OpeningHoursItem.__table__.create(bind=engine_object, checkfirst=True)
+    ProductGroup.__table__.create(bind=engine_object, checkfirst=True)
+    Product.__table__.create(bind=engine_object, checkfirst=True)
     log.info('Tables created (or not).')
 
 
