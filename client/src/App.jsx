@@ -12,6 +12,9 @@ function App() {
     <Router>
       <Switch>
         <ThemeProvider theme={theme}>
+          <Route exact path="/">
+            {/*TODO: Decide where to redirect*/}
+          </Route>
           <Route path="/in">
             <AppRouter />
           </Route>
@@ -20,6 +23,9 @@ function App() {
           </Route>
           <Route exact path="/registre">
             <Registration />
+          </Route>
+          <Route>
+            {/*TODO: Where to redirect with a not existing URL*/}
           </Route>
         </ThemeProvider>
       </Switch>
