@@ -10,7 +10,13 @@ const t = createMuiTheme({
           main: '#F2B880'
       },
     },
-    typography: {}
+    typography: {
+        h1: {
+            fontSize: '30pt',
+            fontWeight:'600',
+            color: '#9777B5'
+        }
+    }
 });
 
 export const theme =  responsiveFontSizes(t);

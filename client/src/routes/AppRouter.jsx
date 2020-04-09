@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         height: 'inherit'
     },
+    page: {
+        padding: theme.spacing(7)
+    }
 }));
 
 
@@ -22,7 +25,7 @@ export function AppRouter() {
             <Grid item xs={2}>
                 <Sidebar />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={10} className={classes.page}>
                 <Switch>
                     <Route path={`${match.path}/veinat`}>
                         <p>veinat</p>

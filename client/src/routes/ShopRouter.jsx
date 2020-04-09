@@ -6,7 +6,7 @@ export function ShopRouter() {
     // TODO: Define routes
     let match = useRouteMatch();
     // 1. CHECK LOCATION
-    const [location, setLocation] = React.useState(false);
+    const [location, setLocation] = React.useState(true);
     return (
         <div>
             {
