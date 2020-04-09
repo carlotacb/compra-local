@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 from src.helper import env
+from src.model.user import User
 
 
 def _connect():
@@ -13,12 +14,17 @@ def _connect():
         env.get_db_port(),
         env.get_db_database())
     _engine = create_engine(url, client_encoding='utf8')
-    _meta = MetaData(bind=_engine, reflect=True)
+    _meta = MetaData(bind=_engine)
     return _engine, _meta
+
+
+def _create_tables(engine_object):
+    User.__table__.create(bind=engine_object, checkfirst=True)
 
 
 # Connect to the database.
 engine, meta = _connect()
+_create_tables(engine)
 db_session = scoped_session(sessionmaker(bind=engine))
 
 # Declare base.
