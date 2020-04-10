@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Grid, makeStyles, Typography, TextField } from '@material-ui/core';
 
+import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,14 +26,30 @@ export function ProfileBox(props) {
     const [editable, setEditable] = useState(false);
 
     const handleEdit = () => {
-        console.log('clicked');
-        setEditable(!editable);
+        /* Here is not API call */
+        setEditable(true);
+    }
+
+    const handleSave = () => {
+        /* TODO: API call to save the new information */ 
+        setEditable(false);
+    }
+
+    const handleCancel = () => {
+        /* TODO: Maybe add a are you sure modal message */ 
+        setEditable(false);
     }
 
     return (
         <Grid container className={classes.root} direction="column"> 
             <Grid item className={classes.editButton}>
-                <EditIcon onClick={() => handleEdit()} cursor="pointer"/>
+                {editable ? 
+                    <div>
+                        <SaveIcon onClick={() => handleSave()} cursor="pointer" />
+                        <CloseIcon onClick={() => handleCancel()} cursor="pointer" />
+                    </div> : 
+                    <EditIcon onClick={() => handleEdit()} cursor="pointer"/> 
+                }
             </Grid>
             <Grid item className={classes.content}> 
                 <Typography variant="h5"> Nom i congnoms </Typography>
