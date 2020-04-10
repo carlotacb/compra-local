@@ -69,9 +69,9 @@ def create(name, email_address, password, user_type, image=None):
     try:
         user = User(name=name, email_address=email_address, password=password, type=user_type)
         if image:
-            encoded_image = image_util.resize(image)
-            if encoded_image:
-                user.image = encoded_image
+            decoded_image = image_util.resize(image)
+            if decoded_image:
+                user.image = decoded_image
         db_session().add(user)
         db_session().commit()
         return user.id, None
