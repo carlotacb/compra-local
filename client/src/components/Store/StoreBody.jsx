@@ -1,20 +1,11 @@
 import React from 'react';
-import { Grid, Button, useTheme, makeStyles, Typography } from '@material-ui/core';
-import { StoreContext } from '../../context/StoreContext';
+import { Grid,Typography } from '@material-ui/core';
+
 import { StoreInformation } from './StoreInformation';
 import { ListView } from '../Listview/ListView';
 import { GroupButton } from '../../shared-components/Button/GroupButton';
+import { StoreProducts } from './StoreProducts';
 
-
-
-
-function StoreProductes() {
-    const { storeInfo, setStoreInfo } = React.useContext(StoreContext);
-
-    return (
-        <p> Productes</p>
-    )
-}
 
 
 export function StoreBody(props) {
@@ -24,7 +15,7 @@ export function StoreBody(props) {
     function renderPage() {
         if(page == 0) {
             //Productes
-            return <p>Productes</p>
+            return <StoreProducts />
         }
         else if (page == 1) {
             return <StoreInformation />
