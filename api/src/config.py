@@ -13,3 +13,5 @@ MESSAGE_USER_POST_ERROR = 'Error creating the user.'
 
 IMAGE_RESIZE_SIZE = (512, 512)
 IMAGE_OUTPUT_FOLDER_PATH = '/tmp'
+
+DATE_TIME_FORMAT = '%H:%M'

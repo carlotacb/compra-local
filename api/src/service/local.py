@@ -30,6 +30,11 @@ def add_dummy_data():
         log.info(f'Skipping dummy data for {Local.__tablename__} because is not empty.')
 
 
+def get_id_by_name(name):
+    category = db_session().query(Local).filter_by(name=name).first()
+    return category.id
+
+
 def get_all_coordinates():
     local_dict = dict()
     for local in db_session().query(Local).all():
