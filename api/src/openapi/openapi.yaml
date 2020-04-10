@@ -16,6 +16,8 @@ tags:
     description: endpoint for managing health checks.
   - name: user
     description: endpoint for managing users.
+  - name: help
+    description: endpoint for managing helpers.
 
 paths:
 
@@ -221,6 +223,42 @@ paths:
                 password:
                   type: string
                   description: User new encoded password.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /help:
+    get:
+      tags:
+        - help
+      summary: Gets a list of orders that need help around you.
+      description: Invoke this endpoint to get a list of orders that need help around you.
+      operationId: src.api.help.get
+      parameters:
+        - in: query
+          name: latitude
+          description: User latitude.
+          required: true
+          schema:
+            type: number
+            format: float
+        - in: query
+          name: longitude
+          description: User longitude.
+          required: true
+          schema:
+            type: number
+            format: float
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
