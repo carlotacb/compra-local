@@ -75,7 +75,7 @@ export function ShopSearch() {
     }
 
     return (
-        <Grid contianer direction="row" justify="space-between">
+        <Grid container direction="column" justify="space-between">
             <Grid item className={classes.item}>
                 <Typography variant="h1">
                     Què necessites comprar?

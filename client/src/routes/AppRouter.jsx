@@ -33,8 +33,9 @@ export function AppRouter() {
                     <Route path={`${match.path}/comandes`}>
                         <p>comandes</p>
                     </Route>
-                    <Route path={`${match.path}/perfil`}>
-                        <p>perfil</p>
+                    
+                    <Route path={`${match.path}/compte`}>
+                        <p>compte</p>
                     </Route>
                     <Route path={`${match.path}/`}>
                         <ShopRouter />
