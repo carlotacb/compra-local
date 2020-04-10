@@ -36,6 +36,10 @@ export function Sidebar() {
 
     const classes = useStyles();
 
+    const handleLogout = () => {
+        window.open('https://compralocal.cat/');
+    }
+
     return (
         <div className={classes.root}>
             <div className={classes.item}>
@@ -72,7 +76,7 @@ export function Sidebar() {
                         </Button>
                     </li>
                     <li>
-                        <Button className={classes.button}  href="/in/todo">
+                        <Button className={classes.button}  onClick={() => handleLogout()}>
                             <ExitToAppIcon /> Tanca sessió
                         </Button>
                     </li>
