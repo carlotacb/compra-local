@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, makeStyles, Typography, TextField } from '@material-ui/core';
+import { ConfirmationDialog } from '../../components'
 
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export function ProfileBox(props) {
     const classes = useStyles();
     const [editable, setEditable] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     const handleEdit = () => {
         /* Here is not API call */
@@ -35,9 +37,17 @@ export function ProfileBox(props) {
         setEditable(false);
     }
 
-    const handleCancel = () => {
-        /* TODO: Maybe add a are you sure modal message */ 
+    const handleClose = () => {
+        setOpenModal(true);
+    }
+
+    const handleAccept = () => {
+        setOpenModal(false);
         setEditable(false);
+    }
+
+    const handleCancel = () => {
+        setOpenModal(false);
     }
 
     return (
@@ -46,7 +56,7 @@ export function ProfileBox(props) {
                 {editable ? 
                     <div>
                         <SaveIcon onClick={() => handleSave()} cursor="pointer" />
-                        <CloseIcon onClick={() => handleCancel()} cursor="pointer" />
+                        <CloseIcon onClick={() => handleClose()} cursor="pointer" />
                     </div> : 
                     <EditIcon onClick={() => handleEdit()} cursor="pointer"/> 
                 }
@@ -59,6 +69,7 @@ export function ProfileBox(props) {
                 <Typography variant="h5"> Correu electrónic </Typography>
                 {editable ? <TextField id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
             </Grid>
+            <ConfirmationDialog open={openModal} cancel={() => handleCancel()} accept={() => handleAccept()} title={'Cancelar canvis'} message={'Estas segur de que vols cancelar els canvis? Si canceles els canvis es perdran'}/>
         </Grid>
     )
 }
