@@ -3,59 +3,9 @@ import { Grid, Button, useTheme, makeStyles, Typography } from '@material-ui/cor
 import { StoreContext } from '../../context/StoreContext';
 import { StoreInformation } from './StoreInformation';
 import { ListView } from '../Listview/ListView';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        margin: theme.spacing(1)
-    },
-}));
+import { GroupButton } from '../../shared-components/Button/GroupButton';
 
 
-
-function StoreBodyMenu(props) {
-    const classes = useStyles();
-    function handleClick(e) {
-        const page = e.currentTarget.id;
-        if(props.onClick){
-            props.onClick(parseInt(page))
-        }
-    }
-    const theme = useTheme();
-    const active = props.active;
-
-    const basicS= {
-        borderRadius: 0,
-        borderBottom: `3px solid white`
-    }
-    var style = [basicS,basicS];
-    style[active] = {
-        borderRadius: 0,
-        borderBottom: `3px solid ${theme.palette.primary.main}`
-    }
-
-    return (
-        <div className={classes.root}>
-            <Button 
-                id={0} 
-                onClick={(e) => handleClick(e)}
-                style
-                style={style[0]}
-            >
-                Productes
-            </Button>
-            <Button 
-                id={1} 
-                onClick={(e) => handleClick(e)}
-                style={style[1]}
-            >
-                Informació
-            </Button>
-        </div>
-    )
-}
 
 
 function StoreProductes() {
@@ -83,7 +33,11 @@ export function StoreBody(props) {
     return (
         <Grid>
             <Grid item>
-                <StoreBodyMenu active={page} onClick={(p) => setPage(p)}/>
+                <GroupButton
+                    buttons = {["Produces", "Informació"]}
+                    active={page} 
+                    onClick={(p) => setPage(p)}/
+                >
             </Grid>
             <Grid item>
                 <Grid container>
