@@ -1,5 +1,8 @@
+from sqlalchemy import and_
+
 from src.db.sqlalchemy import db_session
 from src.helper import log
+from src.model.local import Local
 from src.model.product_group import ProductGroup
 from src.service import local as local_service
 
@@ -21,7 +24,7 @@ def add_dummy_data():
 
 
 def get_id_by_name_and_local_name(name, local_name):
-    product_group = db_session().query(ProductGroup).filter(
-        ProductGroup.name == name, ProductGroup.local.name == local_name
+    product_group = db_session().query(ProductGroup, Local).filter(
+        and_(Local.id == ProductGroup.local_id, ProductGroup.name == name, Local.name == local_name)
     ).first()
-    return product_group.id
+    return product_group[0].id
