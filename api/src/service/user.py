@@ -22,6 +22,16 @@ def edit(user_id, name=None, email_address=None, image=None):
         return False
 
 
+def edit_password(user_id, new_password):
+    user = get(user_id)
+    if user:
+        user.password = new_password
+        db_session().commit()
+        return True
+    else:
+        return False
+
+
 def create(name, email_address, password, user_type, image=None):
     try:
         user = User(name=name, email_address=email_address, password=password, type=user_type)

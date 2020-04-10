@@ -69,3 +69,25 @@ def post():
             return response.make(error=True, message=f'{MESSAGE_USER_POST_ERROR} - {error_message}')
     except Exception as e:
         return response.raise_exception(e)
+
+
+def password(user_id):
+    try:
+        # Check input
+        if not user_id or user_id <= 0:
+            return response.make(error=True, message=MESSAGE_USER_WRONG_ID)
+        # Check user
+        user = user_service.get(user_id)
+        if not user:
+            return response.make(error=True, message=MESSAGE_USER_NOT_FOUND)
+        # Get input
+        body = request.json
+        required_parameters = ['password']
+        if not all(x in body for x in required_parameters):
+            return response.make(error=True, message=MESSAGE_PARAMETERS_REQUIRED)
+        # Process
+        edited = user_service.edit_password(user_id, body.get('password'))
+        return response.make(error=False, response=dict(edited=edited))
+    except Exception as e:
+        return response.raise_exception(e)
+
