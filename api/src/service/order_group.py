@@ -1,7 +1,7 @@
 from sqlalchemy import and_, true
 
 from src.db.sqlalchemy import db_session
-from src.enum.order_status import OrderGroupStatus
+from src.enum.order_status import OrderGroupStatus, OrderStatus
 from src.helper import log
 from src.model.order import Order
 from src.model.order_group import OrderGroup
@@ -33,6 +33,11 @@ def add_dummy_data():
         log.info(f'Skipping dummy data for {OrderGroup.__tablename__} because is not empty.')
 
 
+def get(order_group_id):
+    order_group = db_session().query(OrderGroup).filter_by(id=order_group_id).first()
+    return order_group if order_group else None
+
+
 def get_helper_needed_by_local(local_id_list):
     helper_dict = dict()
     order_group_list = db_session().query(OrderGroup, Order).filter(and_(
@@ -50,3 +55,17 @@ def get_helper_needed_by_local(local_id_list):
         helper_content['id'] = order_group_id
         helper_list.append(helper_content)
     return helper_list
+
+
+def set_order_status_by_group(order_group_id, order_status):
+    for order in db_session().query(Order).filter_by(order_group_id=order_group_id).all():
+        order.order_status = order_status
+    db_session().commit()
+
+
+def assign(user_id, order_group_object):
+    order_group_object.helper_id = user_id
+    order_group_object.order_group_status = OrderGroupStatus.PENDING_PICKUP
+    db_session().commit()
+    set_order_status_by_group(order_group_object.id, OrderStatus.PENDING_HELPER)
+    return True

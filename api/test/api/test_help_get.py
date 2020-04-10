@@ -26,4 +26,4 @@ class APIHelpGetTest(unittest.TestCase):
         params = dict(latitude=self.latitude, longitude=self.longitude)
         response = requests.get(self.url, params=params).json()
         self.assertEqual(response.get('error'), False)
-        self.assertGreater(len(response.get('response').get('helper_list')), 0)
+        self.assertIsNotNone(response.get('response').get('helper_list'))
