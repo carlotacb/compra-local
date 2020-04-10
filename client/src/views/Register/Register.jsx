@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        '& > button': {
+            marginTop: '0.5em',
+            marginBottom: '0.5em'
+        }
     },
     localGrid: {
         marginTop: '30px',
