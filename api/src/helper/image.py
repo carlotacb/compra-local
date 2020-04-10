@@ -30,3 +30,7 @@ def encode_image_file(image_file_path):
     with open(image_file_path, 'rb') as img_file:
         encoded_image = base64.b64encode(img_file.read()).decode('utf-8')
     return encoded_image
+
+
+def encode_and_resize(image_file_path):
+    return resize(encode_image_file(image_file_path))
