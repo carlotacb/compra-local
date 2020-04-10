@@ -14,22 +14,22 @@ def add_dummy_data():
             User(
                 name='Albert Suarez', email_address='hi@albert.dev',
                 password='72d0166b5707d129dc321e56692fe454c034552ee9e2b38f5a7f1c1306a632ea',
-                type=UserType.client, image=image_util.encode_and_resize('test/mock/user_image_1.jpg')
+                type=UserType.client, image=image_util.decode_and_resize('test/mock/user_image_1.jpg')
             ),
             User(
                 name='Andreu Gallofre', email_address='hi@andreu.dev',
                 password='79f2653ff4301ea86f566d4e1f4dcbef74ad6b8dd0b47e564bf570007d50cd70',
-                type=UserType.client, image=image_util.encode_and_resize('test/mock/user_image_2.jpg')
+                type=UserType.client, image=image_util.decode_and_resize('test/mock/user_image_2.jpg')
             ),
             User(
                 name='Elena Ruiz', email_address='hi@elena.dev',
                 password='0ce93c9606f0685bf60e051265891d256381f639d05c0aec67c84eec49d33cc1',
-                type=UserType.business, image=image_util.encode_and_resize('test/mock/user_image_3.jpg')
+                type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_3.jpg')
             ),
             User(
                 name='Carlota Catot', email_address='hi@carlota.dev',
                 password='332b7c12e4832aa8241acb324f2deaa4cac7a522243d1f078259fac18873bcce',
-                type=UserType.business, image=image_util.encode_and_resize('test/mock/user_image_4.jpg')
+                type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_4.jpg')
             )
         ]
         db_session().bulk_save_objects(object_list)

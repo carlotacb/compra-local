@@ -55,7 +55,7 @@ class APIUserPostTest(unittest.TestCase):
 
     def test_creation_with_image(self):
         if TEST_RUN_CREATIONS:
-            image_content = image.encode_image_file(self.user_image_path)
+            image_content = image.decode_image_file(self.user_image_path)
             request_body = dict(
                 name=self.user_name,
                 email_address=self.user_email_address_second,
