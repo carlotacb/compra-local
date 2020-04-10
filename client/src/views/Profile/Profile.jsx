@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
-import { SecondaryButton } from '../../shared-components/';
+import { SecondaryButton, GroupButton } from '../../shared-components/';
 import { ProfileBox } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function Profile() {
     const { user, setUser } = useContext(UserContext);
+    const [page, setPage] = useState(0);
     const classes = useStyles();
 
     return (
@@ -29,6 +30,9 @@ export function Profile() {
             </Grid>
             <Grid item className={classes.secondTitle}> 
                 <Typography variant="h1"> Les teves valoracions </Typography>
+            </Grid>
+            <Grid item>
+                <GroupButton buttons={["Rebudes", "Realitzades"]} active={page} onClick={(p) => setPage(p)} />
             </Grid>
         </Grid>
     )
