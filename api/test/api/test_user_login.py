@@ -1,7 +1,7 @@
 import unittest
 import requests
 
-from src.config import PYTHON_MODULE_PORT, MESSAGE_PARAMETERS_REQUIRED, TEST_RUN_EDITS
+from src.config import PYTHON_MODULE_PORT, MESSAGE_PARAMETERS_REQUIRED
 
 
 class APIUserLoginTest(unittest.TestCase):
