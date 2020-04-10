@@ -26,7 +26,7 @@ class User(Base):
         return dict(
             id=self.id,
             name=self.name,
-            email_address=self.name,
-            type=self.type,
+            email_address=self.email_address,
+            type=self.type.value,
             image=self.image
         )
