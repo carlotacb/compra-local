@@ -51,22 +51,6 @@ paths:
         - in: path
           name: user_id
           description: User identifier.
-          required: true
-          schema:
-            type: integer
-      responses:
-        200:
-          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIResponse'
-        default:
-          description: Unexpected error.
-          content:
-            application/text:
-              schema:
-                $ref: '#/components/schemas/UnexpectedError'
 
   /user:
     post:
@@ -99,6 +83,34 @@ paths:
                 image:
                   type: string
                   description: (optional) User image base64-encoded.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /local/{local_id}:
+    get:
+      tags:
+        - local
+      summary: Gets a local by its identifier.
+      description: Invoke this endpoint to get a local by its identifier.
+      operationId: src.api.local.get
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
