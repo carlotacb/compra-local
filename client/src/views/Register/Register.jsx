@@ -86,7 +86,7 @@ export function Register() {
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
             <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.paper} elevation={6} square>
                 <form className={classes.form}>
-                    {error ? <SpanAlert message={'error'}><Typography>Aquest email ja te un compte associat</Typography></SpanAlert> : null }
+                    {error ? <SpanAlert message={'error'}><Typography>L'email no es vàlid</Typography></SpanAlert> : null }
                     <TextField 
                         error={error}
                         variant="outlined" 
