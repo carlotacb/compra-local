@@ -38,6 +38,11 @@ def add_dummy_data():
         log.info(f'Skipping dummy data for {User.__tablename__} because is not empty.')
 
 
+def get_id_by_name(name):
+    user = db_session().query(User).filter_by(name=name).first()
+    return user.id
+
+
 def get(user_id):
     user = db_session().query(User).filter_by(id=user_id).first()
     return user if user else None
