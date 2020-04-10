@@ -22,7 +22,7 @@ class Local(Base):
     phone_number = db.Column(db.String(64))
     pick_up = db.Column(db.Boolean, nullable=False, default=True)
     delivery = db.Column(db.Boolean, nullable=False, default=False)
-    image = db.Column(db.LargeBinary)
+    image = db.Column(db.Text)
     category_id = db.Column(db.Integer, db.ForeignKey(f'{Category.__tablename__}.id'))
 
     category = relationship(Category.__name__)

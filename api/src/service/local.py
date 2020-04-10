@@ -61,8 +61,8 @@ def add_dummy_data():
 
 
 def get_id_by_name(name):
-    category = db_session().query(Local).filter_by(name=name).first()
-    return category.id
+    local = db_session().query(Local).filter_by(name=name).first()
+    return local.id
 
 
 def get_all_coordinates():
