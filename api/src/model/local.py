@@ -3,6 +3,7 @@ import sqlalchemy as db
 from sqlalchemy.orm import relationship
 
 from src.db import helper
+from src.helper import image as image_util
 from src.db.sqlalchemy import Base
 from src.model.category import Category
 
@@ -28,16 +29,16 @@ class Local(Base):
 
     def serialize(self):
         return dict(
-            id=self.id
-            name=self.name
-            description=self.description
-            postal_address=self.postal_address
-            latitude=self.latitude
-            longitude=self.longitude
-            website=self.website
-            phone_number=self.phone_number
-            pick_up=self.pick_up
-            delivery=self.delivery
-            image=self.image
+            id=self.id,
+            name=self.name,
+            description=self.description,
+            postal_address=self.postal_address,
+            latitude=self.latitude,
+            longitude=self.longitude,
+            website=self.website,
+            phone_number=self.phone_number,
+            pick_up=self.pick_up,
+            delivery=self.delivery,
+            image=image_util.decode_base64(self.image),
             category_id=self.category_id
         )

@@ -19,6 +19,20 @@ def get(local_id):
     except Exception as e:
         return response.raise_exception(e)
 
+
+def get_all():
+    try:
+        locals = local_service.get_all()
+        print(locals)
+        local_list = []
+        for local in locals:
+            local_list.append(local.serialize())
+        print(local_list)
+        return response.make(error=False, response=dict(locals=local_list))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
 def post():
     try:
         # Check input
@@ -33,6 +47,9 @@ def post():
             latitude=body.get('latitude'),
             longitude=body.get('longitude'),
             website=body.get('webstie', None),
+            description=body.get('description', None),
+            category=body.get('category', None),
+            phone_number=body.get('phone_number', None),
             image=body.get('image', None),
             pick_up=body.get('pick_up', True),
             delivery=body.get('delivery', False),
@@ -40,6 +57,6 @@ def post():
         if local_id:
             return response.make(error=False, response=dict(local_id=local_id))
         else:
-            return response.make(error=True, message=f'{'ERROR CREATING LOCAL'} - {error_message}')
+            return response.make(error=True, message=f'{MESSAGE_PARAMETERS_REQUIRED} - {error_message}')
     except Exception as e:
         return response.raise_exception(e)

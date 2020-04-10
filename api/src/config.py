@@ -11,6 +11,8 @@ MESSAGE_USER_NOT_FOUND = 'User not found.'
 MESSAGE_USER_TYPE_NOT_COMPATIBLE = 'UserType specified is not compatible.'
 MESSAGE_USER_POST_ERROR = 'Error creating the user.'
 
+MESSAGE_LOCAL_NOT_FOUND = 'User not found.'
+
 IMAGE_RESIZE_SIZE = (512, 512)
 IMAGE_OUTPUT_FOLDER_PATH = '/tmp'
 
