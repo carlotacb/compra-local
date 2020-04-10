@@ -36,6 +36,10 @@ export function Sidebar() {
 
     const classes = useStyles();
 
+    const handleLogout = () => {
+        window.open('https://compralocal.cat/');
+    }
+
     return (
         <div className={classes.root}>
             <div className={classes.item}>
@@ -67,12 +71,12 @@ export function Sidebar() {
             <div className={classes.item}>
                 <ul className={classes.ul}>
                     <li>
-                        <Button className={classes.button}  href="/in/todo">
+                        <Button className={classes.button}  href="https://compralocal.cat/" target="_blank">
                             <HelpIcon /> Ajuda
                         </Button>
                     </li>
                     <li>
-                        <Button className={classes.button}  href="/in/todo">
+                        <Button className={classes.button}  onClick={() => handleLogout()}>
                             <ExitToAppIcon /> Tanca sessió
                         </Button>
                     </li>
