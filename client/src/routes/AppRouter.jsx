@@ -4,6 +4,7 @@ import { ShopRouter } from './ShopRouter';
 import { Sidebar } from '../components/';
 
 import { Grid, makeStyles } from '@material-ui/core';
+import { Profile, Neighborhood, Orders } from '../views';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,13 +29,13 @@ export function AppRouter() {
             <Grid item xs={10} className={classes.page}>
                 <Switch>
                     <Route path={`${match.path}/veinat`}>
-                        <p>veinat</p>
+                        <Neighborhood />
                     </Route>
                     <Route path={`${match.path}/comandes`}>
-                        <p>comandes</p>
+                        <Orders />
                     </Route>
                     <Route path={`${match.path}/compte`}>
-                        <p>perfil</p>
+                        <Profile />
                     </Route>
                     <Route path={`${match.path}/`}>
                         <ShopRouter />
