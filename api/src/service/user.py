@@ -10,6 +10,18 @@ def get(user_id):
     return user if user else None
 
 
+def edit(user_id, name=None, email_address=None, image=None):
+    user = get(user_id)
+    if user:
+        user.name = user.name if name is None else name
+        user.email_address = user.email_address if email_address is None else email_address
+        user.image = user.image if image is None else image
+        db_session().commit()
+        return True
+    else:
+        return False
+
+
 def create(name, email_address, password, type, image=None):
     try:
         user = User(name=name, email_address=email_address, password=password, type=type)

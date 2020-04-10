@@ -1,6 +1,7 @@
 PYTHON_MODULE_PORT = 8080
 
 TEST_RUN_CREATIONS = False
+TEST_RUN_EDITS = False
 
 MESSAGE_UNEXPECTED_ERROR = 'Unexpected error.'
 MESSAGE_PARAMETERS_REQUIRED = 'Some required request body parameters are missing.'

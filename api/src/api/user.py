@@ -22,6 +22,27 @@ def get(user_id):
         return response.raise_exception(e)
 
 
+def put(user_id):
+    try:
+        # Check input
+        if not user_id or user_id <= 0:
+            return response.make(error=True, message=MESSAGE_USER_WRONG_ID)
+        # Check user
+        user = user_service.get(user_id)
+        if not user:
+            return response.make(error=True, message=MESSAGE_USER_NOT_FOUND)
+        # Get input
+        request_json = request.json
+        name = request_json.get('name', None)
+        email_address = request_json.get('email_address', None)
+        image = request_json.get('image', None)
+        # Process
+        edited = user_service.edit(user_id, name=name, email_address=email_address, image=image)
+        return response.make(error=False, response=dict(edited=edited))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
 def post():
     try:
         # Check input
