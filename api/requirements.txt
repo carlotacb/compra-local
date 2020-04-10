@@ -7,3 +7,4 @@ requests
 SQLAlchemy
 psycopg2-binary
 Pillow
+geopy
