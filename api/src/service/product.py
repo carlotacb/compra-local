@@ -1,7 +1,10 @@
+from sqlalchemy import and_
+
 from src.db.sqlalchemy import db_session
 from src.enum.currency import Currency
 from src.enum.price_type import PriceType
 from src.helper import log
+from src.model.local import Local
 from src.model.product import Product
 from src.service import local as local_service
 from src.service import product_group as product_group_service
@@ -42,3 +45,10 @@ def add_dummy_data():
         db_session().commit()
     else:
         log.info(f'Skipping dummy data for {Product.__tablename__} because is not empty.')
+
+
+def get_id_by_name_and_local_name(name, local_name):
+    product = db_session().query(Product, Local).filter(
+        and_(Local.id == Product.local_id, Product.name == name, Local.name == local_name)
+    ).first()
+    return product[0].id
