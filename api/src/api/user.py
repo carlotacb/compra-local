@@ -71,6 +71,32 @@ def post():
         return response.raise_exception(e)
 
 
+def login():
+    try:
+        # Check input
+        body = request.json
+        required_parameters = ['email_address', 'password', 'type']
+        if not all(x in body for x in required_parameters):
+            return response.make(error=True, message=MESSAGE_PARAMETERS_REQUIRED)
+
+        if body.get('type') not in (UserType.client.value, UserType.business.value):
+            return response.make(error=True, message=MESSAGE_USER_TYPE_NOT_COMPATIBLE)
+        user_type = UserType.client if body.get('type') == UserType.client.value else UserType.business
+
+        # Process
+        user_id = user_service.login(
+            user_type=user_type,
+            email_address=body.get('email_address'),
+            password=body.get('password')
+        )
+        if user_id:
+            return response.make(error=False, response=dict(user_id=user_id, success=True))
+        else:
+            return response.make(error=False, response=dict(user_id=None, success=False))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
 def password(user_id):
     try:
         # Check input

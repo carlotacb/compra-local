@@ -44,3 +44,8 @@ def create(name, email_address, password, user_type, image=None):
         return user.id, None
     except IntegrityError as e:
         return None, str(e.args[0]).replace('\n', ' ')
+
+
+def login(user_type, email_address, password):
+    user = db_session().query(User).filter_by(type=user_type, email_address=email_address, password=password).first()
+    return None if not user else user.id

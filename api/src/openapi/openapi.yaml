@@ -157,6 +157,45 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: Logs in user using its credentials.
+      description: Invoke this endpoint to log in user using its credentials.
+      operationId: src.api.user.login
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email_address:
+                  type: string
+                  description: User email address.
+                password:
+                  type: string
+                  description: User encoded password.
+                type:
+                  type: string
+                  description: User type.
+                  enum: ['CLIENT', 'BUSINESS']
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
   /user/{user_id}/password:
     put:
       tags:
