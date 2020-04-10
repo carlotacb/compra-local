@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Paper, Typography, makeStyles } from '@material-ui/core';
-import { PrimaryButton, Stars } from '../../shared-components'
+import { Stars } from '../../shared-components'
 import { Tag } from '../../shared-components/Tag/Tag';
 import { useHistory, useRouteMatch } from "react-router-dom";
 
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export function RestaurantCard(props) {
+export function StoreCard(props) {
     const history = useHistory();
     const match = useRouteMatch();
     const classes = useStyles();

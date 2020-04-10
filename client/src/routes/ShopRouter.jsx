@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
-import { ShopErrorLocation, ShopSearch, ShopLocal } from '../views';
+import { ShopErrorLocation, ShopSearch, ShopStore } from '../views';
 
 export function ShopRouter() {
     // TODO: Define routes
@@ -20,8 +20,8 @@ export function ShopRouter() {
                 <Route exact path={`${match.path}`}>
                     <ShopSearch />
                 </Route>
-                <Route exact path={`${match.path}1`}>
-                    <ShopLocal />
+                <Route exact path={`${match.path}:id`}>
+                    <ShopStore />
                 </Route>
             </Switch>
         </div>

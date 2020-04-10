@@ -1,9 +1,7 @@
 import React from "react";
 import { Typography, Grid, makeStyles } from "@material-ui/core";
-import { SearchBox, ListView } from "../../components";
+import { SearchBox, ListView, StoreCard } from "../../components";
 import { TertiaryButton } from "../../shared-components";
-import { RestaurantCard } from "../../components/Card/RestaurantCard";
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +31,7 @@ export function ShopSearch() {
         return (
             <ListView maxHeight={100}>
                 <Grid item>
-                    <RestaurantCard
+                    <StoreCard
                         id={1}
                         name="Bona Fruita Sants"
                         description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
@@ -43,7 +41,7 @@ export function ShopSearch() {
                     />
                 </Grid>
                 <Grid item>
-                    <RestaurantCard
+                    <StoreCard
                         id={2}
                         name="Bona Fruita Sants"
                         description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
@@ -53,7 +51,7 @@ export function ShopSearch() {
                     />
                 </Grid>
                 <Grid item>
-                    <RestaurantCard
+                    <StoreCard
                         id={3}
                         name="Bona Fruita Sants"
                         description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
@@ -63,7 +61,7 @@ export function ShopSearch() {
                     />
                 </Grid>
                 <Grid item>
-                    <RestaurantCard
+                    <StoreCard
                         id={4}
                         name="Bona Fruita Sants"
                         description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
