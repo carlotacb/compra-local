@@ -56,8 +56,8 @@ export function ProfileBox(props) {
                 {editable ? <TextField id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
             </Grid>
             <Grid item className={classes.content}> 
-                <Typography variant="h5"> Nom i congnoms </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
+                <Typography variant="h5"> Correu electrónic </Typography>
+                {editable ? <TextField id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
             </Grid>
         </Grid>
     )
