@@ -5,7 +5,9 @@ import { SecondaryButton } from '../../shared-components/';
 import { ProfileBox } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
-    
+    secondTitle: {
+        paddingTop: theme.spacing(4),
+    }
 }));
 
 export function Profile() {
@@ -25,7 +27,9 @@ export function Profile() {
             <Grid item>
                 <SecondaryButton> Canviar contrasenya </SecondaryButton>
             </Grid>
-
+            <Grid item className={classes.secondTitle}> 
+                <Typography variant="h1"> Les teves valoracions </Typography>
+            </Grid>
         </Grid>
     )
 }
