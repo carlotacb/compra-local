@@ -89,19 +89,19 @@ export function ShopSearch() {
             <Grid item className={classes.filter}>
                 <TertiaryButton>
                     Categoria
-                    </TertiaryButton>
+                </TertiaryButton>
 
                 <TertiaryButton>
                     Obert ara
-                    </TertiaryButton>
+                </TertiaryButton>
 
                 <TertiaryButton>
                     A domicili
-                    </TertiaryButton>
+                </TertiaryButton>
 
                 <TertiaryButton>
                     Per recollir
-                    </TertiaryButton>
+                </TertiaryButton>
             </Grid>
             <Grid item className={classes.listView}>
                 {renderRestaurants()}

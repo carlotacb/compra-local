@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, Button, useTheme, makeStyles, Typography } from '@material-ui/core';
 import { StoreContext } from '../../context/StoreContext';
+import { StoreInformation } from './StoreInformation';
+import { ListView } from '../Listview/ListView';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,17 +13,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const useStyles2 = makeStyles((theme) => ({
-    line: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: theme.spacing(1),
-        '& > p': {
-            marginLeft: theme.spacing(2)
-        }
-    }
-}));
 
 
 function StoreBodyMenu(props) {
@@ -75,43 +66,6 @@ function StoreProductes() {
     )
 }
 
-function StoreInformation() {
-    const { storeInfo, setStoreInfo } = React.useContext(StoreContext);
-    const classes = useStyles2();
-    return (
-        <Grid container
-            direction="column"
-        >
-            <Grid item>
-                <div className={classes.line}>
-                    <Typography variant="subtitle1">
-                        Direcció:
-                    </Typography>
-                    <Typography variant="body1">
-                        {storeInfo["postal_address"]}
-                    </Typography>
-                    
-                </div>
-                <div className={classes.line}>
-                    <Typography variant="subtitle1">
-                        Web:
-                    </Typography>
-                    <Typography variant="body1">
-                        {storeInfo["website"]}
-                    </Typography>
-                </div>
-                <div className={classes.line}>
-                    <Typography variant="subtitle1">
-                    Contacte:
-                    </Typography>
-                    <Typography variant="body1">
-                        {storeInfo["phone_number"]}
-                    </Typography>
-                </div>
-            </Grid>
-        </Grid> 
-    )
-}
 
 export function StoreBody(props) {
     const [page, setPage] = React.useState(0);
@@ -132,7 +86,18 @@ export function StoreBody(props) {
                 <StoreBodyMenu active={page} onClick={(p) => setPage(p)}/>
             </Grid>
             <Grid item>
-                {renderPage()}
+                <Grid container>
+                    <Grid item xs={7}>
+                        {renderPage()}
+                    </Grid>
+                    <Grid item>
+                        <ListView>
+                            <Typography variant="h3">
+                                La teva compra
+                            </Typography>
+                        </ListView>
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     )
