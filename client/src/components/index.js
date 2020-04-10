@@ -5,9 +5,16 @@ import {ListView as LV} from './Listview/ListView';
 import { StoreCard as SC} from './Card/StoreCard';
 import { ConfirmationDialog as CD } from './Dialog/ConfirmationDialog';
 
+//Store 
+import { StoreBody as StB } from './Store/StoreBody';
+import { StoreHeader as SH} from './Store/StoreHeader';
+
 export const Sidebar = Sid;
 export const SearchBox = SB;
 export const ListView = LV;
 export const StoreCard = SC;
 export const ProfileBox = PB;
 export const ConfirmationDialog = CD;
+
+export const StoreBody = StB;
+export const StoreHeader = SH;  

@@ -75,7 +75,7 @@ export function ShopSearch() {
     }
 
     return (
-        <Grid contianer direction="row" justify="space-between">
+        <Grid container direction="column" justify="space-between">
             <Grid item className={classes.item}>
                 <Typography variant="h1">
                     Què necessites comprar?
@@ -89,19 +89,19 @@ export function ShopSearch() {
             <Grid item className={classes.filter}>
                 <TertiaryButton>
                     Categoria
-                    </TertiaryButton>
+                </TertiaryButton>
 
                 <TertiaryButton>
                     Obert ara
-                    </TertiaryButton>
+                </TertiaryButton>
 
                 <TertiaryButton>
                     A domicili
-                    </TertiaryButton>
+                </TertiaryButton>
 
                 <TertiaryButton>
                     Per recollir
-                    </TertiaryButton>
+                </TertiaryButton>
             </Grid>
             <Grid item className={classes.listView}>
                 {renderRestaurants()}
