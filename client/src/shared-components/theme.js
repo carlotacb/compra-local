@@ -15,6 +15,9 @@ const t = createMuiTheme({
             fontSize: '30pt',
             fontWeight:'600',
             color: '#9777B5'
+        },
+        h2: {
+            fontSize: '50pt'
         }
     }
 });
