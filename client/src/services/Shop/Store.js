@@ -24,7 +24,8 @@ export function getStoreInfo(idStore) {
             stars: 4.5,
             products: {
                 'Verdura': [
-                    {
+                    {   
+                        'id': 123,
                         'name': 'Pebrot',
                         'description': 'Origen: Valencia',
                         'unit': 'kg',
@@ -39,11 +40,13 @@ export function getStoreInfo(idStore) {
                 ],
                 'Fruita': [
                     {
+                        'id': 123,
                         'name': 'Plàtan',
                         'unit': 'kg',
                         'price': '2'
                     },
                     {
+                        'id': 123,
                         'name': 'Kiwi',
                         'description': 'Origen: Valencia',
                         'unit': 'kg',
