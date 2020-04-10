@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     item: {
         padding: theme.spacing(1)
     },
-    filter : {
+    filter: {
         paddingTop: theme.spacing(2),
         '& > button': {
             margin: theme.spacing(1)
@@ -28,6 +28,54 @@ export function ShopSearch() {
 
     const classes = useStyles();
 
+    function renderRestaurants() {
+        // TODO: Loop from API
+        return (
+            <ListView maxHeight={100}>
+                <Grid item>
+                    <RestaurantCard
+                        id={1}
+                        name="Bona Fruita Sants"
+                        description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
+                        category="Fruteria"
+                        stars={4.5}
+                        tags={["Obert ara", "A domicili", "A recollir"]}
+                    />
+                </Grid>
+                <Grid item>
+                    <RestaurantCard
+                        id={2}
+                        name="Bona Fruita Sants"
+                        description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
+                        category="Panaderia"
+                        stars={2}
+                        tags={["Obert ara", "A recollir"]}
+                    />
+                </Grid>
+                <Grid item>
+                    <RestaurantCard
+                        id={3}
+                        name="Bona Fruita Sants"
+                        description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
+                        category="Fruteria"
+                        stars={4.5}
+                        tags={["Obert ara", "A domicili", "A recollir"]}
+                    />
+                </Grid>
+                <Grid item>
+                    <RestaurantCard
+                        id={4}
+                        name="Bona Fruita Sants"
+                        description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
+                        category="Panaderia"
+                        stars={2}
+                        tags={["Obert ara", "A recollir"]}
+                    />
+                </Grid>
+            </ListView>
+        )
+    }
+
     return (
         <Grid contianer direction="row" justify="space-between">
             <Grid item className={classes.item}>
@@ -41,43 +89,24 @@ export function ShopSearch() {
                 />
             </Grid>
             <Grid item className={classes.filter}>
-                    <TertiaryButton>
-                        Categoria
+                <TertiaryButton>
+                    Categoria
                     </TertiaryButton>
-                    
-                    <TertiaryButton>
-                        Obert ara
+
+                <TertiaryButton>
+                    Obert ara
                     </TertiaryButton>
-                    
-                    <TertiaryButton>
-                        A domicili
+
+                <TertiaryButton>
+                    A domicili
                     </TertiaryButton>
-                    
-                    <TertiaryButton>
-                        Per recollir
+
+                <TertiaryButton>
+                    Per recollir
                     </TertiaryButton>
             </Grid>
             <Grid item className={classes.listView}>
-                <ListView>
-                    <Grid item>
-                        <RestaurantCard
-                            name = "Bona Fruita Sants"
-                            description = "Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
-                            category = "Fruteria"
-                            stars = {4.5}
-                            tags = {["Obert ara", "A domicili", "A recollir"]}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <RestaurantCard
-                            name = "Bona Fruita Sants"
-                            description = "Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
-                            category = "Panaderia"
-                            stars = {2}
-                            tags = {["Obert ara", "A recollir"]}
-                        />
-                    </Grid>
-                </ListView>
+                {renderRestaurants()}
             </Grid>
         </Grid>
     )

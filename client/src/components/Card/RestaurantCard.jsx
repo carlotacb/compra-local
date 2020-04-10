@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 import { PrimaryButton, Stars } from '../../shared-components'
+import { Tag } from '../../shared-components/Tag/Tag';
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -8,12 +10,22 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         padding: theme.spacing(2)
     },
+    button: {
+        cursor: 'pointer'
+    },
     local: {
         paddingRight: theme.spacing(2),
         paddingLeft: theme.spacing(1)
     },
     tags: {
-        alignContent: 'end'
+        display: 'flex',
+        alignContent: 'flex-start',
+        flexWrap: 'wrap',
+        height: '100%',
+        justifyContent: 'flex-end',
+        '& > div': {
+            margin: theme.spacing(0.5)
+        }
     },
     subtitle: {
         display: 'flex',
@@ -25,17 +37,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function RestaurantCard(props) {
+    const history = useHistory();
+    const match = useRouteMatch();
     const classes = useStyles();
+
+
+    function handleClick(e) {
+        const id = parseInt(e.currentTarget.id);
+        // Redirect to restaurant
+        history.push(`${match.path}${id}`);
+    }
 
     function renderTags(tags) {
         var output = [];
         for (var i in tags) {
             output.push(
-                <PrimaryButton>
-                    <Typography variant="body2">
+                <Tag>
+                    <Typography variant="subtitle2">
                         {tags[i]}
                     </Typography>
-                </PrimaryButton>
+                </Tag>
             )
         }
         return output;
@@ -43,6 +64,7 @@ export function RestaurantCard(props) {
 
     return (
         <Paper className={classes.root}>
+            <a onClick={(e) => handleClick(e)} id={props.id} className={classes.button}>
             <Grid container direction="row">
                 <Grid item xs={3}>
                     IMG
@@ -69,6 +91,7 @@ export function RestaurantCard(props) {
                     </div>
                 </Grid>
             </Grid>
+            </a>
         </Paper>
     )
 }

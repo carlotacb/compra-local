@@ -20,7 +20,7 @@ export function ShopRouter() {
                 <Route exact path={`${match.path}`}>
                     <ShopSearch />
                 </Route>
-                <Route exact path={`${match.path}id`}>
+                <Route exact path={`${match.path}1`}>
                     <ShopLocal />
                 </Route>
             </Switch>
