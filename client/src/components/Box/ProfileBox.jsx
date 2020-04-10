@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, makeStyles, Typography, TextField } from '@material-ui/core';
 
 import EditIcon from '@material-ui/icons/Edit';
 
@@ -21,9 +21,11 @@ const useStyles = makeStyles((theme) => ({
 
 export function ProfileBox(props) {
     const classes = useStyles();
+    const [editable, setEditable] = useState(false);
 
     const handleEdit = () => {
-        console.log(clicked);
+        console.log('clicked');
+        setEditable(!editable);
     }
 
     return (
@@ -33,11 +35,11 @@ export function ProfileBox(props) {
             </Grid>
             <Grid item className={classes.content}> 
                 <Typography variant="h5"> Nom i congnoms </Typography>
-                <Typography> {props.name} </Typography>
+                {editable ? <TextField id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
             </Grid>
             <Grid item className={classes.content}>
                 <Typography variant="h5"> Correu electrònic </Typography>
-                <Typography> {props.email} </Typography>
+                {editable ? <TextField id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
             </Grid>
         </Grid>
     )
