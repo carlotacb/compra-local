@@ -15,4 +15,4 @@ class ProductGroup(Base):
     name = db.Column(db.String(64), nullable=False)
     local_id = db.Column(db.Integer, db.ForeignKey(f'{Local.__tablename__}.id'), nullable=False)
 
-    category = relationship(Local.__name__)
+    local = relationship(Local.__name__)
