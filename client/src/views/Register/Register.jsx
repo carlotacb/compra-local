@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
+import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
+import { SpanAlert } from "../../shared-components/Span/SpanAlert";
 
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -85,6 +86,7 @@ export function Register() {
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
             <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.paper} elevation={6} square>
                 <form className={classes.form}>
+                    {error ? <SpanAlert message={'error'}><Typography>Aquest email ja te un compte associat</Typography></SpanAlert> : null }
                     <TextField 
                         error={error}
                         variant="outlined" 
