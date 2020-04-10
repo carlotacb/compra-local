@@ -21,3 +21,12 @@ class User(Base):
     local_id = db.Column(db.Integer, db.ForeignKey(f'{Local.__tablename__}.id'))
 
     local = relationship(Local.__name__)
+
+    def serialize(self):
+        return dict(
+            id=self.id,
+            name=self.name,
+            email_address=self.name,
+            type=self.type,
+            image=self.image
+        )

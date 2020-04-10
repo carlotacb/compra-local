@@ -14,6 +14,8 @@ servers:
 tags:
   - name: health check
     description: endpoint for managing health checks.
+  - name: user
+    description: endpoint for managing users.
 
 paths:
 
@@ -22,8 +24,36 @@ paths:
       tags:
         - health check
       summary: Checks the status of the API.
-      description: Invoke this endpoint to checks the status of the API.
+      description: Invoke this endpoint to check the status of the API.
       operationId: src.api.status.get
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /user/{user_id}:
+    get:
+      tags:
+        - user
+      summary: Gets a user by its identifier.
+      description: Invoke this endpoint to gets a user by its identifier.
+      operationId: src.api.user.get
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
