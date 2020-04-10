@@ -20,7 +20,7 @@ log.info(f'Connexion application built: [{connexion_app}]')
 
 @flask_app.teardown_appcontext
 def shutdown_session(exception=None):
-    log.warn(f'Session removed: {exception}')
+    log.debug(f'Session removed: {exception}')
     sqlalchemy.db_session.remove()
 
 
