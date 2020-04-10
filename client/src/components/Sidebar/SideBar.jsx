@@ -71,7 +71,7 @@ export function Sidebar() {
             <div className={classes.item}>
                 <ul className={classes.ul}>
                     <li>
-                        <Button className={classes.button}  href="https://compralocal.cat/">
+                        <Button className={classes.button}  href="https://compralocal.cat/" target="_blank">
                             <HelpIcon /> Ajuda
                         </Button>
                     </li>
