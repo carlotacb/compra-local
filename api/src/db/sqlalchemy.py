@@ -47,6 +47,33 @@ def _create_tables(engine_object):
     log.info('Tables created (or not).')
 
 
+def _add_dummy_data():
+    log.info('Importing services...')
+    from src.service import category
+    from src.service import local
+    from src.service import opening_hours_item
+    from src.service import user
+    from src.service import product_group
+    from src.service import product
+    from src.service import order_group
+    from src.service import order
+    from src.service import order_item
+    from src.service import review_local
+    from src.service import review_user
+    log.info('Adding dummy data...')
+    category.add_dummy_data()
+    local.add_dummy_data()
+    opening_hours_item.add_dummy_data()
+    user.add_dummy_data()
+    product_group.add_dummy_data()
+    product.add_dummy_data()
+    order_group.add_dummy_data()
+    order.add_dummy_data()
+    order_item.add_dummy_data()
+    review_local.add_dummy_data()
+    review_user.add_dummy_data()
+
+
 # Declare base.
 Base = declarative_base()
 
@@ -57,3 +84,6 @@ _create_tables(engine)
 # Set up session
 db_session = scoped_session(sessionmaker(bind=engine))
 Base.query = db_session.query_property()
+
+# Dummy data
+_add_dummy_data()

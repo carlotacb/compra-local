@@ -26,7 +26,15 @@ def resize(image_base64):
         return None
 
 
-def encode_image_file(image_file_path):
+def decode_base64(image_base64_in_bytes):
+    return None if not image_base64_in_bytes else image_base64_in_bytes.decode('utf-8')
+
+
+def decode_image_file(image_file_path):
     with open(image_file_path, 'rb') as img_file:
-        encoded_image = base64.b64encode(img_file.read()).decode('utf-8')
-    return encoded_image
+        decoded_image = base64.b64encode(img_file.read()).decode('utf-8')
+    return decoded_image
+
+
+def decode_and_resize(image_file_path):
+    return resize(decode_image_file(image_file_path))

@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 
 from src.db import helper
 from src.db.sqlalchemy import Base
+from src.helper import image as image_util
 from src.enum.user_type import UserType
 from src.model.local import Local
 
@@ -28,5 +29,5 @@ class User(Base):
             name=self.name,
             email_address=self.email_address,
             type=self.type.value,
-            image=self.image
+            image=image_util.decode_base64(self.image)
         )

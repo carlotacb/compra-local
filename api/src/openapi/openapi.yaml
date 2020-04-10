@@ -16,6 +16,8 @@ tags:
     description: endpoint for managing health checks.
   - name: user
     description: endpoint for managing users.
+  - name: help
+    description: endpoint for managing helpers.
 
 paths:
 
@@ -51,6 +53,50 @@ paths:
         - in: path
           name: user_id
           description: User identifier.
+
+    put:
+      tags:
+        - user
+      summary: Updates a user.
+      description: Invoke this endpoint to update a user.
+      operationId: src.api.user.put
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: (optional) User full name.
+                email_address:
+                  type: string
+                  description: (optional) User email address.
+                image:
+                  type: string
+                  description: (optional) User image base64-encoded.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
 
   /user:
     post:
@@ -97,20 +143,106 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
-  /local/{local_id}:
-    get:
+  /user/login:
+    post:
       tags:
-        - local
-      summary: Gets a local by its identifier.
-      description: Invoke this endpoint to get a local by its identifier.
-      operationId: src.api.local.get
+        - user
+      summary: Logs in user using its credentials.
+      description: Invoke this endpoint to log in user using its credentials.
+      operationId: src.api.user.login
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email_address:
+                  type: string
+                  description: User email address.
+                password:
+                  type: string
+                  description: User encoded password.
+                type:
+                  type: string
+                  description: User type.
+                  enum: ['CLIENT', 'BUSINESS']
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /user/{user_id}/password:
+    put:
+      tags:
+        - user
+      summary: Updates the password from a user.
+      description: Invoke this endpoint to update the password from a user.
+      operationId: src.api.user.password
       parameters:
         - in: path
-          name: local_id
-          description: Local identifier.
+          name: user_id
+          description: User identifier.
           required: true
           schema:
             type: integer
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: User new encoded password.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /help:
+    get:
+      tags:
+        - help
+      summary: Gets a list of orders that need help around you.
+      description: Invoke this endpoint to get a list of orders that need help around you.
+      operationId: src.api.help.get
+      parameters:
+        - in: query
+          name: latitude
+          description: User latitude.
+          required: true
+          schema:
+            type: number
+            format: float
+        - in: query
+          name: longitude
+          description: User longitude.
+          required: true
+          schema:
+            type: number
+            format: float
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
