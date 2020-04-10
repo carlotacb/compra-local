@@ -1,8 +1,16 @@
 from sqlalchemy.exc import IntegrityError
 
 from src.db.sqlalchemy import db_session
-from src.helper import image as image_util
+from src.helper import image as image_util, log
 from src.model.user import User
+
+
+def add_dummy_data():
+    count = db_session().query(User.id).count()
+    if count == 0:
+        log.info(f'Adding dummy data for {User.__tablename__}...')
+    else:
+        log.info(f'Skipping dummy data for {User.__tablename__} because is not empty.')
 
 
 def get(user_id):
