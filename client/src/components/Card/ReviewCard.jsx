@@ -21,12 +21,12 @@ export function ReviewCard(props) {
         <Paper className={classes.root}>
             <Grid container direction="row">
                 <Grid item  className={classes.local}>
-                    <Stars value={props.stars} />
+                    <Stars value={props.punctuation} />
                     <Typography variant="h5">
-                        {props.comentari}
+                        {props.comment}
                     </Typography>
                     <Typography variant="body1">
-                        {props.name}
+                        {props.writer}
                     </Typography>
                 </Grid>
             </Grid>
