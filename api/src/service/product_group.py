@@ -18,3 +18,10 @@ def add_dummy_data():
         db_session().commit()
     else:
         log.info(f'Skipping dummy data for {ProductGroup.__tablename__} because is not empty.')
+
+
+def get_id_by_name_and_local_name(name, local_name):
+    product_group = db_session().query(ProductGroup).filter(
+        ProductGroup.name == name, ProductGroup.local.name == local_name
+    ).first()
+    return product_group.id
