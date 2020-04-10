@@ -22,9 +22,9 @@ def edit(user_id, name=None, email_address=None, image=None):
         return False
 
 
-def create(name, email_address, password, type, image=None):
+def create(name, email_address, password, user_type, image=None):
     try:
-        user = User(name=name, email_address=email_address, password=password, type=type)
+        user = User(name=name, email_address=email_address, password=password, type=user_type)
         if image:
             encoded_image = image_util.resize(image)
             if encoded_image:

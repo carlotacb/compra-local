@@ -60,7 +60,7 @@ def post():
             name=body.get('name'),
             email_address=body.get('email_address'),
             password=body.get('password'),
-            type=user_type,
+            user_type=user_type,
             image=body.get('image', None)
         )
         if user_id:
