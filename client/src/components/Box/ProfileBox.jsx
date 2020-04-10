@@ -1,34 +1,43 @@
 import React from 'react';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 
+import EditIcon from '@material-ui/icons/Edit';
+
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 'fit-content',
-        minWidth: '30em',
         padding: theme.spacing(2),
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
         backgroundColor: theme.palette.secondary.light
     },
-    input : {
-        fontSize: '25ch',
-        '& > div': {
-            borderRadius: '0',
-            backgroundColor: 'white'
-        }
+    editButton: {
+        display: 'flex',
+        justifyContent: 'flex-end'
+    },
+    content: {
+        padding: theme.spacing(2),
     }
 }));
 
-export function SearchBox(props) {
-
+export function ProfileBox(props) {
     const classes = useStyles();
+
+    const handleEdit = () => {
+        console.log(clicked);
+    }
+
     return (
-        <Grid container className={classes.root}  alignItems="center"  justify="space-between" wrap="nowrap"> 
-            <Grid item> 
-                <Typography variant="h5"> Nom i congnoms </Typography>
-                <Typography variant="body"> {props.name} </Typography>
+        <Grid container className={classes.root} direction="column"> 
+            <Grid item className={classes.editButton}>
+                <EditIcon onClick={() => handleEdit()} cursor="pointer"/>
             </Grid>
-            <Grid item>
+            <Grid item className={classes.content}> 
+                <Typography variant="h5"> Nom i congnoms </Typography>
+                <Typography> {props.name} </Typography>
+            </Grid>
+            <Grid item className={classes.content}>
                 <Typography variant="h5"> Correu electrònic </Typography>
-                <Typography variant="body"> {props.email} </Typography>
+                <Typography> {props.email} </Typography>
             </Grid>
         </Grid>
     )
