@@ -33,7 +33,7 @@ export function AppRouter() {
                     <Route path={`${match.path}/comandes`}>
                         <p>comandes</p>
                     </Route>
-                    <Route path={`${match.path}/perfil`}>
+                    <Route path={`${match.path}/compte`}>
                         <p>perfil</p>
                     </Route>
                     <Route path={`${match.path}/`}>
