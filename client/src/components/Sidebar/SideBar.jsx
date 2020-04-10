@@ -67,7 +67,7 @@ export function Sidebar() {
             <div className={classes.item}>
                 <ul className={classes.ul}>
                     <li>
-                        <Button className={classes.button}  href="/in/todo">
+                        <Button className={classes.button}  href="https://compralocal.cat/">
                             <HelpIcon /> Ajuda
                         </Button>
                     </li>
