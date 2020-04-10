@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
+import { PrimaryButton } from '../../shared-components/';
 
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
