@@ -21,3 +21,9 @@ class APIHelpGetTest(unittest.TestCase):
     def test_status_code_wrong(self):
         response = requests.get(self.url)
         self.assertEqual(response.status_code, self.status_code_wrong)
+
+    def test_help(self):
+        params = dict(latitude=self.latitude, longitude=self.longitude)
+        response = requests.get(self.url, params=params).json()
+        self.assertEqual(response.get('error'), False)
+        self.assertGreater(len(response.get('response').get('helper_list')), 0)
