@@ -1,4 +1,14 @@
 PYTHON_MODULE_PORT = 8080
 
+TEST_RUN_CREATIONS = False
+
+MESSAGE_UNEXPECTED_ERROR = 'Unexpected error.'
+MESSAGE_PARAMETERS_REQUIRED = 'Some required request body parameters are missing.'
+
 MESSAGE_USER_WRONG_ID = 'User identifier has to be greater than 0.'
 MESSAGE_USER_NOT_FOUND = 'User not found.'
+MESSAGE_USER_TYPE_NOT_COMPATIBLE = 'UserType specified is not compatible.'
+MESSAGE_USER_POST_ERROR = 'Error creating the user.'
+
+IMAGE_RESIZE_SIZE = (512, 512)
+IMAGE_OUTPUT_FOLDER_PATH = '/tmp'

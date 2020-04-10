@@ -4,7 +4,7 @@ import requests
 from src.config import PYTHON_MODULE_PORT, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND
 
 
-class APIStatusTest(unittest.TestCase):
+class APIUserGetTest(unittest.TestCase):
 
     def setUp(self):
         self.url = f'http://localhost:{PYTHON_MODULE_PORT}/user'
