@@ -1,4 +1,5 @@
-import {Registration as R} from './Registration/Registration';
+
+import {Register as R} from './Register/Register';
 import {Profile as P} from './Profile/Profile';
 import {Orders as O} from './Orders/Orders';
 import {Neighborhood as N} from './Neighborhood/Neighborhood';
@@ -12,7 +13,7 @@ import {ShopErrorLocation as SEL} from './Shop/ShopErrorLocation';
 export const ShopSearch = SS;
 export const ShopStore = SSt;
 export const ShopErrorLocation = SEL;
-export const Registration = R;
+export const Register = R;
 export const Profile = P;
 export const Orders = O;
 export const Neighborhood = N;

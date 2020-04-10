@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         alignContent: 'center',
     },
     form: {
-        width: '80%',
+        width: '80%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
         display: 'flex',
         flexDirection: 'column',
@@ -50,22 +50,38 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export function Login() {
+export function Register() {
     const {user, setUser} = useContext(UserContext);
+    const [nomCongnoms, setNomCongonms] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
     const [error, setError] = useState(false);
+    const [errorPW, setErrorPW] = useState(false);
     const classes = useStyles();
 
-    const handleLogin = () => {
+    const handleRegister = () => {
         console.log(email + " " + password);
+        if (password !== password2) {
+            setErrorPW(true);
+        } 
         if (email === "carlota@hackupc.com" && password === "123") {
+            /* REGISTER SUCCES */
             setError(false);
-            setUser({ email: email, password: password });
+            setUser({ nom: nomCongnoms, email: email, password: password });
             console.log(user)
         } else {
+            /* REGISTER FAILS */ 
             setError(true);
         }   
+    }
+
+    const checkPasswords = (value) => {
+        if (value != password) {
+            setErrorPW(true);
+        } else {
+            setErrorPW(false);
+        }
     }
 
     return (
@@ -79,6 +95,17 @@ export function Login() {
                         margin="normal" 
                         required 
                         fullWidth 
+                        id="name" 
+                        label="Nom i congnoms" 
+                        name="name" 
+                        onChange={(e)=>setNomCongonms(e.target.value)}
+                        autoFocus />
+                    <TextField 
+                        error={error}
+                        variant="outlined" 
+                        margin="normal" 
+                        required 
+                        fullWidth 
                         id="email" 
                         label="Correu Electrònic" 
                         name="email" 
@@ -86,7 +113,7 @@ export function Login() {
                         onChange={(e)=>setEmail(e.target.value)}
                         autoFocus />
                     <TextField 
-                        error={error}
+                        error={error || errorPW}
                         variant="outlined" 
                         margin="normal" 
                         required 
@@ -95,22 +122,26 @@ export function Login() {
                         label="Contrasenya" 
                         type="password" 
                         id="password" 
-                        onChange={(e)=>setPassword(e.target.value)}
+                        onChange={(e)=>setPassword(e.target.value)} />
+                    <TextField 
+                        error={error || errorPW}
+                        variant="outlined" 
+                        margin="normal" 
+                        required 
+                        fullWidth 
+                        name="password2" 
+                        label="Repeteix la contrasenya" 
+                        type="password" 
+                        id="password2" 
+                        onChange={(e)=>checkPasswords(e.target.value)}
                         autoComplete="current-password" />
-                    <PrimaryButton onClick={() => handleLogin()}> Entra </ PrimaryButton>
-                    <Grid container>
-                        <Grid item xs>
-                            {/* <Link href="#" variant="body2"> Forgot password? </Link> */}
-                        </Grid>
-                        <Grid item>
-                            <Link href="/registre"> {"No disposes d'un compte? Registra't"} </Link>
-                        </Grid>
-                    </Grid>
+                    <PrimaryButton onClick={() => handleRegister()}> Registra't </ PrimaryButton>
                     <Grid container className={classes.localGrid}>
-                        <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Incia sessió aquí"} </Link></Typography> 
+                        <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Registra't aquí"} </Link></Typography> 
                     </Grid>
                 </form>
             </Grid>
-        </ Grid>
+        </ Grid> 
     )
 }
+

@@ -56,7 +56,17 @@ To run the API, please execute the following commands from the root directory:
     pip3 install -r requirements.lock
     ```
 
-4. Run the server using uWSGI
+4. Set up environment creating the .env file. This file must have this structure (without the brackets):
+
+    ```bash
+    DB_USER={DB_USER}
+    DB_PASSWORD={DB_PASSWORD}
+    DB_DB={DB_DB}
+    DB_HOST={DB_HOST}
+    DB_PORT={DB_PORT}
+    ```
+
+5. Run the server using uWSGI
 
     ```bash
     uwsgi --ini uwsgi.ini -H env
