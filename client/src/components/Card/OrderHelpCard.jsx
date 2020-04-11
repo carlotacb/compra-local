@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Divider, Grid, Paper, Typography, makeStyles, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
-import { VerticalStepper } from "../../components";
+import { Divider, Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
+import { VerticalStepper, ValorationDialog } from "../../components";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     title: {
         fontWeight: 'bold',
         color: 'rgb(151, 119, 181)',
+    },
+    title2: {
+        fontWeight: 'bold',
+        color: '#F2B880',
     },
     outlinedTag: {
         ...theme.typography.button,
@@ -66,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 export function OrderHelpCard(props) {
     const classes = useStyles();    
     const [ openModal, setOpenModal ] = useState(false);
+    const [ openModalHelper, setOpenModalHelper ] = useState(false);
 
     const getCurrentInformation = (currentStep) => {
         switch(currentStep) {
@@ -86,17 +91,23 @@ export function OrderHelpCard(props) {
                             <Button variant="contained" color="primary" className={classes.valorationButton} onClick={() => setOpenModal(true)}> ESCRIU VALORACIÓ </Button>
                         </div>
                         <div>
-                            <Typography variant="body1" className={classes.title}> Que tal el teu voluntari? </Typography>
+                            <Typography variant="body1" className={classes.title2}> Que tal el teu voluntari? </Typography>
                             <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
-                            <Button variant="contained" color="primary" className={classes.valorationButton} > ESCRIU VALORACIÓ </Button>
+                            <Button variant="contained" color="secondary" className={classes.valorationButton} onClick={() => setOpenModalHelper(true)}> ESCRIU VALORACIÓ </Button>
                         </div>
                     </div> 
                 );
         }
     }
 
-    const handleClose = () => {
-        setOpenModal(false)
+    const handleValorateHelper = (punctuation, valoration) =>{
+        console.log(punctuation + " - " + valoration);
+        setOpenModal(false);
+    }
+
+    const handleValorateSell = (punctuation, valoration) =>{
+        console.log(punctuation + " - " + valoration);
+        setOpenModal(false);
     }
 
     const resumcompra = () => {
@@ -145,22 +156,8 @@ export function OrderHelpCard(props) {
                     {resumcompra()}
                 </Grid>
             </Grid>
-
-            <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Deixa la teva valoració</DialogTitle>
-                <DialogContent>
-                <TextField autoFocus margin="dense" id="punctuation" label="Valoració del 0 al 5" type="number" fullWidth />
-                </DialogContent>
-                <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    Cancel
-                </Button>
-                <Button onClick={handleClose} color="primary">
-                    Subscribe
-                </Button>
-                </DialogActions>
-            </Dialog>
-
+            <ValorationDialog open={openModal} title="Valora la teva compra" onAccept={(punct, comm) => handleValorateSell(punct, comm)} onClose={() => setOpenModal(false)} />
+            <ValorationDialog open={openModalHelper} title="Valora al teu voluntari" onAccept={(punct, comm) => handleValorateHelper(punct, comm)} onClose={() => setOpenModalHelper(false)} />
         </Paper>
     )
 }
