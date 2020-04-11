@@ -85,16 +85,16 @@ export function OrderHelpCard(props) {
             case 4:
                 return (
                     <div className={classes.valorationDistribution}>
-                        <div>
+                        <Grid item xs={5}>
                             <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
                             <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
                             <Button variant="contained" color="primary" className={classes.valorationButton} onClick={() => setOpenModal(true)}> ESCRIU VALORACIÓ </Button>
-                        </div>
-                        <div>
+                        </Grid>
+                        <Grid item xs={5}>
                             <Typography variant="body1" className={classes.title2}> Que tal el teu voluntari? </Typography>
                             <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
                             <Button variant="contained" color="secondary" className={classes.valorationButton} onClick={() => setOpenModalHelper(true)}> ESCRIU VALORACIÓ </Button>
-                        </div>
+                        </Grid>
                     </div> 
                 );
         }
@@ -137,13 +137,13 @@ export function OrderHelpCard(props) {
     return (
         <Paper className={classes.root}>
             <Grid container direction="row">
-                <Grid item>
+                <Grid item xs={3}>
                     <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Esperant recollida del voluntari', 'Enviant', 'Comanda realitzada']}/>
                 </Grid>
                 <Grid item>
                     <Divider variant="middle" orientation="vertical" />
                 </Grid>
-                <Grid item className={classes.information}>
+                <Grid item xs={8} className={classes.information}>
                     {getCurrentInformation(props.step)}
                     <div className={classes.helperBox}>
                         <Typography variant="body1" className={classes.bold}> VOLUNTARI: </Typography>

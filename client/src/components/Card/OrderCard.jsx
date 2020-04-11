@@ -105,7 +105,7 @@ export function OrderCard(props) {
                 <Grid item>
                     <Divider variant="middle" orientation="vertical" />
                 </Grid>
-                <Grid item className={classes.information}>
+                <Grid item xs={8} className={classes.information}>
                     {getCurrentInformation(props.step)}
                     <Typography variant="body1" className={classes.bold}> Comanda realitzada a: </Typography> 
                     <Typography variant="h4"> {props.local_name} </Typography> 
