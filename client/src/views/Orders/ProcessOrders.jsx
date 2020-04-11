@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { Grid } from "@material-ui/core";
-import { OrderCard, OrderHelpCard } from '../../components';
+import { OrderCard, OrderHelpCard, OrderDeliveryCard } from '../../components';
 import { ApiFactory } from "../../services/ApiFactory";
 
 export function ProcessOrders() {
@@ -23,8 +23,9 @@ export function ProcessOrders() {
         for (var i = 0; i < resp.length; ++i) {
             if (resp[i].helper_needed) {
                 orders.push(<OrderHelpCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket} assigned_helper={resp[i].assigned_helper} helper={resp[i].helper}/>)
-            }
-            else {
+            } else if (resp[i].delivery) {
+                orders.push(<OrderDeliveryCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
+            } else {
                 orders.push(<OrderCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
             }
         }
