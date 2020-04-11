@@ -3,8 +3,8 @@ import React from 'react';
 import { Typography, makeStyles} from '@material-ui/core';
 import { ListView } from '../';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { ContentCart } from './ContentCart/ContentCart';
-
+import { ContentCartMain } from './ContentCart/ContentCartMain';
+import { PurchaseContext } from '../../context';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: 'inherit'
@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
 export function ShoppingCart() {
 
     const classes = useStyles();
+    const [step, setStep] = React.useState(0);
+    const purchaseProviderValue = React.useMemo(
+        ()=> ({step, setStep}), [step, setStep]
+    );
+
 
     return (
         <div>
@@ -34,11 +39,13 @@ export function ShoppingCart() {
                     <b>La teva compra</b>
                 </Typography>
             </div>
-            <ListView
-                className={classes.root}
-            >
-                <ContentCart />
-            </ListView>
+            <PurchaseContext.Provider value={purchaseProviderValue}>
+                <ListView
+                    className={classes.root}
+                >
+                    <ContentCartMain />
+                </ListView>
+            </PurchaseContext.Provider>
         </div>
     )
 }

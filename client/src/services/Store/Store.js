@@ -45,6 +45,7 @@ export function getStoreInfo(idStore) {
                 'saturday': '9:00 - 14:00',
                 'sunday': 'Tancat'
             },
+            allow_delivery: true,
             stars: 4.5,
             products: {
                 'Verdura': [
