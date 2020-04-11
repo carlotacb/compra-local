@@ -3,6 +3,25 @@ export function getCurrentOrders(idStore) {
         resolve(
             [
                 {
+                    "delivery": true,
+                    "helper_needed": false,
+                    "local_name": "Bona fruita busquets",
+                    "step": 3,
+                    "total": 53.20,
+                    "ticket": [
+                        {
+                            "product_name": "Pebrots",
+                            "quantity": "2kg",
+                            "total_price": 5
+                        },
+                        {
+                            "product_name": "Maduixots del maresme",
+                            "quantity": "4 unitats",
+                            "total_price": 2.5
+                        }
+                    ]
+                },
+                {
                     "delivery": false,
                     "helper_needed": true,
                     "local_name": "Bona fruita busquets",
