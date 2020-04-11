@@ -1,13 +1,7 @@
 import React from 'react';
 
 
-const useStyles = makeStyles((theme) => ({
-    
-}));
-
-export function OrderCard(props) {
-    const classes = useStyles();
-
+export function VerticalStepper(props) {
     return (
         <div>hola</div>
     )

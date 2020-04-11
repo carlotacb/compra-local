@@ -1,6 +1,7 @@
 import React from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 import { TertiaryButton } from "../../shared-components";
+import { VerticalStepper } from '../../components';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,9 +41,7 @@ export function OrderCard(props) {
         <Paper className={classes.root}>
             <Grid container direction="row">
                 <Grid item>
-                    <Typography variant="h5">
-                        {'stepper'}
-                    </Typography>  
+                    <VerticalStepper />
                 </Grid>
                 <Grid item>
                     <Divider variant="middle" orientation="vertical" />
