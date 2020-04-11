@@ -38,17 +38,27 @@ def get(local_id):
 
 
 def get_all():
-    local = db_session().query(Local).all()
-    return local if local else None
+    return db_session().query(Local).all()
 
 
-def create(name, description, postal_address, latitude, longitude, website, phone_number, pick_up, delivery, category, image=None):
+def create(
+        name, postal_address, latitude, longitude,
+        description=None, website=None, phone_number=None, pick_up=True, delivery=False, category_id=None, image=None
+):
     try:
-        local = Local(name=name, description=description, 
-                      postal_address=postal_address, latitude=latitude,
-                      longitude=longitude, website=website, phone_number=phone_number,
-                      pick_up=pick_up, delivery=delivery, image=image,
-                      category_id=category)
+        local = Local(
+            name=name,
+            description=description,
+            postal_address=postal_address,
+            latitude=latitude,
+            longitude=longitude,
+            website=website,
+            phone_number=phone_number,
+            pick_up=pick_up,
+            delivery=delivery,
+            image=image,
+            category_id=category_id
+        )
         if image:
             decoded_image = image_util.resize(image)
             if decoded_image:

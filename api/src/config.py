@@ -12,9 +12,9 @@ MESSAGE_USER_TYPE_NOT_COMPATIBLE = 'UserType specified is not compatible.'
 MESSAGE_USER_POST_ERROR = 'Error creating the user.'
 MESSAGE_ORDER_GROUP_NOT_FOUND = 'Order group not found.'
 MESSAGE_ORDER_GROUP_SAME_USER = 'A user cannot help itself.'
-
-MESSAGE_LOCAL_NOT_FOUND = 'Local not found.'
 MESSAGE_LOCAL_WRONG_ID = 'Local identifier has to be greater than 0.'
+MESSAGE_LOCAL_NOT_FOUND = 'Local not found.'
+MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS = 'Postal address given is not correct.'
 
 IMAGE_RESIZE_SIZE = (512, 512)
 IMAGE_OUTPUT_FOLDER_PATH = '/tmp'

@@ -3,7 +3,6 @@ import sqlalchemy as db
 from sqlalchemy.orm import relationship
 
 from src.db import helper
-from src.helper import image as image_util
 from src.db.sqlalchemy import Base
 from src.model.category import Category
 
@@ -40,5 +39,5 @@ class Local(Base):
             pick_up=self.pick_up,
             delivery=self.delivery,
             image=self.image,
-            category_id=self.category_id
+            category=None if not self.category_id else self.category.name
         )
