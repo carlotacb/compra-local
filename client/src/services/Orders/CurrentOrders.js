@@ -17,7 +17,7 @@ export function getCurrentOrders(idStore) {
                         {
                             "product_name": "Maduixots del maresme",
                             "quantity": "4 unitats",
-                            "total_price": 2.5
+                            "total_price": 2.50
                         }
                     ]
                 },
@@ -36,7 +36,7 @@ export function getCurrentOrders(idStore) {
                         {
                             "product_name": "Maduixots del maresme",
                             "quantity": "4 unitats",
-                            "total_price": 2.5
+                            "total_price": 2.50
                         }
                     ],
                     "assigned_helper": true,

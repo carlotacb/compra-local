@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
+    },
+    uppercase: {
+        textTransform: 'uppercase'
     }
 }));
 
@@ -138,7 +141,7 @@ export function OrderHelpCard(props) {
         <Paper className={classes.root}>
             <Grid container direction="row">
                 <Grid item xs={3}>
-                    <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Esperant recollida del voluntari', 'Enviant', 'Comanda realitzada']}/>
+                    <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Esperant recollida del voluntari', 'Comanda recollida per voluntari', 'Comanda rebuda']}/>
                 </Grid>
                 <Grid item>
                     <Divider variant="middle" orientation="vertical" />
@@ -150,8 +153,8 @@ export function OrderHelpCard(props) {
                         {props.assigned_helper ? getHelperInformation(props.helper) : <Typography variant="body1" className={classes.bold}> A l'espera de que un voluntari confirmi la comanda. </Typography>}
                     </div>
                     <Typography variant="body1" className={classes.bold}> Comanda realitzada a: </Typography> 
-                    <Typography variant="h4"> {props.local_name} </Typography> 
-                    <Typography variant="h5"> {props.total}€ </Typography> 
+                    <Typography variant="h4" className={classes.uppercase}> {props.local_name} </Typography> 
+                    <Typography variant="h5"> {props.total} € </Typography> 
                     <Typography variant="body1" className={classes.bold}> Resum de la compra: </Typography> 
                     {resumcompra()}
                 </Grid>
