@@ -25,7 +25,7 @@ const endpoints = {
     'getUserInformation': getUserInformation,
     'login': login,
     'getProcesHelper': getProcesHelper,
-    'getNeedHelp': getNeedHelp
+    'getNeedHelp': getNeedHelp,
     'createOrder': createOrder
 }
 
