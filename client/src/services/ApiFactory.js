@@ -13,7 +13,7 @@ const endpoints = {
     'getRecivedValorations': getRecivedValorations,
     'getGivenValorations': getGivenValorations,
     'getUserInformation': getUserInformation,
-    'getProcesHelper': getProcesHelper
+    'getProcesHelper': getProcesHelper,
 }
 
 function get(name) {
