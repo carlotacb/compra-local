@@ -3,10 +3,12 @@ import { TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } 
 
 export function ValorationDialog(props) {
     const [punctuation, setPunctuation] = React.useState(0);
-    const [comment, setComment] = React.useState(0);
+    const [comment, setComment] = React.useState();
 
     function handleAccept(){
         props.onAccept(punctuation, comment);
+        setPunctuation(0);
+        setComment('');
     }
 
     return (
