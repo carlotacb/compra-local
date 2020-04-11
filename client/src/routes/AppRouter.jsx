@@ -1,11 +1,14 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 import { ShopRouter } from './ShopRouter';
 import { Sidebar } from '../components/';
 
 import { Grid, makeStyles } from '@material-ui/core';
 import { Profile, Neighborhood, Orders } from '../views';
 
+import { UserContext } from '../context';
+import { ApiFactory } from '../services/ApiFactory';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,7 +23,16 @@ const useStyles = makeStyles((theme) => ({
 export function AppRouter() {
 
     let match = useRouteMatch();
+    const [cookies, setCookie] = useCookies(['uisha']);
     const classes = useStyles();
+    const { user, setUser } = React.useContext(UserContext); 
+    
+
+    React.useEffect(() => {
+
+    })
+
+
     return (
         <Grid container className={classes.root}>
             <Grid item xs={2}>
