@@ -1,6 +1,6 @@
 from flask import request
 
-from src.config import MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID, MESSAGE_PRODUCT_GROUP_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED
+from src.config import MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID, MESSAGE_PRODUCT_GROUP_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_PRODUCT_NOT_FOUND
 from src.helper import response
 from src.service import local as local_service
 from src.service import product as product_service
@@ -17,7 +17,8 @@ def get(local_id, product_id):
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
         # Get all reviews
         product = product_service.get_prodcut(local_id, product_id)
-        # Return list
+        if not product:
+            return response.make(error=True, message=MESSAGE_PRODUCT_NOT_FOUND)
         return response.make(error=False, response=dict(product=product.serialize()))
     except Exception as e:
         return response.raise_exception(e)
