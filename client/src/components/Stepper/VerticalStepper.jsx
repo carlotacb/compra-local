@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function VerticalStepper(props) {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
   const steps = props.steps;
 
   return (
