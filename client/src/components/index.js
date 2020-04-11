@@ -6,6 +6,7 @@ import { StoreCard as SC } from './Card/StoreCard';
 import { ConfirmationDialog as CD } from './Dialog/ConfirmationDialog';
 import { ReviewCard as RC } from './Card/ReviewCard'
 import { OrderCard as OC } from './Card/OrderCard'
+import { VerticalStepper as VS } from './Stepper/VerticalStepper'
 //Store 
 import { StoreBody as StB } from './Store/StoreBody';
 import { StoreHeader as SH} from './Store/StoreHeader';
@@ -20,3 +21,4 @@ export const ReviewCard = RC;
 export const StoreBody = StB;
 export const StoreHeader = SH; 
 export const OrderCard = OC; 
+export const VerticalStepper = VS;
