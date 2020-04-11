@@ -1,11 +1,13 @@
 import { getStoreInfo } from './Shop/Store';
 import { getCurrentOrders } from './Orders/CurrentOrders';
 import { getCompletedOrders } from './Orders/CompletedOrders';
+import { getRecivedValorations } from './Profile/RecivedValorations';
 
 const endpoints = {
     'getStoreInfo': getStoreInfo,
     'getCurrentOrders': getCurrentOrders,
-    'getCompletedOrders': getCompletedOrders
+    'getCompletedOrders': getCompletedOrders,
+    'getRecivedValorations': getRecivedValorations,
 }
 
 function get(name) {
