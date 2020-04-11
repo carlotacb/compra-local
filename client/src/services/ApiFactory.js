@@ -9,6 +9,9 @@ import { getProcesHelper } from './Neighborhood/ProcesHelper';
 // Login
 import { login } from './User/Login';
 
+//Orders
+import {createOrder} from './Orders/CreateOrder';
+
 export const urlProd = "http://api.compralocal.cat"; 
 
 const endpoints = {
@@ -20,7 +23,8 @@ const endpoints = {
     'getGivenValorations': getGivenValorations,
     'getUserInformation': getUserInformation,
     'login': login,
-    'getProcesHelper': getProcesHelper
+    'getProcesHelper': getProcesHelper,
+    'createOrder': createOrder
 }
 
 function get(name) {

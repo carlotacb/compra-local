@@ -5,6 +5,7 @@ import { PurchaseSelect } from './PurchaseSelect';
 import { Typography, makeStyles } from '@material-ui/core';
 import { PrimaryButton } from '../../../shared-components/Button/PrimaryButton';
 
+
 const useStyles = makeStyles((theme) => ({
     select: {
         paddingTop: theme.spacing(2)
@@ -20,11 +21,6 @@ export function PurchaseMain(props) {
     const [value, setValue] = React.useState('recollir');
 
 
-    // TODO: Make api call
-    function handleClick() {
-
-    }
-
     return (
         <div>
             <Typography variant="h6" color="primary">
@@ -36,7 +32,7 @@ export function PurchaseMain(props) {
                 <PurchaseSelect value={value} setValue={setValue} />
             </div>
             <div className={classes.button}>
-                <PrimaryButton onClick={() => handleClick()}>
+                <PrimaryButton onClick={props.onConfirm}>
                     CONFIRMAR COMPRA
                 </PrimaryButton>
             </div>
