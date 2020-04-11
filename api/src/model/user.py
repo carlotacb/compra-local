@@ -36,5 +36,6 @@ class User(Base):
             latitude=self.latitude,
             longitude=self.longitude,
             type=self.type.value,
-            image=self.image
+            image=self.image,
+            local_id=self.local_id
         )
