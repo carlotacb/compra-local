@@ -27,7 +27,7 @@ class APIReviewLocalAllTest(unittest.TestCase):
         self.assertEqual(response.get('error'), True)
         self.assertEqual(response.get('message'), MESSAGE_LOCAL_NOT_FOUND)
 
-    def test_local_average(self):
+    def test_local_all(self):
         response = requests.get(f'{self.url}/{self.local_id}/all').json()
         self.assertEqual(response.get('error'), False)
         self.assertIsNotNone(response.get('response').get('reviews_list'))

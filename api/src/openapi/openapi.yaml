@@ -366,6 +366,62 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
+  /review/user/{user_id}/average:
+    get:
+      tags:
+        - review
+      summary: Gets the average punctuation from user reviews.
+      description: Invoke this endpoint to get the average punctuation from user reviews.
+      operationId: src.api.review.user_average
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/user/{user_id}/all:
+    get:
+      tags:
+        - review
+      summary: Gets all the user reviews.
+      description: Invoke this endpoint to get all the user reviews.
+      operationId: src.api.review.user_all
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
 components:
 
   schemas:
