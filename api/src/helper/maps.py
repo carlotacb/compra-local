@@ -1,7 +1,11 @@
+from geopy import Nominatim
 from geopy.distance import geodesic
 
 from src.config import MAPS_DISTANCES_LIST
 from src.helper import log
+
+
+_geo_locator = Nominatim()
 
 
 def filter_by_around(coordinates_dict, latitude, longitude):
@@ -23,3 +27,8 @@ def filter_by_around(coordinates_dict, latitude, longitude):
         if item_id_list:
             break
     return item_id_list
+
+
+def compute_coordinates(postal_address):
+    location = _geo_locator.geocode(postal_address)
+    return None if not location else (location.latitude, location.longitude)

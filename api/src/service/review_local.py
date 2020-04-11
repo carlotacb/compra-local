@@ -1,3 +1,5 @@
+from sqlalchemy import func
+
 from src.db.sqlalchemy import db_session
 from src.helper import log
 from src.model.review_local import ReviewLocal
@@ -20,3 +22,20 @@ def add_dummy_data():
         db_session().commit()
     else:
         log.info(f'Skipping dummy data for {ReviewLocal.__tablename__} because is not empty.')
+
+
+def get_average(local_id):
+    avg = db_session().query(func.avg(ReviewLocal.punctuation)).filter(ReviewLocal.local_id == local_id).scalar()
+    return 0 if not avg else int(avg)
+
+
+def get_all(local_id):
+    review_list = list()
+    review_orm_list = db_session().query(ReviewLocal).filter_by(local_id=local_id).all()
+    for review_orm in review_orm_list:
+        review_list.append(dict(
+            punctuation=review_orm.punctuation,
+            comment=review_orm.comment,
+            writer=review_orm.writer.name
+        ))
+    return review_list

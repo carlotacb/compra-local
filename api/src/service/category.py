@@ -24,3 +24,8 @@ def add_dummy_data():
 def get_id_by_name(name):
     category = db_session().query(Category).filter_by(name=name).first()
     return category.id
+
+
+def get(category_id):
+    category = db_session().query(Category).filter_by(id=category_id).first()
+    return category if category else None

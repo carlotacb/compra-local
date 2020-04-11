@@ -17,7 +17,7 @@ class APIUserPostTest(unittest.TestCase):
         self.user_password = 'superSecureEncodedPassword'
         self.user_type = 'CLIENT'
         self.user_type_wrong = 'RANDOM'
-        self.user_image_path = 'test/mock/user_image.jpeg'
+        self.user_image_path = 'mock/user_image_1.jpg'
 
     def test_status_code(self):
         response = requests.post(self.url, json=dict())

@@ -18,6 +18,10 @@ tags:
     description: endpoint for managing users.
   - name: help
     description: endpoint for managing helpers.
+  - name: admin
+    description: endpoint for managing locals.
+  - name: review
+    description: endpoint for managing reviews.
 
 paths:
 
@@ -272,27 +276,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
-  /admin/:
-    get:
-      tags:
-        - admin
-      summary: Gets all locals information.
-      description: Invoke this endpoint to get a local by its identifier.
-      operationId: src.api.local.get_all
-      responses:
-        200:
-          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIResponse'
-        default:
-          description: Unexpected error.
-          content:
-            application/text:
-              schema:
-                $ref: '#/components/schemas/UnexpectedError'
-
   /admin/{local_id}/:
     get:
       tags:
@@ -320,7 +303,28 @@ paths:
             application/text:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
-  /admin:
+
+  /admin/:
+    get:
+      tags:
+        - admin
+      summary: Gets all locals information.
+      description: Invoke this endpoint to get all locals information.
+      operationId: src.api.local.get_all
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
     post:
       tags:
         - admin
@@ -340,31 +344,31 @@ paths:
                   description: Local name.
                 description:
                   type: string
-                  description: Local description.
+                  description: (optional) Local description.
                 postal_address:
                   type: string
                   description: Local postal address.
-                latitude:
-                  type: number
-                  description: Local laitude position.
-                longitude:
-                  type: number
-                  description: Local longitude position.
+                user_id:
+                  type: integer
+                  description: User indentifier related to the owner.
                 website:
                   type: string
-                  description: Local website.             
+                  description: (optional) Local website.
                 phone_number:
                   type: integer
-                  description: Local phone number.    
+                  description: (optional) Local phone number.
                 pick_up:
                   type: boolean
-                  description: Local pickups allowed.     
+                  description: (optional) Local pickups allowed.
                 delivery:
                   type: boolean
-                  description: Local deliveries allowed.            
+                  description: (optional) Local deliveries allowed.
                 image:
                   type: string
                   description: (optional) Local image base64-encoded.
+                category_id:
+                  type: integer
+                  description: (optional) Category identifier.
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
@@ -460,6 +464,146 @@ paths:
                 order_group_id:
                   type: integer
                   description: Order group identifier.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/local/{local_id}/average:
+    get:
+      tags:
+        - review
+      summary: Gets the average punctuation from local reviews.
+      description: Invoke this endpoint to get the average punctuation from local reviews.
+      operationId: src.api.review.local_average
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/local/{local_id}/all:
+    get:
+      tags:
+        - review
+      summary: Gets all the local reviews.
+      description: Invoke this endpoint to get all the local reviews.
+      operationId: src.api.review.local_all
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/user/{user_id}/average:
+    get:
+      tags:
+        - review
+      summary: Gets the average punctuation from user reviews.
+      description: Invoke this endpoint to get the average punctuation from user reviews.
+      operationId: src.api.review.user_average
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/user/{user_id}/all:
+    get:
+      tags:
+        - review
+      summary: Gets all the user reviews.
+      description: Invoke this endpoint to get all the user reviews.
+      operationId: src.api.review.user_all
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/pending/{user_id}:
+    get:
+      tags:
+        - review
+      summary: Gets all pending reviews from a user.
+      description: Invoke this endpoint to get all pending reviews from a user.
+      operationId: src.api.review.pending
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.

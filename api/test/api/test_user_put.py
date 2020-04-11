@@ -13,7 +13,6 @@ class APIUserPutTest(unittest.TestCase):
         self.user_id_wrong = 0
         self.user_id_not_found = 123456789
         self.user_new_name = 'Albert Suarez'
-        self.user_new_email_address = 'test@test.com'
 
     def test_status_code(self):
         response = requests.put(f'{self.url}/{self.user_id}', json=dict())
@@ -31,7 +30,7 @@ class APIUserPutTest(unittest.TestCase):
 
     def test_edit(self):
         if TEST_RUN_EDITS:
-            request_body = dict(name=self.user_new_name, email_address=self.user_new_email_address)
+            request_body = dict(name=self.user_new_name)
             response = requests.put(f'{self.url}/{self.user_id}', json=request_body).json()
             self.assertEqual(response.get('error'), False)
             self.assertEqual(response.get('response').get('edited'), True)
