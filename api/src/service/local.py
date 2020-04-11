@@ -1,9 +1,12 @@
 from sqlalchemy.exc import IntegrityError
 
+from src.config import TAG_LOCAL_PICK_UP, TAG_LOCAL_DELIVERY, TAG_LOCAL_OPEN
 from src.db.sqlalchemy import db_session
 from src.model.local import Local
 from src.helper import image as image_util, log
 from src.service import category as category_service
+from src.service import opening_hours_item as opening_hours_item_service
+from src.service import review_local as review_local_service
 from src.service import user as user_service
 
 
@@ -88,3 +91,29 @@ def get_all_coordinates():
     for local in db_session().query(Local).all():
         local_dict[local.id] = dict(latitude=local.latitude, longitude=local.longitude)
     return local_dict
+
+
+def get_tags(local_id):
+    tags = []
+    local = db_session().query(Local).filter_by(id=local_id).first()
+    if local.pick_up:
+        tags.append(TAG_LOCAL_PICK_UP)
+    if local.delivery:
+        tags.append(TAG_LOCAL_DELIVERY)
+    if opening_hours_item_service.is_open(local_id):
+        tags.append(TAG_LOCAL_OPEN)
+
+
+def get_from_id_list(local_id_list):
+    local_list = []
+    local_orm_list = db_session().query(Local).filter(Local.id.in_(local_id_list)).all()
+    for local_orm in local_orm_list:
+        local_list.append(dict(
+            id=local_orm.id,
+            name=local_orm.name,
+            description=local_orm.description,
+            category=None if not local_orm.category_id else local_orm.category.name,
+            punctuation=review_local_service.get_average(local_orm.id),
+            tags=get_tags(local_orm.id)
+        ))
+    return local_list
