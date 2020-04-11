@@ -4,6 +4,7 @@ import { getCompletedOrders } from './Orders/CompletedOrders';
 import { getRecivedValorations } from './Profile/RecivedValorations';
 import { getGivenValorations } from './Profile/GivenValoration';
 import { getUserInformation } from './Profile/UserInformation';
+import { getProcesHelper } from './Neighborhood/ProcesHelper';
 
 // Login
 import { login } from './User/Login';
@@ -19,7 +20,8 @@ const endpoints = {
     'getRecivedValorations': getRecivedValorations,
     'getGivenValorations': getGivenValorations,
     'getUserInformation': getUserInformation,
-    'login': login
+    'login': login,
+    'getProcesHelper': getProcesHelper
 }
 
 function get(name) {
