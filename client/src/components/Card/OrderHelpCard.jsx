@@ -45,6 +45,12 @@ const useStyles = makeStyles((theme) => ({
     valorationButton: {
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(2),
+    },
+    helperBox: {
+        backgroundColor: '#E5E5E5',
+        padding: theme.spacing(2),
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
     }
 }));
 
@@ -59,9 +65,9 @@ export function OrderHelpCard(props) {
                 return <div className={classes.outlinedTag}> Confirmat per l'establiment </div>;
             case 2:
                 return <div className={classes.secondaryTag}> La teva comanda ja està preparada! </div>;
-            case 2:
-                return <div className={classes.secondaryTag}> El teu voluntari ja ha recollit la comanda! </div>;
             case 3:
+                return <div className={classes.secondaryTag}> El teu voluntari ja ha recollit la comanda! </div>;
+            case 4:
                 return ( 
                     <div>
                         <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
@@ -87,6 +93,15 @@ export function OrderHelpCard(props) {
         return ticket
     }
 
+    const getHelperInformation = (helper) => {
+        return (
+            <div>
+                <Typography variant="body2">Nom: {helper.name}</Typography>
+                <Typography variant="body2">Teléfon: {helper.phone_number}</Typography>
+            </div>
+        );
+    }
+
     return (
         <Paper className={classes.root}>
             <Grid container direction="row">
@@ -97,7 +112,11 @@ export function OrderHelpCard(props) {
                     <Divider variant="middle" orientation="vertical" />
                 </Grid>
                 <Grid item className={classes.information}>
-                    {getCurrentInformation(3)}
+                    {getCurrentInformation(props.step)}
+                    <div className={classes.helperBox}>
+                        <Typography variant="body1" className={classes.bold}> VOLUNTARI: </Typography>
+                        {props.assigned_helper ? getHelperInformation(props.helper) : <Typography variant="body1" className={classes.bold}> A l'espera de que un voluntari confirmi la comanda. </Typography>}
+                    </div>
                     <Typography variant="body1" className={classes.bold}> Comanda realitzada a: </Typography> 
                     <Typography variant="h4"> {props.local_name} </Typography> 
                     <Typography variant="h5"> {props.total}€ </Typography> 
