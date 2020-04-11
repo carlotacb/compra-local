@@ -93,7 +93,11 @@ def get_all_coordinates():
     return local_dict
 
 
-def edit(local_id, name=None, description=None, postal_address=None, latitude=None, longitude=None, website=None, phone_number=None, pick_up=None, delivery=None, category=None, image=None):
+def edit(
+        local_id,
+        name=None, description=None, postal_address=None, latitude=None, longitude=None,
+        website=None, phone_number=None, pick_up=None, delivery=None, category=None, image=None
+):
     local = get(local_id)
     if local:
         local.name = local.name if name is None else name

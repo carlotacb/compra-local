@@ -79,6 +79,7 @@ def post():
     except Exception as e:
         return response.raise_exception(e)
 
+
 def put(local_id):
     try:
         # Check input
@@ -109,6 +110,7 @@ def put(local_id):
     except Exception as e:
         return response.raise_exception(e)
       
+
 def search(latitude, longitude):
     try:
         # Get all local coordinates

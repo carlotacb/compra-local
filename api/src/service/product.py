@@ -97,7 +97,10 @@ def create(name, price, local_id, currency, price_type, product_group, descripti
         return None, str(e.args[0]).replace('\n', ' ')
 
 
-def edit(local_id, product_id, name=None, price=None, currency=None, price_type=None, description=None, product_group=None):
+def edit(
+        local_id, product_id,
+        name=None, price=None, currency=None, price_type=None, description=None, product_group=None
+):
     product = get_product(local_id, product_id)
 
     if product:
