@@ -22,7 +22,10 @@ export function ListView(props) {
                 container
                 direction="column"
                 className={classes.root}
-                style={{ maxHeight: props.maxHeight + 'em' }}
+                style={{ 
+                    maxHeight: props.maxHeight + 'em',
+                    backgroundColor: props.background
+                }}
             >
                 {props.children}
             </Grid>

@@ -1,30 +1,36 @@
 import React from 'react';
-import { Grid, Button, useTheme, makeStyles, Typography } from '@material-ui/core';
-import { StoreContext } from '../../context/StoreContext';
+import { Grid } from '@material-ui/core';
+
 import { StoreInformation } from './StoreInformation';
-import { ListView } from '../Listview/ListView';
-import { GroupButton } from '../../shared-components/Button/GroupButton';
-
-
-
-
-function StoreProductes() {
-    const { storeInfo, setStoreInfo } = React.useContext(StoreContext);
-
-    return (
-        <p> Productes</p>
-    )
-}
+import { GroupButton } from '../../shared-components';
+import { StoreProducts } from './StoreProducts';
+import { ShoppingCart } from '../';
+import { CartContext } from '../../context/CartContext';
+import { AddProductContext } from '../../context/AddProductContext';
 
 
 export function StoreBody(props) {
     const [page, setPage] = React.useState(0);
+    
+    // Card context
+    const [cart, setCart] = React.useState([]);
+    const cartProviderValue = React.useMemo(
+        ()=> ({cart, setCart}), [cart, setCart]
+    );
 
+    // Add product context
+    const [openAddProduct, setOpenAddProduct] = React.useState({
+        'open': false,
+        'product': undefined
+    });
+    const openAddProductProvider = React.useMemo(
+        () => ({openAddProduct, setOpenAddProduct}, [openAddProduct, setOpenAddProduct])
+    )
 
     function renderPage() {
         if(page == 0) {
             //Productes
-            return <p>Productes</p>
+            return <StoreProducts />
         }
         else if (page == 1) {
             return <StoreInformation />
@@ -41,16 +47,16 @@ export function StoreBody(props) {
             </Grid>
             <Grid item>
                 <Grid container>
-                    <Grid item xs={7}>
-                        {renderPage()}
-                    </Grid>
-                    <Grid item>
-                        <ListView>
-                            <Typography variant="h3">
-                                La teva compra
-                            </Typography>
-                        </ListView>
-                    </Grid>
+                    <CartContext.Provider value={cartProviderValue}>
+                        <Grid item xs={7}>
+                            <AddProductContext.Provider value={openAddProductProvider}>
+                                {renderPage()}
+                            </AddProductContext.Provider>           
+                        </Grid>
+                        <Grid item xs={5}>
+                            <ShoppingCart/>
+                        </Grid>
+                    </CartContext.Provider>
                 </Grid>
             </Grid>
         </Grid>

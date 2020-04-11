@@ -21,7 +21,40 @@ export function getStoreInfo(idStore) {
                 'saturday': '9:00 - 14:00',
                 'sunday': 'Tancat'
             },
-            stars: 4.5
+            stars: 4.5,
+            products: {
+                'Verdura': [
+                    {   
+                        'id': 4,
+                        'name': 'Pebrot',
+                        'description': 'Origen: Valencia',
+                        'unit': 'kg',
+                        'price_unit': '2'
+                    },
+                    {
+                        'id': 3,
+                        'name': 'Tomàquet',
+                        'description': 'Origen: Valencia',
+                        'unit': 'kg',
+                        'price_unit': '3'
+                    }
+                ],
+                'Fruita': [
+                    {
+                        'id': 2,
+                        'name': 'Plàtan',
+                        'unit': 'kg',
+                        'price_unit': '2'
+                    },
+                    {
+                        'id': 1,
+                        'name': 'Kiwi',
+                        'description': 'Origen: Valencia',
+                        'unit': 'kg',
+                        'price_unit': '3'
+                    }
+                ]
+            }
         });
     });
 }
