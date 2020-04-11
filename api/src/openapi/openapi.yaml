@@ -355,13 +355,16 @@ paths:
                   description: (optional) Local phone number.
                 pick_up:
                   type: boolean
-                  description: Local pickups allowed.
+                  description: (optional) Local pickups allowed.
                 delivery:
                   type: boolean
-                  description: Local deliveries allowed.
+                  description: (optional) Local deliveries allowed.
                 image:
                   type: string
                   description: (optional) Local image base64-encoded.
+                category_id:
+                  type: integer
+                  description: (optional) Category identifier.
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
