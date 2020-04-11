@@ -105,6 +105,9 @@ paths:
                 phone_number:
                   type: string
                   description: (optional) User phone number.
+                postal_address:
+                  type: string
+                  description: (optional) User postal address.
                 image:
                   type: string
                   description: (optional) User image base64-encoded.
@@ -149,6 +152,9 @@ paths:
                 password:
                   type: string
                   description: User encoded password.
+                postal_address:
+                  type: string
+                  description: User postal address.
                 type:
                   type: string
                   description: User type.

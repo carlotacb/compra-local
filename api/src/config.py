@@ -26,7 +26,7 @@ MESSAGE_REVIEW_WRONG_PUNCTUATION = 'Punctuation has to be between 0 and 5.'
 MESSAGE_REVIEW_LOCAL_POST_ERROR = 'Error creating the local review.'
 MESSAGE_REVIEW_USER_POST_ERROR = 'Error creating the user review.'
 
-IMAGE_RESIZE_SIZE = (512, 512)
+IMAGE_RESIZE_SIZE = (256, 256)
 IMAGE_OUTPUT_FOLDER_PATH = '/tmp'
 
 DATE_WEEK_DAY_FORMAT = '%A'
