@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 import { UserContext } from "../../context/UserContext";
 import { SpanAlert } from "../../shared-components/Span/SpanAlert";
@@ -82,9 +82,13 @@ export function Login() {
         loginApi(email, password).then((res) => {
             if(!res["error"]) {
                 setError(false);
-                setUser({ userId: res["user"] });
-                history.push('/in');
                 setCookie('iusha', res["user"], { path: '/' });
+                const getUserAPI = ApiFactory.get("getUserInformation");
+                getUserAPI(cookies.uisha)
+                .then((res)=>{
+                    setUser(res);
+                    history.push('/in');
+                });
             }
             else if(res["message"] == "password"){
                 setError(true);
@@ -92,6 +96,9 @@ export function Login() {
         })
     }
 
+    if("iusha" in cookies) {
+        return <Redirect to="/in" />
+    }
     return (
         <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />

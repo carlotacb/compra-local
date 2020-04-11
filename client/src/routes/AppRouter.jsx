@@ -30,8 +30,18 @@ export function AppRouter() {
 
     React.useEffect(() => {
 
-    })
+        if("iusha" in cookies && user === undefined) {
+            const getUserAPI = ApiFactory.get("getUserInformation");
+            getUserAPI(cookies.uisha)
+                .then((res)=>{
+                    setUser(res);
+                });
+        }
+    });
 
+    if( !("iusha" in cookies) || cookies.iusha == undefined) {
+        return <Redirect to="/login" />
+    }
 
     return (
         <Grid container className={classes.root}>
