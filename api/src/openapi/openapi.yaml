@@ -366,6 +366,28 @@ paths:
                 image:
                   type: string
                   description: (optional) Local image base64-encoded.
+
+  /help/assign:
+    post:
+      tags:
+        - help
+      summary: Assigns an order in order to help for picking it up.
+      description: Invoke this endpoint to assign an order in order to help for picking it up.
+      operationId: src.api.help.assign
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: User identifier.
+                order_group_id:
+                  type: integer
+                  description: Order group identifier.
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.

@@ -26,3 +26,9 @@ class APIUserGetTest(unittest.TestCase):
         response = requests.get(f'{self.url}/{self.user_id_not_found}').json()
         self.assertEqual(response.get('error'), True)
         self.assertEqual(response.get('message'), MESSAGE_USER_NOT_FOUND)
+
+    def test_user(self):
+        response = requests.get(f'{self.url}/{self.user_id}').json()
+        self.assertEqual(response.get('error'), False)
+        self.assertIsNotNone(response.get('response').get('user'))
+        self.assertIsNotNone(response.get('response').get('user').get('id'), self.user_id)

@@ -20,7 +20,7 @@ def add_dummy_data():
             ),
             Order(
                 local_id=local_service.get_id_by_name('Bona Fruita Busquets'),
-                order_group_id=2, order_status=OrderStatus.PENDING_PICKUP
+                order_group_id=2, order_status=OrderStatus.PENDING_HELPER
             ),
             Order(
                 local_id=local_service.get_id_by_name('Farmacia Bassegoda'),
