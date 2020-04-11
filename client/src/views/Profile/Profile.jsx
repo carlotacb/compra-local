@@ -8,9 +8,6 @@ import { ApiFactory } from "../../services/ApiFactory";
 
 import { Valorations } from "./Valorations"
 
-import mock from './mock.json'
-import mock2 from './mock2.json'
-
 const useStyles = makeStyles((theme) => ({
     secondTitle: {
         paddingTop: theme.spacing(4),
@@ -20,16 +17,10 @@ const useStyles = makeStyles((theme) => ({
 export function Profile() {
     const { id } = useParams();
     const [ page, setPage ] = useState(0);
-    const [ valorations, setValorations ] = useState(mock);
     const [ recivedValorations, setRecivedValorations ] = useState('');
+    const [ givenValorations, setGivenValorations ] = useState('');
     const [ openModal, setOpenModal ] = useState(false);
     const classes = useStyles();
-
-    const changePage = (p) => {
-        setPage(p)
-        if (p === 0) setValorations(recivedValorations);
-        else setValorations(mock2);
-    }
 
     const handleChangePassword = (oldPassword, newPassword) =>{
         console.log(oldPassword + " - " + newPassword);
@@ -40,6 +31,13 @@ export function Profile() {
         const getRecivedValorationsAPI = ApiFactory.get('getRecivedValorations');
         getRecivedValorationsAPI(id).then((res) => {
             setRecivedValorations(res);
+        });
+    }, []);
+
+    React.useEffect(function getGivenValorations() {
+        const getGivenValorationsAPI = ApiFactory.get('getGivenValorations');
+        getGivenValorationsAPI(id).then((res) => {
+            setGivenValorations(res);
         });
     }, []);
 
@@ -60,8 +58,8 @@ export function Profile() {
                 <Typography variant="h1"> Les teves valoracions </Typography>
             </Grid>
             <Grid item>
-                <GroupButton buttons={["Rebudes", "Realitzades"]} active={page} onClick={(p) => changePage(p)} />
-                <Valorations response={valorations}/>
+                <GroupButton buttons={["Rebudes", "Realitzades"]} active={page} onClick={(p) => setPage(p)} />
+                {(page === 0) ? <Valorations response={recivedValorations}/> : <Valorations response={givenValorations}/>}
             </Grid>
             <PasswordDialog title={'Canviar el password'} onAccept={(op, np) => handleChangePassword(op, np)} open={openModal} onClose={() => setOpenModal(false)}/>
         </Grid>
