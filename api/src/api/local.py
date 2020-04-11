@@ -1,8 +1,9 @@
 from flask import request
 
 from src.config import MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_LOCAL_WRONG_ID, \
-    MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND
+    MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_CATEGORY_NOT_FOUND
 from src.helper import response, maps
+from src.service import category as category_service
 from src.service import local as local_service
 from src.service import user as user_service
 
@@ -44,6 +45,12 @@ def post():
         user = user_service.get(body.get('user_id'))
         if not user:
             return response.make(error=True, message=MESSAGE_USER_NOT_FOUND)
+
+        # Check category
+        if body.get('category_id', None):
+            category = category_service.get(body.get('category_id'))
+            if not category:
+                return response.make(error=True, message=MESSAGE_CATEGORY_NOT_FOUND)
 
         # Compute coordinates
         coordinates = maps.compute_coordinates(body.get('postal_address'))
