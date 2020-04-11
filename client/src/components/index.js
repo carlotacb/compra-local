@@ -11,6 +11,7 @@ import { ProfileBox as PB} from './Box/ProfileBox';
 import { ConfirmationDialog as CD } from './Dialog/ConfirmationDialog';
 import { AddProductDialog as APD } from './Dialog/AddProductDialog';
 import { ValorationDialog as VD } from './Dialog/ValorationDialog';
+import { TicketDialog as TD } from './Dialog/TicketDialog'
 
 // Cards
 import { ReviewCard as RC } from './Card/ReviewCard'
@@ -35,6 +36,7 @@ export const ProfileBox = PB;
 export const ConfirmationDialog = CD;
 export const AddProductDialog = APD;
 export const ValorationDialog = VD;
+export const TicketDialog = TD;
 export const ReviewCard = RC;
 export const StoreBody = StB;
 export const StoreHeader = SH; 
