@@ -118,7 +118,7 @@ export function OrderHelpCard(props) {
             ticket.push(
                 <Grid item className={classes.summary}>
                     <Typography variant="body2"> {ticketAPI[i].product_name} - {ticketAPI[i].quantity} </Typography>  
-                    <Typography variant="body2"> {ticketAPI[i].total_price}€ </Typography>
+                    <Typography variant="body2"> {ticketAPI[i].total_price} € </Typography>
                 </Grid>
             )    
         }
