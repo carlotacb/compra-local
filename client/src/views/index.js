@@ -6,6 +6,7 @@ import {ProcessOrders as PO} from './Orders/ProcessOrders';
 import {CompletedOrders as CO} from './Orders/CompletedOrders';
 import {Neighborhood as N} from './Neighborhood/Neighborhood';
 import {ProcessPickUp as PPU} from './Neighborhood/ProcessPickUp'
+import {NeedHelp as NH} from './Neighborhood/NeedHelp'
 import {Login as L} from './Login/Login';
 
 
@@ -24,3 +25,4 @@ export const CompletedOrders = CO;
 export const Neighborhood = N;
 export const Login = L;
 export const ProcessPickUp = PPU;
+export const NeedHelp = NH;
