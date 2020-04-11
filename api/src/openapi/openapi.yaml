@@ -22,6 +22,8 @@ tags:
     description: endpoint for managing locals.
   - name: review
     description: endpoint for managing reviews.
+  - name: order
+    description: endpoint for managing orders.
 
 paths:
 
@@ -344,16 +346,16 @@ paths:
                   description: (Optional) Local postal address.
                 website:
                   type: string
-                  description: (Optional) Local website.             
+                  description: (Optional) Local website.
                 phone_number:
                   type: integer
-                  description: (Optional) Local phone number.    
+                  description: (Optional) Local phone number.
                 pick_up:
                   type: boolean
-                  description: (Optional) Local pickups allowed.     
+                  description: (Optional) Local pickups allowed.
                 delivery:
                   type: boolean
-                  description: (Optional) Local deliveries allowed.            
+                  description: (Optional) Local deliveries allowed.
                 image:
                   type: string
                   description: (Optional) Local image base64-encoded.
@@ -929,6 +931,34 @@ paths:
       summary: Gets all pending reviews from a user.
       description: Invoke this endpoint to get all pending reviews from a user.
       operationId: src.api.review.pending
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order/completed/user/{user_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all completed orders from a user.
+      description: Invoke this endpoint to get all completed orders from a user.
+      operationId: src.api.order.user_completed
       parameters:
         - in: path
           name: user_id

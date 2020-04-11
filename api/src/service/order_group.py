@@ -79,3 +79,7 @@ def assign(user_id, order_group_object):
     db_session().commit()
     set_order_status_by_group(order_group_object.id, OrderStatus.PENDING_HELPER)
     return True
+
+
+def get_completed_by_user(user_id):
+    return []
