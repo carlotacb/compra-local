@@ -9,7 +9,8 @@ import { ProfileBox as PB} from './Box/ProfileBox';
 
 // Dialogs 
 import { ConfirmationDialog as CD } from './Dialog/ConfirmationDialog';
-import { AddProductDialog as APD} from './Dialog/AddProductDialog';
+import { AddProductDialog as APD } from './Dialog/AddProductDialog';
+import { ValorationDialog as VD } from './Dialog/ValorationDialog';
 
 // Cards
 import { ReviewCard as RC } from './Card/ReviewCard'
@@ -32,6 +33,7 @@ export const StoreCard = SC;
 export const ProfileBox = PB;
 export const ConfirmationDialog = CD;
 export const AddProductDialog = APD;
+export const ValorationDialog = VD;
 export const ReviewCard = RC;
 export const StoreBody = StB;
 export const StoreHeader = SH; 
