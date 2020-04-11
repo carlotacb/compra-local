@@ -1,3 +1,5 @@
+from flask import request
+
 from src.config import MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID
 from src.helper import response
 from src.service import local as local_service
@@ -52,7 +54,7 @@ def post(local_id):
 
         # Check prodcut_group
         if body.get('product_group', None):
-            product_group = product_group.get(body.get('product_group'))
+            product_group = body.get('product_group')
             if not product_group:
                 return response.make(error=True, message=MESSAGE_PRODUCT_GROUP_NOT_FOUND)
 

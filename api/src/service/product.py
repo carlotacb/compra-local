@@ -1,4 +1,5 @@
 from sqlalchemy import and_
+from sqlalchemy.exc import IntegrityError
 
 from src.db.sqlalchemy import db_session
 from src.enum.currency import Currency
@@ -116,7 +117,7 @@ def delete(local_id, product_id):
     product = get_product(local_id, product_id)
 
     if product:
-        db.session.delete(product)
+        db_session().delete(product)
         db_session().commit()
         return True
     else:
