@@ -229,7 +229,10 @@ paths:
             schema:
               type: object
               properties:
-                password:
+                old_password:
+                  type: string
+                  description: User old encoded password.
+                new_password:
                   type: string
                   description: User new encoded password.
       responses:

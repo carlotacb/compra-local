@@ -102,6 +102,11 @@ def login(user_type, email_address, password):
     return None if not user else user.id
 
 
+def check_password(user_id, password):
+    user = db_session().query(User).filter_by(id=user_id, password=password).first()
+    return False if not user else True
+
+
 def get_pending_reviews(user_id):
     # Initialize result
     pending_reviews = list()

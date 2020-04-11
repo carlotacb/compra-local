@@ -1,7 +1,7 @@
 from flask import request
 
 from src.config import MESSAGE_PARAMETERS_REQUIRED, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, \
-    MESSAGE_USER_TYPE_NOT_COMPATIBLE, MESSAGE_USER_POST_ERROR
+    MESSAGE_USER_TYPE_NOT_COMPATIBLE, MESSAGE_USER_POST_ERROR, MESSAGE_USER_WRONG_PASSWORD
 from src.enum.user_type import UserType
 from src.helper import response
 from src.service import user as user_service
@@ -113,11 +113,15 @@ def password(user_id):
             return response.make(error=True, message=MESSAGE_USER_NOT_FOUND)
         # Get input
         body = request.json
-        required_parameters = ['password']
+        required_parameters = ['old_password', 'new_password']
         if not all(x in body for x in required_parameters):
             return response.make(error=True, message=MESSAGE_PARAMETERS_REQUIRED)
+        # Check current password
+        password_correct = user_service.check_password(user_id=user_id, password=body.get('old_password'))
+        if not password_correct:
+            return response.make(error=True, message=MESSAGE_USER_WRONG_PASSWORD)
         # Process
-        edited = user_service.edit_password(user_id, body.get('password'))
+        edited = user_service.edit_password(user_id, body.get('new_password'))
         return response.make(error=False, response=dict(edited=edited))
     except Exception as e:
         return response.raise_exception(e)
