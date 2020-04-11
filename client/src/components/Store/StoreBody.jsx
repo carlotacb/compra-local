@@ -13,15 +13,7 @@ export function StoreBody(props) {
     const [page, setPage] = React.useState(0);
     
     // Card context
-    const [cart, setCart] = React.useState([
-        {
-            'id': 5,
-            'name': 'Plàtan',
-            'quantity': '0.2',
-            'unit': 'kg',
-            'price_unit': '1.5',
-        }
-    ]);
+    const [cart, setCart] = React.useState([]);
     const cartProviderValue = React.useMemo(
         ()=> ({cart, setCart}), [cart, setCart]
     );

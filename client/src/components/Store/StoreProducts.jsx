@@ -36,6 +36,13 @@ export function StoreProducts() {
         setDialogOpen(true);
     }
 
+    function handleCancel(){
+        setDialogOpen(false);
+        openAddProduct["open"] = false;
+        openAddProduct["product"] = undefined;
+        setOpenAddProduct(openAddProduct);
+    }
+
     function handleAcceptProduct(product){
         var repeated = false;
         var acart = [...cart];
@@ -116,7 +123,7 @@ export function StoreProducts() {
                 open={isDialogOpen}
                 title="Producte"
                 onAccept={(p) => handleAcceptProduct(p)}
-                onClose={() => (setDialogOpen(false))}
+                onClose={() => handleCancel()}
                 product={openAddProduct["product"]}
                 />
             }
