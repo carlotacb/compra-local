@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
-import { VerticalStepper } from "../../components";
+import { VerticalStepper, ValorationDialog } from "../../components";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function OrderCard(props) {
     const classes = useStyles();
+    const [openModal, setOpenModal] = React.useState(false);
 
     const getCurrentInformation = (currentStep) => {
         switch(currentStep) {
@@ -65,11 +66,17 @@ export function OrderCard(props) {
                     <div>
                         <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
                         <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
-                        <Button variant="contained" color="primary" className={classes.valorationButton}> ESCRIU VALORACIÓ </Button>
+                        <Button variant="contained" color="primary" className={classes.valorationButton} onClick={() => setOpenModal(true)}> ESCRIU VALORACIÓ </Button>
                     </div>
                 );
         }
     }
+
+    const handleAcceptProduct = (punctuation, valoration) =>{
+        console.log(punctuation + " - " + valoration);
+        setOpenModal(false);
+    }
+
 
     const resumcompra = () => {
         const ticketAPI = props.ticket;
@@ -104,6 +111,7 @@ export function OrderCard(props) {
                     {resumcompra()}
                 </Grid>
             </Grid>
+            <ValorationDialog open={openModal} title="Valora la teva compra" onAccept={(punct, comm) => handleAcceptProduct(punct, comm)} onClose={() => setOpenModal(false)} />
         </Paper>
     )
 }
