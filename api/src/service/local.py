@@ -4,6 +4,7 @@ from src.db.sqlalchemy import db_session
 from src.model.local import Local
 from src.helper import image as image_util, log
 from src.service import category as category_service
+from src.service import user as user_service
 
 
 def add_dummy_data():
@@ -42,7 +43,7 @@ def get_all():
 
 
 def create(
-        name, postal_address, latitude, longitude,
+        name, postal_address, user_id, latitude, longitude,
         description=None, website=None, phone_number=None, pick_up=True, delivery=False, category_id=None, image=None
 ):
     try:
@@ -65,6 +66,13 @@ def create(
                 local.image = decoded_image
         db_session().add(local)
         db_session().commit()
+
+        # Set local to user
+        user = user_service.get(user_id)
+        if user:
+            user.local_id = local.id
+            db_session().commit()
+
         return local.id, None
     except IntegrityError as e:
         return None, str(e.args[0]).replace('\n', ' ')

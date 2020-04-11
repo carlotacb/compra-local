@@ -347,6 +347,9 @@ paths:
                 postal_address:
                   type: string
                   description: Local postal address.
+                user_id:
+                  type: integer
+                  description: User indentifier related to the owner.
                 website:
                   type: string
                   description: (optional) Local website.

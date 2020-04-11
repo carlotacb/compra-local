@@ -1,9 +1,10 @@
 from flask import request
 
 from src.config import MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_LOCAL_WRONG_ID, \
-    MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS
+    MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND
 from src.helper import response, maps
 from src.service import local as local_service
+from src.service import user as user_service
 
 
 def get(local_id):
@@ -33,9 +34,16 @@ def post():
     try:
         # Check input
         body = request.json
-        required_parameters = ['name', 'postal_address']
+        required_parameters = ['name', 'postal_address', 'user_id']
         if not all(x in body for x in required_parameters):
             return response.make(error=True, message=MESSAGE_PARAMETERS_REQUIRED)
+        if not body.get('user_id') or body.get('user_id') <= 0:
+            return response.make(error=True, message=MESSAGE_USER_WRONG_ID)
+
+        # Check user
+        user = user_service.get(body.get('user_id'))
+        if not user:
+            return response.make(error=True, message=MESSAGE_USER_NOT_FOUND)
 
         # Compute coordinates
         coordinates = maps.compute_coordinates(body.get('postal_address'))
@@ -45,6 +53,7 @@ def post():
         local_id, error_message = local_service.create(
             name=body.get('name'),
             postal_address=body.get('postal_address'),
+            user_id=body.get('user_id'),
             latitude=coordinates[0],
             longitude=coordinates[1],
             website=body.get('website', None),
