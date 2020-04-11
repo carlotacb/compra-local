@@ -17,6 +17,7 @@ import { ReviewCard as RC } from './Card/ReviewCard'
 import { OrderCard as OC } from './Card/OrderCard'
 import { OrderHelpCard as OHC } from './Card/OrderHelpCard'
 import { OrderDeliveryCard as ODC } from './Card/OrderDeliveryCard'
+import { CompletedOrderCard as COC } from './Card/CompletedOrderCard'
 
 //Store 
 import { StoreBody as StB } from './Store/StoreBody';
@@ -40,6 +41,7 @@ export const StoreHeader = SH;
 export const OrderCard = OC; 
 export const OrderHelpCard = OHC; 
 export const OrderDeliveryCard = ODC; 
+export const CompletedOrderCard = COC
 export const VerticalStepper = VS;
 export const StoreProduct = SP;
 export const ShoppingCart = SCart;

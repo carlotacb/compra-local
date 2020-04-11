@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
-import { Stars } from '../../shared-components'
 
 
 const useStyles = makeStyles((theme) => ({
