@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import { OrderCard } from '../../components';
 import { ApiFactory } from "../../services/ApiFactory";
 
-export function Orders() {
+export function ProcessOrders() {
     const { id } = useParams();
     const [ currentOrders, setCurrentOrders ] = useState([]);
 
