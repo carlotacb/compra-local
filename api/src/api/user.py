@@ -35,9 +35,13 @@ def put(user_id):
         request_json = request.json
         name = request_json.get('name', None)
         email_address = request_json.get('email_address', None)
+        phone_number = request_json.get('phone_number', None)
         image = request_json.get('image', None)
         # Process
-        edited = user_service.edit(user_id, name=name, email_address=email_address, image=image)
+        edited = user_service.edit(
+            user_id,
+            name=name, email_address=email_address, phone_number=phone_number, image=image
+        )
         return response.make(error=False, response=dict(edited=edited))
     except Exception as e:
         return response.raise_exception(e)
@@ -61,6 +65,7 @@ def post():
             email_address=body.get('email_address'),
             password=body.get('password'),
             user_type=user_type,
+            phone_number=body.get('phone_number'),
             image=body.get('image', None)
         )
         if user_id:
