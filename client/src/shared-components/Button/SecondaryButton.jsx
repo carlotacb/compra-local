@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 export function SecondaryButton(props) {
     const classes = useStyles();
     return (
-        <Button className={classes.root} variant="contained" color="secondary">
+        <Button className={classes.root} variant="contained" color="secondary" onClick={props.onClick}>
             {props.children}
         </Button>
     )

@@ -69,6 +69,10 @@ export function ProfileBox(props) {
                 <Typography variant="h5"> Correu electrónic </Typography>
                 {editable ? <TextField id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
             </Grid>
+            <Grid item className={classes.content}> 
+                <Typography variant="h5"> Numero de telefon </Typography>
+                {editable ? <TextField id="standard-basic" defaultValue={props.phone_number} type="number"/> : <Typography> {props.phone_number} </Typography> }
+            </Grid>
             <ConfirmationDialog open={openModal} cancel={() => handleCancel()} accept={() => handleAccept()} title={'Cancelar canvis'} message={'Estas segur de que vols cancelar els canvis? Si canceles els canvis es perdran'}/>
         </Grid>
     )
