@@ -31,7 +31,7 @@ class APILocalGetTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_LOCAL_NOT_FOUND)
 
     def test_local_id_not_found(self):
-        response = requests.get(f'{self.url}/{self.local_id_not_found}/product/{self.product_id_not_found}').json()
+        response = requests.get(f'{self.url}/{self.local_id}/product/{self.product_id_not_found}').json()
         self.assertEqual(response.get('error'), True)
         self.assertEqual(response.get('message'), MESSAGE_PRODUCT_NOT_FOUND)
 
@@ -39,7 +39,7 @@ class APILocalGetTest(unittest.TestCase):
         response = requests.get(f'{self.url}/{self.local_id}/product/{self.product_id_wrong}').json()
         self.assertEqual(response.get('error'), True)
         self.assertEqual(response.get('message'), MESSAGE_PRODUCT_WRONG_ID)
-    
+
     def test_product(self):
         response = requests.get(f'{self.url}/{self.local_id}/product/{self.product_id}').json()
         self.assertEqual(response.get('error'), False)

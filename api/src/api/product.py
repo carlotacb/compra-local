@@ -11,6 +11,8 @@ def get(local_id, product_id):
         # Check input
         if not local_id or local_id <= 0:
             return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        if not product_id or product_id <= 0:
+            return response.make(error=True, message=MESSAGE_PRODUCT_WRONG_ID)
         # Get instance
         local = local_service.get(local_id)
         if not local:
