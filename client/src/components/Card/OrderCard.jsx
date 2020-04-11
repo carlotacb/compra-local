@@ -96,8 +96,11 @@ export function OrderCard(props) {
     return (
         <Paper className={classes.root}>
             <Grid container direction="row">
-                <Grid item>
-                    <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Per recollir', 'Recollit']}/>
+                <Grid item xs={3}>
+                    {props.delivery ?
+                        <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Preparat per enviar', 'Enviant', 'Comanda realitzada']}/> :  
+                        <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Per recollir', 'Recollit']}/>
+                    }
                 </Grid>
                 <Grid item>
                     <Divider variant="middle" orientation="vertical" />
