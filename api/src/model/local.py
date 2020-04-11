@@ -39,5 +39,5 @@ class Local(Base):
             pick_up=self.pick_up,
             delivery=self.delivery,
             image=self.image,
-            category_id=self.category_id
+            category=None if not self.category_id else self.category.name
         )
