@@ -47,6 +47,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(2),
     },
+    valorationDistribution: {
+        display: 'flex',
+	    flexDirection: 'row',
+	    flexWrap: 'nowrap',
+	    justifyContent: 'space-between',
+	    alignItems: 'stretch',
+	    alignContent: 'stretch',
+    },
     helperBox: {
         backgroundColor: '#E5E5E5',
         padding: theme.spacing(2),
@@ -69,12 +77,19 @@ export function OrderHelpCard(props) {
             case 3:
                 return <div className={classes.secondaryTag}> El teu voluntari ja ha recollit la comanda! </div>;
             case 4:
-                return ( 
-                    <div>
-                        <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
-                        <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
-                        <Button variant="contained" color="primary" className={classes.valorationButton}> ESCRIU VALORACIÓ </Button>
-                    </div>
+                return (
+                    <div className={classes.valorationDistribution}>
+                        <div>
+                            <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
+                            <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
+                            <Button variant="contained" color="primary" className={classes.valorationButton}> ESCRIU VALORACIÓ </Button>
+                        </div>
+                        <div>
+                            <Typography variant="body1" className={classes.title}> Que tal el teu voluntari? </Typography>
+                            <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
+                            <Button variant="contained" color="primary" className={classes.valorationButton}> ESCRIU VALORACIÓ </Button>
+                        </div>
+                    </div> 
                 );
         }
     }
