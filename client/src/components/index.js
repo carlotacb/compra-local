@@ -11,7 +11,8 @@ import { ProfileBox as PB} from './Box/ProfileBox';
 import { ConfirmationDialog as CD } from './Dialog/ConfirmationDialog';
 import { AddProductDialog as APD } from './Dialog/AddProductDialog';
 import { ValorationDialog as VD } from './Dialog/ValorationDialog';
-import { TicketDialog as TD } from './Dialog/TicketDialog'
+import { TicketDialog as TD } from './Dialog/TicketDialog';
+import { PasswordDialog as PD } from './Dialog/PasswordDialog';
 
 // Cards
 import { ReviewCard as RC } from './Card/ReviewCard'
@@ -47,3 +48,4 @@ export const CompletedOrderCard = COC
 export const VerticalStepper = VS;
 export const StoreProduct = SP;
 export const ShoppingCart = SCart;
+export const PasswordDialog = PD;
