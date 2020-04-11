@@ -95,7 +95,7 @@ export function OrderCard(props) {
                     <Divider variant="middle" orientation="vertical" />
                 </Grid>
                 <Grid item className={classes.information}>
-                    {getCurrentInformation(3)}
+                    {getCurrentInformation(props.step)}
                     <Typography variant="body1" className={classes.bold}> Comanda realitzada a: </Typography> 
                     <Typography variant="h4"> {props.local_name} </Typography> 
                     <Typography variant="h5"> {props.total}€ </Typography> 
