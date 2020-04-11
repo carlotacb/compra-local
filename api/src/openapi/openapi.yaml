@@ -272,10 +272,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
-  /alllocal:
+  /admin/:
     get:
       tags:
-        - alllocal
+        - admin
       summary: Gets all locals information.
       description: Invoke this endpoint to get a local by its identifier.
       operationId: src.api.local.get_all
@@ -294,10 +294,10 @@ paths:
                 $ref: '#/components/schemas/UnexpectedError'
 
 
-  /local/{local_id}:
+  /admin/{local_id}:
     get:
       tags:
-        - local
+        - admin
       summary: Gets a local by its identifier.
       description: Invoke this endpoint to get a local by its identifier.
       operationId: src.api.local.get
@@ -321,10 +321,10 @@ paths:
             application/text:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
-  /local:
+  /admin:
     post:
       tags:
-        - local
+        - admin
       summary: Creates a local using its information.
       description: Invoke this endpoint to create a user using its information.
       operationId: src.api.local.post
@@ -366,6 +366,19 @@ paths:
                 image:
                   type: string
                   description: (optional) Local image base64-encoded.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
 
   /help/assign:
     post:

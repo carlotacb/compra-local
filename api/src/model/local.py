@@ -39,6 +39,6 @@ class Local(Base):
             phone_number=self.phone_number,
             pick_up=self.pick_up,
             delivery=self.delivery,
-            image=image_util.decode_base64(self.image),
+            image=self.image,
             category_id=self.category_id
         )
