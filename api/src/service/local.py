@@ -2,7 +2,7 @@ from sqlalchemy.exc import IntegrityError
 
 from src.db.sqlalchemy import db_session
 from src.model.local import Local
-from src.helper import log, image
+from src.helper import image as image_util, log
 from src.service import category as category_service
 
 

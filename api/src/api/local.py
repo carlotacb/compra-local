@@ -1,6 +1,6 @@
 from flask import request
 
-from src.config import MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED 
+from src.config import MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_LOCAL_WRONG_ID
 from src.helper import response
 from src.service import local as local_service
 
@@ -9,11 +9,11 @@ def get(local_id):
     try:
         # Check input
         if not local_id or local_id <= 0:
-            return response.make(error=True, message=MESSAGE_USER_WRONG_ID)
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
         # Get instance
         local = local_service.get(local_id)
         if not local:
-            return response.make(error=True, message=MESSAGE_USER_NOT_FOUND)
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
         # Return instance object
         return response.make(error=False, response=dict(local=local.serialize()))
     except Exception as e:
