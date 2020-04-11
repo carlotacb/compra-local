@@ -31,5 +31,5 @@ class APIProductGetLocalTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_LOCAL_NOT_FOUND)
 
     def test_products_from_local(self):
-        response = requests.get(f'{self.url}/{self.local_id}/product')
+        response = requests.get(f'{self.url}/{self.local_id}/product').json()
         self.assertEqual(response.get('error'), False)
