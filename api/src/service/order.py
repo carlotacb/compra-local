@@ -25,6 +25,10 @@ def add_dummy_data():
             Order(
                 local_id=local_service.get_id_by_name('Farmacia Bassegoda'),
                 order_group_id=3, order_status=OrderStatus.PENDING_PICKUP
+            ),
+            Order(
+                local_id=local_service.get_id_by_name('Bona Fruita Busquets'),
+                order_group_id=4, order_status=OrderStatus.COMPLETED
             )
         ]
         db_session().bulk_save_objects(object_list)
