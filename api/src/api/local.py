@@ -22,12 +22,7 @@ def get(local_id):
 
 def get_all():
     try:
-        locals = local_service.get_all()
-        print(locals)
-        local_list = []
-        for local in locals:
-            local_list.append(local.serialize())
-        print(local_list)
+        local_list = [local.serialize() for local in local_service.get_all()]
         return response.make(error=False, response=dict(locals=local_list))
     except Exception as e:
         return response.raise_exception(e)

@@ -42,13 +42,24 @@ def get_all():
     return local if local else None
 
 
-def create(name, description, postal_address, latitude, longitude, website, phone_number, pick_up, delivery, category, image=None):
+def create(
+        name, description, postal_address, latitude, longitude,
+        website, phone_number, pick_up, delivery, category, image=None
+):
     try:
-        local = Local(name=name, description=description, 
-                      postal_address=postal_address, latitude=latitude,
-                      longitude=longitude, website=website, phone_number=phone_number,
-                      pick_up=pick_up, delivery=delivery, image=image,
-                      category_id=category)
+        local = Local(
+            name=name,
+            description=description,
+            postal_address=postal_address,
+            latitude=latitude,
+            longitude=longitude,
+            website=website,
+            phone_number=phone_number,
+            pick_up=pick_up,
+            delivery=delivery,
+            image=image,
+            category_id=category
+        )
         if image:
             decoded_image = image_util.resize(image)
             if decoded_image:
@@ -63,11 +74,6 @@ def create(name, description, postal_address, latitude, longitude, website, phon
 def get_id_by_name(name):
     local = db_session().query(Local).filter_by(name=name).first()
     return local.id
-
-
-def get(local_id):
-    local = db_session().query(Local).filter_by(id=local_id).first()
-    return local if local else None
 
 
 def get_all_coordinates():

@@ -3,7 +3,6 @@ import sqlalchemy as db
 from sqlalchemy.orm import relationship
 
 from src.db import helper
-from src.helper import image as image_util
 from src.db.sqlalchemy import Base
 from src.model.category import Category
 
