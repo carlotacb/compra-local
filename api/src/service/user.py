@@ -1,8 +1,14 @@
+from sqlalchemy import and_, true
 from sqlalchemy.exc import IntegrityError
 
 from src.db.sqlalchemy import db_session
+from src.enum.order_status import OrderStatus, OrderGroupStatus
 from src.enum.user_type import UserType
 from src.helper import image as image_util, log
+from src.model.order import Order
+from src.model.order_group import OrderGroup
+from src.model.review_local import ReviewLocal
+from src.model.review_user import ReviewUser
 from src.model.user import User
 
 
@@ -87,3 +93,32 @@ def create(name, email_address, password, user_type, image=None):
 def login(user_type, email_address, password):
     user = db_session().query(User).filter_by(type=user_type, email_address=email_address, password=password).first()
     return None if not user else user.id
+
+
+def get_pending_reviews(user_id):
+    # Initialize result
+    pending_reviews = list()
+    # Get local reviews
+    order_without_local_reviews_list = db_session().query(OrderGroup, Order).filter(and_(
+        OrderGroup.id == Order.order_group_id,
+        OrderGroup.user_id == user_id, Order.order_status == OrderStatus.COMPLETED,
+        Order.id.notin_(db_session().query(ReviewLocal.order_id).all())
+    )).all()
+    for item in order_without_local_reviews_list:
+        pending_reviews.append(dict(
+            order_group_id=None, order_id=item[1].id,
+            local_name=item[1].local.name, user_name=None, type=UserType.business.value
+        ))
+    # Get user reviews
+    order_group_without_user_reviews_list = db_session().query(OrderGroup).filter(and_(
+        OrderGroup.user_id == user_id, OrderGroup.order_group_status == OrderGroupStatus.COMPLETED,
+        OrderGroup.helper_needed == true(),
+        OrderGroup.id.notin_(db_session().query(ReviewUser.order_group_id).all())
+    )).all()
+    for item in order_group_without_user_reviews_list:
+        pending_reviews.append(dict(
+            order_group_id=item.id, order_id=None,
+            local_name=None, user_name=item.helper.name, type=UserType.client.value
+        ))
+    # Return
+    return pending_reviews
