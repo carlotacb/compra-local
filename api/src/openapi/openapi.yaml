@@ -449,6 +449,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
+  /admin/search:
+    get:
+      tags:
+        - admin
+      summary: Gets a list of locals around you.
+      description: Invoke this endpoint to get a list of locals around you.
+      operationId: src.api.local.search
+      parameters:
+        - in: query
+          name: latitude
+          description: User latitude.
+          required: true
+          schema:
+            type: number
+            format: float
+        - in: query
+          name: longitude
+          description: User longitude.
+          required: true
+          schema:
+            type: number
+            format: float
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
   /admin/{local_id}/product:
     post:
       tags:
