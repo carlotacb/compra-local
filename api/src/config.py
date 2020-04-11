@@ -17,6 +17,7 @@ MESSAGE_LOCAL_NOT_FOUND = 'Local not found.'
 MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS = 'Postal address given is not correct.'
 MESSAGE_CATEGORY_NOT_FOUND = 'Category not found.'
 MESSAGE_PRODUCT_WRONG_ID = 'Product identifier has to be greater than 0.'
+MESSAGE_PRODUCT_GROUP_NOT_FOUND = 'Product group not found.'
 
 IMAGE_RESIZE_SIZE = (512, 512)
 IMAGE_OUTPUT_FOLDER_PATH = '/tmp'

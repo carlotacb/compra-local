@@ -1,6 +1,6 @@
 from flask import request
 
-from src.config import MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID
+from src.config import MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID, MESSAGE_PRODUCT_GROUP_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED
 from src.helper import response
 from src.service import local as local_service
 from src.service import product as product_service
@@ -77,6 +77,7 @@ def post(local_id):
 
 def put(local_id, product_id):
     try:
+        body = request.json
         # Check input
         if not local_id or local_id <= 0:
             return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
