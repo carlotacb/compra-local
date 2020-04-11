@@ -3,6 +3,7 @@ import sqlalchemy as db
 from sqlalchemy.orm import relationship
 
 from src.db import helper
+from src.helper import image as image_util
 from src.db.sqlalchemy import Base
 from src.model.category import Category
 
@@ -25,3 +26,19 @@ class Local(Base):
     category_id = db.Column(db.Integer, db.ForeignKey(f'{Category.__tablename__}.id'))
 
     category = relationship(Category.__name__)
+
+    def serialize(self):
+        return dict(
+            id=self.id,
+            name=self.name,
+            description=self.description,
+            postal_address=self.postal_address,
+            latitude=self.latitude,
+            longitude=self.longitude,
+            website=self.website,
+            phone_number=self.phone_number,
+            pick_up=self.pick_up,
+            delivery=self.delivery,
+            image=self.image,
+            category_id=self.category_id
+        )
