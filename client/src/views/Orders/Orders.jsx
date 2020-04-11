@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { Grid } from "@material-ui/core";
+import { GroupButton } from '../../shared-components/';
+import { ProcessOrders } from "../../views";
 
 export function Orders() {
+    const [ page, setPage ] = useState(0);
+
+    const changePage = (p) => {
+        setPage(p)
+    }
+
     return (
-        <h1>This is the Orders page</h1>
+        <Grid container direction="column" justify="space-between">
+            <Grid item>
+                <GroupButton buttons={["Comandes en procés", "Comandes completades"]} active={page} onClick={(p) => changePage(p)} />
+                <ProcessOrders />
+            </Grid>
+        </Grid>
     )
 }

@@ -1,7 +1,8 @@
 from flask import request
 
 from src.config import MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_LOCAL_WRONG_ID, \
-    MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_CATEGORY_NOT_FOUND
+    MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_CATEGORY_NOT_FOUND, \
+    MESSAGE_LOCAL_POST_ERROR
 from src.helper import response, maps
 from src.service import category as category_service
 from src.service import local as local_service
@@ -74,7 +75,7 @@ def post():
         if local_id:
             return response.make(error=False, response=dict(local_id=local_id))
         else:
-            return response.make(error=True, message=f'{MESSAGE_PARAMETERS_REQUIRED} - {error_message}')
+            return response.make(error=True, message=f'{MESSAGE_LOCAL_POST_ERROR} - {error_message}')
     except Exception as e:
         return response.raise_exception(e)
 
