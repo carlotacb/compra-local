@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { Grid } from "@material-ui/core";
 import { ApiFactory } from "../../services/ApiFactory";
+import { CompletedOrderCard } from '../../components'
 
 export function CompletedOrders() {
     const { id } = useParams();
@@ -20,7 +21,7 @@ export function CompletedOrders() {
         const orders = [];
 
         for (var i = 0; i < resp.length; ++i) {
-            orders.push(<h1>{resp[i].local_name} </h1> )
+            orders.push(<CompletedOrderCard date={resp[i].complition_date} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket} />)
         }
         return orders
     }
