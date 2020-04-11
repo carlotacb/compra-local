@@ -4,7 +4,7 @@ import requests
 from src.config import PYTHON_MODULE_PORT, MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID, MESSAGE_PRODUCT_NOT_FOUND
 
 
-class APIProductGetTest(unittest.TestCase):
+class APIProductGetLocalTest(unittest.TestCase):
 
     def setUp(self):
         self.url = f'http://localhost:{PYTHON_MODULE_PORT}/admin'

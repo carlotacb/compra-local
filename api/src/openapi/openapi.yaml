@@ -455,7 +455,7 @@ paths:
         - admin
       summary: Create a product to a given local.
       description: Invoke this endpoint to get all the local products.
-      operationId: src.api.product.local_all
+      operationId: src.api.product.post
       parameters:
         - in: path
           name: local_id
@@ -504,6 +504,32 @@ paths:
             application/text:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
+    get:
+        tags:
+          - admin
+        summary: Get an specific product of a local.
+        description: Invoke this endpoint to get all the local products.
+        operationId: src.api.product.local_all
+        parameters:
+          - in: path
+            name: local_id
+            description: Local identifier.
+            required: true
+            schema:
+              type: integer
+        responses:
+          200:
+            description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/APIResponse'
+          default:
+            description: Unexpected error.
+            content:
+              application/text:
+                schema:
+                  $ref: '#/components/schemas/UnexpectedError'
 
   /admin/{local_id}/product/{product_id}:
     get:
