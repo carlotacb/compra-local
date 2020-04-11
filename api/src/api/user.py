@@ -1,7 +1,7 @@
 from flask import request
 
 from src.config import MESSAGE_PARAMETERS_REQUIRED, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, \
-    MESSAGE_USER_TYPE_NOT_COMPATIBLE, MESSAGE_USER_POST_ERROR
+    MESSAGE_USER_TYPE_NOT_COMPATIBLE, MESSAGE_USER_POST_ERROR, MESSAGE_USER_WRONG_PASSWORD
 from src.enum.user_type import UserType
 from src.helper import response
 from src.service import user as user_service
@@ -35,9 +35,13 @@ def put(user_id):
         request_json = request.json
         name = request_json.get('name', None)
         email_address = request_json.get('email_address', None)
+        phone_number = request_json.get('phone_number', None)
         image = request_json.get('image', None)
         # Process
-        edited = user_service.edit(user_id, name=name, email_address=email_address, image=image)
+        edited = user_service.edit(
+            user_id,
+            name=name, email_address=email_address, phone_number=phone_number, image=image
+        )
         return response.make(error=False, response=dict(edited=edited))
     except Exception as e:
         return response.raise_exception(e)
@@ -61,6 +65,7 @@ def post():
             email_address=body.get('email_address'),
             password=body.get('password'),
             user_type=user_type,
+            phone_number=body.get('phone_number'),
             image=body.get('image', None)
         )
         if user_id:
@@ -108,11 +113,15 @@ def password(user_id):
             return response.make(error=True, message=MESSAGE_USER_NOT_FOUND)
         # Get input
         body = request.json
-        required_parameters = ['password']
+        required_parameters = ['old_password', 'new_password']
         if not all(x in body for x in required_parameters):
             return response.make(error=True, message=MESSAGE_PARAMETERS_REQUIRED)
+        # Check current password
+        password_correct = user_service.check_password(user_id=user_id, password=body.get('old_password'))
+        if not password_correct:
+            return response.make(error=True, message=MESSAGE_USER_WRONG_PASSWORD)
         # Process
-        edited = user_service.edit_password(user_id, body.get('password'))
+        edited = user_service.edit_password(user_id, body.get('new_password'))
         return response.make(error=False, response=dict(edited=edited))
     except Exception as e:
         return response.raise_exception(e)
