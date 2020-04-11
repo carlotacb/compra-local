@@ -92,7 +92,8 @@ def edit_password(user_id, new_password):
 
 
 def create(
-        name, email_address, password, user_type, postal_address, latitude, longitude, phone_number=None, image=None
+        name, email_address, password, user_type,
+        postal_address=None, latitude=None, longitude=None, phone_number=None, image=None
 ):
     try:
         user = User(

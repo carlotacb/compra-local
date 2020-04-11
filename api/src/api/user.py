@@ -60,7 +60,7 @@ def post():
     try:
         # Check input
         body = request.json
-        required_parameters = ['name', 'email_address', 'password', 'type', 'postal_address']
+        required_parameters = ['name', 'email_address', 'password', 'type']
         if not all(x in body for x in required_parameters):
             return response.make(error=True, message=MESSAGE_PARAMETERS_REQUIRED)
 
@@ -69,9 +69,11 @@ def post():
         user_type = UserType.client if body.get('type') == UserType.client.value else UserType.business
 
         # Compute coordinates
-        coordinates = maps.compute_coordinates(body.get('postal_address'))
-        if not coordinates:
-            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS)
+        coordinates = (None, None)
+        if body.get('postal_address', None):
+            coordinates = maps.compute_coordinates(body.get('postal_address'))
+            if not coordinates:
+                return response.make(error=True, message=MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS)
 
         # Create instance
         user_id, error_message = user_service.create(
@@ -79,8 +81,8 @@ def post():
             email_address=body.get('email_address'),
             password=body.get('password'),
             user_type=user_type,
-            phone_number=body.get('phone_number'),
-            postal_address=body.get('postal_address'),
+            phone_number=body.get('phone_number', None),
+            postal_address=body.get('postal_address', None),
             latitude=coordinates[0],
             longitude=coordinates[1],
             image=body.get('image', None)
