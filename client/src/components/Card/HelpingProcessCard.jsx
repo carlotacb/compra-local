@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     },
     uppercase: {
         textTransform: 'uppercase'
+    },
+    marginBottom: {
+        marginBottom: theme.spacing(2),
     }
 }));
 
@@ -59,12 +62,12 @@ export function HelpingProcessCard(props) {
     const getOrderListInformation = () => {
         const response = props.orderList;
         const orderList = []
-        for (var i = 0; i < response.lenght; ++i) {
+        for (var i = 0; i < response.length; ++i) {
             orderList.push(
-                <Grid item>
+                <Grid item className={classes.marginBottom}>
                     <Grid item className={classes.shopName}>
-                        <Typography variant="h4" className={classes.uppercase}> {response[i].local_name} </Typography>     
-                        <Typography variant="h4" className={classes.tag}> {response[i].status} </Typography>     
+                        <Typography variant="h5" className={classes.uppercase}> {response[i].name} </Typography>     
+                        <Typography className={classes.tag}> {response[i].status} </Typography>     
                     </Grid>
                     <Typography variant="h6"> {response[i].total} €</Typography> 
                     <Typography variant="h6"> Direcció: {response[i].postal_adress} </Typography>                         
@@ -81,7 +84,7 @@ export function HelpingProcessCard(props) {
                 <Grid item xs={8} className={classes.information}>
                     {getOrderListInformation()}
                     <Grid item>
-                        <Typography variant="h5"> Total: {props.total} </Typography>
+                        <Typography variant="h5"> TOTAL: {props.total} € </Typography>
                     </Grid>
                 </Grid>
                 <Grid item>
