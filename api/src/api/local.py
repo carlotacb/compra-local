@@ -67,7 +67,7 @@ def put(local_id):
         # Check input
         if not local_id or local_id <= 0:
             return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
-        # Check user
+        # Check local
         local = local_service.get(local_id)
         if not local:
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
