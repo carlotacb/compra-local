@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
-import { UserContext } from "../../context/UserContext";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 import { SecondaryButton, GroupButton } from '../../shared-components/';
 import { ProfileBox, PasswordDialog } from "../../components";
@@ -19,6 +18,7 @@ export function Profile() {
     const [ page, setPage ] = useState(0);
     const [ recivedValorations, setRecivedValorations ] = useState('');
     const [ givenValorations, setGivenValorations ] = useState('');
+    const [ userInformation, setUserInformation ] = useState('');
     const [ openModal, setOpenModal ] = useState(false);
     const classes = useStyles();
 
@@ -41,15 +41,22 @@ export function Profile() {
         });
     }, []);
 
+    React.useEffect(function getUserInformation() {
+        const getUserInformationAPI = ApiFactory.get('getUserInformation');
+        getUserInformationAPI(id).then((res) => {
+            setUserInformation(res);
+        });
+    }, []);
+
     return (
         <Grid container direction="column" justify="space-between">
             <Grid item>
                 <Typography variant="h1">
-                    Hola !
+                    Hola {userInformation.name}!
                 </Typography>
             </Grid>
             <Grid item>
-                <ProfileBox name="Carlota" email="carlota@hackupc.com"/>
+                <ProfileBox name={userInformation.name} email={userInformation.email_address} phone_number={userInformation.phone_number}/>
             </Grid>
             <Grid item>
                 <SecondaryButton onClick={() => setOpenModal(true)}> Canviar contrasenya </SecondaryButton>
