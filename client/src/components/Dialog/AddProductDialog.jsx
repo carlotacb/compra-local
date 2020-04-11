@@ -34,6 +34,9 @@ export function AddProductDialog(props) {
 
     function handleAccept(){
         var product = props.product;
+        if(parseFloat(quantity) <= 0) {
+            props.onClose()
+        }
         product["quantity"] = quantity;
         props.onAccept(product);
     }

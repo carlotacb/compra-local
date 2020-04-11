@@ -39,6 +39,18 @@ export function ShoppingCart() {
     const classes = useStyles();
     const {cart, setCart} = React.useContext(CartContext);
 
+
+    function handleRemoveProduct(e){
+        const id = e.currentTarget.id;
+        let acart = [...cart];
+        for(var i in acart){
+            if (acart[i]["id"] == parseInt(id)){
+                acart.splice(i, 1);
+            }
+        }
+        setCart(acart);
+    }
+
     function renderItems() {
         var output = [];
         
@@ -49,7 +61,7 @@ export function ShoppingCart() {
                         alignItems="center"
                 >
                     <Grid item xs={6} className={classes.cardProduct}>
-                        <IconButton>
+                        <IconButton id={cart[i]["id"]} onClick={(e)=> handleRemoveProduct(e)}>
                             <RemoveCircleIcon color="primary" fontSize="small" />
                         </IconButton>
                         <Typography variant="body1">

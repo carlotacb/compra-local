@@ -37,11 +37,24 @@ export function StoreProducts() {
     }
 
     function handleAcceptProduct(product){
+        var repeated = false;
+        var acart = [...cart];
+        for(var i in acart) {
+            if (acart[i]["id"] == product["id"]){
+                acart[i]["quantity"] = product["quantity"];
+                repeated = true;
+            }
+        }
+        if(!repeated) {
+            setCart([
+                ...cart,
+                product
+            ]);
+        }
+        else {
+            setCart(acart);
+        }
         
-        setCart(
-            [...cart,
-                product]
-        )
         // RESET
         openAddProduct["open"] = false;
         openAddProduct["product"] = undefined;
