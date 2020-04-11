@@ -1,4 +1,4 @@
-export function getCompletedOrders(idStore) {
+export function ProcesHelper(idStore) {
     return new Promise((resolve, reject) => {
         resolve([ {
             "helper_list": [
