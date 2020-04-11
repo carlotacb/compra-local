@@ -4,9 +4,9 @@ export function getCurrentOrders(idStore) {
             [
                 {
                     "delivery": false,
-                    "helper_needed": false,
+                    "helper_needed": true,
                     "local_name": "Bona fruita busquets",
-                    "step": 1,
+                    "step": 3,
                     "total": 53.20,
                     "ticket": [
                         {
