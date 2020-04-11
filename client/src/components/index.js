@@ -18,7 +18,6 @@ import { PasswordDialog as PD } from './Dialog/PasswordDialog';
 import { ReviewCard as RC } from './Card/ReviewCard'
 import { OrderCard as OC } from './Card/OrderCard'
 import { OrderHelpCard as OHC } from './Card/OrderHelpCard'
-import { OrderDeliveryCard as ODC } from './Card/OrderDeliveryCard'
 import { CompletedOrderCard as COC } from './Card/CompletedOrderCard'
 import { HelpingProcessCard as HPC } from './Card/HelpingProcessCard'
 
@@ -44,7 +43,6 @@ export const StoreBody = StB;
 export const StoreHeader = SH; 
 export const OrderCard = OC; 
 export const OrderHelpCard = OHC; 
-export const OrderDeliveryCard = ODC; 
 export const CompletedOrderCard = COC
 export const HelpingProcessCard = HPC;
 export const VerticalStepper = VS;

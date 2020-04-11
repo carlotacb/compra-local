@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     valorationButton: {
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(2),
+    },
+    uppercase: {
+        textTransform: 'uppercase'
     }
 }));
 
@@ -86,7 +89,7 @@ export function OrderCard(props) {
             ticket.push(
                 <Grid item className={classes.summary}>
                     <Typography variant="body2"> {ticketAPI[i].product_name} - {ticketAPI[i].quantity} </Typography>  
-                    <Typography variant="body2"> {ticketAPI[i].total_price}€ </Typography>
+                    <Typography variant="body2"> {ticketAPI[i].total_price} € </Typography>
                 </Grid>
             )    
         }
@@ -96,17 +99,20 @@ export function OrderCard(props) {
     return (
         <Paper className={classes.root}>
             <Grid container direction="row">
-                <Grid item>
-                    <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Per recollir', 'Recollit']}/>
+                <Grid item xs={3}>
+                    {props.delivery ?
+                        <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Preparat per enviar', 'Enviant', 'Comanda rebuda']}/> :  
+                        <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Per recollir', 'Recollit']}/>
+                    }
                 </Grid>
                 <Grid item>
                     <Divider variant="middle" orientation="vertical" />
                 </Grid>
-                <Grid item className={classes.information}>
+                <Grid item xs={8} className={classes.information}>
                     {getCurrentInformation(props.step)}
                     <Typography variant="body1" className={classes.bold}> Comanda realitzada a: </Typography> 
-                    <Typography variant="h4"> {props.local_name} </Typography> 
-                    <Typography variant="h5"> {props.total}€ </Typography> 
+                    <Typography variant="h4" className={classes.uppercase}> {props.local_name} </Typography> 
+                    <Typography variant="h5"> {props.total} € </Typography> 
                     <Typography variant="body1" className={classes.bold}> Resum de la compra: </Typography> 
                     {resumcompra()}
                 </Grid>

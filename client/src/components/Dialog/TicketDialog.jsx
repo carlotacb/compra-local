@@ -27,7 +27,7 @@ export function TicketDialog(props) {
                     <TableRow key={row.name}>
                         <TableCell component="th" scope="row"> {row.product_name} </TableCell>
                         <TableCell align="right">{row.quantity}</TableCell>
-                        <TableCell align="right">{row.total_price}€</TableCell>
+                        <TableCell align="right">{row.total_price} €</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
