@@ -1,4 +1,4 @@
-from sqlalchemy import and_, true
+from sqlalchemy import and_, true, false
 
 from src.config import DATE_FORMAT
 from src.db.sqlalchemy import db_session
@@ -106,5 +106,28 @@ def get_completed_by_user(user_id):
 
 def get_pending_by_user(user_id):
     completed_order_list = list()
-
+    order_group_list = db_session().query(OrderGroup).filter(and_(
+        OrderGroup.user_id == user_id, OrderGroup.completed == false(),
+        OrderGroup.order_group_status != OrderGroupStatus.COMPLETED
+    )).all()
+    for order_group in order_group_list:
+        item_dict = dict(
+            id=order_group.id, helper_needed=order_group.helper_needed, assigned_helper=bool(order_group.helper_id),
+            helper=None if not order_group.helper_id else dict(
+                name=order_group.helper.name, phone_number=order_group.helper.phone_number
+            ), order_list=list()
+        )
+        order_list = db_session().query(Order).filter(and_(
+            Order.order_group_id == order_group.id, Order.order_status != OrderStatus.COMPLETED
+        )).all()
+        for order in order_list:
+            order_dict = dict(
+                delivery=order.delivery,
+                local_name=order.local.name,
+                total=order_service.compute_total_price(order.id),
+                ticket=order_service.get_ticket(order.id),
+                step=order_service.get_step(order.order_status)
+            )
+            item_dict['order_list'].append(order_dict)
+        completed_order_list.append(item_dict)
     return completed_order_list

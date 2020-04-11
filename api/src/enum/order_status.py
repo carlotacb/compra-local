@@ -4,6 +4,7 @@ import enum
 class OrderStatus(enum.Enum):
 
     COMPLETED = 'COMPLETED'
+    PREPARING = 'PREPARING'
     PENDING_PICKUP = 'PENDING_PICKUP'
     PICKED_UP = 'PICKED_UP'
     CANCELLED = 'CANCELLED'

@@ -65,6 +65,25 @@ def get_ticket(order_id):
         ticket_list.append(dict(
             product_name=order_item.product.name,
             quantity=generate_quantity(order_item.quantity, order_item.product.price_type),
-            total_price=order_item.quantity * order_item.product.price
+            total_price=round(order_item.quantity * order_item.product.price, 2)
         ))
     return ticket_list
+
+
+def get_step(order_status):
+    if order_status == OrderStatus.COMPLETED:
+        return 4
+    if order_status == OrderStatus.PREPARING:
+        return 1
+    if order_status == OrderStatus.PENDING_PICKUP:
+        return 2
+    if order_status == OrderStatus.PICKED_UP:
+        return 3
+    if order_status == OrderStatus.CANCELLED:
+        return -1
+    if order_status == OrderStatus.DELIVERING:
+        return 3
+    if order_status == OrderStatus.PENDING_STORE:
+        return 0
+    if order_status == OrderStatus.PENDING_HELPER:
+        return 2
