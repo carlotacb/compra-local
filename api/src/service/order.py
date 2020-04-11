@@ -31,3 +31,8 @@ def add_dummy_data():
         db_session().commit()
     else:
         log.info(f'Skipping dummy data for {Order.__tablename__} because is not empty.')
+
+
+def get(order_id):
+    order = db_session().query(Order).filter_by(id=order_id).first()
+    return order if order else None
