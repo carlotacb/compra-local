@@ -3,6 +3,7 @@ import {Register as R} from './Register/Register';
 import {Profile as P} from './Profile/Profile';
 import {Orders as O} from './Orders/Orders';
 import {ProcessOrders as PO} from './Orders/ProcessOrders';
+import {CompletedOrders as CO} from './Orders/CompletedOrders';
 import {Neighborhood as N} from './Neighborhood/Neighborhood';
 import {Login as L} from './Login/Login';
 
@@ -18,5 +19,6 @@ export const Register = R;
 export const Profile = P;
 export const Orders = O;
 export const ProcessOrders = PO;
+export const CompletedOrders = CO;
 export const Neighborhood = N;
 export const Login = L;
