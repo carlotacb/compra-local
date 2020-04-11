@@ -14,7 +14,7 @@ export const urlProd = "http://api.compralocal.cat";
 const endpoints = {
     'getStoreInfo': getStoreInfo,
     'getCurrentOrders': getCurrentOrders,
-    'searchStores': searchStore,
+    'searchStores': searchStores,
     'getCompletedOrders': getCompletedOrders,
     'getRecivedValorations': getRecivedValorations,
     'getGivenValorations': getGivenValorations,

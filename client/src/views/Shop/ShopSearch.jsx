@@ -23,19 +23,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export function ShopSearch() {
+export function ShopSearch(props) {
 
     const classes = useStyles();
-    const [stores, setStores] = React.useState([]);
-    React.useEffect(()=> {
-        const searchStores = ApiFactory.get('searchStores');
-        var lat = undefined;
-        var long = undefined;
-        searchStores(lat, long)
-        .then((s) => {
-            setStores(s)
-        });
-    });
+    const {stores} = props;
+
 
     function renderRestaurants() {
         var output = [];
