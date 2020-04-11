@@ -22,7 +22,7 @@ export function ProcessOrders() {
 
         for (var i = 0; i < resp.length; ++i) {
             if (resp[i].helper_needed) {
-                orders.push(<OrderHelpCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
+                orders.push(<OrderHelpCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket} assigned_helper={resp[i].assigned_helper} helper={resp[i].helper}/>)
             }
             else {
                 orders.push(<OrderCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
