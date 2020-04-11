@@ -12,7 +12,7 @@ import { login } from './User/Login';
 //Orders
 import {createOrder} from './Orders/CreateOrder';
 
-export const urlProd = "http://api.compralocal.cat"; 
+export const urlProd = "https://api.compralocal.cat"; 
 
 const endpoints = {
     'getStoreInfo': getStoreInfo,
