@@ -657,7 +657,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
-/admin/search:
+  /admin/search:
     get:
       tags:
         - admin
