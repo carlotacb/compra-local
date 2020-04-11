@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export function HelperCard(props) {
+export function HelperPetitionCard(props) {
     const classes = useStyles();
     const [ openModal, setOpenModal ] = useState(false);
 
@@ -75,7 +75,6 @@ export function HelperCard(props) {
                     <Grid item className={classes.shopName}>
                         <Typography variant="h5" className={classes.uppercase}> {response[i].name} </Typography>  
                     </Grid>
-                    <Typography variant="h6"> {response[i].total} €</Typography> 
                     <Typography variant="h6"> Direcció: {response[i].postal_adress} </Typography>                         
                 </Grid>
             )
@@ -94,9 +93,6 @@ export function HelperCard(props) {
             <Grid container direction="row">
                 <Grid item xs={8} className={classes.information}>
                     {getOrderListInformation()}
-                    <Grid item className={classes.toRight}>
-                        <Typography variant="h5"> TOTAL: {props.total} € </Typography>
-                    </Grid>
                     <Grid item className={classes.centered}>
                         <Typography variant="h6"> Direcció Final: {props.user.postal_adress} </Typography>
                     </Grid>
