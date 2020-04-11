@@ -52,3 +52,18 @@ def get_id_by_name_and_local_name(name, local_name):
         and_(Local.id == Product.local_id, Product.name == name, Local.name == local_name)
     ).first()
     return product[0].id
+
+
+def get_all(local_id):
+    product_list = list()
+    product_orm_list = db_session().query(Product).filter_by(local_id=local_id).all()
+    for product_orm in product_orm_list:
+        product_list.append(dict(
+            id=product_orm.id,
+            name=product_orm.name,
+            description=product_orm.description,
+            currency=product_orm.currency.value,
+            price_type=product_orm.price_type.value,
+            product_group_id=product_orm.product_group_id,
+        ))
+    return product_list

@@ -276,7 +276,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
-  /admin/{local_id}/:
+  /admin/{local_id}:
     get:
       tags:
         - admin
@@ -303,8 +303,66 @@ paths:
             application/text:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
+    put:
+      tags:
+        - admin
+      summary: Creates a local using its information.
+      description: Invoke this endpoint to create a user using its information.
+      operationId: src.api.local.put
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: (Optional) Local name.
+                description:
+                  type: string
+                  description: (Optional) Local description.
+                postal_address:
+                  type: string
+                  description: (Optional) Local postal address.
+                website:
+                  type: string
+                  description: (Optional) Local website.             
+                phone_number:
+                  type: integer
+                  description: (Optional) Local phone number.    
+                pick_up:
+                  type: boolean
+                  description: (Optional) Local pickups allowed.     
+                delivery:
+                  type: boolean
+                  description: (Optional) Local deliveries allowed.            
+                image:
+                  type: string
+                  description: (Optional) Local image base64-encoded.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
 
-  /admin/:
+  /admin:
     get:
       tags:
         - admin
@@ -324,7 +382,6 @@ paths:
             application/text:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
-
     post:
       tags:
         - admin
@@ -383,13 +440,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
-  /admin/{local_id}:
-    put:
+  /admin/{local_id}/product:
+    get:
       tags:
         - admin
-      summary: Creates a local using its information.
-      description: Invoke this endpoint to create a user using its information.
-      operationId: src.api.local.put
+      summary: Gets all the products of a local.
+      description: Invoke this endpoint to get all the local products.
+      operationId: src.api.product.local_all
       parameters:
         - in: path
           name: local_id
@@ -397,38 +454,6 @@ paths:
           required: true
           schema:
             type: integer
-      requestBody:
-        required: true
-        description: Body wrapper for the request.
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: (Optional) Local name.
-                description:
-                  type: string
-                  description: (Optional) Local description.
-                postal_address:
-                  type: string
-                  description: (Optional) Local postal address.
-                website:
-                  type: string
-                  description: (Optional) Local website.             
-                phone_number:
-                  type: integer
-                  description: (Optional) Local phone number.    
-                pick_up:
-                  type: boolean
-                  description: (Optional) Local pickups allowed.     
-                delivery:
-                  type: boolean
-                  description: (Optional) Local deliveries allowed.            
-                image:
-                  type: string
-                  description: (Optional) Local image base64-encoded.
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
