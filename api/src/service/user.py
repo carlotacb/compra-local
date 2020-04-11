@@ -20,21 +20,25 @@ def add_dummy_data():
             User(
                 name='Albert Suarez', email_address='hi@albert.dev', phone_number='666 555 444',
                 password='72d0166b5707d129dc321e56692fe454c034552ee9e2b38f5a7f1c1306a632ea',
+                postal_address='Carrer de Sants, 282, 08028 Barcelona', latitude=41.375647, longitude=2.127905,
                 type=UserType.client, image=image_util.decode_and_resize('test/mock/user_image_1.jpg')
             ),
             User(
                 name='Andreu Gallofre', email_address='hi@andreu.dev', phone_number='654 768 980',
                 password='79f2653ff4301ea86f566d4e1f4dcbef74ad6b8dd0b47e564bf570007d50cd70',
+                postal_address='Carrer de Bassegoda, 11, 08028 Barcelona', latitude=41.375191, longitude=2.125832,
                 type=UserType.client, image=image_util.decode_and_resize('test/mock/user_image_2.jpg')
             ),
             User(
                 name='Elena Ruiz', email_address='hi@elena.dev', phone_number='769 547 606',
                 password='0ce93c9606f0685bf60e051265891d256381f639d05c0aec67c84eec49d33cc1',
+                postal_address='Carrer de Sants, 282, 08028 Barcelona', latitude=41.375647, longitude=2.127905,
                 type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_3.jpg')
             ),
             User(
                 name='Carlota Catot', email_address='hi@carlota.dev', phone_number='665 789 123',
                 password='332b7c12e4832aa8241acb324f2deaa4cac7a522243d1f078259fac18873bcce',
+                postal_address='Carrer de Bassegoda, 11, 08028 Barcelona', latitude=41.375191, longitude=2.125832,
                 type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_4.jpg')
             )
         ]
@@ -54,7 +58,10 @@ def get(user_id):
     return user if user else None
 
 
-def edit(user_id, name=None, email_address=None, phone_number=None, image=None):
+def edit(
+        user_id, name=None, email_address=None, phone_number=None,
+        postal_address=None, latitude=None, longitude=None, image=None
+):
     user = get(user_id)
     if user:
         user.name = user.name if name is None else name
@@ -64,6 +71,9 @@ def edit(user_id, name=None, email_address=None, phone_number=None, image=None):
             if decoded_image:
                 user.image = decoded_image
         user.phone_number = user.phone_number if phone_number is None else phone_number
+        user.postal_address = user.postal_address if postal_address is None else postal_address
+        user.latitude = user.latitude if latitude is None else latitude
+        user.longitude = user.longitude if longitude is None else longitude
         user.image = user.image if image is None else image
         db_session().commit()
         return True
@@ -81,14 +91,19 @@ def edit_password(user_id, new_password):
         return False
 
 
-def create(name, email_address, password, user_type, phone_number=None, image=None):
+def create(
+        name, email_address, password, user_type, postal_address, latitude, longitude, phone_number=None, image=None
+):
     try:
         user = User(
             name=name,
             email_address=email_address,
             phone_number=phone_number,
             password=password,
-            type=user_type
+            type=user_type,
+            postal_address=postal_address,
+            latitude=latitude,
+            longitude=longitude
         )
         if image:
             decoded_image = image_util.resize(image)
