@@ -980,6 +980,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
+  /order/pending/user/{user_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all pending orders from a user.
+      description: Invoke this endpoint to get all pending orders from a user.
+      operationId: src.api.order.user_pending
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
 components:
 
   schemas:

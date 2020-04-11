@@ -102,3 +102,9 @@ def get_completed_by_user(user_id):
             item_dict['order_list'].append(order_dict)
         completed_order_list.append(item_dict)
     return completed_order_list
+
+
+def get_pending_by_user(user_id):
+    completed_order_list = list()
+
+    return completed_order_list
