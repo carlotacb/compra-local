@@ -12,6 +12,7 @@ import { AddProductContext } from '../../context/AddProductContext';
 export function StoreBody(props) {
     const [page, setPage] = React.useState(0);
     
+
     // Card context
     const [cart, setCart] = React.useState([]);
     const cartProviderValue = React.useMemo(
