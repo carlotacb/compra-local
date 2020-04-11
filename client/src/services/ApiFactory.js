@@ -2,7 +2,7 @@ import { getStoreInfo } from './Shop/Store';
 import { getCurrentOrders } from './Orders/CurrentOrders';
 import { getCompletedOrders } from './Orders/CompletedOrders';
 import { getRecivedValorations } from './Profile/RecivedValorations';
-import { getGivenValorations } from './Profile/GivenValorations';
+import { getGivenValorations } from './Profile/GivenValoration';
 
 const endpoints = {
     'getStoreInfo': getStoreInfo,
