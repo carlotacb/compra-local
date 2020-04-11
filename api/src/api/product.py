@@ -38,7 +38,7 @@ def local_all(local_id):
         # Get all reviews
         product_list = product_service.get_all(local_id)
         # Return list
-        return response.make(error=False, response=dict(reviews_list=product_list))
+        return response.make(error=False, response=dict(product_list=product_list))
     except Exception as e:
         return response.raise_exception(e)
 

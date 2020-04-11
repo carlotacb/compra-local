@@ -73,3 +73,16 @@ def is_open(local_id):
         OpeningHoursItem.started_at < now_day_time, OpeningHoursItem.ended_at > now_day_time
     )).first()
     return bool(open_hours_item)
+
+
+def get(local_id):
+    opening_list = list()
+    opening_hours_list = db_session().query(OpeningHoursItem).filter_by(local_id=local_id).all()
+    for opening_hour in opening_hours_list:
+        opening_list.append(dict(
+            id=opening_hour.id,
+            week_day=opening_hour.week_day.value,
+            started_at=opening_hour.started_at.strftime("%H:%M"),
+            ended_at=opening_hour.ended_at.strftime("%H:%M")
+        ))
+    return opening_list
