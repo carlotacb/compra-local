@@ -20,14 +20,14 @@ def add_dummy_data():
                 postal_address='Carrer de Sants, 258, 08028 Barcelona',
                 latitude=41.375647, longitude=2.127905, website=None, phone_number='933 39 91 18',
                 pick_up=True, delivery=True, image=image_util.decode_and_resize('test/mock/local_image_1.jpg'),
-                category=category_service.get_id_by_name('Fruiteria')
+                category_id=category_service.get_id_by_name('Fruiteria')
             ),
             Local(
                 name='Farmacia Bassegoda', description='La farmacia del teu barri.',
                 postal_address='Carrer de Bassegoda, 11, 08028 Barcelona',
                 latitude=41.375191, longitude=2.125832, website=None, phone_number='934 40 09 55',
                 pick_up=True, delivery=False, image=image_util.decode_and_resize('test/mock/local_image_2.jpg'),
-                category=category_service.get_id_by_name('Farmacia')
+                category_id=category_service.get_id_by_name('Farmacia')
             )
         ]
         db_session().bulk_save_objects(object_list)
@@ -102,6 +102,7 @@ def get_tags(local_id):
         tags.append(TAG_LOCAL_DELIVERY)
     if opening_hours_item_service.is_open(local_id):
         tags.append(TAG_LOCAL_OPEN)
+    return tags
 
 
 def get_from_id_list(local_id_list):

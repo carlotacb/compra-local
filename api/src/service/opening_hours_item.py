@@ -66,10 +66,10 @@ def add_dummy_data():
 
 def is_open(local_id):
     now = datetime.utcnow()
-    now_week_day = now.strftime(DATE_WEEK_DAY_FORMAT).upper()
+    now_week_day = WeekDay(now.strftime(DATE_WEEK_DAY_FORMAT).upper())
     now_day_time = datetime.strptime(now.strftime(DATE_TIME_FORMAT), DATE_TIME_FORMAT)
     open_hours_item = db_session().query(OpeningHoursItem).filter(and_(
-        OpeningHoursItem.local_id == local_id, OpeningHoursItem.week_day.value == now_week_day,
+        OpeningHoursItem.local_id == local_id, OpeningHoursItem.week_day == now_week_day,
         OpeningHoursItem.started_at < now_day_time, OpeningHoursItem.ended_at > now_day_time
     )).first()
     return bool(open_hours_item)
