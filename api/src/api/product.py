@@ -51,6 +51,9 @@ def post(local_id):
         if not all(x in body for x in required_parameters):
             return response.make(error=True, message=MESSAGE_PARAMETERS_REQUIRED)
 
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+
         local = local_service.get(local_id)
         if not local:
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)

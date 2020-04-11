@@ -85,7 +85,7 @@ def create(name, price, local_id, currency, price_type, product_group, descripti
             price=price,
             currency=currency,
             price_type=price_type,
-            product_group=product_group,
+            product_group_id=product_group,
             local_id=local_id,
         )
 
@@ -106,7 +106,7 @@ def edit(local_id, product_id, name=None, price=None, currency=None, price_type=
         product.currency = product.currency if currency is None else currency
         product.price_type = product.price_type if price_type is None else price_type
         product.description = product.description if description is None else description
-        product.product_group = product.product_group if product_group is None else product_group
+        product.product_group_id = product.product_group_id if product_group is None else product_group
         db_session().commit()
         return True
     else:
