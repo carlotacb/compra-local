@@ -31,11 +31,25 @@ export function CompletedOrderCard(props) {
     const classes = useStyles();
     const [openModal, setOpenModal] = React.useState(false);
 
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [day, month, year].join('/');
+    }
+
     return (
         <Paper className={classes.root}>
             <Grid container direction="column">
                 <Grid item  className={classes.local}>
-                    <Typography variant="h5"> {props.date} </Typography>
+                    <Typography variant="h5"> {formatDate(props.date)} </Typography>
                     <Typography variant="h4" className={classes.localName}> {props.local_name} </Typography>
                     <Typography variant="h5"> {props.total}€ </Typography>
                 </Grid>
