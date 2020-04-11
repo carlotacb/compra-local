@@ -79,7 +79,36 @@ def post():
     except Exception as e:
         return response.raise_exception(e)
 
-
+def put(local_id):
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Check local
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Get input
+        request_json = request.json
+        name = request_json.get('name', None)
+        postal_address = request_json.get('postal_address', None)
+        latitude = request_json.get('latitude', None)
+        longitude = request_json.get('longitude', None)
+        website = request_json.get('webstie', None)
+        description = request_json.get('description', None)
+        category = request_json.get('category', None)
+        phone_number = request_json.get('phone_number', None)
+        image = request_json.get('image', None)
+        pick_up = request_json.get('pick_up', None)
+        delivery = request_json.get('delivery', None)
+        # Process
+        edited = local_service.edit(local_id, name=name, description=description, postal_address=postal_address,
+                                    latitude=latitude, longitude=longitude, website=website, phone_number=phone_number,
+                                    pick_up=pick_up, delivery=delivery, category=category, image=image)
+        return response.make(error=False, response=dict(edited=edited))
+    except Exception as e:
+        return response.raise_exception(e)
+      
 def search(latitude, longitude):
     try:
         # Get all local coordinates
