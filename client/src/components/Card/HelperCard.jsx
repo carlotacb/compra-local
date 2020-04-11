@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     outlinedTag: {
         ...theme.typography.button,
         border: '1px solid rgb(151, 119, 181);',
-        padding: theme.spacing(1),
+        padding: theme.spacing(0.5),
         textAlign: 'center'
     },
     shopName: {
@@ -92,7 +92,7 @@ export function HelperCard(props) {
                         <Typography className={classes.outlinedTag}> {response[i].status} </Typography>     
                     </Grid>
                     <Typography variant="h6"> {response[i].total} €</Typography> 
-                    <Typography variant="h6"> Direcció: {response[i].postal_adress} </Typography>                         
+                    <Typography variant="body1"> Direcció: {response[i].postal_adress} </Typography>                         
                 </Grid>
             )
             if (response[i].status !== "PICKED_UP") { picked = false }

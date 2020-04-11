@@ -14,7 +14,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
 	    flexDirection: 'column',
 	    justifyContent: 'space-between',
-        paddingLeft: '1.5em'
+        paddingLeft: '1.5em',
+        '& > button': {
+            marginTop: theme.spacing(2),
+        }
     },
     bold: {
         fontWeight: 'bold'
@@ -75,7 +78,7 @@ export function HelperPetitionCard(props) {
                     <Grid item className={classes.shopName}>
                         <Typography variant="h5" className={classes.uppercase}> {response[i].name} </Typography>  
                     </Grid>
-                    <Typography variant="h6"> Direcció: {response[i].postal_adress} </Typography>                         
+                    <Typography variant="body1"> Direcció: {response[i].postal_adress} </Typography>                         
                 </Grid>
             )
         }
@@ -96,9 +99,7 @@ export function HelperPetitionCard(props) {
                     <Grid item className={classes.centered}>
                         <Typography variant="h6"> Direcció Final: {props.user.postal_adress} </Typography>
                     </Grid>
-                    <Grid item>
-                        <PrimaryButton onClick={() => setOpenModal(true)}> AJUDAR! </PrimaryButton>
-                    </Grid>
+                    <PrimaryButton onClick={() => setOpenModal(true)}> AJUDAR! </PrimaryButton>
                 </Grid>
                 <Grid item>
                     <Divider variant="middle" orientation="vertical" />
