@@ -1,5 +1,6 @@
 from src.db.sqlalchemy import db_session
 from src.enum.order_status import OrderStatus
+from src.enum.price_type import PriceType
 from src.helper import log
 from src.model.order import Order
 from src.model.order_item import OrderItem
@@ -49,3 +50,21 @@ def compute_total_price(order_id):
     for order_item in order_item_list:
         total += order_item.quantity * order_item.product.price
     return round(total, 2)
+
+
+def generate_quantity(quantity, price_type):
+    quantity = int(quantity) if quantity.is_integer() else quantity
+    price_type = ' unitats' if price_type == PriceType.UNIT else price_type.value.lower()
+    return f'{quantity}{price_type}'
+
+
+def get_ticket(order_id):
+    ticket_list = list()
+    order_item_list = db_session().query(OrderItem).filter_by(order_id=order_id).all()
+    for order_item in order_item_list:
+        ticket_list.append(dict(
+            product_name=order_item.product.name,
+            quantity=generate_quantity(order_item.quantity, order_item.product.price_type),
+            total_price=order_item.quantity * order_item.product.price
+        ))
+    return ticket_list

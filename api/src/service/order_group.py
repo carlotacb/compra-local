@@ -1,5 +1,6 @@
 from sqlalchemy import and_, true
 
+from src.config import DATE_FORMAT
 from src.db.sqlalchemy import db_session
 from src.enum.order_status import OrderGroupStatus, OrderStatus
 from src.helper import log
@@ -82,4 +83,22 @@ def assign(user_id, order_group_object):
 
 
 def get_completed_by_user(user_id):
-    return []
+    completed_order_list = list()
+    order_group_list = db_session().query(OrderGroup).filter_by(
+        user_id=user_id, completed=True, order_group_status=OrderGroupStatus.COMPLETED
+    ).all()
+    for order_group in order_group_list:
+        item_dict = dict(id=order_group.id, order_list=list())
+        order_list = db_session().query(Order).filter_by(
+            order_group_id=order_group.id, order_status=OrderStatus.COMPLETED
+        ).all()
+        for order in order_list:
+            order_dict = dict(
+                completed_date=order.completed_time.strftime(DATE_FORMAT),
+                local_name=order.local.name,
+                total=order_service.compute_total_price(order.id),
+                ticket=order_service.get_ticket(order.id)
+            )
+            item_dict['order_list'].append(order_dict)
+        completed_order_list.append(item_dict)
+    return completed_order_list
