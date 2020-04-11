@@ -53,7 +53,10 @@ def edit(user_id, name=None, email_address=None, image=None):
     if user:
         user.name = user.name if name is None else name
         user.email_address = user.email_address if email_address is None else email_address
-        user.image = user.image if image is None else image
+        if image:
+            decoded_image = image_util.resize(image)
+            if decoded_image:
+                user.image = decoded_image
         db_session().commit()
         return True
     else:
