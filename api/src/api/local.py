@@ -109,7 +109,7 @@ def put(local_id):
         return response.make(error=False, response=dict(edited=edited))
     except Exception as e:
         return response.raise_exception(e)
-      
+
 
 def search(latitude, longitude):
     try:

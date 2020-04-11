@@ -119,7 +119,7 @@ def edit(
     else:
         return False
 
-     
+
 def get_tags(local_id):
     tags = []
     local = db_session().query(Local).filter_by(id=local_id).first()
