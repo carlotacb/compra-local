@@ -1,8 +1,10 @@
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 
 from src.db.sqlalchemy import db_session
 from src.helper import log
 from src.model.review_user import ReviewUser
+from src.service import order_group as order_group_service
 from src.service import user as user_service
 
 
@@ -38,3 +40,20 @@ def get_all(user_id):
             writer=review_orm.writer.name
         ))
     return review_list
+
+
+def create(writer_id, order_group_id, punctuation, comment=None):
+    try:
+        order_group = order_group_service.get(order_group_id)
+        review_user = ReviewUser(
+            punctuation=punctuation,
+            comment=str() if not comment else comment,
+            writer_id=writer_id,
+            user_id=order_group.helper_id,
+            order_group_id=order_group_id
+        )
+        db_session().add(review_user)
+        db_session().commit()
+        return review_user.id, None
+    except IntegrityError as e:
+        return None, str(e.args[0]).replace('\n', ' ')

@@ -1,9 +1,11 @@
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 
 from src.db.sqlalchemy import db_session
 from src.helper import log
 from src.model.review_local import ReviewLocal
 from src.service import local as local_service
+from src.service import order as order_service
 from src.service import user as user_service
 
 
@@ -39,3 +41,20 @@ def get_all(local_id):
             writer=review_orm.writer.name
         ))
     return review_list
+
+
+def create(writer_id, order_id, punctuation, comment=None):
+    try:
+        order = order_service.get(order_id)
+        review_local = ReviewLocal(
+            punctuation=punctuation,
+            comment=str() if not comment else comment,
+            writer_id=writer_id,
+            local_id=order.local_id,
+            order_id=order_id
+        )
+        db_session().add(review_local)
+        db_session().commit()
+        return review_local.id, None
+    except IntegrityError as e:
+        return None, str(e.args[0]).replace('\n', ' ')
