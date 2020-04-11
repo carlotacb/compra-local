@@ -3,6 +3,7 @@ import { getCurrentOrders } from './Orders/CurrentOrders';
 import { getCompletedOrders } from './Orders/CompletedOrders';
 import { getRecivedValorations } from './Profile/RecivedValorations';
 import { getGivenValorations } from './Profile/GivenValoration';
+import { getUserInformation } from './Profile/UserInformation';
 
 const endpoints = {
     'getStoreInfo': getStoreInfo,
@@ -10,6 +11,7 @@ const endpoints = {
     'getCompletedOrders': getCompletedOrders,
     'getRecivedValorations': getRecivedValorations,
     'getGivenValorations': getGivenValorations,
+    'getUserInformation': getUserInformation
 }
 
 function get(name) {
