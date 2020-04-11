@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
+import { useParams } from 'react-router-dom';
 import { UserContext } from "../../context/UserContext";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 import { SecondaryButton, GroupButton } from '../../shared-components/';
 import { ProfileBox, PasswordDialog } from "../../components";
+import { ApiFactory } from "../../services/ApiFactory";
 
 import { Valorations } from "./Valorations"
 
@@ -16,15 +18,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Profile() {
-    const { user, setUser } = useContext(UserContext);
+    const { id } = useParams();
     const [ page, setPage ] = useState(0);
     const [ valorations, setValorations ] = useState(mock);
+    const [ recivedValorations, setRecivedValorations ] = useState('');
     const [ openModal, setOpenModal ] = useState(false);
     const classes = useStyles();
 
     const changePage = (p) => {
         setPage(p)
-        if (p === 0) setValorations(mock);
+        if (p === 0) setValorations(recivedValorations);
         else setValorations(mock2);
     }
 
@@ -33,11 +36,18 @@ export function Profile() {
         setOpenModal(false);
     }
 
+    React.useEffect(function getRecivedValorations() {
+        const getRecivedValorationsAPI = ApiFactory.get('getRecivedValorations');
+        getRecivedValorationsAPI(id).then((res) => {
+            setRecivedValorations(res);
+        });
+    }, []);
+
     return (
         <Grid container direction="column" justify="space-between">
             <Grid item>
                 <Typography variant="h1">
-                    Hola {user}!
+                    Hola !
                 </Typography>
             </Grid>
             <Grid item>
