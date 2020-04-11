@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { Grid } from "@material-ui/core";
 import { OrderCard } from '../../components';
@@ -8,7 +8,7 @@ export function ProcessOrders() {
     const { id } = useParams();
     const [ currentOrders, setCurrentOrders ] = useState([]);
 
-    useEffect(function getStoreInfo() {
+    React.useEffect(function getStoreInfo() {
         const getCurrentOrdersAPI = ApiFactory.get('getCurrentOrders');
         getCurrentOrdersAPI(id).then((res) => {
             setCurrentOrders(res);
@@ -23,6 +23,7 @@ export function ProcessOrders() {
         for (var i = 0; i < resp.length; ++i) {
             orders.push(<OrderCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
         }
+        return orders
     }
 
     return (
