@@ -1,5 +1,5 @@
-import React from 'react';
-import { Divider, Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Divider, Grid, Paper, Typography, makeStyles, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { VerticalStepper } from "../../components";
 
 
@@ -64,7 +64,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function OrderHelpCard(props) {
-    const classes = useStyles();
+    const classes = useStyles();    
+    const [ openModal, setOpenModal ] = useState(false);
 
     const getCurrentInformation = (currentStep) => {
         switch(currentStep) {
@@ -82,16 +83,20 @@ export function OrderHelpCard(props) {
                         <div>
                             <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
                             <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
-                            <Button variant="contained" color="primary" className={classes.valorationButton}> ESCRIU VALORACIÓ </Button>
+                            <Button variant="contained" color="primary" className={classes.valorationButton} onClick={() => setOpenModal(true)}> ESCRIU VALORACIÓ </Button>
                         </div>
                         <div>
                             <Typography variant="body1" className={classes.title}> Que tal el teu voluntari? </Typography>
                             <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
-                            <Button variant="contained" color="primary" className={classes.valorationButton}> ESCRIU VALORACIÓ </Button>
+                            <Button variant="contained" color="primary" className={classes.valorationButton} > ESCRIU VALORACIÓ </Button>
                         </div>
                     </div> 
                 );
         }
+    }
+
+    const handleClose = () => {
+        setOpenModal(false)
     }
 
     const resumcompra = () => {
@@ -109,7 +114,7 @@ export function OrderHelpCard(props) {
         return ticket
     }
 
-    const getHelperInformation = (helper) => {
+    const getHelperInformation = (helper) => { 
         return (
             <div>
                 <Typography variant="body2">Nom: {helper.name}</Typography>
@@ -140,6 +145,22 @@ export function OrderHelpCard(props) {
                     {resumcompra()}
                 </Grid>
             </Grid>
+
+            <Dialog open={openModal} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Deixa la teva valoració</DialogTitle>
+                <DialogContent>
+                <TextField autoFocus margin="dense" id="punctuation" label="Valoració del 0 al 5" type="number" fullWidth />
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cancel
+                </Button>
+                <Button onClick={handleClose} color="primary">
+                    Subscribe
+                </Button>
+                </DialogActions>
+            </Dialog>
+
         </Paper>
     )
 }
