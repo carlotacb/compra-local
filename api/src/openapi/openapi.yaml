@@ -695,31 +695,77 @@ paths:
 
   /admin/{local_id}/openingHours:
     get:
-        tags:
-          - admin
-        summary: Get all opening hours for a local.
-        description: Invoke this endpoint to all opening hours for a local.
-        operationId: src.api.local.get_opening_hours
-        parameters:
-          - in: path
-            name: local_id
-            description: Local identifier.
-            required: true
-            schema:
-              type: integer
-        responses:
-          200:
-            description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/APIResponse'
-          default:
-            description: Unexpected error.
-            content:
-              application/text:
-                schema:
-                  $ref: '#/components/schemas/UnexpectedError'
+      tags:
+        - admin
+      summary: Get all opening hours for a local.
+      description: Invoke this endpoint to get all opening hours for a local.
+      operationId: src.api.local.get_opening_hours
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+    post:
+      tags:
+        - admin
+      summary: Create all opening hours for a local.
+      description: Invoke this endpoint to create opening hours for a local.
+      operationId: src.api.local.post_opening_hours
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    week_day:
+                      type: string
+                      description: Day of the week
+                      enum: ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
+                    started_at:
+                      type: string
+                      description: Hour that the bussines start
+                    ended_at:
+                      type: string
+                      description: Hour that the bussines ends
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'      
 
   /help/assign:
     post:

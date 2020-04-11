@@ -151,7 +151,7 @@ def post_opening_hours(local_id):
         if not local:
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
         # Post reviews
-        opening_hours_list = body.get('opening_hours')
+        created = opening_hours_service.post(local_id, body)
         return response.make(error=False, response=dict(created=created))
     except Exception as e:
         return response.raise_exception(e)

@@ -86,3 +86,20 @@ def get(local_id):
             ended_at=opening_hour.ended_at.strftime("%H:%M")
         ))
     return opening_list
+
+
+def post(local_id, opening_hours_list):
+    opening_list = list()
+    try:
+        for opening_hours in opening_hours_list:
+            opening_list.append(
+                OpeningHoursItem(week_day=WeekDay(opening_hours.get('week_day').upper()),
+                                started_at=datetime.strptime(opening_hours.get('started_at'), DATE_TIME_FORMAT),
+                                ended_at=datetime.strptime(opening_hours.get('ended_at'), DATE_TIME_FORMAT),
+                                local_id=local_id))
+        db_session().bulk_save_objects(opening_list)
+        db_session().commit()
+        return True
+    except Exception as e:
+        print('exception' + str(e))
+        return False
