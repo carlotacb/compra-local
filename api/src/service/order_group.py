@@ -5,6 +5,7 @@ from src.enum.order_status import OrderGroupStatus, OrderStatus
 from src.helper import log
 from src.model.order import Order
 from src.model.order_group import OrderGroup
+from src.service import order as order_service
 from src.service import user as user_service
 
 
@@ -54,10 +55,14 @@ def get_helper_needed_by_local(local_id_list):
         order = item[1]
         if order_group.id not in helper_dict:
             helper_dict[order_group.id] = dict(user=order_group.user.serialize(), order_list=list())
-        helper_dict[order_group.id]['order_list'].append(dict(id=order.local.id, name=order.local.name))
+        helper_dict[order_group.id]['order_list'].append(dict(
+            id=order.local.id, name=order.local.name, postal_address=order.local.postal_address,
+            total=order_service.compute_total_price(order.id), status=order.order_status.value
+        ))
     helper_list = list()
     for order_group_id, helper_content in helper_dict.items():
         helper_content['id'] = order_group_id
+        helper_content['total'] = sum(o.get('total', 0.0) for o in helper_content.get('order_list', []))
         helper_list.append(helper_content)
     return helper_list
 
