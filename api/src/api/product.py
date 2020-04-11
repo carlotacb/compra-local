@@ -115,6 +115,6 @@ def delete(local_id, product_id):
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
         # Process
         deleted = product_service.delete(local_id, product_id)
-        return response.make(error=False, response=dict(edited=edited))
+        return response.make(error=False, response=dict(deleted=deleted))
     except Exception as e:
         return response.raise_exception(e)
