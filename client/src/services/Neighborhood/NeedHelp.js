@@ -1,4 +1,4 @@
-export function NeedHelp(idStore) {
+export function getNeedHelp(idStore) {
     return new Promise((resolve, reject) => {
         resolve([
             {
