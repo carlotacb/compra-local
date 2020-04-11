@@ -293,8 +293,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
-
-  /admin/{local_id}:
+  /admin/{local_id}/:
     get:
       tags:
         - admin
