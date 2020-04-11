@@ -1,26 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
-
+import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
+import { ConfirmationDialog } from '../../components'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
         marginBottom:theme.spacing(3),
         padding: theme.spacing(2),
-        backgroundColor: '#FFFAF7'
+        backgroundColor: '#F9F9F9'
     },
     information: {
         display: 'flex',
 	    flexDirection: 'column',
 	    justifyContent: 'space-between',
-        paddingLeft: '1.5em'
+        paddingLeft: '1.5em',
+        '& > button': {
+            marginBottom: theme.spacing(2),
+        }
     },
     bold: {
         fontWeight: 'bold'
     },
     tag: {
         ...theme.typography.button,
-        backgroundColor: '#E5E5E5',
+        backgroundColor: '#F2B880',
+        padding: theme.spacing(1),
+        textAlign: 'center'
+    },
+    outlinedTag: {
+        ...theme.typography.button,
+        border: '1px solid rgb(151, 119, 181);',
         padding: theme.spacing(1),
         textAlign: 'center'
     },
@@ -37,19 +47,30 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(2), 
     },
     uppercase: {
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
+        fontWeight: 'bold'
     },
     marginBottom: {
         marginBottom: theme.spacing(2),
+    },
+    toRight: {
+        display: 'flex',
+	    flexDirection: 'row',
+	    justifyContent: 'flex-end',
+    },
+    centered: {
+        display: 'flex',
+	    flexDirection: 'row',
+	    justifyContent: 'center',
     }
 }));
 
-export function HelpingProcessCard(props) {
+export function HelperCard(props) {
     const classes = useStyles();
+    const [ openModal, setOpenModal ] = useState(false);
 
     const getHelperInformation = () => {
         const user = props.user;
-
         return (
             <>
                 <Typography variant="body1"> Nom: {user.name} </Typography> 
@@ -61,21 +82,30 @@ export function HelpingProcessCard(props) {
 
     const getOrderListInformation = () => {
         const response = props.orderList;
-        const orderList = []
+        const orderList = [];
+        var picked = true;       
         for (var i = 0; i < response.length; ++i) {
             orderList.push(
                 <Grid item className={classes.marginBottom}>
                     <Grid item className={classes.shopName}>
                         <Typography variant="h5" className={classes.uppercase}> {response[i].name} </Typography>     
-                        <Typography className={classes.tag}> {response[i].status} </Typography>     
+                        <Typography className={classes.outlinedTag}> {response[i].status} </Typography>     
                     </Grid>
                     <Typography variant="h6"> {response[i].total} €</Typography> 
                     <Typography variant="h6"> Direcció: {response[i].postal_adress} </Typography>                         
                 </Grid>
             )
+            if (response[i].status !== "PICKED_UP") { picked = false }
         }
 
+        if (picked) orderList.push( <PrimaryButton onClick={() => setOpenModal(true)}> Notificar entrega </PrimaryButton> )
+
         return orderList
+    }
+
+    const handleAccept = () => {
+        /* TODO: Comanda entregada */
+        setOpenModal(false)
     }
 
     return (
@@ -83,8 +113,11 @@ export function HelpingProcessCard(props) {
             <Grid container direction="row">
                 <Grid item xs={8} className={classes.information}>
                     {getOrderListInformation()}
-                    <Grid item>
+                    <Grid item className={classes.toRight}>
                         <Typography variant="h5"> TOTAL: {props.total} € </Typography>
+                    </Grid>
+                    <Grid item className={classes.centered}>
+                        <Typography variant="h6"> Direcció Final: {props.user.postal_adress} </Typography>
                     </Grid>
                 </Grid>
                 <Grid item>
@@ -97,6 +130,7 @@ export function HelpingProcessCard(props) {
                     {getHelperInformation()}
                 </Grid>
             </Grid>
+            <ConfirmationDialog open={openModal} cancel={() => setOpenModal(false)} accept={() => handleAccept()} title={'Comanda entregada'} message={'Has entregat la comanda al client? si es que no, cancela!'}/>
         </Paper>
     )
 }
