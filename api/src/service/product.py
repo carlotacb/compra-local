@@ -69,7 +69,7 @@ def get_all(local_id):
     return product_list
 
 
-def get_prodcut(local_id, product_id):
+def get_product(local_id, product_id):
     product = db_session().query(Product).filter(
         and_(local_id == Product.local_id, Product.id == product_id)
     ).first()
@@ -94,3 +94,30 @@ def create(name, price, local_id, currency, price_type, product_group, descripti
         return prodcut.id, None
     except IntegrityError as e:
         return None, str(e.args[0]).replace('\n', ' ')
+
+
+def edit(local_id, product_id, name=None, price=None, currency=None, price_type=None, description=None, product_group=None):
+    product = get_product(local_id, product_id)
+
+    if product:
+        product.name = product.name if name is None else name
+        product.price = product.price if price is None else price
+        product.currency = product.currency if currency is None else currency
+        product.price_type = product.price_type if price_type is None else price_type
+        product.description = product.description if description is None else description
+        product.product_group = product.product_group if product_group is None else product_group
+        db_session().commit()
+        return True
+    else:
+        return False
+
+
+def delete(local_id, product_id):
+    product = get_product(local_id, product_id)
+
+    if product:
+        db.session.delete(product)
+        db_session().commit()
+        return True
+    else:
+        return False

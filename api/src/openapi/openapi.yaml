@@ -529,6 +529,98 @@ paths:
             application/text:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
+    put:
+      tags:
+        - admin
+      summary: Edit a product.
+      description: Invoke this endpoint to get all the local products.
+      operationId: src.api.product.put
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: product_id
+          description: Product identifier.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: (optional) Prodcut name.
+                description:
+                  type: string
+                  description: (optional) Prodcut description.
+                price:
+                  type: number
+                  description: (optional) Product price.
+                currency:
+                  type: string
+                  description: (optional) Local description.
+                  enum: ['EUR']
+                price_type:
+                  type: string
+                  description: (optional) Product price type.
+                  enum: ['UNIT', 'KG', 'G', 'L', 'ML']
+                product_group:
+                  type: integer
+                  description: (optional) Id of the product group
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+    delete:
+      tags:
+        - admin
+      summary: Delete product of a local.
+      description: Invoke this endpoint to get all the local products.
+      operationId: src.api.product.delete
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: product_id
+          description: Product identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
 
   /help/assign:
     post:
