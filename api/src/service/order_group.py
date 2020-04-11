@@ -25,7 +25,12 @@ def add_dummy_data():
             OrderGroup(
                 completed=False, helper_needed=False, order_group_status=OrderGroupStatus.PENDING_PICKUP,
                 user_id=user_service.get_id_by_name('Andreu Gallofre'), helper_id=None
-            )
+            ),
+            OrderGroup(
+                completed=True, helper_needed=True, order_group_status=OrderGroupStatus.COMPLETED,
+                user_id=user_service.get_id_by_name('Andreu Gallofre'),
+                helper_id=user_service.get_id_by_name('Albert Suarez')
+            ),
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()

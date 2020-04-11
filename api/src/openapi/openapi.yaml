@@ -657,6 +657,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
+  /review/local:
+    post:
+      tags:
+        - review
+      summary: Creates a review for a local.
+      description: Invoke this endpoint to create a review for a local.
+      operationId: src.api.review.post_local
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                writer_id:
+                  type: integer
+                  description: Writer identifier.
+                order_id:
+                  type: integer
+                  description: Order identifier.
+                punctuation:
+                  type: integer
+                  description: Review punctuation.
+                comment:
+                  type: string
+                  description: (optinal) Review comment.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
   /review/local/{local_id}/average:
     get:
       tags:
@@ -699,6 +740,47 @@ paths:
           required: true
           schema:
             type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/user:
+    post:
+      tags:
+        - review
+      summary: Creates a review for a user.
+      description: Invoke this endpoint to create a review for a user.
+      operationId: src.api.review.post_user
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                writer_id:
+                  type: integer
+                  description: Writer identifier.
+                order_group_id:
+                  type: integer
+                  description: Order group identifier.
+                punctuation:
+                  type: integer
+                  description: Review punctuation.
+                comment:
+                  type: string
+                  description: (optinal) Review comment.
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
