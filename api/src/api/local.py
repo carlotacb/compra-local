@@ -68,8 +68,8 @@ def put(local_id):
         if not local_id or local_id <= 0:
             return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
         # Check user
-        user = user_service.get(user_id)
-        if not user:
+        local = local_service.get(local_id)
+        if not local:
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
         # Get input
         request_json = request.json
