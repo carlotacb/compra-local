@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
   },
+  background: {
+    backgroundColor: '#F9F9F9' 
+  },
   button: {
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -30,7 +33,7 @@ export function VerticalStepper(props) {
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={props.currentStep} orientation="vertical">
+      <Stepper activeStep={props.currentStep} orientation="vertical" className={classes.background}>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
