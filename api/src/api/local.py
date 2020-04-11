@@ -79,7 +79,6 @@ def post():
     except Exception as e:
         return response.raise_exception(e)
 
-
 def put(local_id):
     try:
         # Check input
@@ -107,5 +106,15 @@ def put(local_id):
                                     latitude=latitude, longitude=longitude, website=website, phone_number=phone_number,
                                     pick_up=pick_up, delivery=delivery, category=category, image=image)
         return response.make(error=False, response=dict(edited=edited))
+    except Exception as e:
+        return response.raise_exception(e)
+      
+def search(latitude, longitude):
+    try:
+        # Get all local coordinates
+        coordinates_dict = local_service.get_all_coordinates()
+        local_id_list = maps.filter_by_around(coordinates_dict, latitude, longitude)
+        local_list = local_service.get_from_id_list(local_id_list)
+        return response.make(error=False, response=dict(local_list=local_list))
     except Exception as e:
         return response.raise_exception(e)
