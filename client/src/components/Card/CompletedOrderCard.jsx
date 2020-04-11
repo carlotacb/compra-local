@@ -17,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
     viewTicket: {
         display: 'flex',
         justifyContent: 'flex-end'
+    },
+    localName: {
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+        paddingBottom: theme.spacing(1),
+        paddingTop: theme.spacing(1)
     }
 }));
 
@@ -30,7 +36,7 @@ export function CompletedOrderCard(props) {
             <Grid container direction="column">
                 <Grid item  className={classes.local}>
                     <Typography variant="h5"> {props.date} </Typography>
-                    <Typography variant="h4"> {props.local_name} </Typography>
+                    <Typography variant="h4" className={classes.localName}> {props.local_name} </Typography>
                     <Typography variant="h5"> {props.total}€ </Typography>
                 </Grid>
                 <Grid item className={classes.viewTicket}>
