@@ -67,3 +67,30 @@ def get_all(local_id):
             product_group_id=product_orm.product_group_id,
         ))
     return product_list
+
+
+def get_prodcut(local_id, product_id):
+    product = db_session().query(Product).filter(
+        and_(local_id == Product.local_id, Product.id == product_id)
+    ).first()
+    return product
+
+
+def create(name, price, local_id, currency, price_type, product_group, description):
+    try:
+        prodcut = Product(
+            name=name,
+            description=description,
+            price=price,
+            currency=currency,
+            price_type=price_type,
+            product_group=product_group,
+            local_id=local_id,
+        )
+
+        db_session().add(prodcut)
+        db_session().commit()
+
+        return prodcut.id, None
+    except IntegrityError as e:
+        return None, str(e.args[0]).replace('\n', ' ')

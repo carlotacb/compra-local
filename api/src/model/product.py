@@ -25,3 +25,15 @@ class Product(Base):
 
     local = relationship(Local.__name__)
     category = relationship(ProductGroup.__name__)
+
+    def serialize(self):
+        return dict(
+            id=self.id,
+            name=self.name,
+            description=self.description,
+            price=self.price,
+            currency=self.currency.value,
+            price_type=self.price_type.value,
+            local_id=self.local_id,
+            product_group_id=self.product_group_id
+        )
