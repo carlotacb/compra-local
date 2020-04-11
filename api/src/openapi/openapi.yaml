@@ -18,6 +18,8 @@ tags:
     description: endpoint for managing users.
   - name: help
     description: endpoint for managing helpers.
+  - name: review
+    description: endpoint for managing reviews.
 
 paths:
 
@@ -294,6 +296,62 @@ paths:
                 order_group_id:
                   type: integer
                   description: Order group identifier.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/local/{local_id}/average:
+    get:
+      tags:
+        - review
+      summary: Gets the average punctuation from local reviews.
+      description: Invoke this endpoint to get the average punctuation from local reviews.
+      operationId: src.api.review.local_average
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/local/{local_id}/all:
+    get:
+      tags:
+        - review
+      summary: Gets all the local reviews.
+      description: Invoke this endpoint to get all the local reviews.
+      operationId: src.api.review.local_all
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.

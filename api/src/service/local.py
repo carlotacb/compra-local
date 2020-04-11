@@ -35,6 +35,11 @@ def get_id_by_name(name):
     return local.id
 
 
+def get(local_id):
+    local = db_session().query(Local).filter_by(id=local_id).first()
+    return local if local else None
+
+
 def get_all_coordinates():
     local_dict = dict()
     for local in db_session().query(Local).all():
