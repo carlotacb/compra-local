@@ -3,6 +3,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import { Grid, makeStyles, Typography, IconButton } from '@material-ui/core';
 
 import { CartContext } from '../../context/CartContext';
+import { AddProductContext } from '../../context/AddProductContext';
 
 const useStyles = makeStyles((theme) => ({
     productItem: {
@@ -21,20 +22,22 @@ const useStyles = makeStyles((theme) => ({
 
 export function StoreProductItem(props) {
     const classes = useStyles();
-    const {cart, setCart} = React.useContext(CartContext);
+    const [openAddProduct, setOpenAddProduct] = React.useContext(AddProductContext);
 
     const item = props.item;
-
     const name = item["name"];
     const id = item["id"];
     const description = item["description"];
     const unit = item["unit"];
-    const price = item["price"];
+    const price = item["price_unit"];
     
 
     function handleClick(e) {
         var id = e.currentTarget.id;
-        setCart([...cart, {'name': id}]);
+        openAddProduct["open"] = true;
+        openAddProduct["product"] = props.item;
+        setOpenAddProduct(openAddProduct);
+        props.onAddProduct(id);
     }
 
     return (

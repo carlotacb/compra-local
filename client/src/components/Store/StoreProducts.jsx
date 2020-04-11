@@ -2,26 +2,52 @@ import React from 'react';
 import { Grid, makeStyles, Typography, useTheme } from '@material-ui/core';
 import { SearchBox } from '..';
 import { StoreContext } from '../../context/StoreContext';
-import { ListView } from '../';
+import { ListView, AddProductDialog } from '../';
 
 import { StoreProductItem } from './StoreProductItem';
+import { AddProductContext } from '../../context/AddProductContext';
+import { CartContext } from '../../context/CartContext';
 
 const useStyles = makeStyles((theme) => ({
     search: {
         paddingRight: theme.spacing(2),
         paddingBottom: theme.spacing(2)
+    },
+    dialog: {
+        width: '45em'
     }
 }));
 
 export function StoreProducts() {
 
     const { storeInfo, setStoreInfo } = React.useContext(StoreContext);
+    const {cart, setCart} = React.useContext(CartContext);
+    
+    const [openAddProduct, setOpenAddProduct] = React.useContext(AddProductContext);
+    const [ isDialogOpen, setDialogOpen ] = React.useState(openAddProduct["open"]);
+    
 
     const classes = useStyles();
     const theme = useTheme();
 
     var productsList = [];
 
+    function handleAddProduct() {
+        setDialogOpen(true);
+    }
+
+    function handleAcceptProduct(product){
+        
+        setCart(
+            [...cart,
+                product]
+        )
+        // RESET
+        openAddProduct["open"] = false;
+        openAddProduct["product"] = undefined;
+        setOpenAddProduct(openAddProduct);
+        setDialogOpen(false);
+    }
 
     function renderProducts(){
         const products = storeInfo["products"];
@@ -30,7 +56,10 @@ export function StoreProducts() {
             var categoryRender = [];
             for(var j in category) {
                 categoryRender.push(
-                    <StoreProductItem  item={category[j]}/>
+                    <StoreProductItem  
+                        onAddProduct = {(p) => handleAddProduct(p)}
+                        item={category[j]}
+                    />
                 )
             }
             productsList.push(
@@ -68,6 +97,16 @@ export function StoreProducts() {
                     {renderProducts()}
                 </ListView>
             </Grid>
+            {
+                isDialogOpen &&
+                <AddProductDialog 
+                open={isDialogOpen}
+                title="Producte"
+                onAccept={(p) => handleAcceptProduct(p)}
+                onClose={() => (setDialogOpen(false))}
+                product={openAddProduct["product"]}
+                />
+            }
         </Grid>
     )
 }

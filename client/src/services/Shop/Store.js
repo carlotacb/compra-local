@@ -29,13 +29,13 @@ export function getStoreInfo(idStore) {
                         'name': 'Pebrot',
                         'description': 'Origen: Valencia',
                         'unit': 'kg',
-                        'price': '2'
+                        'price_unit': '2'
                     },
                     {
                         'name': 'Tomàquet',
                         'description': 'Origen: Valencia',
                         'unit': 'kg',
-                        'price': '3'
+                        'price_unit': '3'
                     }
                 ],
                 'Fruita': [
@@ -43,14 +43,14 @@ export function getStoreInfo(idStore) {
                         'id': 123,
                         'name': 'Plàtan',
                         'unit': 'kg',
-                        'price': '2'
+                        'price_unit': '2'
                     },
                     {
                         'id': 123,
                         'name': 'Kiwi',
                         'description': 'Origen: Valencia',
                         'unit': 'kg',
-                        'price': '3'
+                        'price_unit': '3'
                     }
                 ]
             }
