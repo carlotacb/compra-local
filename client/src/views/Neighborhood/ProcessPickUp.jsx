@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { Grid } from "@material-ui/core";
-import { HelpingProcessCard } from '../../components';
+import { HelperCard } from '../../components';
 import { ApiFactory } from "../../services/ApiFactory";
 
 export function ProcessPickUp() {
@@ -20,7 +20,7 @@ export function ProcessPickUp() {
         const pickUpOrders = [];
 
         for (var i = 0; i < resp.length; ++i) {
-            pickUpOrders.push(<HelpingProcessCard user={resp[i].user} orderList={resp[i].order_list} total={resp[i].total} />);
+            pickUpOrders.push(<HelperCard user={resp[i].user} orderList={resp[i].order_list} total={resp[i].total} />);
         }
 
         return pickUpOrders;        

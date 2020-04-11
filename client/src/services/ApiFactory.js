@@ -5,6 +5,7 @@ import { getRecivedValorations } from './Profile/RecivedValorations';
 import { getGivenValorations } from './Profile/GivenValoration';
 import { getUserInformation } from './Profile/UserInformation';
 import { getProcesHelper } from './Neighborhood/ProcesHelper';
+import { getNeedHelp } from './Neighborhood/NeedHelp';
 
 // Login
 import { login } from './User/Login';
@@ -12,7 +13,7 @@ import { login } from './User/Login';
 //Orders
 import {createOrder} from './Orders/CreateOrder';
 
-export const urlProd = "https://api.compralocal.cat"; 
+export const urlProd = "https://api.compralocal.cat";
 
 const endpoints = {
     'getStoreInfo': getStoreInfo,
@@ -24,6 +25,7 @@ const endpoints = {
     'getUserInformation': getUserInformation,
     'login': login,
     'getProcesHelper': getProcesHelper,
+    'getNeedHelp': getNeedHelp
     'createOrder': createOrder
 }
 

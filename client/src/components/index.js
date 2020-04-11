@@ -19,7 +19,8 @@ import { ReviewCard as RC } from './Card/ReviewCard'
 import { OrderCard as OC } from './Card/OrderCard'
 import { OrderHelpCard as OHC } from './Card/OrderHelpCard'
 import { CompletedOrderCard as COC } from './Card/CompletedOrderCard'
-import { HelpingProcessCard as HPC } from './Card/HelpingProcessCard'
+import { HelperCard as HC } from './Card/HelperCard'
+import { HelperPetitionCard as HPC } from './Card/HelperPetitionCard'
 
 //Store 
 import { StoreBody as StB } from './Store/StoreBody';
@@ -44,8 +45,9 @@ export const StoreHeader = SH;
 export const OrderCard = OC; 
 export const OrderHelpCard = OHC; 
 export const CompletedOrderCard = COC
-export const HelpingProcessCard = HPC;
+export const HelperCard = HC;
 export const VerticalStepper = VS;
 export const StoreProduct = SP;
 export const ShoppingCart = SCart;
 export const PasswordDialog = PD;
+export const HelperPetitionCard = HPC;
