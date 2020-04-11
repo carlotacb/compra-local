@@ -70,3 +70,26 @@ def get_all_coordinates():
     for local in db_session().query(Local).all():
         local_dict[local.id] = dict(latitude=local.latitude, longitude=local.longitude)
     return local_dict
+
+
+def edit(local_id, name=None, description=None, postal_address=None, latitude=None, longitude=None, website=None, phone_number=None, pick_up=None, delivery=None, category=None, image=None):
+    local = get(local_id)
+    if local:
+        local.name = local.name if name is None else name
+        local.description = local.description if description is None else description
+        local.postal_address = local.postal_address if postal_address is None else postal_address
+        local.latitude = local.latitude if latitude is None else latitude
+        local.longitude = local.longitude if longitude is None else longitude
+        local.website = local.website if website is None else website
+        local.phone_number = local.phone_number if phone_number is None else phone_number
+        local.pick_up = local.pick_up if pick_up is None else pick_up
+        local.delivery = local.delivery if delivery is None else delivery
+        local.category = local.category if category is None else category
+        if image:
+            decoded_image = image_util.resize(image)
+            if decoded_image:
+                local.image = decoded_image
+        db_session().commit()
+        return True
+    else:
+        return False
