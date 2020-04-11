@@ -1,6 +1,6 @@
 export function getProcesHelper(idStore) {
     return new Promise((resolve, reject) => {
-        resolve({
+        resolve([{
                 "id": 2,
                 "order_list": [
                 {
@@ -28,6 +28,7 @@ export function getProcesHelper(idStore) {
                     "type": "CLIENT"
                 }
             }
+            ]
         );
     });
 }
