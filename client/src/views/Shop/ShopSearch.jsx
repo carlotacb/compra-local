@@ -3,6 +3,7 @@ import { Typography, Grid, makeStyles } from "@material-ui/core";
 import { SearchBox, ListView, StoreCard } from "../../components";
 import { TertiaryButton } from "../../shared-components";
 
+import { ApiFactory } from "../../services/ApiFactory";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,51 +26,39 @@ const useStyles = makeStyles((theme) => ({
 export function ShopSearch() {
 
     const classes = useStyles();
+    const [stores, setStores] = React.useState([]);
+    React.useEffect(()=> {
+        const searchStores = ApiFactory.get('searchStores');
+        var lat = undefined;
+        var long = undefined;
+        searchStores(lat, long)
+        .then((s) => {
+            setStores(s)
+        });
+    });
 
     function renderRestaurants() {
-        // TODO: Loop from API
+        var output = [];
+        for (var i in stores) {
+            var aux = (
+                <Grid item key={i}>
+                <StoreCard
+                    id={stores[i]["id"]}
+                    name={stores[i]["name"]}
+                    description={stores[i]["description"]}
+                    category={stores[i]["category"]}
+                    stars={stores[i]["punctuation"]}
+                    tags={stores[i]["tags"]}
+                />  
+            </Grid>
+            )
+            output.push(
+                aux
+            )
+        }
         return (
-            <ListView maxHeight={100}>
-                <Grid item>
-                    <StoreCard
-                        id={1}
-                        name="Bona Fruita Sants"
-                        description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
-                        category="Fruteria"
-                        stars={4.5}
-                        tags={["Obert ara", "A domicili", "A recollir"]}
-                    />
-                </Grid>
-                <Grid item>
-                    <StoreCard
-                        id={2}
-                        name="Bona Fruita Sants"
-                        description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
-                        category="Panaderia"
-                        stars={2}
-                        tags={["Obert ara", "A recollir"]}
-                    />
-                </Grid>
-                <Grid item>
-                    <StoreCard
-                        id={3}
-                        name="Bona Fruita Sants"
-                        description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
-                        category="Fruteria"
-                        stars={4.5}
-                        tags={["Obert ara", "A domicili", "A recollir"]}
-                    />
-                </Grid>
-                <Grid item>
-                    <StoreCard
-                        id={4}
-                        name="Bona Fruita Sants"
-                        description="Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana."
-                        category="Panaderia"
-                        stars={2}
-                        tags={["Obert ara", "A recollir"]}
-                    />
-                </Grid>
+            <ListView>
+                {output}
             </ListView>
         )
     }

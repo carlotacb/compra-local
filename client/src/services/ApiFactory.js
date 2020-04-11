@@ -1,9 +1,9 @@
-import { getStoreInfo } from './Shop/Store';
+import { getStoreInfo, searchStores } from './Store/Store';
 import { getCurrentOrders } from './Orders/CurrentOrders';
-
 const endpoints = {
     'getStoreInfo': getStoreInfo,
-    'getCurrentOrders': getCurrentOrders
+    'getCurrentOrders': getCurrentOrders,
+    'searchStores': searchStores
 }
 
 function get(name) {
