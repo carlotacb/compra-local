@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper, Typography, makeStyles } from '@material-ui/core';
+import { Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 import { TertiaryButton } from "../../shared-components";
 
 
@@ -43,6 +43,9 @@ export function OrderCard(props) {
                     <Typography variant="h5">
                         {'stepper'}
                     </Typography>  
+                </Grid>
+                <Grid item>
+                    <Divider variant="middle" orientation="vertical" />
                 </Grid>
                 <Grid item>
                     <TertiaryButton> Pendent de Confirmació </TertiaryButton>
