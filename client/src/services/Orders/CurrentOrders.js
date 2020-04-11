@@ -4,52 +4,58 @@ export function getCurrentOrders(idStore) {
             [
                 {
                     "delivery": false,
-                    "helper": false,
-                    "shop": "Bona fruita busquets",
+                    "helper_needed": false,
+                    "local_name": "Bona fruita busquets",
                     "step": 1,
                     "total": 53.20,
                     "ticket": [
                         {
-                            "product": "Pebrots 2kg",
-                            "price": 5
+                            "product_name": "Pebrots",
+                            "quantity": "2kg",
+                            "total_price": 5
                         },
                         {
-                            "product": "Maduixots del maresme",
-                            "price": 2.5
+                            "product_name": "Maduixots del maresme",
+                            "quantity": "4 unitats",
+                            "total_price": 2.5
                         }
                     ]
                 },
                 {
                     "delivery": false,
-                    "helper": false,
-                    "shop": "Bona fruita busquets",
+                    "helper_needed": false,
+                    "local_name": "Bona fruita busquets",
                     "step": 1,
                     "total": 53.20,
                     "ticket": [
                         {
-                            "product": "Pebrots 2kg",
-                            "price": 5
+                            "product_name": "Pebrots",
+                            "quantity": "2kg",
+                            "total_price": 5
                         },
                         {
-                            "product": "Maduixots del maresme",
-                            "price": 2.5
+                            "product_name": "Maduixots del maresme",
+                            "quantity": "4 unitats",
+                            "total_price": 2.5
                         }
                     ]
                 },
                 {
                     "delivery": false,
-                    "helper": false,
-                    "shop": "Bona fruita busquets",
+                    "helper_needed": false,
+                    "local_name": "Bona fruita busquets",
                     "step": 1,
                     "total": 53.20,
                     "ticket": [
                         {
-                            "product": "Pebrots 2kg",
-                            "price": 5
+                            "product_name": "Pebrots",
+                            "quantity": "2kg",
+                            "total_price": 5
                         },
                         {
-                            "product": "Maduixots del maresme",
-                            "price": 2.5
+                            "product_name": "Maduixots del maresme",
+                            "quantity": "4 unitats",
+                            "total_price": 2.5
                         }
                     ]
                 },
