@@ -4,7 +4,7 @@ import requests
 from src.config import PYTHON_MODULE_PORT, MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID, MESSAGE_PRODUCT_NOT_FOUND
 
 
-class APILocalGetTest(unittest.TestCase):
+class APIProductGetTest(unittest.TestCase):
 
     def setUp(self):
         self.url = f'http://localhost:{PYTHON_MODULE_PORT}/admin'
@@ -30,12 +30,12 @@ class APILocalGetTest(unittest.TestCase):
         self.assertEqual(response.get('error'), True)
         self.assertEqual(response.get('message'), MESSAGE_LOCAL_NOT_FOUND)
 
-    def test_local_id_not_found(self):
+    def test_product_id_not_found(self):
         response = requests.get(f'{self.url}/{self.local_id}/product/{self.product_id_not_found}').json()
         self.assertEqual(response.get('error'), True)
         self.assertEqual(response.get('message'), MESSAGE_PRODUCT_NOT_FOUND)
 
-    def test_local_id_wrong(self):
+    def test_product_id_wrong(self):
         response = requests.get(f'{self.url}/{self.local_id}/product/{self.product_id_wrong}').json()
         self.assertEqual(response.get('error'), True)
         self.assertEqual(response.get('message'), MESSAGE_PRODUCT_WRONG_ID)

@@ -18,7 +18,7 @@ def get(local_id, product_id):
         if not local:
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
         # Get all reviews
-        product = product_service.get_prodcut(local_id, product_id)
+        product = product_service.get_product(local_id, product_id)
         if not product:
             return response.make(error=True, message=MESSAGE_PRODUCT_NOT_FOUND)
         return response.make(error=False, response=dict(product=product.serialize()))
