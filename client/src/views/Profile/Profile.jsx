@@ -56,7 +56,7 @@ export function Profile() {
                 </Typography>
             </Grid>
             <Grid item>
-                <ProfileBox name={userInformation.name} email={userInformation.email_address} phone_number={userInformation.phone_number}/>
+                <ProfileBox name={userInformation.name} email={userInformation.email_address} phone_number={userInformation.phone_number} image={userInformation.image}/>
             </Grid>
             <Grid item>
                 <SecondaryButton onClick={() => setOpenModal(true)}> Canviar contrasenya </SecondaryButton>
