@@ -77,8 +77,8 @@ export function OrderCard(props) {
         for (var i = 0; i < ticketAPI.length; ++i) {
             ticket.push(
                 <Grid item className={classes.summary}>
-                    <Typography variant="body2"> {ticketAPI.product_name} - {ticketAPI.quantity} </Typography>  
-                    <Typography variant="body2"> {ticketAPI.total_price}€ </Typography>
+                    <Typography variant="body2"> {ticketAPI[i].product_name} - {ticketAPI[i].quantity} </Typography>  
+                    <Typography variant="body2"> {ticketAPI[i].total_price}€ </Typography>
                 </Grid>
             )    
         }
