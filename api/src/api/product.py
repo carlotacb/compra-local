@@ -1,6 +1,7 @@
 from flask import request
 
-from src.config import MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID, MESSAGE_PRODUCT_GROUP_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_PRODUCT_NOT_FOUND
+from src.config import MESSAGE_LOCAL_WRONG_ID, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PRODUCT_WRONG_ID, \
+    MESSAGE_PRODUCT_GROUP_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_PRODUCT_NOT_FOUND
 from src.helper import response
 from src.service import local as local_service
 from src.service import product as product_service
@@ -94,7 +95,6 @@ def put(local_id, product_id):
         if not product:
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
         # Get input
-        request_json = request.json
         name = body.get('name', None)
         price = body.get('price', None)
         currency = body.get('currency', None)
@@ -102,7 +102,9 @@ def put(local_id, product_id):
         description = body.get('description', None)
         product_group = body.get('product_group', None)
         # Process
-        edited = product_service.edit(local_id, product_id, name, price, currency, price_type, description, product_group)
+        edited = product_service.edit(
+            local_id, product_id, name, price, currency, price_type, description, product_group
+        )
         return response.make(error=False, response=dict(edited=edited))
     except Exception as e:
         return response.raise_exception(e)
