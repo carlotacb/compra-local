@@ -138,3 +138,20 @@ def get_opening_hours(local_id):
         return response.make(error=False, response=dict(opening_hours=opening_hours))
     except Exception as e:
         return response.raise_exception(e)
+
+
+def post_opening_hours(local_id):
+    body = request.json
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Post reviews
+        opening_hours_list = body.get('opening_hours')
+        return response.make(error=False, response=dict(created=created))
+    except Exception as e:
+        return response.raise_exception(e)
