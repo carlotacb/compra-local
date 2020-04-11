@@ -1,9 +1,12 @@
 from sqlalchemy.exc import IntegrityError
 
+from src.config import TAG_LOCAL_PICK_UP, TAG_LOCAL_DELIVERY, TAG_LOCAL_OPEN
 from src.db.sqlalchemy import db_session
 from src.model.local import Local
 from src.helper import image as image_util, log
 from src.service import category as category_service
+from src.service import opening_hours_item as opening_hours_item_service
+from src.service import review_local as review_local_service
 from src.service import user as user_service
 
 
@@ -17,14 +20,14 @@ def add_dummy_data():
                 postal_address='Carrer de Sants, 258, 08028 Barcelona',
                 latitude=41.375647, longitude=2.127905, website=None, phone_number='933 39 91 18',
                 pick_up=True, delivery=True, image=image_util.decode_and_resize('test/mock/local_image_1.jpg'),
-                category=category_service.get_id_by_name('Fruiteria')
+                category_id=category_service.get_id_by_name('Fruiteria')
             ),
             Local(
                 name='Farmacia Bassegoda', description='La farmacia del teu barri.',
                 postal_address='Carrer de Bassegoda, 11, 08028 Barcelona',
                 latitude=41.375191, longitude=2.125832, website=None, phone_number='934 40 09 55',
                 pick_up=True, delivery=False, image=image_util.decode_and_resize('test/mock/local_image_2.jpg'),
-                category=category_service.get_id_by_name('Farmacia')
+                category_id=category_service.get_id_by_name('Farmacia')
             )
         ]
         db_session().bulk_save_objects(object_list)
@@ -88,3 +91,30 @@ def get_all_coordinates():
     for local in db_session().query(Local).all():
         local_dict[local.id] = dict(latitude=local.latitude, longitude=local.longitude)
     return local_dict
+
+
+def get_tags(local_id):
+    tags = []
+    local = db_session().query(Local).filter_by(id=local_id).first()
+    if local.pick_up:
+        tags.append(TAG_LOCAL_PICK_UP)
+    if local.delivery:
+        tags.append(TAG_LOCAL_DELIVERY)
+    if opening_hours_item_service.is_open(local_id):
+        tags.append(TAG_LOCAL_OPEN)
+    return tags
+
+
+def get_from_id_list(local_id_list):
+    local_list = []
+    local_orm_list = db_session().query(Local).filter(Local.id.in_(local_id_list)).all()
+    for local_orm in local_orm_list:
+        local_list.append(dict(
+            id=local_orm.id,
+            name=local_orm.name,
+            description=local_orm.description,
+            category=None if not local_orm.category_id else local_orm.category.name,
+            punctuation=review_local_service.get_average(local_orm.id),
+            tags=get_tags(local_orm.id)
+        ))
+    return local_list

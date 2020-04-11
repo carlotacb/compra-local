@@ -78,3 +78,14 @@ def post():
             return response.make(error=True, message=f'{MESSAGE_LOCAL_POST_ERROR} - {error_message}')
     except Exception as e:
         return response.raise_exception(e)
+
+
+def search(latitude, longitude):
+    try:
+        # Get all local coordinates
+        coordinates_dict = local_service.get_all_coordinates()
+        local_id_list = maps.filter_by_around(coordinates_dict, latitude, longitude)
+        local_list = local_service.get_from_id_list(local_id_list)
+        return response.make(error=False, response=dict(local_list=local_list))
+    except Exception as e:
+        return response.raise_exception(e)

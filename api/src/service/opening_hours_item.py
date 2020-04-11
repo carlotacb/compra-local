@@ -1,6 +1,8 @@
 from datetime import datetime
 
-from src.config import DATE_TIME_FORMAT
+from sqlalchemy import and_
+
+from src.config import DATE_TIME_FORMAT, DATE_WEEK_DAY_FORMAT
 from src.db.sqlalchemy import db_session
 from src.enum.week_day import WeekDay
 from src.helper import log
@@ -60,3 +62,14 @@ def add_dummy_data():
         db_session().commit()
     else:
         log.info(f'Skipping dummy data for {OpeningHoursItem.__tablename__} because is not empty.')
+
+
+def is_open(local_id):
+    now = datetime.utcnow()
+    now_week_day = WeekDay(now.strftime(DATE_WEEK_DAY_FORMAT).upper())
+    now_day_time = datetime.strptime(now.strftime(DATE_TIME_FORMAT), DATE_TIME_FORMAT)
+    open_hours_item = db_session().query(OpeningHoursItem).filter(and_(
+        OpeningHoursItem.local_id == local_id, OpeningHoursItem.week_day == now_week_day,
+        OpeningHoursItem.started_at < now_day_time, OpeningHoursItem.ended_at > now_day_time
+    )).first()
+    return bool(open_hours_item)
