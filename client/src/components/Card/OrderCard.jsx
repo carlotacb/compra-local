@@ -72,7 +72,7 @@ export function OrderCard(props) {
         }
     }
 
-    const handleAcceptProduct = (punctuation, valoration) =>{
+    const handleValorateSell = (punctuation, valoration) =>{
         console.log(punctuation + " - " + valoration);
         setOpenModal(false);
     }
@@ -111,7 +111,7 @@ export function OrderCard(props) {
                     {resumcompra()}
                 </Grid>
             </Grid>
-            <ValorationDialog open={openModal} title="Valora la teva compra" onAccept={(punct, comm) => handleAcceptProduct(punct, comm)} onClose={() => setOpenModal(false)} />
+            <ValorationDialog open={openModal} title="Valora la teva compra" onAccept={(punct, comm) => handleValorateSell(punct, comm)} onClose={() => setOpenModal(false)} />
         </Paper>
     )
 }
