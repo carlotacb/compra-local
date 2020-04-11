@@ -2,7 +2,7 @@ export function getCompletedOrders(idStore) {
     return new Promise((resolve, reject) => {
         resolve([
             {
-                "complition_date": Date(20/9/2020),
+                "complition_date": "10/04/2020",
                 "local_name": "Bona fruita busquets",
                 "total": 7.5,
                 "ticket": [
@@ -19,7 +19,7 @@ export function getCompletedOrders(idStore) {
                 ]
             },
             {
-                "complition_date": Date(20/9/2020),
+                "complition_date": "16/03/2020",
                 "local_name": "Bona fruita sants",
                 "total": 3.5,
                 "ticket": [
@@ -36,7 +36,7 @@ export function getCompletedOrders(idStore) {
                 ]
             },
             {
-                "complition_date": Date(20/9/2020),
+                "complition_date": "25/03/2020",
                 "local_name": "Farmacia Valentines",
                 "total": 115,
                 "ticket": [

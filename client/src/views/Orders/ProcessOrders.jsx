@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { Grid } from "@material-ui/core";
-import { OrderCard, OrderHelpCard, OrderDeliveryCard } from '../../components';
+import { OrderCard, OrderHelpCard } from '../../components';
 import { ApiFactory } from "../../services/ApiFactory";
 
 export function ProcessOrders() {
@@ -24,9 +24,9 @@ export function ProcessOrders() {
             if (resp[i].helper_needed) {
                 orders.push(<OrderHelpCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket} assigned_helper={resp[i].assigned_helper} helper={resp[i].helper}/>)
             } else if (resp[i].delivery) {
-                orders.push(<OrderDeliveryCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
+                orders.push(<OrderCard delivery={true} step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
             } else {
-                orders.push(<OrderCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
+                orders.push(<OrderCard delivery={false} step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
             }
         }
         return orders
