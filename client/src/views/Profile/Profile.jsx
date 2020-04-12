@@ -4,6 +4,7 @@ import { Grid, Typography, makeStyles } from "@material-ui/core";
 import { SecondaryButton, GroupButton } from '../../shared-components/';
 import { ProfileBox, PasswordDialog } from "../../components";
 import { ApiFactory } from "../../services/ApiFactory";
+import { useCookies } from 'react-cookie';
 
 import { Valorations } from "./Valorations"
 
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Profile() {
-    const { id } = useParams();
+    const [cookies, setCookie] = useCookies(['uisha']);
     const [ page, setPage ] = useState(0);
     const [ recivedValorations, setRecivedValorations ] = useState('');
     const [ givenValorations, setGivenValorations ] = useState('');
@@ -29,24 +30,25 @@ export function Profile() {
 
     React.useEffect(function getRecivedValorations() {
         const getRecivedValorationsAPI = ApiFactory.get('getRecivedValorations');
-        getRecivedValorationsAPI(id).then((res) => {
+        getRecivedValorationsAPI(cookies.iusha).then((res) => {
             setRecivedValorations(res);
         });
     }, []);
 
     React.useEffect(function getGivenValorations() {
         const getGivenValorationsAPI = ApiFactory.get('getGivenValorations');
-        getGivenValorationsAPI(id).then((res) => {
+        getGivenValorationsAPI(cookies.iusha).then((res) => {
             setGivenValorations(res);
         });
     }, []);
 
     React.useEffect(function getUserInformation() {
         const getUserInformationAPI = ApiFactory.get('getUserInformation');
-        getUserInformationAPI(id).then((res) => {
-            setUserInformation(res);
+        getUserInformationAPI(cookies.iusha).then((res) => {
+            setUserInformation(res.user);
         });
     }, []);
+
 
     return (
         <Grid container direction="column" justify="space-between">
