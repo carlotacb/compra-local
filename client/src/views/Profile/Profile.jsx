@@ -41,7 +41,7 @@ export function Profile() {
 
         const getGivenValorationsAPI = ApiFactory.get('getGivenValorations');
         getGivenValorationsAPI(user["id"]).then((res) => {
-            setGivenValorations(res);
+            setGivenValorations(res.done_reviews);
         });
 
         const getUserInformationAPI = ApiFactory.get('getUserInformation');
@@ -73,8 +73,8 @@ export function Profile() {
             <Grid item>
                 <GroupButton buttons={["Rebudes", "Realitzades"]} active={page} onClick={(p) => setPage(p)} />
                 {(page === 0) ? 
-                <Valorations response={recivedValorations}/> : 
-                <Valorations response={givenValorations}/>}
+                <Valorations response={recivedValorations} rebudes={true} /> : 
+                <Valorations response={givenValorations} rebudes={false} />}
             </Grid>
             <PasswordDialog title={'Canviar el password'} onAccept={(op, np) => handleChangePassword(op, np)} open={openModal} onClose={() => setOpenModal(false)}/>
         </Grid>
