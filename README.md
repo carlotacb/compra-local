@@ -60,6 +60,7 @@ To run the API, please execute the following commands from the root directory:
 4. Set up environment creating the .env file. This file must have this structure (without the brackets):
 
     ```bash
+    DEVELOPMENT_MODE=true
     DB_USER={DB_USER}
     DB_PASSWORD={DB_PASSWORD}
     DB_DB={DB_DB}

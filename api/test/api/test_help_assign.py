@@ -3,6 +3,7 @@ import requests
 
 from src.config import PYTHON_MODULE_PORT, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, \
     MESSAGE_ORDER_GROUP_SAME_USER, MESSAGE_ORDER_GROUP_NOT_FOUND, TEST_RUN_EDITS
+from src.helper import env
 
 
 class APIHelpAssignTest(unittest.TestCase):
@@ -52,7 +53,7 @@ class APIHelpAssignTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_ORDER_GROUP_NOT_FOUND)
 
     def test_assign(self):
-        if TEST_RUN_EDITS:
+        if env.run_modifications() or TEST_RUN_EDITS:
             request_body = dict(user_id=self.user_id, order_group_id=self.order_group_id)
             response = requests.post(self.url, json=request_body).json()
             self.assertEqual(response.get('error'), False)

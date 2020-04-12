@@ -4,6 +4,7 @@ import requests
 from src.config import PYTHON_MODULE_PORT, MESSAGE_PARAMETERS_REQUIRED, TEST_RUN_CREATIONS, \
     MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_LOCAL_NOT_FOUND, \
     MESSAGE_ORDER_PRODUCT_LIST_WRONG, MESSAGE_ORDER_PRODUCT_LIST_NOT_FOUND
+from src.helper import env
 
 
 class APIOrderPostTest(unittest.TestCase):
@@ -99,7 +100,7 @@ class APIOrderPostTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_ORDER_PRODUCT_LIST_NOT_FOUND)
 
     def test_creation(self):
-        if TEST_RUN_CREATIONS:
+        if env.run_modifications() or TEST_RUN_CREATIONS:
             request_body = dict(
                 user_id=self.user_id,
                 local_id=self.local_id,

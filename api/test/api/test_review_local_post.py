@@ -3,6 +3,7 @@ import requests
 
 from src.config import PYTHON_MODULE_PORT, MESSAGE_PARAMETERS_REQUIRED, TEST_RUN_CREATIONS, \
     MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_REVIEW_WRONG_PUNCTUATION, MESSAGE_ORDER_NOT_FOUND
+from src.helper import env
 
 
 class APIReviewLocalPostTest(unittest.TestCase):
@@ -70,7 +71,7 @@ class APIReviewLocalPostTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_REVIEW_WRONG_PUNCTUATION)
 
     def test_creation(self):
-        if TEST_RUN_CREATIONS:
+        if env.run_modifications() or TEST_RUN_CREATIONS:
             request_body = dict(
                 writer_id=self.writer_id,
                 order_id=self.order_id,

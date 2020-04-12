@@ -2,6 +2,7 @@ import unittest
 import requests
 
 from src.config import PYTHON_MODULE_PORT, MESSAGE_LOCAL_WRONG_ID, TEST_RUN_EDITS
+from src.helper import env
 
 
 class APIProductPostTest(unittest.TestCase):
@@ -36,7 +37,7 @@ class APIProductPostTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_LOCAL_WRONG_ID)
 
     def test_edit(self):
-        if TEST_RUN_EDITS:
+        if env.run_modifications() or TEST_RUN_EDITS:
             request_body = dict(name=self.new_name)
             response = requests.put(f'{self.url}/{self.product_id}', json=request_body).json()
             self.assertEqual(response.get('error'), False)

@@ -1,5 +1,11 @@
 PYTHON_MODULE_PORT = 8080
 
+TEST_DB_USER = 'postgres'
+TEST_DB_PASSWORD = 'compra_local_db_test_password'
+TEST_DB_DB = 'postgres'
+TEST_DB_HOST = 'compra_local_db_test'
+TEST_DB_PORT = 5432
+
 TEST_RUN_CREATIONS = False
 TEST_RUN_EDITS = False
 
