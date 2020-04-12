@@ -14,8 +14,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Profile() {
-    const [ cookies ] = useCookies(['uisha']);
-    const [load, setLoad] =  React.useState(0);
+
+
+    const { user, setUser } = React.useContext(UserContext);
+
     const [ page, setPage ] = useState(0);
     const [ recivedValorations, setRecivedValorations ] = useState('');
     const [ givenValorations, setGivenValorations ] = useState('');
@@ -30,22 +32,27 @@ export function Profile() {
     }
 
     React.useEffect(function getRecivedValorations() {
+        if(user === undefined) return;
+
         const getRecivedValorationsAPI = ApiFactory.get('getRecivedValorations');
-        getRecivedValorationsAPI(cookies.iusha).then((res) => {
+        getRecivedValorationsAPI(user["id"]).then((res) => {
             setRecivedValorations(res.reviews_list);
         });
 
         const getGivenValorationsAPI = ApiFactory.get('getGivenValorations');
-        getGivenValorationsAPI(cookies.iusha).then((res) => {
+        getGivenValorationsAPI(user["id"]).then((res) => {
             setGivenValorations(res);
         });
 
         const getUserInformationAPI = ApiFactory.get('getUserInformation');
-        getUserInformationAPI(cookies.iusha).then((res) => {
+        getUserInformationAPI(user["id"]).then((res) => {
             setUserInformation(res.user);
         });
-    }, [load]);
+    }, [user]);
 
+    if(user === undefined) {
+        return <p> Loading ....</p>
+    }
 
     return (
         <Grid container direction="column" justify="space-between">
