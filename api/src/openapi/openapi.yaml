@@ -730,7 +730,7 @@ paths:
             application/text:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
-    post:
+    put:
       tags:
         - admin
       summary: Create all opening hours for a local.

@@ -1,4 +1,4 @@
-PYTHON_MODULE_PORT = 8080
+PYTHON_MODULE_PORT = 8081
 
 TEST_DB_USER = 'postgres'
 TEST_DB_PASSWORD = 'compra_local_db_test_password'
