@@ -4,6 +4,7 @@ import { GroupButton } from '../../shared-components/';
 import { ProcessPickUp, NeedHelp } from '../../views';
 import { ApiFactory } from "../../services/ApiFactory";
 import { UserContext } from '../../context/UserContext';
+import { Loading } from "../../components/Loading/Loading";
 
 export function Neighborhood() {
     const { user } = useContext(UserContext);
@@ -32,7 +33,7 @@ export function Neighborhood() {
     }, [user]);
 
     if(user === undefined) {
-        return <p> Loading ....</p>
+        return <Loading />
     }
 
     return (
