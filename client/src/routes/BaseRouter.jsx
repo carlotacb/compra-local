@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Link } from "react-router-dom";
+import { Route, BrowserRouter as Router, Link, Redirect } from "react-router-dom";
 import { UserContext } from '../context';
 import { Login, Register } from '../views';
 import { AppRouter } from './index';
