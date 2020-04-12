@@ -4,6 +4,7 @@ import { GroupButton } from '../../shared-components/';
 import { ProcessOrders, CompletedOrders, PendingReviewOrder } from "../../views";
 import { ApiFactory } from "../../services/ApiFactory";
 import { UserContext } from '../../context/UserContext';
+import { Loading } from "../../components/Loading/Loading";
 
 export function Orders() {
     const { user } = useContext(UserContext);
@@ -37,7 +38,7 @@ export function Orders() {
     }, [user]);
 
     if(user === undefined) {
-        return <p> Loading ....</p>
+        return <Loading />
     }
 
     const renderCorrectPage = () => {
