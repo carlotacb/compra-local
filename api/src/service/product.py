@@ -293,6 +293,42 @@ def add_dummy_data():
                 local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
                 product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
             ),
+            Product(
+                name='Patates xip', 
+                description='Patates xip classiques al punt de sal', 
+                price=2, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Cal Juny'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Alimentacio', 'Cal Juny')
+            ),
+            Product(
+                name='Farina', 
+                description='Farina de blat', 
+                price=1.25, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Cal Juny'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Alimentacio', 'Cal Juny')
+            ),
+            Product(
+                name='Llevadura', 
+                description='Llevadura de forner', 
+                price=1.75, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Cal Juny'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Alimentacio', 'Cal Juny')
+            ),
+            Product(
+                name='Oli', 
+                description='Oli oliva verge extra', 
+                price=5.15, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Cal Juny'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Alimentacio', 'Cal Juny')
+            ),
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()
