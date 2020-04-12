@@ -9,6 +9,9 @@ import { StoreProfile as SP} from './Store/StoreProfile';
 //Orders
 import { PetitionOrderCard as POC } from './Cards/PetitionOrderCard'
 
+//Dialog
+import { TicketDialog as TD } from './Dialog/TicketDialog'
+
 export const Sidebar = S;
 export const ListView = LV;
 
@@ -17,3 +20,5 @@ export const StoreEdit = SE;
 export const StoreProfile = SP;
 
 export const PetitionOrderCard = POC;
+
+export const TicketDialog = TD;
