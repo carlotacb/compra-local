@@ -2,6 +2,7 @@ import React from "react";
 import { ReviewCard, ListView } from "../../components/";
 
 import { Grid, Typography } from "@material-ui/core";
+import { NoInfoCard } from "../../components/Card/NoInfoCard";
 
 export function Valorations(props) {
 
@@ -17,16 +18,18 @@ export function Valorations(props) {
         }
 
         if (valorations.length === 0) {
-            if (props.rebudes) valorations.push(<Typography variant="h6"> Encara no has rebut cap valoració </Typography>)
-            else valorations.push(<Typography variant="h6"> Encara no has realitzat cap valoració </Typography>)
+            if (props.rebudes) valorations.push(<NoInfoCard information={"Encara no has rebut cap valoració"}/>)
+            else valorations.push(<NoInfoCard information={"Encara no has realitzat cap valoració"}/>)
         }
 
         return (valorations)
     }
 
     return (
-        <ListView maxHeight={100}>
-            {renderValorations()}
-        </ListView>
+        <Grid container direction="column" justify="space-between">
+            <Grid item>
+                {renderValorations()}
+            </Grid>
+        </Grid>
     )
 }
