@@ -2,6 +2,7 @@
 
 [![HitCount](http://hits.dwyl.io/carlotacb/compra-local.svg)](http://hits.dwyl.io/carlotacb/compra-local)
 ![Python application](https://github.com/carlotacb/compra-local/workflows/Python%20application/badge.svg)
+![Build and Deploy to Cloud Run](https://github.com/carlotacb/compra-local/workflows/Build%20and%20Deploy%20to%20Cloud%20Run/badge.svg)
 [![GitHub stars](https://img.shields.io/github/stars/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/stargazers/)
 [![GitHub forks](https://img.shields.io/github/forks/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/network/)
 [![GitHub contributors](https://img.shields.io/github/contributors/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/graphs/contributors/)
@@ -59,6 +60,7 @@ To run the API, please execute the following commands from the root directory:
 4. Set up environment creating the .env file. This file must have this structure (without the brackets):
 
     ```bash
+    DEVELOPMENT_MODE=true
     DB_USER={DB_USER}
     DB_PASSWORD={DB_PASSWORD}
     DB_DB={DB_DB}
@@ -72,7 +74,7 @@ To run the API, please execute the following commands from the root directory:
     uwsgi --ini uwsgi.ini -H env
     ```
 
-    or as a Python module (only for development mode)
+    or as a Python module (only for debugging)
 
     ```bash
     python3 -m src.connexion
@@ -80,10 +82,10 @@ To run the API, please execute the following commands from the root directory:
 
 ### Run tests
 
-1. Just run the following command
+1. Just run the following command with the `RUN_MODIFICATIONS` flag enabled
 
    ```
-   python3 -m unittest discover -v
+   RUN_MODIFICATIONS=true python3 -m unittest discover -v
    ```
 
 ### Development

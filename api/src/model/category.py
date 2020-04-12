@@ -10,3 +10,9 @@ class Category(Base):
 
     id = db.Column(db.Integer, helper.get_sequence(__tablename__), primary_key=True)
     name = db.Column(db.String(64), nullable=False)
+
+    def serialize(self):
+        return dict(
+            id=self.id,
+            name=self.name
+        )

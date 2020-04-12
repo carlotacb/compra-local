@@ -25,6 +25,7 @@ jobs:
     - name: Create .env file
       working-directory: ${{env.api-directory}}
       run: |
+        echo "DEVELOPMENT_MODE=true" >> .env
         echo "DB_USER=${{ secrets.DB_USER }}" >> .env
         echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
         echo "DB_DB=${{ secrets.DB_DB }}" >> .env
@@ -53,4 +54,4 @@ jobs:
       run: docker ps
     - name: Test with unittest
       working-directory: ${{env.api-directory}}
-      run: python3 -m unittest discover -v
+      run: RUN_MODIFICATIONS=true python3 -m unittest discover -v

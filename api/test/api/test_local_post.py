@@ -3,7 +3,7 @@ import requests
 
 from src.config import PYTHON_MODULE_PORT, MESSAGE_PARAMETERS_REQUIRED, TEST_RUN_CREATIONS, \
     MESSAGE_CATEGORY_NOT_FOUND, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND
-from src.helper import image
+from src.helper import image, env
 
 
 class APILocalPostTest(unittest.TestCase):
@@ -18,7 +18,7 @@ class APILocalPostTest(unittest.TestCase):
         self.user_id_not_found = 123456789
         self.local_category_id = 3
         self.local_category_id_wrong = 1234567890
-        self.local_image_path = 'mock/local_image_3.jpg'
+        self.local_image_path = 'test/mock/local_image_3.jpg'
 
     def test_status_code(self):
         response = requests.post(self.url, json=dict())
@@ -62,7 +62,7 @@ class APILocalPostTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_CATEGORY_NOT_FOUND)
 
     def test_creation(self):
-        if TEST_RUN_CREATIONS:
+        if env.run_modifications() or TEST_RUN_CREATIONS:
             request_body = dict(
                 name=self.local_name,
                 postal_address=self.local_postal_address,
@@ -76,7 +76,7 @@ class APILocalPostTest(unittest.TestCase):
             self.assertTrue(True)
 
     def test_creation_with_image(self):
-        if TEST_RUN_CREATIONS:
+        if env.run_modifications() or TEST_RUN_CREATIONS:
             image_content = image.decode_image_file(self.local_image_path)
             request_body = dict(
                 name=self.local_name,

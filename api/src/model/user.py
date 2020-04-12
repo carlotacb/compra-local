@@ -17,6 +17,9 @@ class User(Base):
     email_address = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
     phone_number = db.Column(db.String(64))
+    postal_address = db.Column(db.String(256))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
     type = db.Column(db.Enum(UserType), nullable=False)
     image = db.Column(db.Text)
     local_id = db.Column(db.Integer, db.ForeignKey(f'{Local.__tablename__}.id'))
@@ -29,6 +32,10 @@ class User(Base):
             name=self.name,
             email_address=self.email_address,
             phone_number=self.phone_number,
+            postal_address=self.postal_address,
+            latitude=self.latitude,
+            longitude=self.longitude,
             type=self.type.value,
-            image=self.image
+            image=self.image,
+            local_id=self.local_id
         )

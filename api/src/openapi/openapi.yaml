@@ -22,6 +22,10 @@ tags:
     description: endpoint for managing locals.
   - name: review
     description: endpoint for managing reviews.
+  - name: order
+    description: endpoint for managing orders.
+  - name: category
+    description: endpoint for managing categories.
 
 paths:
 
@@ -103,6 +107,9 @@ paths:
                 phone_number:
                   type: string
                   description: (optional) User phone number.
+                postal_address:
+                  type: string
+                  description: (optional) User postal address.
                 image:
                   type: string
                   description: (optional) User image base64-encoded.
@@ -147,6 +154,9 @@ paths:
                 password:
                   type: string
                   description: User encoded password.
+                postal_address:
+                  type: string
+                  description: User postal address.
                 type:
                   type: string
                   description: User type.
@@ -344,16 +354,16 @@ paths:
                   description: (Optional) Local postal address.
                 website:
                   type: string
-                  description: (Optional) Local website.             
+                  description: (Optional) Local website.
                 phone_number:
                   type: integer
-                  description: (Optional) Local phone number.    
+                  description: (Optional) Local phone number.
                 pick_up:
                   type: boolean
-                  description: (Optional) Local pickups allowed.     
+                  description: (Optional) Local pickups allowed.
                 delivery:
                   type: boolean
-                  description: (Optional) Local deliveries allowed.            
+                  description: (Optional) Local deliveries allowed.
                 image:
                   type: string
                   description: (Optional) Local image base64-encoded.
@@ -1010,6 +1020,315 @@ paths:
           required: true
           schema:
             type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /review/done/{user_id}:
+    get:
+      tags:
+        - review
+      summary: Gets all done reviews from a user.
+      description: Invoke this endpoint to get all done reviews from a user.
+      operationId: src.api.review.done
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order:
+    post:
+      tags:
+        - order
+      summary: Creates an order using its information.
+      description: Invoke this endpoint to create an order using its information.
+      operationId: src.api.order.post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: User indentifier related to the order.
+                local_id:
+                  type: integer
+                  description: Local indentifier related to the order.
+                order_type:
+                  type: string
+                  description: Order type.
+                  enum: ['DELIVER', 'PICK_UP', 'HELPER_NEEDED']
+                product_list:
+                  type: array
+                  description: List of products.
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: integer
+                        description: Product indentifier.
+                      quantity:
+                        type: number
+                        format: float
+                        description: Product quantity.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order/{order_id}:
+    put:
+      tags:
+        - order
+      summary: Updates the status of an order.
+      description: Invoke this endpoint to update the status of an order.
+      operationId: src.api.order.put
+      parameters:
+        - in: path
+          name: order_id
+          description: Order identifier.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                new_status:
+                  type: string
+                  description: New order status.
+                  enum: ['PENDING_STORE', 'PREPARING', 'READY', 'ON_IT', 'DONE']
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order/completed/user/{user_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all completed orders from a user.
+      description: Invoke this endpoint to get all completed orders from a user.
+      operationId: src.api.order.user_completed
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order/pending/user/{user_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all pending orders from a user.
+      description: Invoke this endpoint to get all pending orders from a user.
+      operationId: src.api.order.user_pending
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order/helping/user/{user_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all helping orders from a user.
+      description: Invoke this endpoint to get all helping orders from a user.
+      operationId: src.api.order.user_helping
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order/pending/local/{local_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all pending orders from a local.
+      description: Invoke this endpoint to get all pending orders from a local.
+      operationId: src.api.order.local_pending
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order/progress/local/{local_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all in progress orders from a local.
+      description: Invoke this endpoint to get all in progress orders from a local.
+      operationId: src.api.order.local_progress
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /order/completed/local/{local_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all completed orders from a local.
+      description: Invoke this endpoint to get all completed orders from a local.
+      operationId: src.api.order.local_completed
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+  /category:
+    get:
+      tags:
+        - category
+      summary: Gets all categories information.
+      description: Invoke this endpoint to get all categories information.
+      operationId: src.api.category.get_all
       responses:
         200:
           description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.

@@ -3,6 +3,7 @@ import requests
 
 from src.config import PYTHON_MODULE_PORT, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, TEST_RUN_EDITS, \
     MESSAGE_USER_WRONG_PASSWORD
+from src.helper import env
 
 
 class APIUserPasswordTest(unittest.TestCase):
@@ -38,7 +39,7 @@ class APIUserPasswordTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_USER_WRONG_PASSWORD)
 
     def test_edit(self):
-        if TEST_RUN_EDITS:
+        if env.run_modifications() or TEST_RUN_EDITS:
             request_body = dict(old_password=self.user_old_password, new_password=self.user_new_password)
             response = requests.put(f'{self.url}/{self.user_id}/password', json=request_body).json()
             self.assertEqual(response.get('error'), False)

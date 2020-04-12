@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import { useHistory, Redirect } from "react-router-dom";
+
 import { UserContext } from "../../context/UserContext";
 import { SpanAlert } from "../../shared-components/Span/SpanAlert";
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
@@ -10,7 +12,8 @@ import TextField from '@material-ui/core/TextField';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
-
+import { ApiFactory } from '../../services/ApiFactory';
+import { useCookies } from 'react-cookie';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,9 +38,21 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+    },
+    button: {
+        width: 'inherit',
+        display: 'flex',
+        justifyContent: 'center',
         '& > button': {
-            marginTop: '0.5em',
-            marginBottom: '0.5em'
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(3),
+            width: 'inherit',
+            maxWidth: '15em'
+        }
+    },
+    input: {
+        '& > div': {
+            borderRadius: 0
         }
     },
     localGrid: {
@@ -52,23 +67,38 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export function Login() {
-    const {user, setUser} = useContext(UserContext);
+    const history = useHistory();
+    const [cookies, setCookie] = useCookies(['iusha']);
+
+    const { user, setUser } = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
     const classes = useStyles();
 
     const handleLogin = () => {
-        console.log(email + " " + password);
-        if (email === "carlota@hackupc.com" && password === "123") {
-            setError(false);
-            setUser({ email: email, password: password });
-            console.log(user)
-        } else {
-            setError(true);
-        }   
+
+        const loginApi = ApiFactory.get('login');
+        loginApi(email, password).then((res) => {
+            if(!res["error"]) {
+                setError(false);
+                setCookie('iusha', res["user"], { path: '/' });
+                const getUserAPI = ApiFactory.get("getUserInformation");
+                getUserAPI(cookies.uisha)
+                .then((res)=>{
+                    setUser(res);
+                    history.push('/in');
+                });
+            }
+            else if(res["message"] == "password"){
+                setError(true);
+            }
+        })
     }
 
+    if("iusha" in cookies) {
+        return <Redirect to="/in" />
+    }
     return (
         <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -77,6 +107,7 @@ export function Login() {
                     {error ? <SpanAlert message={'error'}><Typography>El email o password no son correctes</Typography></SpanAlert> : null }
                     <TextField 
                         error={error}
+                        className = {classes.input}
                         variant="outlined" 
                         margin="normal" 
                         required 
@@ -89,6 +120,7 @@ export function Login() {
                         autoFocus />
                     <TextField 
                         error={error}
+                        className = {classes.input}
                         variant="outlined" 
                         margin="normal" 
                         required 
@@ -99,7 +131,10 @@ export function Login() {
                         id="password" 
                         onChange={(e)=>setPassword(e.target.value)}
                         autoComplete="current-password" />
-                    <PrimaryButton onClick={() => handleLogin()}> Entra </ PrimaryButton>
+
+                    <div className={classes.button}>
+                        <PrimaryButton onClick={() => handleLogin()}> Entra </ PrimaryButton>
+                    </div>
                     <Grid container>
                         <Grid item xs>
                             {/* <Link href="#" variant="body2"> Forgot password? </Link> */}

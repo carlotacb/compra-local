@@ -16,6 +16,8 @@ class Order(Base):
 
     id = db.Column(db.Integer, helper.get_sequence(__tablename__), primary_key=True)
     completed_time = db.Column(db.DateTime(timezone=False), nullable=False, default=datetime.datetime.utcnow())
+    pick_up = db.Column(db.Boolean, nullable=False, default=True)
+    delivery = db.Column(db.Boolean, nullable=False, default=False)
     local_id = db.Column(db.Integer, db.ForeignKey(f'{Local.__tablename__}.id'), nullable=False)
     order_group_id = db.Column(db.Integer, db.ForeignKey(f'{OrderGroup.__tablename__}.id'), nullable=False)
     order_status = db.Column(db.Enum(OrderStatus), nullable=False, default=OrderStatus.PENDING_STORE)

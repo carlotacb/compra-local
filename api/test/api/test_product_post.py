@@ -2,6 +2,7 @@ import unittest
 import requests
 
 from src.config import PYTHON_MODULE_PORT, MESSAGE_PARAMETERS_REQUIRED, TEST_RUN_CREATIONS, MESSAGE_LOCAL_WRONG_ID
+from src.helper import env
 
 
 class APIProductPostTest(unittest.TestCase):
@@ -40,7 +41,7 @@ class APIProductPostTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_LOCAL_WRONG_ID)
 
     def test_creation(self):
-        if TEST_RUN_CREATIONS:
+        if env.run_modifications() or TEST_RUN_CREATIONS:
             request_body = dict(
                 name=self.product_name,
                 currency=self.currency,

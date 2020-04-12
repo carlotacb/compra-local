@@ -4,14 +4,17 @@ services:
   compra_local_api:
     image: compra_local_api
     container_name: compra_local_api
+    depends_on:
+      - compra_local_db_test
     env_file:
       - "./api/.env"
     build: api
     restart: always
+    volumes:
+      - "./bin/wait-for-it.sh:/bin/wait-for-it"
     ports:
       - "9080:9080"
-    volumes:
-      - "./api:/app"
+    command: wait-for-it compra_local_db_test:5432 -t 0 -- uwsgi --ini uwsgi.ini
   compra_local_nginx:
     image: nginx:latest
     container_name: compra_local_nginx
@@ -25,3 +28,9 @@ services:
       - "./nginx/conf/nginx.conf:/etc/nginx/nginx.conf"
       - "./nginx/log:/var/nginx/log"
     command: wait-for-it compra_local_api:9080 -t 0 -- nginx -g 'daemon off;'
+  compra_local_db_test:
+    image: postgres:latest
+    container_name: compra_local_db_test
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: compra_local_db_test_password

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Grid, makeStyles, Typography, TextField } from '@material-ui/core';
-import { ConfirmationDialog } from '../../components'
+import { Grid, makeStyles, Typography, TextField, Avatar } from '@material-ui/core';
+import { ConfirmationDialog } from '../../components';
 
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
@@ -15,10 +15,29 @@ const useStyles = makeStyles((theme) => ({
     },
     editButton: {
         display: 'flex',
-        justifyContent: 'flex-end'
+	    flexDirection: 'column',
+	    flexWrap: 'wrap',
+	    justifyContent: 'flex-start',
+	    alignItems: 'flex-end',
+	    alignContent: 'flex-end'
+    },
+    avatar: {
+        display: 'flex',
+	    flexDirection: 'column',
+	    flexWrap: 'wrap',
+	    justifyContent: 'center',
+	    alignItems: 'center',
+	    alignContent: 'center'
+    },
+    avatarSize: {
+        width: theme.spacing(20),
+        height: theme.spacing(20),
     },
     content: {
-        padding: theme.spacing(2),
+        paddingLeft: theme.spacing(2),
+    },
+    paddingTop: {
+        paddingTop: theme.spacing(2),
     }
 }));
 
@@ -51,8 +70,19 @@ export function ProfileBox(props) {
     }
 
     return (
-        <Grid container className={classes.root} direction="column"> 
-            <Grid item className={classes.editButton}>
+        <Grid container className={classes.root} direction="row"> 
+            <Grid item xs={5} className={classes.content}> 
+                <Typography variant="h5"> Nom i congnoms </Typography>
+                {editable ? <TextField id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
+                <Typography variant="h5" className={classes.paddingTop}> Correu electrónic </Typography>
+                {editable ? <TextField id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
+                <Typography variant="h5" className={classes.paddingTop}> Numero de telefon </Typography>
+                {editable ? <TextField id="standard-basic" defaultValue={props.phone_number} type="number"/> : <Typography> {props.phone_number} </Typography> }
+            </Grid>
+            <Grid xs={5} className={classes.avatar}>
+                <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ props.image}/>
+            </Grid>
+            <Grid item xs={2} className={classes.editButton}>
                 {editable ? 
                     <div>
                         <SaveIcon onClick={() => handleSave()} cursor="pointer" />
@@ -60,14 +90,6 @@ export function ProfileBox(props) {
                     </div> : 
                     <EditIcon onClick={() => handleEdit()} cursor="pointer"/> 
                 }
-            </Grid>
-            <Grid item className={classes.content}> 
-                <Typography variant="h5"> Nom i congnoms </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
-            </Grid>
-            <Grid item className={classes.content}> 
-                <Typography variant="h5"> Correu electrónic </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
             </Grid>
             <ConfirmationDialog open={openModal} cancel={() => handleCancel()} accept={() => handleAccept()} title={'Cancelar canvis'} message={'Estas segur de que vols cancelar els canvis? Si canceles els canvis es perdran'}/>
         </Grid>

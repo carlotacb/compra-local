@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
+    },
+    uppercase: {
+        textTransform: 'uppercase'
     }
 }));
 
@@ -85,16 +88,16 @@ export function OrderHelpCard(props) {
             case 4:
                 return (
                     <div className={classes.valorationDistribution}>
-                        <div>
+                        <Grid item xs={5}>
                             <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
                             <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
                             <Button variant="contained" color="primary" className={classes.valorationButton} onClick={() => setOpenModal(true)}> ESCRIU VALORACIÓ </Button>
-                        </div>
-                        <div>
+                        </Grid>
+                        <Grid item xs={5}>
                             <Typography variant="body1" className={classes.title2}> Que tal el teu voluntari? </Typography>
                             <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
                             <Button variant="contained" color="secondary" className={classes.valorationButton} onClick={() => setOpenModalHelper(true)}> ESCRIU VALORACIÓ </Button>
-                        </div>
+                        </Grid>
                     </div> 
                 );
         }
@@ -118,7 +121,7 @@ export function OrderHelpCard(props) {
             ticket.push(
                 <Grid item className={classes.summary}>
                     <Typography variant="body2"> {ticketAPI[i].product_name} - {ticketAPI[i].quantity} </Typography>  
-                    <Typography variant="body2"> {ticketAPI[i].total_price}€ </Typography>
+                    <Typography variant="body2"> {ticketAPI[i].total_price} € </Typography>
                 </Grid>
             )    
         }
@@ -137,21 +140,21 @@ export function OrderHelpCard(props) {
     return (
         <Paper className={classes.root}>
             <Grid container direction="row">
-                <Grid item>
-                    <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Esperant recollida del voluntari', 'Enviant', 'Comanda realitzada']}/>
+                <Grid item xs={3}>
+                    <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Esperant recollida del voluntari', 'Comanda recollida per voluntari', 'Comanda rebuda']}/>
                 </Grid>
                 <Grid item>
                     <Divider variant="middle" orientation="vertical" />
                 </Grid>
-                <Grid item className={classes.information}>
+                <Grid item xs={8} className={classes.information}>
                     {getCurrentInformation(props.step)}
                     <div className={classes.helperBox}>
                         <Typography variant="body1" className={classes.bold}> VOLUNTARI: </Typography>
                         {props.assigned_helper ? getHelperInformation(props.helper) : <Typography variant="body1" className={classes.bold}> A l'espera de que un voluntari confirmi la comanda. </Typography>}
                     </div>
                     <Typography variant="body1" className={classes.bold}> Comanda realitzada a: </Typography> 
-                    <Typography variant="h4"> {props.local_name} </Typography> 
-                    <Typography variant="h5"> {props.total}€ </Typography> 
+                    <Typography variant="h4" className={classes.uppercase}> {props.local_name} </Typography> 
+                    <Typography variant="h5"> {props.total} € </Typography> 
                     <Typography variant="body1" className={classes.bold}> Resum de la compra: </Typography> 
                     {resumcompra()}
                 </Grid>
