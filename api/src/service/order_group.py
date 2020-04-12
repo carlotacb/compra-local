@@ -198,8 +198,30 @@ def create(user_id, local_id, order_type, product_list):
         return None, None, str(e.args[0]).replace('\n', ' ')
 
 
+def get_order_type(order_group_object, order_object):
+    if order_group_object.helper_needed:
+        return OrderType.HELPER_NEEDED
+    elif order_object.delivery:
+        return OrderType.DELIVER
+    else:
+        return OrderType.PICK_UP
+
+
 def get_pending_by_local(local_id):
     pending_order_list = list()
+    order_group_list = db_session().query(OrderGroup, Order).filter(and_(
+        OrderGroup.id == Order.order_group_id,
+        Order.local_id == local_id, Order.order_status == OrderStatus.PENDING_STORE
+    )).all()
+    for item in order_group_list:
+        pending_order_list.append(dict(
+            id=item[1].id,
+            client=item[0].user.serialize(),
+            status=item[1].order_status.value,
+            order_type=get_order_type(item[0], item[1]).value,
+            total=order_service.compute_total_price(item[1].id),
+            ticket=order_service.get_ticket(item[1].id)
+        ))
     return pending_order_list
 
 
