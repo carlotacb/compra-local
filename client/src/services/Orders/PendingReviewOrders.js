@@ -1,7 +1,7 @@
 import { urlProd } from '../ApiFactory';
 const axios = require('axios');
 
-export function getCurrentOrders(idStore) {
+export function getPendingReviewOrders(idStore) {
     const endpoint = '/review/pending/' + idStore;
 
     return new Promise((resolve, reject) => {
