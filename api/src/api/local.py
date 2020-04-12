@@ -7,6 +7,7 @@ from src.helper import response, maps
 from src.service import category as category_service
 from src.service import local as local_service
 from src.service import user as user_service
+from src.service import opening_hours_item as opening_hours_service
 
 
 def get(local_id):
@@ -118,5 +119,39 @@ def search(latitude, longitude):
         local_id_list = maps.filter_by_around(coordinates_dict, latitude, longitude)
         local_list = local_service.get_from_id_list(local_id_list)
         return response.make(error=False, response=dict(local_list=local_list))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def get_opening_hours(local_id):
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Get all reviews
+        opening_hours = opening_hours_service.get(local_id)
+        # Return list
+        return response.make(error=False, response=dict(opening_hours=opening_hours))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def post_opening_hours(local_id):
+    body = request.json
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Post reviews
+        created = opening_hours_service.post(local_id, body)
+        return response.make(error=False, response=dict(created=created))
     except Exception as e:
         return response.raise_exception(e)
