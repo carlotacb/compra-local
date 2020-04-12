@@ -154,3 +154,26 @@ def get_pending_reviews(user_id):
         ))
     # Return
     return pending_reviews
+
+
+def get_done_reviews(user_id):
+    # Initialize result
+    done_reviews = list()
+    # Get local reviews
+    local_review_list = db_session().query(ReviewLocal).filter_by(writer_id=user_id).all()
+    for review_orm in local_review_list:
+        done_reviews.append(dict(
+            punctuation=review_orm.punctuation,
+            comment=review_orm.comment,
+            destination=review_orm.local.name
+        ))
+    # Get user reviews
+    user_review_list = db_session().query(ReviewUser).filter_by(writer_id=user_id).all()
+    for review_orm in user_review_list:
+        done_reviews.append(dict(
+            punctuation=review_orm.punctuation,
+            comment=review_orm.comment,
+            destination=review_orm.user.name
+        ))
+    # Return
+    return done_reviews

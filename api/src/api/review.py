@@ -97,6 +97,23 @@ def pending(user_id):
         return response.raise_exception(e)
 
 
+def done(user_id):
+    try:
+        # Check input
+        if not user_id or user_id <= 0:
+            return response.make(error=True, message=MESSAGE_USER_WRONG_ID)
+        # Get instance
+        user = user_service.get(user_id)
+        if not user:
+            return response.make(error=True, message=MESSAGE_USER_NOT_FOUND)
+        # Get done reviews
+        done_reviews = user_service.get_done_reviews(user_id)
+        # Return list
+        return response.make(error=False, response=dict(done_reviews=done_reviews))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
 def post_local():
     try:
         # Check input
