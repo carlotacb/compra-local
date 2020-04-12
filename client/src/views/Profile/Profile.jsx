@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useParams } from 'react-router-dom';
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 import { SecondaryButton, GroupButton } from '../../shared-components/';
 import { ProfileBox, PasswordDialog } from "../../components";
 import { ApiFactory } from "../../services/ApiFactory";
 import { useCookies } from 'react-cookie';
-
 import { Valorations } from "./Valorations"
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Profile() {
-    const [cookies, setCookie] = useCookies(['uisha']);
+    const [ cookies ] = useCookies(['uisha']);
     const [ page, setPage ] = useState(0);
     const [ recivedValorations, setRecivedValorations ] = useState('');
     const [ givenValorations, setGivenValorations ] = useState('');

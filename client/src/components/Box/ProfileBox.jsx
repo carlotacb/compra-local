@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Grid, makeStyles, Typography, TextField, Avatar } from '@material-ui/core';
 import { ConfirmationDialog } from '../../components';
+import { ApiFactory } from "../../services/ApiFactory";
+import { useCookies } from 'react-cookie';
 
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
@@ -43,21 +45,23 @@ const useStyles = makeStyles((theme) => ({
 
 export function ProfileBox(props) {
     const classes = useStyles();
-    const [editable, setEditable] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
-
-    const handleEdit = () => {
-        /* Here is not API call */
-        setEditable(true);
-    }
+    const [ cookies ] = useCookies(['uisha']);
+    const [ editable, setEditable ] = useState(false);
+    const [ error, setError ] = useState(false);
+    const [ openModal, setOpenModal ] = useState(false);
 
     const handleSave = () => {
-        /* TODO: API call to save the new information */ 
-        setEditable(false);
-    }
+        const updateUserInfoAPI = ApiFactory.get('updateUserInfo');
 
-    const handleClose = () => {
-        setOpenModal(true);
+        updateUserInfoAPI(cookies.iusha).then((res) => {
+            if (!res.error) {
+                setEditable(false);
+                setError(false);
+            } 
+            else {
+                setError(true);
+            }
+        });     
     }
 
     const handleAccept = () => {
@@ -66,6 +70,7 @@ export function ProfileBox(props) {
     }
 
     const handleCancel = () => {
+        setError(false);
         setOpenModal(false);
     }
 
@@ -73,11 +78,11 @@ export function ProfileBox(props) {
         <Grid container className={classes.root} direction="row"> 
             <Grid item xs={5} className={classes.content}> 
                 <Typography variant="h5"> Nom i congnoms </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
+                {editable ? <TextField error={error} id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
                 <Typography variant="h5" className={classes.paddingTop}> Correu electrónic </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
+                {editable ? <TextField error={error} id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
                 <Typography variant="h5" className={classes.paddingTop}> Numero de telefon </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.phone_number} type="number"/> : <Typography> {props.phone_number} </Typography> }
+                {editable ? <TextField error={error} id="standard-basic" defaultValue={props.phone_number} type="number"/> : <Typography> {props.phone_number} </Typography> }
             </Grid>
             <Grid xs={5} className={classes.avatar}>
                 <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ props.image}/>
@@ -86,9 +91,9 @@ export function ProfileBox(props) {
                 {editable ? 
                     <div>
                         <SaveIcon onClick={() => handleSave()} cursor="pointer" />
-                        <CloseIcon onClick={() => handleClose()} cursor="pointer" />
+                        <CloseIcon onClick={() => setOpenModal(true)} cursor="pointer" />
                     </div> : 
-                    <EditIcon onClick={() => handleEdit()} cursor="pointer"/> 
+                    <EditIcon onClick={() => setEditable(true)} cursor="pointer"/> 
                 }
             </Grid>
             <ConfirmationDialog open={openModal} cancel={() => handleCancel()} accept={() => handleAccept()} title={'Cancelar canvis'} message={'Estas segur de que vols cancelar els canvis? Si canceles els canvis es perdran'}/>
