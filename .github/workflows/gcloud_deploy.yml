@@ -27,6 +27,7 @@ jobs:
 
     # Build and push image to Google Container Registry
     - name: Build
+      working-directory: ${{env.api-directory}}
       run: |-
         gcloud builds submit \
           --quiet \
@@ -34,6 +35,7 @@ jobs:
           
     # Deploy image to Cloud Run
     - name: Deploy
+      working-directory: ${{env.api-directory}}
       run: |-
         gcloud run deploy "$SERVICE_NAME" \
           --quiet \
