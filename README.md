@@ -145,6 +145,12 @@ if __name__ == '__main__':
 
 ```
 
+### Database
+
+This is the database diagram representing the current Compra Local DB
+
+![](docs/images/database_diagram.png)
+
 ## Client
 
 ### Available Scripts

@@ -94,19 +94,34 @@ def put(local_id):
         request_json = request.json
         name = request_json.get('name', None)
         postal_address = request_json.get('postal_address', None)
-        latitude = request_json.get('latitude', None)
-        longitude = request_json.get('longitude', None)
-        website = request_json.get('webstie', None)
+        coordinates = (None, None)
+        website = request_json.get('website', None)
         description = request_json.get('description', None)
         category = request_json.get('category', None)
         phone_number = request_json.get('phone_number', None)
         image = request_json.get('image', None)
         pick_up = request_json.get('pick_up', None)
         delivery = request_json.get('delivery', None)
+        # Compute coordinates
+        if postal_address:
+            coordinates = maps.compute_coordinates(postal_address)
+            if not coordinates:
+                return response.make(error=True, message=MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS)
         # Process
-        edited = local_service.edit(local_id, name=name, description=description, postal_address=postal_address,
-                                    latitude=latitude, longitude=longitude, website=website, phone_number=phone_number,
-                                    pick_up=pick_up, delivery=delivery, category=category, image=image)
+        edited = local_service.edit(
+            local_id,
+            name=name,
+            description=description,
+            postal_address=postal_address,
+            latitude=coordinates[0],
+            longitude=coordinates[1],
+            website=website,
+            phone_number=phone_number,
+            pick_up=pick_up,
+            delivery=delivery,
+            category=category,
+            image=image
+        )
         return response.make(error=False, response=dict(edited=edited))
     except Exception as e:
         return response.raise_exception(e)
