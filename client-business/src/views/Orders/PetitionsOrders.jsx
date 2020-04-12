@@ -11,7 +11,7 @@ export function PetitionOrders(props) {
         for (var i = 0; i < resp.length; ++i) {
             const order = resp[i];
             console.log(order)
-            orders.push(<PetitionOrderCard client={order.client} total={order.total} status={order.order_type} ticket={order.ticket}/>)
+            orders.push(<PetitionOrderCard client={order.client} total={order.total} status={order.order_type} ticket={order.ticket} orderID={order.id}/>)
         }
         
         return orders
