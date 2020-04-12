@@ -1,8 +1,8 @@
 import { urlProd } from '../ApiFactory';
 const axios = require('axios');
 
-export function getCurrentOrders(idStore) {
-    const endpoint = '/order/pending/user/' + idStore;
+export function getPendingReviewOrders(idStore) {
+    const endpoint = '/review/pending/' + idStore;
 
     return new Promise((resolve, reject) => {
         try {
@@ -10,6 +10,7 @@ export function getCurrentOrders(idStore) {
                 method: 'get',
                 url: urlProd + endpoint
             }).then(function(response) {
+                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
@@ -19,7 +20,7 @@ export function getCurrentOrders(idStore) {
                 else {
                     resolve({
                         error: false,
-                        orders: response.data['response'].pending_order_list
+                        pending: response.data['response'].pending_reviews
                     });
                 }
             })

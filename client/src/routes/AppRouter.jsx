@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export function AppRouter() {
 
     let match = useRouteMatch();
-    const [cookies, setCookie] = useCookies(['uisha']);
+    const [cookies, setCookie] = useCookies();
     const classes = useStyles();
     const { user, setUser } = React.useContext(UserContext); 
     
@@ -31,9 +31,9 @@ export function AppRouter() {
     React.useEffect(() => {
         if("iusha" in cookies && user === undefined) {
             const getUserAPI = ApiFactory.get("getUserInformation");
-            getUserAPI(cookies.uisha)
+            getUserAPI(cookies.iusha)
                 .then((res)=>{
-                    setUser(res);
+                    setUser(res["user"]);
                 });
         }
     });

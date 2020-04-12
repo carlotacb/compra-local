@@ -73,3 +73,37 @@ def is_open(local_id):
         OpeningHoursItem.started_at < now_day_time, OpeningHoursItem.ended_at > now_day_time
     )).first()
     return bool(open_hours_item)
+
+
+def get(local_id):
+    opening_list = list()
+    opening_hours_list = db_session().query(OpeningHoursItem).filter_by(local_id=local_id).all()
+    for opening_hour in opening_hours_list:
+        opening_list.append(dict(
+            id=opening_hour.id,
+            week_day=opening_hour.week_day.value,
+            started_at=opening_hour.started_at.strftime("%H:%M"),
+            ended_at=opening_hour.ended_at.strftime("%H:%M")
+        ))
+    return opening_list
+
+
+def post(local_id, opening_hours_list):
+    opening_list = list()
+    db_session().query(OpeningHoursItem).filter_by(local_id=local_id).delete()
+    try:
+        for opening_hours in opening_hours_list:
+            opening_list.append(
+                OpeningHoursItem(
+                    week_day=WeekDay(opening_hours.get('week_day').upper()),
+                    started_at=datetime.strptime(opening_hours.get('started_at'), DATE_TIME_FORMAT),
+                    ended_at=datetime.strptime(opening_hours.get('ended_at'), DATE_TIME_FORMAT),
+                    local_id=local_id
+                )
+            )
+        db_session().bulk_save_objects(opening_list)
+        db_session().commit()
+        return True
+    except Exception as e:
+        print('exception ' + str(e))
+        return False
