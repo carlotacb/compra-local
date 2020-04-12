@@ -207,14 +207,10 @@ def get_order_type(order_group_object, order_object):
         return OrderType.PICK_UP
 
 
-def get_pending_by_local(local_id):
-    pending_order_list = list()
-    order_group_list = db_session().query(OrderGroup, Order).filter(and_(
-        OrderGroup.id == Order.order_group_id,
-        Order.local_id == local_id, Order.order_status == OrderStatus.PENDING_STORE
-    )).all()
+def serialize_local_order_list(order_group_list):
+    result_list = list()
     for item in order_group_list:
-        pending_order_list.append(dict(
+        result_list.append(dict(
             id=item[1].id,
             client=item[0].user.serialize(),
             status=item[1].order_status.value,
@@ -222,14 +218,28 @@ def get_pending_by_local(local_id):
             total=order_service.compute_total_price(item[1].id),
             ticket=order_service.get_ticket(item[1].id)
         ))
-    return pending_order_list
+    return result_list
+
+
+def get_pending_by_local(local_id):
+    order_group_list = db_session().query(OrderGroup, Order).filter(and_(
+        OrderGroup.id == Order.order_group_id,
+        Order.local_id == local_id, Order.order_status == OrderStatus.PENDING_STORE
+    )).all()
+    return serialize_local_order_list(order_group_list)
 
 
 def get_progress_by_local(local_id):
-    progress_order_list = list()
-    return progress_order_list
+    order_group_list = db_session().query(OrderGroup, Order).filter(and_(
+        OrderGroup.id == Order.order_group_id,
+        Order.local_id == local_id, Order.order_status.notin_([OrderStatus.PENDING_STORE, OrderStatus.COMPLETED])
+    )).all()
+    return serialize_local_order_list(order_group_list)
 
 
 def get_completed_by_local(local_id):
-    completed_order_list = list()
-    return completed_order_list
+    order_group_list = db_session().query(OrderGroup, Order).filter(and_(
+        OrderGroup.id == Order.order_group_id,
+        Order.local_id == local_id, Order.order_status == OrderStatus.COMPLETED
+    )).all()
+    return serialize_local_order_list(order_group_list)
