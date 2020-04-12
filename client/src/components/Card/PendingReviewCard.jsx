@@ -57,7 +57,9 @@ export function PendingReviewCard(props) {
             "punctuation": parseInt(punctuation),
             "writer_id": user["id"]
         }
-        if (valoration !== "") {
+        if (valoration === '') {
+            setErrorModal(true);
+        } else {
             valorateLocalAPI(data).then((res) => {
                 if (!res.error) {
                     setOpenModal(false);
@@ -65,8 +67,6 @@ export function PendingReviewCard(props) {
                 }
                 else setErrorModal(true);
             });
-        } else {
-            setErrorModal(true);
         }
     }
 
@@ -80,7 +80,9 @@ export function PendingReviewCard(props) {
             "writer_id": user["id"]
         }
         
-        if (valoration !== "") {
+        if (valoration === '') {
+            setErrorModalHelper(true);
+        } else {
             valorateHelperAPI(data).then((res) => {
                 if (!res.error) {
                     setOpenModalVoluteer(false);
@@ -88,8 +90,6 @@ export function PendingReviewCard(props) {
                 }
                 else setErrorModalHelper(true);
             });
-        } else {
-            setErrorModalHelper(true);
         }        
     }
 
@@ -142,8 +142,8 @@ export function PendingReviewCard(props) {
             <Grid container direction="row">
                 {getCardType()}
             </Grid>
-            <ValorationDialog open={openModal} error={errorModal} title="Valora la teva compra" onAccept={(punct, comm) => handleValorateSell(punct, comm)} onClose={cancelSell()} />
-            <ValorationDialog open={openModalVoluteer} error={errorModalHelper} title="Valora al teu voluntari" onAccept={(punct, comm) => handleValorateVolunteer(punct, comm)} onClose={cancelHelper()} />
+            <ValorationDialog open={openModal} error={errorModal} title="Valora la teva compra" onAccept={(punct, comm) => handleValorateSell(punct, comm)} onClose={() => cancelSell()} />
+            <ValorationDialog open={openModalVoluteer} error={errorModalHelper} title="Valora al teu voluntari" onAccept={(punct, comm) => handleValorateVolunteer(punct, comm)} onClose={() => cancelHelper()} />
         </Paper>
     )
 }
