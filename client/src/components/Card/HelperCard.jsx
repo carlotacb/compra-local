@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
 import { ConfirmationDialog } from '../../components'
+import { ApiFactory } from "../../services/ApiFactory";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -89,10 +90,10 @@ export function HelperCard(props) {
                 <Grid item className={classes.marginBottom}>
                     <Grid item className={classes.shopName}>
                         <Typography variant="h5" className={classes.uppercase}> {response[i].name} </Typography>     
-                        <Typography className={classes.outlinedTag}> {response[i].status} </Typography>     
+                        <Typography className={classes.outlinedTag}> {getStatus(response[i].status)} </Typography>     
                     </Grid>
                     <Typography variant="h6"> {response[i].total} €</Typography> 
-                    <Typography variant="body1"> Direcció: {response[i].postal_adress} </Typography>                         
+                    <Typography variant="body1"> Direcció: {response[i].postal_address} </Typography>                         
                 </Grid>
             )
             if (response[i].status !== "PICKED_UP") { picked = false }
@@ -103,9 +104,22 @@ export function HelperCard(props) {
         return orderList
     }
 
+    const getStatus = (status) => {
+        if (status === "COMPLETED") return "Completat"
+        if (status === "PREPARING") return "En preparació"
+        if (status === "PENDING_PICKUP") return "Pendent de recollir"
+        if (status === "PICKED_UP") return "Recollit"
+        if (status === "CANCELLED") return "Cancelat"
+        if (status === "DELIVERING") return "Enviat"
+        if (status === "PENDING_STORE") return "Pendent de confirmació"
+        if (status === "PENDING_HELPER") return "Pendent d'ajudant"
+    }
+
     const handleAccept = () => {
-        /* TODO: Comanda entregada */
-        setOpenModal(false)
+        const finishHelpAPI = ApiFactory.get('finishHelp');
+        finishHelpAPI(props.orderID).then((res) => {
+            if (!res.error) window.location.reload(true);
+        });
     }
 
     return (
@@ -117,7 +131,7 @@ export function HelperCard(props) {
                         <Typography variant="h5"> TOTAL: {props.total} € </Typography>
                     </Grid>
                     <Grid item className={classes.centered}>
-                        <Typography variant="h6"> Direcció Final: {props.user.postal_adress} </Typography>
+                        <Typography variant="h6"> Direcció Final: {props.user.postal_address} </Typography>
                     </Grid>
                 </Grid>
                 <Grid item>

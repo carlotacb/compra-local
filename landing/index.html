@@ -7,14 +7,49 @@
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <meta name="description" content="Aplicació per poder comprar als comerços de proximitat en temps de confinament">
+    <meta name="description" content="Compra Local - A prop teu">
     <meta name="keywords" content="Compra,local,comerç,proximitat,covid,confinament">
     <meta name="author" content="Compra Local team">
     <meta name="application-name" content="Compra Local">
     <meta name="apple-mobile-web-app-title" content="Compra Local">
-    <meta name="theme-color" content="#FF4E32">
+    <meta name="theme-color" content="#9777B5">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320"/>
+    <link rel="canonical" href="https://compralocal.cat" hreflang="ca">
+    <link rel="alternate" href="https://www.compralocal.cat" hreflang="ca">
+
+    <meta property="og:title"       content="Compra Local - A prop teu">
+    <meta property="og:type"        content="website">
+    <meta property="og:site_name"   content="Compra Local">
+    <meta property="og:locale"      content="ca_ES">
+    <meta property="og:description" content="A prop teu.">
+    <meta property="og:url"         content="https://compralocal.cat">
+    <meta property="og:image"       content="https://compralocal.cat/assets/img/og.png">
+    <meta property="og:image:secure_url" content="https://compralocal.cat/assets/img/og.png">
+    <meta property="og:image:alt"   content="Compra Local">
+
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="Compra Local">
+    <meta name="twitter:description" content="A prop teu.">
+    <meta name="twitter:image"       content="https://compralocal.cat/assets/img/og.png">
+    <meta name="twitter:image:secure_url" content="https://compralocal.cat/assets/img/og.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#9777B5">
+    <meta name="msapplication-TileImage" content="assets/img/favicon/ms-icon-144x144.png">
 
     <title>Compra Local</title>
 
@@ -26,6 +61,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163465039-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-163465039-1');
+    </script>
+
 </head>
 
 <body>
@@ -38,10 +84,10 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">INICIA SESSIÓ</a>
+                        <a class="nav-link" href="https://app.compralocal.cat/login">INICIA SESSIÓ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">REGISTRE</a>
+                        <a class="nav-link" href="https://app.compralocal.cat/registre">REGISTRE</a>
                     </li>
                 </ul>
             </div>
@@ -50,13 +96,9 @@
         <div class="container" style="height: 100%;">
             <div class="row align-items-center summary">
                 <div class="col col-12 summary-texts">
-                    <h1 class="title">Busca comerços aprop teu</h1>
-                    <div class="col row margin-15">
-                        <div class="col col-lg-6 col-md-6 search-container auto-center">
-                            <input type="text" placeholder="Introdueix el teu domicili">
-                            <a href="#" target="_blank" class="button-primary button--hero md-btn-ripple md-btn-ripple-white">CERCA</a>
-                        </div>
-                    </div>
+                    <h1 class="title">Compra Local</h1>
+                    <br>
+                    <iframe align="center" width="560" height="315" src="https://www.youtube.com/embed/RicXhOaV-SE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -70,11 +112,11 @@
             <div class="row section-content">
                 <div class="col col-lg-6 text-center">
                     <img src="assets/img/icons/supermarket.png" width="auto" height="200"/>
-                    <p class="paragrafs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lacinia, ligula id auctor molestie, arcu metus tristique velit, quis vehicula diam dui a arcu. Cras aliquet lorem in odio rutrum, quis pharetra mi dapibus. In consectetur tincidunt risus sed eleifend. Mauris varius mi ut sagittis porttitor. Nulla commodo ligula eu mauris lobortis, non mattis velit pulvinar. Suspendisse imperdiet ex quis dui tincidunt, ac fermentum nisl finibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur tempus convallis quam, sit amet malesuada leo tempor non. Etiam pharetra finibus volutpat.</p> 
+                    <p class="paragrafs text-justify">Des de compralocal, volem que com a comerç de barri tingueu la mateixa visibilitat i possibilitats que tenen els comerços grans, per això us oferim una plataforma de compra online totalment gratuita on podeu rebre comandes dels consumidors que estiguin aprop vostre.</p> 
                 </div>
                 <div class="col col-lg-6 text-center">
-                    <img src="assets/img/icons/supermarket.png" width="auto" height="200"/>
-                    <p class="paragrafs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lacinia, ligula id auctor molestie, arcu metus tristique velit, quis vehicula diam dui a arcu. Cras aliquet lorem in odio rutrum, quis pharetra mi dapibus. In consectetur tincidunt risus sed eleifend. Mauris varius mi ut sagittis porttitor. Nulla commodo ligula eu mauris lobortis, non mattis velit pulvinar. Suspendisse imperdiet ex quis dui tincidunt, ac fermentum nisl finibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur tempus convallis quam, sit amet malesuada leo tempor non. Etiam pharetra finibus volutpat.</p> 
+                    <img src="assets/img/icons/people.png" width="auto" height="200"/>
+                    <p class="paragrafs text-justify">Com a consumidors, us volem oferir l'oportunitat de realitzar les vostres compres als petits comerços de barri de tota la vida de manera online i segura, ja no t'hauràs de passar llargues estones fent cua a les botigues. </br></br>A més, en cas que formis part d'un colectiu de risc o t’has de quedar a casa per alguna raó, pots demanar ajuda als teus veïns per a que et vagin a recollir les comandes evitant l'exposició.</p> 
                 </div>
             </div>
         </div>
@@ -89,12 +131,12 @@
                 </div>
                 <div class="row section-content">
                     <div class="col col-12 text-center">
-                        <h4 class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lacinia, ligula id auctor molestie, arcu metus tristique velit, quis vehicula diam dui a arcu. </h4> 
+                        <h4 class="subtitle">Si ets una botiga de barri, des de compralocal pots visibilitzar-te i començar a vendre per internet en minuts. Inscriu-te!</h4> 
                     </div>
                 </div>
                 <div class="col row section-buttons">
                     <div class="col col-lg-6 col-md-6 button-container auto-center">
-                        <a href="#" target="_blank" class="button-primary md-btn-ripple md-btn-ripple-white">REGISTRA'T AQUI</a>
+                        <a href="admin.compralocal.cat/in/botiga" target="_blank" class="button-primary md-btn-ripple md-btn-ripple-white">REGISTRA'T AQUI</a>
                     </div>
                 </div>
             </div>

@@ -28,7 +28,11 @@ def add_dummy_data():
             OrderItem(
                 quantity=1, order_id=4,
                 product_id=product_service.get_id_by_name_and_local_name('Diprogenta', 'Farmacia Bassegoda')
-            )
+            ),
+            OrderItem(
+                quantity=1.2, order_id=5,
+                product_id=product_service.get_id_by_name_and_local_name('Platan', 'Bona Fruita Busquets')
+            ),
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()

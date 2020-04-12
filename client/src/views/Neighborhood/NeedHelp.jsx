@@ -1,29 +1,19 @@
-import React, { useState } from "react";
-import { useParams } from 'react-router-dom';
+import React from "react";
 import { Grid } from "@material-ui/core";
 import { HelperPetitionCard } from '../../components';
-import { ApiFactory } from "../../services/ApiFactory";
 
-export function NeedHelp() {
-    const { id } = useParams();
-    const [ needHelp, setNeedHelp ] = useState([]);
-
-    React.useEffect(function getNeedHelp() {
-        const getNeedHelpAPI = ApiFactory.get('getNeedHelp');
-        getNeedHelpAPI(id).then((res) => {
-            setNeedHelp(res);
-        });
-    }, []);
+export function NeedHelp(props) {
 
     const getAllPetitions = () => {
-        const resp = needHelp;
+        const resp = props.information;
         const petitions = [];
+        console.log(resp);
 
         for (var i = 0; i < resp.length; ++i) {
-            petitions.push(<HelperPetitionCard user={resp[i].user} orderList={resp[i].order_list} total={resp[i].total} />);
+            petitions.push(<HelperPetitionCard user={resp[i].user} orderList={resp[i].order_list} orderID={resp[i].id} />);
         }
 
-        return petitions;        
+        return petitions;
     }
 
     return (

@@ -1,23 +1,35 @@
+import { urlProd } from '../ApiFactory';
+const axios = require('axios');
+
 export function getGivenValorations(idStore) {
+    const endpoint = '/review/done/' + idStore;
     return new Promise((resolve, reject) => {
-        resolve(
-            [
-                {
-                    "punctuation": 2,
-                    "writer": "Andrea",
-                    "comment": "This is a test"
-                },
-                {
-                    "punctuation": 4,
-                    "writer": "Mauri",
-                    "comment": "This is a test"
-                },
-                {
-                    "punctuation": 1,
-                    "writer": "Marina",
-                    "comment": "This is a test"
+        try {
+            axios({
+                method: 'get',
+                url: urlProd + endpoint
+            }).then(function(response) {
+                if(response.data['error']) {
+                    resolve({
+                        error: true,
+                        message: response.data['message']
+                    });
                 }
-            ]
-        )
+                else {
+                    resolve({
+                        error: false,
+                        done_reviews: response.data['response'].done_reviews
+                    });
+                }
+            })
+            .catch((err) => {
+                resolve({
+                    error: true,
+                    message: err.message
+                });
+            });
+        } catch (error) {
+            console.log(error);
+        }
     });
 }

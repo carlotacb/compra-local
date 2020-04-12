@@ -1,4 +1,5 @@
 from sqlalchemy import and_
+from sqlalchemy.exc import IntegrityError
 
 from src.db.sqlalchemy import db_session
 from src.enum.currency import Currency
@@ -52,3 +53,76 @@ def get_id_by_name_and_local_name(name, local_name):
         and_(Local.id == Product.local_id, Product.name == name, Local.name == local_name)
     ).first()
     return product[0].id
+
+
+def get_all(local_id):
+    product_list = list()
+    product_orm_list = db_session().query(Product).filter_by(local_id=local_id).all()
+    for product_orm in product_orm_list:
+        product_list.append(dict(
+            id=product_orm.id,
+            name=product_orm.name,
+            price=product_orm.price,
+            description=product_orm.description,
+            currency=product_orm.currency.value,
+            price_type=product_orm.price_type.value,
+            product_group_id=product_orm.product_group_id,
+        ))
+    return product_list
+
+
+def get_product(local_id, product_id):
+    product = db_session().query(Product).filter(
+        and_(local_id == Product.local_id, Product.id == product_id)
+    ).first()
+    return product
+
+
+def create(name, price, local_id, currency, price_type, product_group, description):
+    try:
+        prodcut = Product(
+            name=name,
+            description=description,
+            price=price,
+            currency=currency,
+            price_type=price_type,
+            product_group_id=product_group,
+            local_id=local_id,
+        )
+
+        db_session().add(prodcut)
+        db_session().commit()
+
+        return prodcut.id, None
+    except IntegrityError as e:
+        return None, str(e.args[0]).replace('\n', ' ')
+
+
+def edit(
+        local_id, product_id,
+        name=None, price=None, currency=None, price_type=None, description=None, product_group=None
+):
+    product = get_product(local_id, product_id)
+
+    if product:
+        product.name = product.name if name is None else name
+        product.price = product.price if price is None else price
+        product.currency = product.currency if currency is None else currency
+        product.price_type = product.price_type if price_type is None else price_type
+        product.description = product.description if description is None else description
+        product.product_group_id = product.product_group_id if product_group is None else product_group
+        db_session().commit()
+        return True
+    else:
+        return False
+
+
+def delete(local_id, product_id):
+    product = get_product(local_id, product_id)
+
+    if product:
+        db_session().delete(product)
+        db_session().commit()
+        return True
+    else:
+        return False

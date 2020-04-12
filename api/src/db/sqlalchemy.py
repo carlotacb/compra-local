@@ -2,17 +2,24 @@ from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+from src.config import TEST_DB_USER, TEST_DB_PASSWORD, TEST_DB_HOST, TEST_DB_PORT, TEST_DB_DB
 from src.helper import env, log
 
 
 def _connect():
     log.info('Connecting to DB...')
+    db_user = TEST_DB_USER if env.is_development() else env.get_db_user()
+    db_password = TEST_DB_PASSWORD if env.is_development() else env.get_db_password()
+    db_host = TEST_DB_HOST if env.is_development() else env.get_db_host()
+    db_port = TEST_DB_PORT if env.is_development() else env.get_db_port()
+    db_database = TEST_DB_DB if env.is_development() else env.get_db_database()
     url = 'postgresql://{}:{}@{}:{}/{}'.format(
-        env.get_db_user(),
-        env.get_db_password(),
-        env.get_db_host(),
-        env.get_db_port(),
-        env.get_db_database())
+        db_user,
+        db_password,
+        db_host,
+        db_port,
+        db_database
+    )
     _engine = create_engine(url, client_encoding='utf8')
     _meta = MetaData(bind=_engine)
     log.info('Connection satisfied.')

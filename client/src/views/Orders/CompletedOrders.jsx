@@ -1,28 +1,18 @@
-import React, { useState } from "react";
-import { useParams } from 'react-router-dom';
+import React from "react";
 import { Grid } from "@material-ui/core";
-import { ApiFactory } from "../../services/ApiFactory";
-import { CompletedOrderCard } from '../../components'
+import { CompletedOrderCard } from '../../components';
 
-export function CompletedOrders() {
-    const { id } = useParams();
-    const [ completedOrders, setCompletedOrders ] = useState([]);
-
-    React.useEffect(function getStoreInfo() {
-        const getCompletedOrdersAPI = ApiFactory.get('getCompletedOrders');
-        getCompletedOrdersAPI(id).then((res) => {
-            setCompletedOrders(res);
-        });
-    }, []);
-
+export function CompletedOrders(props) {
 
     const getAllCompletedOrders = () => {
-        const resp = completedOrders;
+        const resp = props.completedOrders;
         const orders = [];
 
         for (var i = 0; i < resp.length; ++i) {
-            orders.push(<CompletedOrderCard date={resp[i].complition_date} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket} />)
+            const order = resp[i].order_list[0];
+            orders.push(<CompletedOrderCard date={order.completed_date} local_name={order.local_name} total={order.total} ticket={order.ticket} />)
         }
+
         return orders
     }
 

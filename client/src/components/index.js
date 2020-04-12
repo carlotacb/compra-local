@@ -21,6 +21,7 @@ import { OrderHelpCard as OHC } from './Card/OrderHelpCard'
 import { CompletedOrderCard as COC } from './Card/CompletedOrderCard'
 import { HelperCard as HC } from './Card/HelperCard'
 import { HelperPetitionCard as HPC } from './Card/HelperPetitionCard'
+import { PendingReviewCard as PRC } from './Card/PendingReviewCard'
 
 //Store 
 import { StoreBody as StB } from './Store/StoreBody';
@@ -51,3 +52,4 @@ export const StoreProduct = SP;
 export const ShoppingCart = SCart;
 export const PasswordDialog = PD;
 export const HelperPetitionCard = HPC;
+export const PendingReviewCard = PRC;

@@ -1,8 +1,9 @@
 import connexion
 
+from flask import Response, redirect
 from flask_cors import CORS
 
-from src.config import PYTHON_MODULE_PORT
+from src.config import PYTHON_MODULE_PORT, DOCS_HTML_FILE_PATH
 from src.db import sqlalchemy
 from src.helper import log
 
@@ -22,6 +23,20 @@ log.info(f'Connexion application built: [{connexion_app}]')
 def shutdown_session(exception=None):
     log.debug(f'Session removed: {exception}')
     sqlalchemy.db_session.remove()
+
+
+@flask_app.route('/')
+def index():
+    return redirect('/docs', code=302)
+
+
+@flask_app.route('/docs')
+def docs():
+    with open(DOCS_HTML_FILE_PATH, 'r') as html_file:
+        html_content = str(html_file.read())
+    response = Response(html_content)
+    response.headers['Content-Type'] = 'text/html'
+    return response, 200
 
 
 if __name__ == '__main__':

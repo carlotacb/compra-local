@@ -1,7 +1,9 @@
 import unittest
 import requests
 
-from src.config import PYTHON_MODULE_PORT, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, TEST_RUN_EDITS
+from src.config import PYTHON_MODULE_PORT, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, TEST_RUN_EDITS, \
+    MESSAGE_USER_WRONG_PASSWORD
+from src.helper import env
 
 
 class APIUserPasswordTest(unittest.TestCase):
@@ -12,6 +14,8 @@ class APIUserPasswordTest(unittest.TestCase):
         self.user_id = 1
         self.user_id_wrong = 0
         self.user_id_not_found = 123456789
+        self.user_old_password = '72d0166b5707d129dc321e56692fe454c034552ee9e2b38f5a7f1c1306a632ea'
+        self.user_old_password_wrong = 'WrongPassword'
         self.user_new_password = 'ThisIsABetterPassword'
 
     def test_status_code(self):
@@ -28,9 +32,15 @@ class APIUserPasswordTest(unittest.TestCase):
         self.assertEqual(response.get('error'), True)
         self.assertEqual(response.get('message'), MESSAGE_USER_NOT_FOUND)
 
+    def test_wrong_password(self):
+        request_body = dict(old_password=self.user_old_password_wrong, new_password=self.user_new_password)
+        response = requests.put(f'{self.url}/{self.user_id}/password', json=request_body).json()
+        self.assertEqual(response.get('error'), True)
+        self.assertEqual(response.get('message'), MESSAGE_USER_WRONG_PASSWORD)
+
     def test_edit(self):
-        if TEST_RUN_EDITS:
-            request_body = dict(password=self.user_new_password)
+        if env.run_modifications() or TEST_RUN_EDITS:
+            request_body = dict(old_password=self.user_old_password, new_password=self.user_new_password)
             response = requests.put(f'{self.url}/{self.user_id}/password', json=request_body).json()
             self.assertEqual(response.get('error'), False)
             self.assertEqual(response.get('response').get('edited'), True)

@@ -7,6 +7,14 @@ def _get(env_key):
     return None
 
 
+def is_development():
+    return bool(_get('DEVELOPMENT_MODE') == 'true')
+
+
+def run_modifications():
+    return bool(_get('RUN_MODIFICATIONS') == 'true')
+
+
 def get_db_user():
     return _get('DB_USER')
 

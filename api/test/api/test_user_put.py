@@ -2,6 +2,7 @@ import unittest
 import requests
 
 from src.config import PYTHON_MODULE_PORT, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, TEST_RUN_EDITS
+from src.helper import env
 
 
 class APIUserPutTest(unittest.TestCase):
@@ -13,6 +14,7 @@ class APIUserPutTest(unittest.TestCase):
         self.user_id_wrong = 0
         self.user_id_not_found = 123456789
         self.user_new_name = 'Albert Suarez'
+        self.user_new_postal_address = 'Carrer de Sants, 282, 08028 Barcelona'
 
     def test_status_code(self):
         response = requests.put(f'{self.url}/{self.user_id}', json=dict())
@@ -29,8 +31,8 @@ class APIUserPutTest(unittest.TestCase):
         self.assertEqual(response.get('message'), MESSAGE_USER_NOT_FOUND)
 
     def test_edit(self):
-        if TEST_RUN_EDITS:
-            request_body = dict(name=self.user_new_name)
+        if env.run_modifications() or TEST_RUN_EDITS:
+            request_body = dict(name=self.user_new_name, postal_address=self.user_new_postal_address)
             response = requests.put(f'{self.url}/{self.user_id}', json=request_body).json()
             self.assertEqual(response.get('error'), False)
             self.assertEqual(response.get('response').get('edited'), True)

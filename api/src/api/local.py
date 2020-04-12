@@ -1,11 +1,13 @@
 from flask import request
 
 from src.config import MESSAGE_LOCAL_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, MESSAGE_LOCAL_WRONG_ID, \
-    MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_CATEGORY_NOT_FOUND
+    MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_CATEGORY_NOT_FOUND, \
+    MESSAGE_LOCAL_POST_ERROR
 from src.helper import response, maps
 from src.service import category as category_service
 from src.service import local as local_service
 from src.service import user as user_service
+from src.service import opening_hours_item as opening_hours_service
 
 
 def get(local_id):
@@ -74,6 +76,97 @@ def post():
         if local_id:
             return response.make(error=False, response=dict(local_id=local_id))
         else:
-            return response.make(error=True, message=f'{MESSAGE_PARAMETERS_REQUIRED} - {error_message}')
+            return response.make(error=True, message=f'{MESSAGE_LOCAL_POST_ERROR} - {error_message}')
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def put(local_id):
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Check local
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Get input
+        request_json = request.json
+        name = request_json.get('name', None)
+        postal_address = request_json.get('postal_address', None)
+        coordinates = (None, None)
+        website = request_json.get('website', None)
+        description = request_json.get('description', None)
+        category = request_json.get('category', None)
+        phone_number = request_json.get('phone_number', None)
+        image = request_json.get('image', None)
+        pick_up = request_json.get('pick_up', None)
+        delivery = request_json.get('delivery', None)
+        # Compute coordinates
+        if postal_address:
+            coordinates = maps.compute_coordinates(postal_address)
+            if not coordinates:
+                return response.make(error=True, message=MESSAGE_LOCAL_WRONG_POSTAL_ADDRESS)
+        # Process
+        edited = local_service.edit(
+            local_id,
+            name=name,
+            description=description,
+            postal_address=postal_address,
+            latitude=coordinates[0],
+            longitude=coordinates[1],
+            website=website,
+            phone_number=phone_number,
+            pick_up=pick_up,
+            delivery=delivery,
+            category=category,
+            image=image
+        )
+        return response.make(error=False, response=dict(edited=edited))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def search(latitude, longitude):
+    try:
+        # Get all local coordinates
+        coordinates_dict = local_service.get_all_coordinates()
+        local_id_list = maps.filter_by_around(coordinates_dict, latitude, longitude)
+        local_list = local_service.get_from_id_list(local_id_list)
+        return response.make(error=False, response=dict(local_list=local_list))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def get_opening_hours(local_id):
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Get all reviews
+        opening_hours = opening_hours_service.get(local_id)
+        # Return list
+        return response.make(error=False, response=dict(opening_hours=opening_hours))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def post_opening_hours(local_id):
+    body = request.json
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Post reviews
+        created = opening_hours_service.post(local_id, body)
+        return response.make(error=False, response=dict(created=created))
     except Exception as e:
         return response.raise_exception(e)
