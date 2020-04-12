@@ -1,4 +1,5 @@
 import { Sidebar as Sid } from './Sidebar/SideBar';
+import { SmallSidebar as Sidd } from './Sidebar/SmallSidebar';
 import { ListView as LV } from './Listview/ListView';
 import { StoreCard as SC } from './Card/StoreCard';
 import { VerticalStepper as VS } from './Stepper/VerticalStepper';
@@ -33,6 +34,8 @@ import { StoreProducts as SP } from './Store/StoreProducts';
 import { ShoppingCart as SCart} from './Cart/ShoppingCart';
 
 export const Sidebar = Sid;
+
+export const SmallSidebar = Sidd;
 export const SearchBox = SB;
 export const ListView = LV;
 export const StoreCard = SC;

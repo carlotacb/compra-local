@@ -4,14 +4,18 @@ import { UserContext } from '../context';
 import { Login, Register } from '../views';
 import { AppRouter } from './index';
 
+
 export function BaseRouter() {
 
     const [user, setUser] = React.useState(undefined);
     const providerValue = React.useMemo(()=> ({user, setUser}), [user, setUser]);
     
+
+    
     return (
         <Router>
             <UserContext.Provider value={providerValue}>
+                
                 <Route exact path="/">
                     {JSON.stringify(user, null, 2)}
                     <Redirect to="/login"/>
