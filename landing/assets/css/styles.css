@@ -34,7 +34,7 @@ nav {
     right: 0;
     top: 0;
     bottom: 0;
-    background-image: url('../img/background/mercat.jpg');
+    background-image: url('../img/background/background.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -99,7 +99,7 @@ nav {
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
-    background-image: url('../img/background/mercat.jpg');
+    background-image: url('../img/background/background.jpg');
 }
 
 .paralax-mf {
