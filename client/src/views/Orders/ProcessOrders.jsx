@@ -1,23 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid } from "@material-ui/core";
 import { OrderCard, OrderHelpCard } from '../../components';
-import { ApiFactory } from "../../services/ApiFactory";
-import { useCookies } from 'react-cookie';
 
-export function ProcessOrders() {
-    const [ currentOrders, setCurrentOrders ] = useState([]);
-    const [ cookies ] = useCookies();
-
-    React.useEffect(function getStoreInfo() {
-        const getCurrentOrdersAPI = ApiFactory.get('getCurrentOrders');
-        getCurrentOrdersAPI(cookies.iusha).then((res) => {
-            setCurrentOrders(res.orders);
-        });
-    }, []);
-
+export function ProcessOrders(props) {
 
     const getAllCurrentOrders = () => {
-        const resp = currentOrders;
+        const resp = props.currentOrders;
         const orders = [];
 
         for (var i = 0; i < resp.length; ++i) {

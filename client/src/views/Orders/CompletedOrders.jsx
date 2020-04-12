@@ -1,24 +1,11 @@
-import React, { useState } from "react";
-import { useParams } from 'react-router-dom';
+import React from "react";
 import { Grid } from "@material-ui/core";
-import { ApiFactory } from "../../services/ApiFactory";
 import { CompletedOrderCard } from '../../components';
-import { useCookies } from 'react-cookie';
 
-export function CompletedOrders() {
-    const [ completedOrders, setCompletedOrders ] = useState([]);
-    const [ cookies ] = useCookies();
-
-    React.useEffect(function getStoreInfo() {
-        const getCompletedOrdersAPI = ApiFactory.get('getCompletedOrders');
-        getCompletedOrdersAPI(cookies.iusha).then((res) => {
-            setCompletedOrders(res.orders);
-        });
-    }, []);
-
+export function CompletedOrders(props) {
 
     const getAllCompletedOrders = () => {
-        const resp = completedOrders;
+        const resp = props.completedOrders;
         const orders = [];
 
         for (var i = 0; i < resp.length; ++i) {
