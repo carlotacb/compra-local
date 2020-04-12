@@ -1,62 +1,38 @@
+import { urlProd } from '../ApiFactory';
+const axios = require('axios');
+
 export function getProcesHelper(idStore) {
+    const endpoint = '/order/helping/user/' + idStore;
+
     return new Promise((resolve, reject) => {
-        resolve([
-            {
-                "id": 2,
-                "order_list": [
-                {
-                    "id": 1,
-                    "name": "Bona Fruita Busquets",
-                    "postal_adress": "Carretera de sants, 258, 08028 Barcelona",
-                    "total": 53.60,
-                    "status": "En procès", 
-                },
-                {
-                    "id": 2,
-                    "name": "Ferreteria paco",
-                    "postal_adress": "Carretera de sants, 230, 08028 Barcelona",
-                    "total": 15.20,
-                    "status": "En procès", 
+        try {
+            axios({
+                method: 'get',
+                url: urlProd + endpoint
+            }).then(function(response) {
+                console.log(response)
+                if(response.data['error']) {
+                    resolve({
+                        error: true,
+                        message: response.data['message']
+                    });
                 }
-                ],
-                "total": 68.80,
-                "user": {
-                    "email_address": "hi@albert.dev",
-                    "id": 1,
-                    "name": "Albert Suarez",
-                    "image": "algomoltmoltmoltmoltllarg",
-                    "phone_number": "666 555 444",
-                    "type": "CLIENT"
+                else {
+                    resolve({
+                        error: false,
+                        list: response.data['response']
+                    });
                 }
-            },
-            {
-                "id": 3,
-                "order_list": [
-                {
-                    "id": 1,
-                    "name": "Bona Fruita Busquets",
-                    "postal_adress": "Carretera de sants, 258, 08028 Barcelona",
-                    "total": 53.60,
-                    "status": "PICKED_UP", 
-                },
-                {
-                    "id": 2,
-                    "name": "Ferreteria paco",
-                    "postal_adress": "Carretera de sants, 230, 08028 Barcelona",
-                    "total": 15.20,
-                    "status": "PICKED_UP", 
-                }
-                ],
-                "total": 68.80,
-                "user": {
-                    "email_address": "hi@albert.dev",
-                    "id": 1,
-                    "name": "Albert Suarez",
-                    "image": "algomoltmoltmoltmoltllarg",
-                    "phone_number": "666 555 444",
-                    "type": "CLIENT"
-                }
-            }
-        ]);
+            })
+            .catch((err) => {
+                console.log(err.message)
+                resolve({
+                    error: true,
+                    message: err.message
+                });
+            });
+        } catch (error) {
+            console.log(error);
+        }
     });
 }
