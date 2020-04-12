@@ -2,6 +2,7 @@
 
 [![HitCount](http://hits.dwyl.io/carlotacb/compra-local.svg)](http://hits.dwyl.io/carlotacb/compra-local)
 ![Python application](https://github.com/carlotacb/compra-local/workflows/Python%20application/badge.svg)
+![Build and Deploy to Cloud Run](https://github.com/carlotacb/compra-local/workflows/Build%20and%20Deploy%20to%20Cloud%20Run/badge.svg)
 [![GitHub stars](https://img.shields.io/github/stars/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/stargazers/)
 [![GitHub forks](https://img.shields.io/github/forks/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/network/)
 [![GitHub contributors](https://img.shields.io/github/contributors/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/graphs/contributors/)
