@@ -1,6 +1,7 @@
 
 // Login
 import { login } from './User/Login';
+import {register } from './User/Register';
 import { getUserInformation } from './User/UserInformation';
 
 
@@ -9,6 +10,7 @@ export const urlProd = "http://api.compralocal.cat";
 
 const endpoints = {
     'login': login,
+    'register': register,
     'getUserInformation': getUserInformation
 }
 

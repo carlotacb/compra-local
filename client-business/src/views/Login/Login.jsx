@@ -84,10 +84,10 @@ export function Login() {
                 setError(false);
                 setCookie('iusha-bs', res["user"], { path: '/' });
                 const getUserAPI = ApiFactory.get("getUserInformation");
-                getUserAPI(cookies.uisha)
+                getUserAPI(cookies["iusha-bs"])
                 .then((res)=>{
                     setUser(res);
-                    history.push('/in/empresa');
+                    history.push('/in/');
                 });
             }
             else if(res["message"] == "password"){
