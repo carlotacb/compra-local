@@ -6,7 +6,7 @@ import { AppRouter } from './index';
 
 export function BaseRouter() {
 
-    const [user, setUser] = React.useState(null);
+    const [user, setUser] = React.useState(undefined);
     const providerValue = React.useMemo(()=> ({user, setUser}), [user, setUser]);
     
     return (
