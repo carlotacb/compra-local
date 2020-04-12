@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { Grid, makeStyles, Typography, TextField, Avatar } from '@material-ui/core';
+import { Grid, makeStyles, Typography, TextField, Avatar, IconButton } from '@material-ui/core';
 import { ConfirmationDialog } from '../../components';
+
+import { UserContext } from '../../context/UserContext';
 import { ApiFactory } from "../../services/ApiFactory";
-import { useCookies } from 'react-cookie';
 
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
-import { UserContext } from '../../context/UserContext';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     avatarSize: {
         width: theme.spacing(20),
         height: theme.spacing(20),
+        marginBottom: theme.spacing(2)
     },
     content: {
         paddingLeft: theme.spacing(2),
@@ -44,31 +46,35 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export function ProfileBox(props) {
+export function ProfileBox() {
     const classes = useStyles();
-    const { user, setUser } = React.useContext(UserContext) 
+    const { user, setUser } = useContext(UserContext) 
     const [ error, setError ] = useState(false);
     const [ editable, setEditable ] = useState(false);
-    const [ newName, setNewName ] = useState(props.name);
-    const [ newEmail, setNewEmail ] = useState(props.email);
-    const [ newPhone, setNewPhone ] = useState(props.phone_number);
+    const [ newName, setNewName ] = useState(user.name);
+    const [ newEmail, setNewEmail ] = useState(user.email_address);
+    const [ newPhone, setNewPhone ] = useState(user.phone_number);
     const [ openModal, setOpenModal ] = useState(false);
 
     const handleSave = () => {
         const updateUserInfoAPI = ApiFactory.get('updateUserInfo');
-
         const data = {
             "email_address": newEmail,
-            "image": props.image,
+            "image": user.image,
             "name": newName,
-            "phone_number": newPhone
+            "phone_number": newPhone,
+            "postal_address": user.postal_address
         }
 
-        console.log(data)
-
+        const newUser = {
+            data,
+            ...user
+        }
+        console.log(data);
+        setUser(newUser);
+        console.log(user);
         updateUserInfoAPI(user["id"], data).then((res) => {
-            if (!res.error) {
-                
+            if (!res.error) {            
                 setEditable(false);
                 setError(false);
             } 
@@ -79,10 +85,7 @@ export function ProfileBox(props) {
     }
 
     const handleEdit = () => {
-        if (newName === "") setNewName(props.name);
-        if (newPhone === "") setNewPhone(props.phone_number);
-        if (newEmail === "") setNewEmail(props.email);
-
+        console.log(user)
         setEditable(true);
     } 
 
@@ -106,8 +109,8 @@ export function ProfileBox(props) {
                 }
                 <Typography variant="h5" className={classes.paddingTop}> Correu electrónic </Typography>
                 {editable ? 
-                    <TextField error={error} id="standard-basic" defaultValue={user.email} onChange={(e) => setNewEmail(e.target.value)}/> : 
-                    <Typography> {user.email} </Typography> 
+                    <TextField error={error} id="standard-basic" defaultValue={user.email_address} onChange={(e) => setNewEmail(e.target.value)}/> : 
+                    <Typography> {user.email_address} </Typography> 
                 }
                 <Typography variant="h5" className={classes.paddingTop}> Numero de telefon </Typography>
                 {editable ? 
@@ -116,7 +119,17 @@ export function ProfileBox(props) {
                 }
             </Grid>
             <Grid xs={5} className={classes.avatar}>
-                <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ props.image}/>
+                {editable ?
+                    <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}/> : 
+                    <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}>  
+                        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+                        <label htmlFor="icon-button-file">
+                            <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera />
+                            </IconButton>
+                        </label>
+                    </Avatar>}
+                <Typography> {user.postal_address} </Typography>
             </Grid>
             <Grid item xs={2} className={classes.editButton}>
                 {editable ? 

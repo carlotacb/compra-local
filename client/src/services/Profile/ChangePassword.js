@@ -8,12 +8,10 @@ export function changePassword(idStore, oldPW, newPW) {
     const hashNew = sjcl.hash.sha256.hash(newPW);
     const newPassword = sjcl.codec.hex.fromBits(hashNew);
     const endpoint = '/user/' + idStore + '/password';
-    console.log(endpoint);
     const data = {
         "new_password": newPassword,
         "old_password": oldPassword
     }
-    console.log(data);
 
     return new Promise((resolve, reject) => {
         try {
@@ -22,7 +20,6 @@ export function changePassword(idStore, oldPW, newPW) {
                 url: urlProd + endpoint,
                 data: data
             }).then(function(response) {
-                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
@@ -37,7 +34,6 @@ export function changePassword(idStore, oldPW, newPW) {
                 }
             })
             .catch((err) => {
-                console.log(err.message)
                 resolve({
                     error: true,
                     message: err.message
