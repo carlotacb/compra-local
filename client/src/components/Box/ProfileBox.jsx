@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Grid, makeStyles, Typography, TextField, Avatar, IconButton } from '@material-ui/core';
+import { Grid, makeStyles, Typography, TextField, Avatar, IconButton, Paper } from '@material-ui/core';
 import { ConfirmationDialog } from '../../components';
 
 import { UserContext } from '../../context/UserContext';
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
-        backgroundColor: theme.palette.secondary.light
+        backgroundColor: "#F9F9F9"
     },
     editButton: {
         display: 'flex',
@@ -43,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingTop: {
         paddingTop: theme.spacing(2),
+        fontWeight: 'bold'
+    },
+    bold: {
+        fontWeight: 'bold'
     }
 }));
 
@@ -99,47 +103,49 @@ export function ProfileBox() {
     }
 
     return (
-        <Grid container className={classes.root} direction="row"> 
-            <Grid item xs={5} className={classes.content}> 
-                <Typography variant="h5"> Nom i congnoms </Typography>
-                {editable ? 
-                    <TextField error={error} id="standard-basic" defaultValue={user.name} onChange={(e) => setNewName(e.target.value)}/> : 
-                    <Typography> {user.name} </Typography> 
-                }
-                <Typography variant="h5" className={classes.paddingTop}> Correu electrónic </Typography>
-                {editable ? 
-                    <TextField error={error} id="standard-basic" defaultValue={user.email_address} onChange={(e) => setNewEmail(e.target.value)}/> : 
-                    <Typography> {user.email_address} </Typography> 
-                }
-                <Typography variant="h5" className={classes.paddingTop}> Numero de telefon </Typography>
-                {editable ? 
-                    <TextField error={error} id="standard-basic" defaultValue={user.phone_number} type="number" onChange={(e) => setNewPhone(e.target.value)}/> : 
-                    <Typography> {user.phone_number} </Typography> 
-                }
+        <Paper className={classes.root}>
+            <Grid container direction="row"> 
+                <Grid item xs={5} className={classes.content}> 
+                    <Typography variant="h6" className={classes.bold}> Nom i cognoms </Typography>
+                    {editable ? 
+                        <TextField error={error} id="standard-basic" defaultValue={user.name} onChange={(e) => setNewName(e.target.value)}/> : 
+                        <Typography> {user.name} </Typography> 
+                    }
+                    <Typography variant="h6" className={classes.paddingTop}> Correu electrónic </Typography>
+                    {editable ? 
+                        <TextField error={error} id="standard-basic" defaultValue={user.email_address} onChange={(e) => setNewEmail(e.target.value)}/> : 
+                        <Typography> {user.email_address} </Typography> 
+                    }
+                    <Typography variant="h6" className={classes.paddingTop}> Número de telèfon </Typography>
+                    {editable ? 
+                        <TextField error={error} id="standard-basic" defaultValue={user.phone_number} type="number" onChange={(e) => setNewPhone(e.target.value)}/> : 
+                        <Typography> {user.phone_number} </Typography> 
+                    }
+                </Grid>
+                <Grid xs={5} className={classes.avatar}>
+                    {editable ?
+                        <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}/> : 
+                        <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}>  
+                            <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+                            <label htmlFor="icon-button-file">
+                                <IconButton color="primary" aria-label="upload picture" component="span">
+                                <PhotoCamera />
+                                </IconButton>
+                            </label>
+                        </Avatar>}
+                    <Typography> {user.postal_address} </Typography>
+                </Grid>
+                <Grid item xs={2} className={classes.editButton}>
+                    {editable ? 
+                        <div>
+                            <SaveIcon onClick={() => handleSave()} cursor="pointer" />
+                            <CloseIcon onClick={() => setOpenModal(true)} cursor="pointer" />
+                        </div> : 
+                        <EditIcon onClick={() => handleEdit()} cursor="pointer"/> 
+                    }
+                </Grid>
+                <ConfirmationDialog open={openModal} cancel={() => handleCancel()} accept={() => handleAccept()} title={'Cancel·lar canvis'} message={'Estàs segur de què vols cancel·lar els canvis? Si cancel·les, els canvis es perdran'}/>
             </Grid>
-            <Grid xs={5} className={classes.avatar}>
-                {editable ?
-                    <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}/> : 
-                    <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}>  
-                        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-                        <label htmlFor="icon-button-file">
-                            <IconButton color="primary" aria-label="upload picture" component="span">
-                            <PhotoCamera />
-                            </IconButton>
-                        </label>
-                    </Avatar>}
-                <Typography> {user.postal_address} </Typography>
-            </Grid>
-            <Grid item xs={2} className={classes.editButton}>
-                {editable ? 
-                    <div>
-                        <SaveIcon onClick={() => handleSave()} cursor="pointer" />
-                        <CloseIcon onClick={() => setOpenModal(true)} cursor="pointer" />
-                    </div> : 
-                    <EditIcon onClick={() => handleEdit()} cursor="pointer"/> 
-                }
-            </Grid>
-            <ConfirmationDialog open={openModal} cancel={() => handleCancel()} accept={() => handleAccept()} title={'Cancelar canvis'} message={'Estas segur de que vols cancelar els canvis? Si canceles els canvis es perdran'}/>
-        </Grid>
+        </Paper>
     )
 }

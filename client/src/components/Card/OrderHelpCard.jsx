@@ -84,7 +84,7 @@ export function OrderHelpCard(props) {
             case 3:
                 return <div className={classes.secondaryTag}> El teu voluntari ja ha recollit la comanda! </div>;
             case 4:
-                return <div className={classes.outlinedTag}> Comanda entregada pel voluntari! No olvidis fer les valoracions! </div>
+                return <div className={classes.outlinedTag}> Comanda entregada pel voluntari! No oblidis fer les valoracions! </div>
         }
     }
 
@@ -103,11 +103,11 @@ export function OrderHelpCard(props) {
         return ticket
     }
 
-    const getHelperInformation = (helper) => { 
+    const getHelperInformation = (helper) => {
         return (
             <div>
                 <Typography variant="body2">Nom: {helper.name}</Typography>
-                <Typography variant="body2">Teléfon: {helper.phone_number}</Typography>
+                <Typography variant="body2">Telèfon: {helper.phone_number}</Typography>
             </div>
         );
     }
@@ -125,7 +125,7 @@ export function OrderHelpCard(props) {
                     {getCurrentInformation(props.step)}
                     <div className={classes.helperBox}>
                         <Typography variant="body1" className={classes.bold}> VOLUNTARI: </Typography>
-                        {props.assigned_helper ? getHelperInformation(props.helper) : <Typography variant="body1" className={classes.bold}> A l'espera de que un voluntari confirmi la comanda. </Typography>}
+                        {props.assigned_helper ? getHelperInformation(props.helper) : <Typography variant="body1" className={classes.bold}> A l'espera de què un voluntari confirmi la comanda. </Typography>}
                     </div>
                     <Typography variant="body1" className={classes.bold}> Comanda realitzada a: </Typography> 
                     <Typography variant="h4" className={classes.uppercase}> {props.local_name} </Typography> 

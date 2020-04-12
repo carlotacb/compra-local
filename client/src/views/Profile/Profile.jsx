@@ -5,6 +5,7 @@ import { ProfileBox, PasswordDialog } from "../../components";
 import { ApiFactory } from "../../services/ApiFactory";
 import { Valorations } from "./Valorations"
 import { UserContext } from '../../context/UserContext';
+import { Loading } from "../../components/Loading/Loading";
 
 const useStyles = makeStyles((theme) => ({
     secondTitle: {
@@ -42,7 +43,7 @@ export function Profile() {
     }, [user]);
 
     if(user === undefined) {
-        return <p> Loading ....</p>
+        return <Loading />
     }
 
     return (
@@ -67,7 +68,7 @@ export function Profile() {
                 <Valorations response={recivedValorations} rebudes={true} /> : 
                 <Valorations response={givenValorations} rebudes={false} />}
             </Grid>
-            <PasswordDialog title={'Canviar el password'} onAccept={(op, np) => handleChangePassword(op, np)} open={openModal} onClose={() => setOpenModal(false)}/>
+            <PasswordDialog title={'Canviar la contrasenya'} onAccept={(op, np) => handleChangePassword(op, np)} open={openModal} onClose={() => setOpenModal(false)}/>
         </Grid>
     )
 }
