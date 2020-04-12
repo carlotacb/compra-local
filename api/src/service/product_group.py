@@ -21,7 +21,7 @@ def add_dummy_data():
             ProductGroup(name='Pa', local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ')),
             ProductGroup(name='Passtiseria', local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ')),
             ProductGroup(name='Pa', local_id=local_service.get_id_by_name('El Primo')),
-            ProductGroup(name='Passtiseria', local_id=local_service.get_id_by_name('El Primo'))
+            ProductGroup(name='Passtiseria', local_id=local_service.get_id_by_name('El Primo')),
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()

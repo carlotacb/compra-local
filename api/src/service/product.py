@@ -149,6 +149,114 @@ def add_dummy_data():
                 local_id=local_service.get_id_by_name('El Primo'),
                 product_group_id=product_group_service.get_id_by_name_and_local_name('Pa', 'El Primo')
             ),
+            Product(
+                name='Tornavis', 
+                description='Tornavis estrella m2', 
+                price=7, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferreteria J. Valls'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferreteria J. Valls')
+            ),
+            Product(
+                name='Martell', 
+                description='Martell de primera qualitat', 
+                price=15, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferreteria J. Valls'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferreteria J. Valls')
+            ),
+            Product(
+                name='Claus', 
+                description='Claus de múltiples tamanys', 
+                price=6.5, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferreteria J. Valls'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Altres', 'Ferreteria J. Valls')
+            ),
+            Product(
+                name='Escala', 
+                description='Escala de 2m abatible', 
+                price=20, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferreteria J. Valls'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferreteria J. Valls')
+            ),
+            Product(
+                name='Tornavis', 
+                description='Tornavis estrella m2', 
+                price=7, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferreteria Hijano'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferreteria Hijano')
+            ),
+            Product(
+                name='Martell', 
+                description='Martell de primera qualitat', 
+                price=15, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferreteria Hijano'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferreteria Hijano')
+            ),
+            Product(
+                name='Claus', 
+                description='Claus de múltiples tamanys', 
+                price=6.5, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferreteria Hijano'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Altres', 'Ferreteria Hijano')
+            ),
+            Product(
+                name='Escala', 
+                description='Escala de 2m abatible', 
+                price=20, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferreteria Hijano'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferreteria Hijano')
+            ),
+            Product(
+                name='Tornavis', 
+                description='Tornavis estrella m2', 
+                price=7, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferretería Rodríguez'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferretería Rodríguez')
+            ),
+            Product(
+                name='Martell', 
+                description='Martell de primera qualitat', 
+                price=15, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferretería Rodríguez'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferretería Rodríguez')
+            ),
+            Product(
+                name='Claus', 
+                description='Claus de múltiples tamanys', 
+                price=6.5, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferretería Rodríguez'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Altres', 'Ferretería Rodríguez')
+            ),
+            Product(
+                name='Escala', 
+                description='Escala de 2m abatible', 
+                price=20, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Ferretería Rodríguez'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferretería Rodríguez')
+            ),
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()
