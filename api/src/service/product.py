@@ -40,7 +40,115 @@ def add_dummy_data():
                 name='Diprogenta', description='Per curar les cremades', price=6, currency=Currency.EUR,
                 price_type=PriceType.UNIT, local_id=local_service.get_id_by_name('Farmacia Bassegoda'),
                 product_group_id=product_group_service.get_id_by_name_and_local_name('Crema', 'Farmacia Bassegoda')
-            )
+            ),
+            Product(
+                name='Pa', 
+                description='Origen: Catalunya', 
+                price=1, 
+                currency=Currency.EUR,
+                price_type=PriceType.KILOGRAM, 
+                local_id=local_service.get_id_by_name('Panet Olzinelles'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Pa', 'Panet Olzinelles')
+            ),
+            Product(
+                name='Crusanets', 
+                description='Origen: Catalunya', 
+                price=15, 
+                currency=Currency.EUR,
+                price_type=PriceType.KILOGRAM, 
+                local_id=local_service.get_id_by_name('Panet Olzinelles'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Passtiseria', 'Panet Olzinelles')
+            ),
+            Product(
+                name='Ensaimades', 
+                description='Origen: Catalunya', 
+                price=0.75, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Panet Olzinelles'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Passtiseria', 'Panet Olzinelles')
+            ),
+            Product(
+                name='Pa de Pagès', 
+                description='Origen: Catalunya', 
+                price=1.5, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Panet Olzinelles'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Pa', 'Panet Olzinelles')
+            ),
+            Product(
+                name='Pa', 
+                description='Origen: Catalunya', 
+                price=1, 
+                currency=Currency.EUR,
+                price_type=PriceType.KILOGRAM, 
+                local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Pa', 'FORN DE PA TOÑI DEGUSTACIÓ')
+            ),
+            Product(
+                name='Crusanets', 
+                description='Origen: Catalunya', 
+                price=15, 
+                currency=Currency.EUR,
+                price_type=PriceType.KILOGRAM, 
+                local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Passtiseria', 'FORN DE PA TOÑI DEGUSTACIÓ')
+            ),
+            Product(
+                name='Ensaimades', 
+                description='Origen: Catalunya', 
+                price=0.75, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Passtiseria', 'FORN DE PA TOÑI DEGUSTACIÓ')
+            ),
+            Product(
+                name='Pa de Pagès', 
+                description='Origen: Catalunya', 
+                price=1.5, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Pa', 'FORN DE PA TOÑI DEGUSTACIÓ')
+            ),
+            Product(
+                name='Pa', 
+                description='Origen: Catalunya', 
+                price=1, 
+                currency=Currency.EUR,
+                price_type=PriceType.KILOGRAM, 
+                local_id=local_service.get_id_by_name('El Primo'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Pa', 'El Primo')
+            ),
+            Product(
+                name='Crusanets', 
+                description='Origen: Catalunya', 
+                price=15, 
+                currency=Currency.EUR,
+                price_type=PriceType.KILOGRAM, 
+                local_id=local_service.get_id_by_name('El Primo'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Passtiseria', 'El Primo')
+            ),
+            Product(
+                name='Ensaimades', 
+                description='Origen: Catalunya', 
+                price=0.75, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('El Primo'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Passtiseria', 'El Primo')
+            ),
+            Product(
+                name='Pa de Pagès', 
+                description='Origen: Catalunya', 
+                price=1.5, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('El Primo'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Pa', 'El Primo')
+            ),
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()
