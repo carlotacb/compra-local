@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
 import { ConfirmationDialog } from '../../components'
+import { ApiFactory } from "../../services/ApiFactory";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -115,8 +116,10 @@ export function HelperCard(props) {
     }
 
     const handleAccept = () => {
-        /* TODO: Comanda entregada */
-        setOpenModal(false)
+        const finishHelpAPI = ApiFactory.get('finishHelp');
+        finishHelpAPI(props.orderID).then((res) => {
+            if (!res.error) window.location.reload(true);
+        });
     }
 
     return (

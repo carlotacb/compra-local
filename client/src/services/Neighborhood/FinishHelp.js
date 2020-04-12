@@ -7,7 +7,7 @@ export function finishHelp(idStore) {
     return new Promise((resolve, reject) => {
         try {
             axios({
-                method: 'post',
+                method: 'put',
                 url: urlProd + endpoint,
                 data: {
                     "new_status": "DONE"
