@@ -90,6 +90,7 @@ def get(local_id):
 
 def post(local_id, opening_hours_list):
     opening_list = list()
+    db_session().query(OpeningHoursItem).filter_by(local_id=local_id).delete()
     try:
         for opening_hours in opening_hours_list:
             opening_list.append(
@@ -101,5 +102,5 @@ def post(local_id, opening_hours_list):
         db_session().commit()
         return True
     except Exception as e:
-        print('exception' + str(e))
+        print('exception ' + str(e))
         return False
