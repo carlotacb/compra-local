@@ -10,6 +10,7 @@ from src.model.order_group import OrderGroup
 from src.model.review_local import ReviewLocal
 from src.model.review_user import ReviewUser
 from src.model.user import User
+from src.service import local as local_service
 
 
 def add_dummy_data():
@@ -33,13 +34,15 @@ def add_dummy_data():
                 name='Elena Ruiz', email_address='hi@elena.dev', phone_number='769547606',
                 password='0ce93c9606f0685bf60e051265891d256381f639d05c0aec67c84eec49d33cc1',
                 postal_address='Carrer de Sants, 282, 08028 Barcelona', latitude=41.375647, longitude=2.127905,
-                type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_3.jpg')
+                type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_3.jpg'),
+                local_id=local_service.get_id_by_name('Farmacia Bassegoda')
             ),
             User(
                 name='Carlota Catot', email_address='hi@carlota.dev', phone_number='665789123',
                 password='332b7c12e4832aa8241acb324f2deaa4cac7a522243d1f078259fac18873bcce',
                 postal_address='Carrer de Bassegoda, 11, 08028 Barcelona', latitude=41.375191, longitude=2.125832,
-                type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_4.jpg')
+                type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_4.jpg'),
+                local_id=local_service.get_id_by_name('Bona Fruita Busquets')
             )
         ]
         db_session().bulk_save_objects(object_list)
