@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
 export function ShopSearch(props) {
 
     const classes = useStyles();
-    const {stores} = props;
 
+    const stores = props.stores;
 
     function renderRestaurants() {
         var output = [];
