@@ -83,12 +83,7 @@ export function Login() {
             if(!res["error"]) {
                 setError(false);
                 setCookie('iusha-bs', res["user"], { path: '/' });
-                const getUserAPI = ApiFactory.get("getUserInformation");
-                getUserAPI(cookies.uisha)
-                .then((res)=>{
-                    setUser(res);
-                    history.push('/in/empresa');
-                });
+                history.push("/in/botiga");
             }
             else if(res["message"] == "password"){
                 setError(true);

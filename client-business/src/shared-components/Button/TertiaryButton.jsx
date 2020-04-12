@@ -16,7 +16,11 @@ const useStyles = makeStyles((theme) => ({
 export function TertiaryButton(props) {
     const classes = useStyles();
     return (
-        <Button className={classes.root} variant="outlined" color="primary">
+        <Button className={classes.root} 
+        variant="outlined" 
+        color="primary"
+        onClick={props.onClick}
+        >
             {props.children}
         </Button>
     )

@@ -1,15 +1,23 @@
 
 // Login
 import { login } from './User/Login';
+import { register } from './User/Register';
 import { getUserInformation } from './User/UserInformation';
+import { getStoreInformation } from './Store/Store';
+import { updateStoreInformation } from './Store/UpdateStore'
+import {createStoreInformation }from './Store/CreateStore';
+import { getProducts } from './Products/getProducts';
 
-
-
-export const urlProd = "http://api.compralocal.cat"; 
+export const urlProd = "https://api.compralocal.cat";
 
 const endpoints = {
     'login': login,
-    'getUserInformation': getUserInformation
+    'register': register,
+    'getUserInformation': getUserInformation,
+    'getStoreInfomation': getStoreInformation,
+    'updateStoreInformation': updateStoreInformation,
+    'createStoreInformation': createStoreInformation,
+    'getProducts': getProducts
 }
 
 function get(name) {

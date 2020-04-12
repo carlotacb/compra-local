@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import { useHistory, Redirect } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 import { UserContext } from "../../context/UserContext";
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
 import { SpanAlert } from "../../shared-components/Span/SpanAlert";
@@ -10,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
+import { ApiFactory } from "../../services/ApiFactory";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,32 +56,59 @@ const useStyles = makeStyles((theme) => ({
 
 export function Register() {
     const {user, setUser} = useContext(UserContext);
-    const [nomCongnoms, setNomCongonms] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [password2, setPassword2] = useState('');
+    const [userIn, setUserIn] = useState({
+        name: "",
+        email: "",
+        password: "",
+        rpassword: ""
+    })
     const [error, setError] = useState(false);
     const [errorPW, setErrorPW] = useState(false);
+    const [cookies, setCookie] = useCookies(['iusha-bs']);
     const classes = useStyles();
+    const history = useHistory();
 
     const handleRegister = () => {
-        console.log(email + " " + password);
-        if (password !== password2) {
+        if (userIn["password"] !== userIn["rpassword"]) {
             setErrorPW(true);
+            return;
         } 
-        if (email === "carlota@hackupc.com" && password === "123") {
-            /* REGISTER SUCCES */
-            setError(false);
-            setUser({ nom: nomCongnoms, email: email, password: password });
-            console.log(user)
-        } else {
-            /* REGISTER FAILS */ 
-            setError(true);
-        }   
+
+        const registerAPI = ApiFactory.get("register");
+        registerAPI(userIn["email"], userIn["name"], userIn["password"])
+            .then((res)=> {
+                if(!res["error"]){
+                    setCookie('iusha-bs', res["user"], { path: '/' });
+                    const getUserAPI = ApiFactory.get("getUserInformation");
+                    getUserAPI(cookies["iusha-bs"])
+                    .then((res)=>{
+                        setUser(res);
+                        history.push('/in/empresa');
+                    });
+                    setError(false);
+                }
+                else {
+                    setError(true);
+                }
+            });
     }
 
-    const checkPasswords = (value) => {
-        if (value != password) {
+    function handleChange(e){
+        const id = e.currentTarget.id;
+        const v = e.target.value;
+
+        setUserIn( {
+            ...userIn,
+            [id]: v
+        })
+
+        if(id == "rpassword") {
+            checkPasswords(v);
+        }
+    }
+
+    function checkPasswords(value) {
+        if (value != userIn["password"]) {
             setErrorPW(true);
         } else {
             setErrorPW(false);
@@ -97,10 +127,10 @@ export function Register() {
                         margin="normal" 
                         required 
                         fullWidth 
-                        id="name" 
-                        label="Nom i congnoms" 
+                        id="email" 
+                        label="Nom de l'encarregat de l'empresa" 
                         name="name" 
-                        onChange={(e)=>setNomCongonms(e.target.value)}
+                        onChange={(e)=> handleChange(e)}
                         autoFocus />
                     <TextField 
                         error={error}
@@ -112,7 +142,7 @@ export function Register() {
                         label="Correu Electrònic" 
                         name="email" 
                         autoComplete="email" 
-                        onChange={(e)=>setEmail(e.target.value)}
+                        onChange={(e)=> handleChange(e)}
                         autoFocus />
                     <TextField 
                         error={error || errorPW}
@@ -124,18 +154,18 @@ export function Register() {
                         label="Contrasenya" 
                         type="password" 
                         id="password" 
-                        onChange={(e)=>setPassword(e.target.value)} />
+                        onChange={(e)=> handleChange(e)} />
                     <TextField 
                         error={error || errorPW}
                         variant="outlined" 
                         margin="normal" 
                         required 
                         fullWidth 
-                        name="password2" 
+                        name="rpassword" 
                         label="Repeteix la contrasenya" 
                         type="password" 
-                        id="password2" 
-                        onChange={(e)=>checkPasswords(e.target.value)}
+                        id="rpassword" 
+                        onChange={(e)=> handleChange(e)}
                         autoComplete="current-password" />
                     <PrimaryButton onClick={() => handleRegister()}> Registra't </ PrimaryButton>
                     <Grid container className={classes.localGrid}>

@@ -96,6 +96,7 @@ export function StoreInformation() {
                     </Typography>
 
                 </div>
+                { storeInfo["website"] &&
                 <div className={classes.line}>
                     <Typography variant="subtitle1">
                         Web:
@@ -104,6 +105,8 @@ export function StoreInformation() {
                         {storeInfo["website"]}
                     </Typography>
                 </div>
+                }
+                { storeInfo["phone_number"] &&
                 <div className={classes.line}>
                     <Typography variant="subtitle1">
                         Contacte:
@@ -112,6 +115,7 @@ export function StoreInformation() {
                         {storeInfo["phone_number"]}
                     </Typography>
                 </div>
+                }
             </Grid>
 
             <Grid item className={classes.item}>

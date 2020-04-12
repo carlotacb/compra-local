@@ -1,7 +1,8 @@
 import { Sidebar as Sid } from './Sidebar/SideBar';
 import { ListView as LV } from './Listview/ListView';
 import { StoreCard as SC } from './Card/StoreCard';
-import { VerticalStepper as VS } from './Stepper/VerticalStepper'
+import { VerticalStepper as VS } from './Stepper/VerticalStepper';
+import { Loading as L } from './Loading/Loading';
 
 // Boxes
 import { SearchBox as SB} from './Box/SearchBox';
@@ -53,3 +54,4 @@ export const ShoppingCart = SCart;
 export const PasswordDialog = PD;
 export const HelperPetitionCard = HPC;
 export const PendingReviewCard = PRC;
+export const Loading = L;

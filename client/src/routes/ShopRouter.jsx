@@ -3,24 +3,26 @@ import { Switch, Route, useRouteMatch, Redirect, useParams } from "react-router-
 import { ShopErrorLocation, ShopSearch, ShopStore } from '../views';
 import { StoreContext } from '../context/StoreContext';
 import { ApiFactory } from "../services/ApiFactory";
+import { UserContext } from '../context/UserContext';
 
 export function ShopRouter() {
     const [inS, setIn] = React.useState(1);
+    const {user, setUser} = React.useContext(UserContext);
     const [stores, setStores] = React.useState([]);
     // TODO: Define routes
     let match = useRouteMatch();
 
     React.useEffect(()=> {
-        if(match.path == '/in/') {
+        if(match.path == '/in/' && (user != undefined) ) {
             const searchStoresAPI = ApiFactory.get('searchStores');
-            var lat = undefined;
-            var long = undefined;
-            searchStoresAPI(lat, long)
+            searchStoresAPI(user)
             .then((s) => {
-                setStores(s)
+                var aStores = [...stores];
+                aStores = s["local_list"];
+                setStores(aStores)
             });
         }
-    },[inS]);
+    },[user]);
 
     // 1. CHECK LOCATION
     const [location, setLocation] = React.useState(true);
