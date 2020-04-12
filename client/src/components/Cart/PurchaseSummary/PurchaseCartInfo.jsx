@@ -3,7 +3,7 @@ import { CartContext } from '../../../context';
 import { ListCart } from '../ContentCart/ListCart';
 import { HeaderCart } from '../ContentCart/HeaderCart';
 import { Typography, makeStyles, Grid, IconButton, useTheme } from '@material-ui/core';
-
+import {UnitDict} from '../../../services/Dictio/UnitDicto';
 
 const useStyles = makeStyles((theme) => ({
     prices: {
@@ -30,13 +30,13 @@ export function PurchaseCartInfo(props) {
         const cart = props.cart;
         for(var i in cart) {
             // Product
-            const fprice = (cart[i]['price_unit'] * cart[i]['quantity']);
+            const fprice = (cart[i]['price'] * cart[i]['quantity']);
             const price = (Math.round((fprice + Number.EPSILON) * 100) / 100);
 
             total += price;
             // Product Name
             output.push(
-                <Grid item xs={6} className={classes.cardProduct}>
+                <Grid item xs={5} className={classes.cardProduct}>
                     <Typography variant="body1">
                         {cart[i]['name']}
                     </Typography>
@@ -45,13 +45,13 @@ export function PurchaseCartInfo(props) {
 
             // Product info
             output.push(
-                <Grid item xs={6}>
+                <Grid item xs={7}>
                     <div className={classes.prices}>
                         <Typography variant="subtitle2">
-                            {cart[i]['quantity']} {cart[i]['unit']}
+                            {cart[i]['quantity']} {UnitDict[cart[i]['price_type']]}
                         </Typography>
                         <Typography variant="subtitle2">
-                            <i> {cart[i]['price_unit']} € /  {cart[i]['unit']}</i>
+                            <i> {cart[i]['price']} € /  {UnitDict[cart[i]['price_type']]}</i>
                         </Typography>
                         <Typography variant="subtitle2">
                             <b>

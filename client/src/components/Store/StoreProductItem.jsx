@@ -4,7 +4,7 @@ import { Grid, makeStyles, Typography, IconButton } from '@material-ui/core';
 
 import { CartContext } from '../../context/CartContext';
 import { AddProductContext } from '../../context/AddProductContext';
-
+import { UnitDict } from '../../services/Dictio/UnitDicto';
 const useStyles = makeStyles((theme) => ({
     productItem: {
         margin: theme.spacing(2),
@@ -28,8 +28,8 @@ export function StoreProductItem(props) {
     const name = item["name"];
     const id = item["id"];
     const description = item["description"];
-    const unit = item["unit"];
-    const price = item["price_unit"];
+    const unit = UnitDict[item["price_type"]];
+    const price = item["price"];
     
 
     function handleClick(e) {

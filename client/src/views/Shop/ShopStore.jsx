@@ -16,7 +16,7 @@ export function ShopStore() {
     React.useEffect(function getStoreInfo() {
         const getStoreInfoAPI = ApiFactory.get('getStoreInfo');
         getStoreInfoAPI(id).then((res) => {
-            setStoreInfo(res);
+            setStoreInfo(res["local"]);
         });
     }, []);
 

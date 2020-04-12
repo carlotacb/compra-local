@@ -7,7 +7,7 @@ import { ListView, AddProductDialog } from '../';
 import { StoreProductItem } from './StoreProductItem';
 import { AddProductContext } from '../../context/AddProductContext';
 import { CartContext } from '../../context/CartContext';
-import { ProductTypeDict } from '../../services/ProductTypeDict';
+import { ProductTypeDict } from '../../services/Dictio/ProductTypeDict';
 
 const useStyles = makeStyles((theme) => ({
     search: {

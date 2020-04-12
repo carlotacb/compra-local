@@ -8,8 +8,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { StoreContext } from '../../../context';
 
 export function PurchaseSelect(props) {
-
-    const { storeInfo, setstoreInfo } = React.useContext(StoreContext);
+    const {storeInfo, setStoreInfo} = React.useContext(StoreContext);
     const handleChange = (event) => {
         props.setValue(event.target.value);
     };
@@ -25,9 +24,9 @@ export function PurchaseSelect(props) {
         <FormControl component="fieldset">
             <FormLabel component="legend">Selecciona el mètode de recollida</FormLabel>
             <RadioGroup aria-label="gender" name="gender1" value={props.value} onChange={handleChange}>
-                <FormControlLabel value="recollir" control={<Radio />} label="Recollir a la botiga" />
-                <FormControlLabel value="botiga" disabled={delivery_disabled} control={<Radio />} label="Enviat per la botiga" />
-                <FormControlLabel value="voluntari" control={<Radio />} label="Necessito un/a voluntari/a" />
+                <FormControlLabel value="PICK_UP" control={<Radio />} label="Recollir a la botiga" />
+                <FormControlLabel value="DELIVER" disabled={delivery_disabled} control={<Radio />} label="Enviat per la botiga" />
+                <FormControlLabel value="HELPER_NEEDED" control={<Radio />} label="Necessito un/a voluntari/a" />
             </RadioGroup>
         </FormControl>
     );
