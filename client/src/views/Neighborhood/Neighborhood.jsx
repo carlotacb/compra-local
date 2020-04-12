@@ -17,7 +17,13 @@ export function Neighborhood() {
 
     React.useEffect(function getRecivedValorations() {
         if(user === undefined) return;
-        
+        if(user["id"] === undefined) return;
+
+        const currentHelpingAPI = ApiFactory.get('getProcesHelper');
+        currentHelpingAPI(user["id"]).then((res) => {
+            setProgressHelp(res.list);
+        })
+
         const getNeedHelpAPI = ApiFactory.get('getNeedHelp');
         getNeedHelpAPI(user["latitude"], user["longitude"]).then((res) => {
             setNeedHelp(res.list);
