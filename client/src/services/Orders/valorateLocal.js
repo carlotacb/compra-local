@@ -1,14 +1,15 @@
 import { urlProd } from '../ApiFactory';
 const axios = require('axios');
 
-export function getCurrentOrders(idStore) {
-    const endpoint = '/order/pending/user/' + idStore;
+export function valorateLocal(data) {
+    const endpoint = '/review/local';
 
     return new Promise((resolve, reject) => {
         try {
             axios({
-                method: 'get',
-                url: urlProd + endpoint
+                method: 'post',
+                url: urlProd + endpoint,
+                data: data
             }).then(function(response) {
                 if(response.data['error']) {
                     resolve({
@@ -19,7 +20,7 @@ export function getCurrentOrders(idStore) {
                 else {
                     resolve({
                         error: false,
-                        orders: response.data['response'].pending_order_list
+                        orders: response.data['response']
                     });
                 }
             })

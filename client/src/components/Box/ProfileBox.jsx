@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import { Grid, makeStyles, Typography, TextField, Avatar } from '@material-ui/core';
+import React, { useState, useContext } from 'react';
+import { Grid, makeStyles, Typography, TextField, Avatar, IconButton } from '@material-ui/core';
 import { ConfirmationDialog } from '../../components';
+
+import { UserContext } from '../../context/UserContext';
+import { ApiFactory } from "../../services/ApiFactory";
 
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     avatarSize: {
         width: theme.spacing(20),
         height: theme.spacing(20),
+        marginBottom: theme.spacing(2)
     },
     content: {
         paddingLeft: theme.spacing(2),
@@ -41,24 +46,47 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export function ProfileBox(props) {
+export function ProfileBox() {
     const classes = useStyles();
-    const [editable, setEditable] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
-
-    const handleEdit = () => {
-        /* Here is not API call */
-        setEditable(true);
-    }
+    const { user, setUser } = useContext(UserContext) 
+    const [ error, setError ] = useState(false);
+    const [ editable, setEditable ] = useState(false);
+    const [ newName, setNewName ] = useState(user.name);
+    const [ newEmail, setNewEmail ] = useState(user.email_address);
+    const [ newPhone, setNewPhone ] = useState(user.phone_number);
+    const [ openModal, setOpenModal ] = useState(false);
 
     const handleSave = () => {
-        /* TODO: API call to save the new information */ 
-        setEditable(false);
+        const updateUserInfoAPI = ApiFactory.get('updateUserInfo');
+        const data = {
+            "email_address": newEmail,
+            "image": user.image,
+            "name": newName,
+            "phone_number": newPhone,
+            "postal_address": user.postal_address
+        }
+
+        var newUser = user;
+        newUser["email_address"] = newEmail;
+        newUser["name"] = newName;
+        newUser["phone_number"] = newPhone;
+        
+        setUser(newUser);
+        updateUserInfoAPI(user["id"], data).then((res) => {
+            if (!res.error) {            
+                setEditable(false);
+                setError(false);
+            } 
+            else {
+                setError(true);
+            }
+        });     
     }
 
-    const handleClose = () => {
-        setOpenModal(true);
-    }
+    const handleEdit = () => {
+        console.log(user)
+        setEditable(true);
+    } 
 
     const handleAccept = () => {
         setOpenModal(false);
@@ -66,6 +94,7 @@ export function ProfileBox(props) {
     }
 
     const handleCancel = () => {
+        setError(false);
         setOpenModal(false);
     }
 
@@ -73,20 +102,39 @@ export function ProfileBox(props) {
         <Grid container className={classes.root} direction="row"> 
             <Grid item xs={5} className={classes.content}> 
                 <Typography variant="h5"> Nom i congnoms </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
+                {editable ? 
+                    <TextField error={error} id="standard-basic" defaultValue={user.name} onChange={(e) => setNewName(e.target.value)}/> : 
+                    <Typography> {user.name} </Typography> 
+                }
                 <Typography variant="h5" className={classes.paddingTop}> Correu electrónic </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
+                {editable ? 
+                    <TextField error={error} id="standard-basic" defaultValue={user.email_address} onChange={(e) => setNewEmail(e.target.value)}/> : 
+                    <Typography> {user.email_address} </Typography> 
+                }
                 <Typography variant="h5" className={classes.paddingTop}> Numero de telefon </Typography>
-                {editable ? <TextField id="standard-basic" defaultValue={props.phone_number} type="number"/> : <Typography> {props.phone_number} </Typography> }
+                {editable ? 
+                    <TextField error={error} id="standard-basic" defaultValue={user.phone_number} type="number" onChange={(e) => setNewPhone(e.target.value)}/> : 
+                    <Typography> {user.phone_number} </Typography> 
+                }
             </Grid>
             <Grid xs={5} className={classes.avatar}>
-                <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ props.image}/>
+                {editable ?
+                    <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}/> : 
+                    <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}>  
+                        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
+                        <label htmlFor="icon-button-file">
+                            <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera />
+                            </IconButton>
+                        </label>
+                    </Avatar>}
+                <Typography> {user.postal_address} </Typography>
             </Grid>
             <Grid item xs={2} className={classes.editButton}>
                 {editable ? 
                     <div>
                         <SaveIcon onClick={() => handleSave()} cursor="pointer" />
-                        <CloseIcon onClick={() => handleClose()} cursor="pointer" />
+                        <CloseIcon onClick={() => setOpenModal(true)} cursor="pointer" />
                     </div> : 
                     <EditIcon onClick={() => handleEdit()} cursor="pointer"/> 
                 }
