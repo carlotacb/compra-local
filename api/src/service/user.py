@@ -18,25 +18,25 @@ def add_dummy_data():
         log.info(f'Adding dummy data for {User.__tablename__}...')
         object_list = [
             User(
-                name='Albert Suarez', email_address='hi@albert.dev', phone_number='666 555 444',
+                name='Albert Suarez', email_address='hi@albert.dev', phone_number='666555444',
                 password='72d0166b5707d129dc321e56692fe454c034552ee9e2b38f5a7f1c1306a632ea',
                 postal_address='Carrer de Sants, 282, 08028 Barcelona', latitude=41.375647, longitude=2.127905,
                 type=UserType.client, image=image_util.decode_and_resize('test/mock/user_image_1.jpg')
             ),
             User(
-                name='Andreu Gallofre', email_address='hi@andreu.dev', phone_number='654 768 980',
+                name='Andreu Gallofre', email_address='hi@andreu.dev', phone_number='654768980',
                 password='79f2653ff4301ea86f566d4e1f4dcbef74ad6b8dd0b47e564bf570007d50cd70',
                 postal_address='Carrer de Bassegoda, 11, 08028 Barcelona', latitude=41.375191, longitude=2.125832,
                 type=UserType.client, image=image_util.decode_and_resize('test/mock/user_image_2.jpg')
             ),
             User(
-                name='Elena Ruiz', email_address='hi@elena.dev', phone_number='769 547 606',
+                name='Elena Ruiz', email_address='hi@elena.dev', phone_number='769547606',
                 password='0ce93c9606f0685bf60e051265891d256381f639d05c0aec67c84eec49d33cc1',
                 postal_address='Carrer de Sants, 282, 08028 Barcelona', latitude=41.375647, longitude=2.127905,
                 type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_3.jpg')
             ),
             User(
-                name='Carlota Catot', email_address='hi@carlota.dev', phone_number='665 789 123',
+                name='Carlota Catot', email_address='hi@carlota.dev', phone_number='665789123',
                 password='332b7c12e4832aa8241acb324f2deaa4cac7a522243d1f078259fac18873bcce',
                 postal_address='Carrer de Bassegoda, 11, 08028 Barcelona', latitude=41.375191, longitude=2.125832,
                 type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_4.jpg')

@@ -18,14 +18,14 @@ def add_dummy_data():
             Local(
                 name='Bona Fruita Busquets', description='La fruiteria del teu barri.',
                 postal_address='Carrer de Sants, 258, 08028 Barcelona',
-                latitude=41.375647, longitude=2.127905, website=None, phone_number='933 39 91 18',
+                latitude=41.375647, longitude=2.127905, website=None, phone_number='933399118',
                 pick_up=True, delivery=True, image=image_util.decode_and_resize('test/mock/local_image_1.jpg'),
                 category_id=category_service.get_id_by_name('Fruiteria')
             ),
             Local(
                 name='Farmacia Bassegoda', description='La farmacia del teu barri.',
                 postal_address='Carrer de Bassegoda, 11, 08028 Barcelona',
-                latitude=41.375191, longitude=2.125832, website=None, phone_number='934 40 09 55',
+                latitude=41.375191, longitude=2.125832, website=None, phone_number='934400955',
                 pick_up=True, delivery=False, image=image_util.decode_and_resize('test/mock/local_image_2.jpg'),
                 category_id=category_service.get_id_by_name('Farmacia')
             )
