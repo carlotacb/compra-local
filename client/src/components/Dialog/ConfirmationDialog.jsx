@@ -14,8 +14,8 @@ export function ConfirmationDialog(props) {
                 <DialogContentText id="alert-dialog-description"> {props.message} </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={props.cancel} color="primary" autoFocus> Cancelar </Button>
-                <Button onClick={props.accept} color="primary"> Aceptar </Button>
+                <Button onClick={props.cancel} color="primary" autoFocus> Cancel·lar </Button>
+                <Button onClick={props.accept} color="primary"> Acceptar </Button>
             </DialogActions>
         </Dialog>
     )

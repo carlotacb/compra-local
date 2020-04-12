@@ -68,7 +68,7 @@ export function Profile() {
                 <Valorations response={recivedValorations} rebudes={true} /> : 
                 <Valorations response={givenValorations} rebudes={false} />}
             </Grid>
-            <PasswordDialog title={'Canviar el password'} onAccept={(op, np) => handleChangePassword(op, np)} open={openModal} onClose={() => setOpenModal(false)}/>
+            <PasswordDialog title={'Canviar la contrasenya'} onAccept={(op, np) => handleChangePassword(op, np)} open={openModal} onClose={() => setOpenModal(false)}/>
         </Grid>
     )
 }
