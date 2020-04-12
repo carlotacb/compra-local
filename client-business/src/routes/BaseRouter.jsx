@@ -41,7 +41,7 @@ export function BaseRouter() {
                     <StoreContext.Provider value={storeProviderValue}>
                     <Route exact path="/">
                         <p>e</p>
-                        {/*TODO: Decide where to redirect*/}
+                        <Redirect to="/login"/>
                     </Route>
                     <Route path="/in">
                         <AppRouter />

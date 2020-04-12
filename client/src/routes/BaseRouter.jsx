@@ -14,7 +14,7 @@ export function BaseRouter() {
             <UserContext.Provider value={providerValue}>
                 <Route exact path="/">
                     {JSON.stringify(user, null, 2)}
-                    {/*TODO: Decide where to redirect*/}
+                    <Redirect to="/login"/>
                 </Route>
                 <Route path="/in">
                     <AppRouter />
