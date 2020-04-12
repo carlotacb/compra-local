@@ -1,11 +1,14 @@
 from sqlalchemy import and_, true, false
+from sqlalchemy.exc import IntegrityError
 
 from src.config import DATE_FORMAT
 from src.db.sqlalchemy import db_session
 from src.enum.order_status import OrderGroupStatus, OrderStatus
+from src.enum.order_type import OrderType
 from src.helper import log
 from src.model.order import Order
 from src.model.order_group import OrderGroup
+from src.model.order_item import OrderItem
 from src.service import order as order_service
 from src.service import user as user_service
 
@@ -156,3 +159,40 @@ def get_helping_by_user(user_id):
         item_dict['total'] = sum(o['total'] for o in item_dict['order_list'])
         helping_order_list.append(item_dict)
     return helping_order_list
+
+
+def create(user_id, local_id, order_type, product_list):
+    try:
+        # Order group
+        helper_needed = order_type == OrderType.HELPER_NEEDED
+        order_group = OrderGroup(
+            completed=False,
+            helper_needed=helper_needed,
+            user_id=user_id,
+            helper_id=None,
+            order_group_status=OrderGroupStatus.PENDING_HELPER if helper_needed else OrderGroupStatus.PENDING_PICKUP
+        )
+        db_session().add(order_group)
+        db_session().flush()
+        # Order
+        order = Order(
+            pick_up=order_type == OrderType.PICK_UP,
+            delivery=order_type == OrderType.DELIVER,
+            local_id=local_id,
+            order_group_id=order_group.id,
+            order_status=OrderStatus.PENDING_STORE
+        )
+        db_session().add(order)
+        db_session().flush()
+        # Order item
+        for product in product_list:
+            order_item = OrderItem(
+                quantity=product.get('quantity'),
+                product_id=product.get('product_id'),
+                order_id=order.id
+            )
+            db_session().add(order_item)
+        db_session().commit()
+        return order_group.id, order.id, None
+    except IntegrityError as e:
+        return None, None, str(e.args[0]).replace('\n', ' ')
