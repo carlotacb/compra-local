@@ -6,9 +6,14 @@ import { StoreEdit as SE} from './Store/StoreEdit';
 import { StoreInfo as SI} from './Store/StoreInfo';
 import { StoreProfile as SP} from './Store/StoreProfile';
 
+//Orders
+import { PetitionOrderCard as POC } from './Cards/PetitionOrderCard'
+
 export const Sidebar = S;
 export const ListView = LV;
 
 export const StoreInfo = SI;
 export const StoreEdit = SE;
 export const StoreProfile = SP;
+
+export const PetitionOrderCard = POC;
