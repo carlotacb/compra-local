@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, makeStyles, Typography, TextField, Avatar } from '@material-ui/core';
-import { ConfirmationDialog } from '../../components'
+import { ConfirmationDialog } from '../../components';
 
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
