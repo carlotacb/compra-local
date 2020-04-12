@@ -196,3 +196,18 @@ def create(user_id, local_id, order_type, product_list):
         return order_group.id, order.id, None
     except IntegrityError as e:
         return None, None, str(e.args[0]).replace('\n', ' ')
+
+
+def get_pending_by_local(local_id):
+    pending_order_list = list()
+    return pending_order_list
+
+
+def get_progress_by_local(local_id):
+    progress_order_list = list()
+    return progress_order_list
+
+
+def get_completed_by_local(local_id):
+    completed_order_list = list()
+    return completed_order_list

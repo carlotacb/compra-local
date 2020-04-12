@@ -2,7 +2,7 @@ from flask import request
 
 from src.config import MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, \
     MESSAGE_ORDER_PRODUCT_LIST_WRONG, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_ORDER_PRODUCT_LIST_NOT_FOUND, \
-    MESSAGE_ORDER_POST_ERROR
+    MESSAGE_ORDER_POST_ERROR, MESSAGE_LOCAL_WRONG_ID
 from src.enum.order_type import OrderType
 from src.helper import response
 from src.service import local as local_service
@@ -102,5 +102,56 @@ def user_helping(user_id):
         helping_order_list = order_group_service.get_helping_by_user(user_id)
         # Return instance object
         return response.make(error=False, response=dict(helping_order_list=helping_order_list))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def local_pending(local_id):
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Get list
+        pending_order_list = order_group_service.get_pending_by_local(local_id)
+        # Return instance object
+        return response.make(error=False, response=dict(pending_order_list=pending_order_list))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def local_progress(local_id):
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Get list
+        progress_order_list = order_group_service.get_progress_by_local(local_id)
+        # Return instance object
+        return response.make(error=False, response=dict(progress_order_list=progress_order_list))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def local_completed(local_id):
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Get list
+        completed_order_list = order_group_service.get_completed_by_local(local_id)
+        # Return instance object
+        return response.make(error=False, response=dict(completed_order_list=completed_order_list))
     except Exception as e:
         return response.raise_exception(e)
