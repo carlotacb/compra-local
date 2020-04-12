@@ -10,7 +10,7 @@ export function NeedHelp(props) {
         console.log(resp);
 
         for (var i = 0; i < resp.length; ++i) {
-            petitions.push(<HelperPetitionCard user={resp[i].user} orderList={resp[i].order_list} />);
+            petitions.push(<HelperPetitionCard user={resp[i].user} orderList={resp[i].order_list} orderID={resp[i].id} />);
         }
 
         return petitions;
