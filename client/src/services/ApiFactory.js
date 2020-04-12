@@ -1,14 +1,17 @@
 import { getStoreInfo, searchStores } from './Store/Store';
 import { getCurrentOrders } from './Orders/CurrentOrders';
 import { getCompletedOrders } from './Orders/CompletedOrders';
-import { getRecivedValorations } from './Profile/RecivedValorations';
-import { getGivenValorations } from './Profile/GivenValoration';
-import { getUserInformation } from './Profile/UserInformation';
 import { getProcesHelper } from './Neighborhood/ProcesHelper';
 import { getNeedHelp } from './Neighborhood/NeedHelp';
 
 // Login
 import { login } from './User/Login';
+
+//Profile
+import { updateUserInfo } from './Profile/UpdateUserInfo'
+import { getGivenValorations } from './Profile/GivenValoration';
+import { getRecivedValorations } from './Profile/RecivedValorations';
+import { getUserInformation } from './Profile/UserInformation';
 
 //Orders
 import {createOrder} from './Orders/CreateOrder';
@@ -26,7 +29,8 @@ const endpoints = {
     'login': login,
     'getProcesHelper': getProcesHelper,
     'getNeedHelp': getNeedHelp,
-    'createOrder': createOrder
+    'createOrder': createOrder,
+    'updateUserInfo': updateUserInfo
 }
 
 function get(name) {
