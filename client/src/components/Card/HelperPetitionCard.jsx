@@ -78,7 +78,7 @@ export function HelperPetitionCard(props) {
                     <Grid item className={classes.shopName}>
                         <Typography variant="h5" className={classes.uppercase}> {response[i].name} </Typography>  
                     </Grid>
-                    <Typography variant="body1"> Direcció: {response[i].postal_adress} </Typography>                         
+                    <Typography variant="body1"> Direcció: {response[i].postal_address} </Typography>                         
                 </Grid>
             )
         }
@@ -97,7 +97,7 @@ export function HelperPetitionCard(props) {
                 <Grid item xs={8} className={classes.information}>
                     {getOrderListInformation()}
                     <Grid item className={classes.centered}>
-                        <Typography variant="h6"> Direcció Final: {props.user.postal_adress} </Typography>
+                        <Typography variant="h6"> Direcció Final: {props.user.postal_address} </Typography>
                     </Grid>
                     <PrimaryButton onClick={() => setOpenModal(true)}> AJUDAR! </PrimaryButton>
                 </Grid>
