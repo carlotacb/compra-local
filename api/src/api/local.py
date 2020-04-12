@@ -170,3 +170,20 @@ def post_opening_hours(local_id):
         return response.make(error=False, response=dict(created=created))
     except Exception as e:
         return response.raise_exception(e)
+
+
+def get_tags(local_id):
+    try:
+        # Check input
+        if not local_id or local_id <= 0:
+            return response.make(error=True, message=MESSAGE_LOCAL_WRONG_ID)
+        # Get instance
+        local = local_service.get(local_id)
+        if not local:
+            return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
+        # Get all reviews
+        tags = local_service.get_tags(local_id)
+        # Return list
+        return response.make(error=False, response=dict(tags=tags))
+    except Exception as e:
+        return response.raise_exception(e)
