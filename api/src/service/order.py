@@ -92,28 +92,28 @@ def get_step(order_status):
         return 2
 
 
-def edit_pending_store(order):
-    order.order_group.completed = False
+def edit_pending_store(order, order_group):
+    order_group.completed = False
     order.order_status = OrderStatus.PENDING_STORE
-    if order.order_group.helper_needed:
-        order.order_group.order_group_status = OrderGroupStatus.PENDING_HELPER
+    if order_group.helper_needed:
+        order_group.order_group_status = OrderGroupStatus.PENDING_HELPER
     else:
-        order.order_group.order_group_status = OrderGroupStatus.PENDING_PICKUP
+        order_group.order_group_status = OrderGroupStatus.PENDING_PICKUP
 
 
-def edit_preparing(order):
-    order.order_group.completed = False
+def edit_preparing(order, order_group):
+    order_group.completed = False
     order.order_status = OrderStatus.PREPARING
-    if order.order_group.helper_needed:
-        order.order_group.order_group_status = OrderGroupStatus.PENDING_HELPER
+    if order_group.helper_needed:
+        order_group.order_group_status = OrderGroupStatus.PENDING_HELPER
     else:
-        order.order_group.order_group_status = OrderGroupStatus.PENDING_PICKUP
+        order_group.order_group_status = OrderGroupStatus.PENDING_PICKUP
 
 
-def edit_ready(order):
-    order.order_group.completed = False
-    if order.order_group.helper_needed:
-        if order.order_group.helper_id:
+def edit_ready(order, order_group):
+    order_group.completed = False
+    if order_group.helper_needed:
+        if order_group.helper_id:
             order.order_status = OrderStatus.PENDING_PICKUP
         else:
             order.order_status = OrderStatus.PENDING_HELPER
@@ -121,36 +121,37 @@ def edit_ready(order):
         order.order_status = OrderStatus.PENDING_PICKUP
 
 
-def edit_on_it(order):
-    order.order_group.completed = False
-    if order.order_group.helper_needed and order.order_group.helper_id:
+def edit_on_it(order, order_group):
+    order_group.completed = False
+    if order_group.helper_needed and order_group.helper_id:
         order.order_status = OrderStatus.PICKED_UP
     elif order.delivery:
         order.order_status = OrderStatus.DELIVERING
 
 
-def edit_done(order):
+def edit_done(order, order_group):
+    all_order_status_list = order_group_service.get_all_order_status(order_group.id)
     order.order_status = OrderStatus.COMPLETED
     order.completed_time = datetime.utcnow()
-    db_session().flush()
-    if all(o == OrderStatus.COMPLETED for o in order_group_service.get_all_order_status(order.order_group_id)):
-        order.order_group.completed = True
-        order.order_group.order_group_status = OrderGroupStatus.COMPLETED
+    if sum(bool(o == OrderStatus.COMPLETED) for o in all_order_status_list) >= len(all_order_status_list) - 1:
+        order_group.completed = True
+        order_group.order_group_status = OrderGroupStatus.COMPLETED
 
 
 def edit(order_id, new_status):
     order = get(order_id)
     if order:
+        order_group = order_group_service.get(order.order_group_id)
         if new_status == OrderStatusEdit.PENDING_STORE:
-            edit_pending_store(order)
+            edit_pending_store(order, order_group)
         elif new_status == OrderStatusEdit.PREPARING:
-            edit_preparing(order)
+            edit_preparing(order, order_group)
         elif new_status == OrderStatusEdit.READY:
-            edit_ready(order)
+            edit_ready(order, order_group)
         elif new_status == OrderStatusEdit.ON_IT:
-            edit_on_it(order)
+            edit_on_it(order, order_group)
         elif new_status == OrderStatusEdit.DONE:
-            edit_done(order)
+            edit_done(order, order_group)
         db_session().commit()
         return True
     else:
