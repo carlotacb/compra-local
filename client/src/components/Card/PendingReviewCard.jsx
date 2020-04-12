@@ -1,6 +1,8 @@
 import React from 'react';
-import { Divider, Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
-import { VerticalStepper, ValorationDialog } from "../../components";
+import { Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
+import { ValorationDialog } from "../../components";
+import { UserContext } from '../../context/UserContext';
+import { ApiFactory } from "../../services/ApiFactory";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,12 +42,26 @@ const useStyles = makeStyles((theme) => ({
 
 export function PendingReviewCard(props) {
     const classes = useStyles();
+    const { user } = React.useContext(UserContext);
     const [openModal, setOpenModal] = React.useState(false);
     const [openModalVoluteer, setOpenModalVoluteer] = React.useState(false);
-
+    const [errorModal, setErrorModal] = React.useState(false);
+    
     const handleValorateSell = (punctuation, valoration) => {
         console.log(punctuation + " - " + valoration);
-        setOpenModal(false);
+        const valorateLocalAPI = ApiFactory.get('valorateLocal');
+
+        const data = {
+            "comment": valoration,
+            "order_id": props.order_id,
+            "punctuation": parseInt(punctuation),
+            "writer_id": user["id"]
+        }
+        
+        valorateLocalAPI(data).then((res) => {
+            if (!res.error) setOpenModal(false);
+            else setErrorModal(true);
+        });
     }
 
     const handleValorateVolunteer = (punctuation, valoration) => {
@@ -92,7 +108,7 @@ export function PendingReviewCard(props) {
             <Grid container direction="row">
                 {getCardType()}
             </Grid>
-            <ValorationDialog open={openModal} title="Valora la teva compra" onAccept={(punct, comm) => handleValorateSell(punct, comm)} onClose={() => setOpenModal(false)} />
+            <ValorationDialog open={openModal} error={errorModal} title="Valora la teva compra" onAccept={(punct, comm) => handleValorateSell(punct, comm)} onClose={() => setOpenModal(false)} />
             <ValorationDialog open={openModalVoluteer} title="Valora al teu voluntari" onAccept={(punct, comm) => handleValorateVolunteer(punct, comm)} onClose={() => setOpenModalVoluteer(false)} />
         </Paper>
     )
