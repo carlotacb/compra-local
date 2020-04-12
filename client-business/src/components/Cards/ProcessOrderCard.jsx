@@ -116,7 +116,7 @@ export function ProcessOrderCard(props) {
                 </Grid>
             </Grid>
             <TicketDialog open={openModal} onClose={() => setOpenModal(false)} ticket={props.ticket} title={'TIQUET'}/>
-            <ConfirmationDialog open={openConfirmation} cancel={() => setOpenConfirmation(false)} accept={() => handleAcceptarComanda(nextStep())} title={"Passar"} message={"En acceptar la comanda, aquesta passarà a estar en estat preparant i per tant l'usuari esperarà tenir-la disponible per avui."} />
+            <ConfirmationDialog open={openConfirmation} cancel={() => setOpenConfirmation(false)} accept={() => handleAcceptarComanda(nextStep())} title={"Passar a " + getStatus(nextStep())} message={"En acceptar, confirmes que la comanda pasarà a estar " + getStatus(nextStep()) + "."} />
         </Paper>
     )
 }
