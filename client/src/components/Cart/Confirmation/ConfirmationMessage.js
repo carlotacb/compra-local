@@ -12,7 +12,7 @@ export function ConfirmationOrder(props){
             </Grid>
             <Grid item>
                 <Typography variant="body1">
-                    Identificació de la comanda: <b>{props.orderId}</b>
+                    Identificació de la comanda: <b>#{props.orderId}</b>
                 </Typography>
             </Grid>
             <Grid item>

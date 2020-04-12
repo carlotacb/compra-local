@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography, makeStyles, Grid, IconButton, useTheme } from '@material-ui/core';
 import { CartContext } from '../../../context/CartContext';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-
+import {UnitDict} from '../../../services/Dictio/UnitDicto';
 
 const useStyles = makeStyles((theme) => ({
     prices: {
@@ -39,7 +39,7 @@ export function ListCart() {
     function renderProducts() {
         var output = [];
         for (var i in cart) {
-            const fprice = (cart[i]['price_unit'] * cart[i]['quantity']);
+            const fprice = (cart[i]['price'] * cart[i]['quantity']);
             const price = (Math.round((fprice + Number.EPSILON) * 100) / 100);
 
             total += price;
@@ -60,10 +60,10 @@ export function ListCart() {
                 <Grid item xs={6}>
                     <div className={classes.prices}>
                         <Typography variant="subtitle2">
-                            {cart[i]['quantity']} {cart[i]['unit']}
+                            {cart[i]['quantity']} {UnitDict[cart[i]['unit']]}
                         </Typography>
                         <Typography variant="subtitle2">
-                            <i> {cart[i]['price_unit']} € /  {cart[i]['unit']}</i>
+                            <i> {cart[i]['price']} € /  {UnitDict[cart[i]['price_type']]}</i>
                         </Typography>
                         <Typography variant="subtitle2">
                             <b>

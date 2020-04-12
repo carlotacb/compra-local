@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Grid, Typography, makeStyles, TextField } from '@material-ui/core';
-
+import { UnitDict } from '../../services/Dictio/UnitDicto';
 
 const useStyles = makeStyles((theme) => ({
     info: {
@@ -26,7 +26,7 @@ export function AddProductDialog(props) {
         if (v.length > 0) {
             setTotalPrice(
                 Math.round((
-                    (parseFloat(v) * parseFloat(props.product["price_unit"])) + Number.EPSILON
+                    (parseFloat(v) * parseFloat(props.product["price"])) + Number.EPSILON
                 ) * 100) / 100
             )
         }
@@ -42,7 +42,7 @@ export function AddProductDialog(props) {
     }
 
     return (
-        <Dialog fullWidth={true} maxWidth="md" open={props.open} onClose={props.close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" >
+        <Dialog fullWidth={true} maxWidth="sm" open={props.open} onClose={props.close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" >
             <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
@@ -92,12 +92,12 @@ export function AddProductDialog(props) {
                                 </Grid>
                                 <Grid item xs={3}>
                                 <Typography variant="body1">
-                                {props.product["unit"]}
+                                {UnitDict[props.product["price_type"]]}
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={3}>
                                 <Typography variant="body1">
-                                    {props.product["price_unit"]}
+                                    {props.product["price"]}
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={3}>

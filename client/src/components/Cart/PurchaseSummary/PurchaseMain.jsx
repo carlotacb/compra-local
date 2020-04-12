@@ -18,8 +18,11 @@ const useStyles = makeStyles((theme) => ({
 
 export function PurchaseMain(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState('recollir');
+    const [value, setValue] = React.useState('PICK_UP');
 
+    function handleClick(){
+        props.onConfirm(value);
+    }
 
     return (
         <div>
@@ -32,7 +35,7 @@ export function PurchaseMain(props) {
                 <PurchaseSelect value={value} setValue={setValue} />
             </div>
             <div className={classes.button}>
-                <PrimaryButton onClick={props.onConfirm}>
+                <PrimaryButton onClick={()=>handleClick()}>
                     CONFIRMAR COMPRA
                 </PrimaryButton>
             </div>
