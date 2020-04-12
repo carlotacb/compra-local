@@ -20,7 +20,7 @@ export function valorateLocal(data) {
                 else {
                     resolve({
                         error: false,
-                        orders: response.data['response'].pending_order_list
+                        orders: response.data['response']
                     });
                 }
             })
