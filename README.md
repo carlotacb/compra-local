@@ -16,6 +16,26 @@
 
 🛒 Web application for activating local businesses and making your neighborhood a better place
 
+## Summary
+
+### What is this?
+
+[Compralocal.cat](https://compralocal.cat) és una plataforma de comerç en línia totalment funcional, on els comerços poden llistar els seus productes i els usuaris poden fer comandes a les diferents botigues del barri.
+
+A més, en cas de no poder sortir de casa per qualsevol raó, pots demanar ajuda a la gent del teu voltant perquè et recullin les comandes.
+
+I recorda, queda't a casa, entre tots podem frenar la corva.
+
+### Tech specifications
+
+A nivell d’arquitectura, el Backend està fet en Python, fent servir Flask com a framework, i és una API feta seguint l’standart de OpenAPI. Pel que fa al Frontend hem dissenyat dues aplicacions web en React (pel client i pel local), que serà portable a mòbils a través de una app nativa en futures releases. 
+
+El Frontend està desplegat a Netlifly i el Backend està desplegat a Google Cloud, fent ús del servei de CloudRun,a més d'una base de dades PostgreSQL desplegada a CloudSQL.
+
+Cal destacar que el codi és el màxim production-ready possible i la majoría de funcionalitats disponen de tests. També disposem d'un docker-compose per poder generar un entorn de test en local i fer les proves que siguin necessaries.
+
+Podeu trobar més informació sobre l’arquitectura al README del GitHub.
+
 ## Requirements
 
 1. Python 3.7+
