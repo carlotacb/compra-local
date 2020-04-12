@@ -1,4 +1,5 @@
 import { urlProd } from '../ApiFactory';
+import { getProducts } from '../Products/Products';
 const axios = require('axios');
 
 
@@ -13,8 +14,8 @@ export function searchStores(userInfo) {
                     'latitude': parseFloat(userInfo["latitude"]),
                     'longitude': parseFloat(userInfo["longitude"])
                 }
-            }).then(function(response) {
-                if(response.data['error']) {
+            }).then(function (response) {
+                if (response.data['error']) {
                     resolve({
                         error: true,
                         message: response.data['message']
@@ -27,12 +28,12 @@ export function searchStores(userInfo) {
                     });
                 }
             })
-            .catch((err) => {
-                resolve({
-                    error: true,
-                    message: err.message
+                .catch((err) => {
+                    resolve({
+                        error: true,
+                        message: err.message
+                    });
                 });
-            });
         } catch (error) {
             console.log(error);
         }
@@ -41,60 +42,49 @@ export function searchStores(userInfo) {
 
 
 export function getStoreInfo(idStore) {
+    const endpoint = '/admin/' + idStore;
     return new Promise((resolve, reject) => {
-        resolve( {
-            id: 1,
-            name: 'Bona Fruita Sants',
-            description: 'Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana.',
-            postal_address: 'Carretera de sants, 258, 08028 Barcelona',
-            website: 'https://www.facebook.com/bonafruita/',
-            phone_number: '933 39 91 18',
-            tags : ['Obert ara', 'Per recollir', 'A domicili'],
-            image: '',
-            openning_hours: {
-                'monday': '9:00 - 14:00, 16:00 - 20:00',
-                'tuesday': '9:00 - 14:00, 16:00 - 20:00',
-                'wednesday': '9:00 - 14:00, 16:00 - 20:00',
-                'thursday': '9:00 - 14:00, 16:00 - 20:00',
-                'friday': '9:00 - 14:00, 16:00 - 20:00',
-                'saturday': '9:00 - 14:00',
-                'sunday': 'Tancat'
-            },
-            allow_delivery: true,
-            stars: 4.5,
-            products: {
-                'Verdura': [
-                    {   
-                        'id': 4,
-                        'name': 'Pebrot',
-                        'description': 'Origen: Valencia',
-                        'unit': 'kg',
-                        'price_unit': '2'
-                    },
-                    {
-                        'id': 3,
-                        'name': 'Tomàquet',
-                        'description': 'Origen: Valencia',
-                        'unit': 'kg',
-                        'price_unit': '3'
-                    }
-                ],
-                'Fruita': [
-                    {
-                        'id': 2,
-                        'name': 'Plàtan',
-                        'unit': 'kg',
-                        'price_unit': '2'
-                    },
-                    {
-                        'id': 1,
-                        'name': 'Kiwi',
-                        'description': 'Origen: Valencia',
-                        'unit': 'kg',
-                        'price_unit': '3'
-                    }
-                ]
-            }
-        });
-    });
+        try {
+            axios({
+                method: 'get',
+                url: urlProd + endpoint
+            }).then(function (response) {
+                if (response.data['error']) {
+                    resolve({
+                        error: true,
+                        message: response.data['message']
+                    });
+                }
+                else {
+                    getProducts(idStore)
+                        .then((res) => {
+                            if (res["error"]) {
+                                resolve({
+                                    error: true,
+                                    message: res["message"]
+                                });
+                            }
+                            else {
+                                var local = response.data['response'].local;
+                                local["products"] = res["product_list"];
+                                local["punctuation"] = response.data['response'].average;
+                                local["tags"] = response.data['response'].tags;
+                                resolve({
+                                    error: false,
+                                    local: local
+                                });
+                            }
+                        })
+
+                }
+            }).catch((err) => {
+                    resolve({
+                        error: true,
+                        message: err.message
+                    });
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    })
 }

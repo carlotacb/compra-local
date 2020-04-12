@@ -7,6 +7,7 @@ import { ListView, AddProductDialog } from '../';
 import { StoreProductItem } from './StoreProductItem';
 import { AddProductContext } from '../../context/AddProductContext';
 import { CartContext } from '../../context/CartContext';
+import { ProductTypeDict } from '../../services/ProductTypeDict';
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -71,8 +72,19 @@ export function StoreProducts() {
 
     function renderProducts(){
         const products = storeInfo["products"];
-        for(var i in products){
-            const category = products[i];
+        var productsDict = {}
+        for(var i in products) {
+            var cat = products[i]["product_group_id"];
+            if(cat in productsDict) {
+                productsDict[cat].push(products[i]);
+            }
+            else{
+                productsDict[cat] = [products[i]];
+            }
+        }
+
+        for(var i in productsDict){
+            const category = productsDict[i];
             var categoryRender = [];
             for(var j in category) {
                 categoryRender.push(
@@ -86,7 +98,7 @@ export function StoreProducts() {
                 <div>
                     <div className={classes.boxCategory}>
                         <Typography variant="h6">
-                            <b>{i}</b>
+                            <b>{ProductTypeDict[i]}</b>
                         </Typography>
                     </div>
                     <div>
