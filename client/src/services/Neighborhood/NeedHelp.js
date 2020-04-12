@@ -1,48 +1,38 @@
-export function getNeedHelp(idStore) {
+import { urlProd } from '../ApiFactory';
+const axios = require('axios');
+
+export function getNeedHelp(lat, long) {
+    const endpoint = '/help';
+
     return new Promise((resolve, reject) => {
-        resolve([
-            {
-                "id": 1,
-                "order_list": [
-                {
-                    "id": 1,
-                    "name": "Bona Fruita Busquets",
-                    "postal_adress": "Carretera de sants, 258, 08028 Barcelona",
-                },
-                {
-                    "id": 2,
-                    "name": "Ferreteria paco",
-                    "postal_adress": "Carretera de sants, 230, 08028 Barcelona",
+        try {
+            axios({
+                method: 'get',
+                url: urlProd + endpoint
+            }).then(function(response) {
+                console.log(response)
+                if(response.data['error']) {
+                    resolve({
+                        error: true,
+                        message: response.data['message']
+                    });
                 }
-                ],
-                "user": {
-                    "id": 1,
-                    "name": "Albert Suarez",
-                    "postal_adress": "Carrer de Sants, 337, 5-2",
-                    "type": "CLIENT"
+                else {
+                    resolve({
+                        error: false,
+                        orders: response.data['response']
+                    });
                 }
-            },
-            {
-                "id": 2,
-                "order_list": [
-                {
-                    "id": 1,
-                    "name": "Bona Fruita Busquets",
-                    "postal_adress": "Carretera de sants, 258, 08028 Barcelona",
-                },
-                {
-                    "id": 2,
-                    "name": "Ferreteria paco",
-                    "postal_adress": "Carretera de sants, 230, 08028 Barcelona",
-                }
-                ],
-                "user": {
-                    "id": 1,
-                    "name": "Albert Suarez",
-                    "postal_adress": "Carrer de Sants, 337, 5-2",
-                    "type": "CLIENT"
-                }
-            }
-        ]);
+            })
+            .catch((err) => {
+                console.log(err.message)
+                resolve({
+                    error: true,
+                    message: err.message
+                });
+            });
+        } catch (error) {
+            console.log(error);
+        }
     });
 }
