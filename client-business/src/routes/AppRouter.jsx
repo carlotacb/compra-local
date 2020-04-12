@@ -8,6 +8,7 @@ import { Profile, Orders } from '../views';
 
 import { UserContext } from '../context';
 import { ApiFactory } from '../services/ApiFactory';
+import { StoreContext } from '../context/StoreContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,14 +27,23 @@ export function AppRouter() {
     const [userI, setUserI] = React.useState(0)
     const classes = useStyles();
     const { user, setUser } = React.useContext(UserContext); 
-    
+    const { store, setStore } = React.useContext(StoreContext); 
+
+
 
     React.useEffect(() => {
         if("iusha-bs" in cookies && user === undefined) {
             const getUserAPI = ApiFactory.get("getUserInformation");
-            getUserAPI(cookies.uisha)
+            getUserAPI(cookies["iusha-bs"])
                 .then((res)=>{
-                    setUser(res);
+                    setUser(res["user"]);
+                    if (res["user"]["local_id"] != null) {
+                        const getStoreInfomationAPI = ApiFactory.get("getStoreInfomation");
+                        getStoreInfomationAPI(res["user"]["local_id"])
+                            .then((res) => {
+                                setStore(res["store"])
+                            });
+                    }
                 });
         }
     },[userI]);
@@ -48,14 +58,16 @@ export function AppRouter() {
                 <Sidebar />
             </Grid>
             <Grid item xs={10} className={classes.page}>
-                <Switch>
-                    <Route path={`${match.path}/botiga`}>
-                        <Profile />
-                    </Route>
-                    <Route exact path={`${match.path}/`}>
-                        <Orders />
-                    </Route>
-                </Switch>
+                
+                    <Switch>
+                        <Route path={`${match.path}/botiga`}>
+                            <Profile />
+                        </Route>
+                        <Route exact path={`${match.path}/`}>
+                            <Orders />
+                        </Route>
+                    </Switch>
+                
             </Grid>
         </Grid>
     )

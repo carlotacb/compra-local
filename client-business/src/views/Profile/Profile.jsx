@@ -3,6 +3,7 @@ import { UserContext } from '../../context/';
 import { Grid, Paper, makeStyles, Typography } from "@material-ui/core";
 import { PrimaryButton, GroupButton } from "../../shared-components";
 import { ListView,StoreProfile } from "../../components";
+import { StoreContext } from "../../context/StoreContext";
 
 const useStyles = makeStyles((theme) => ({
     noStore: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export function Profile() {
     const classes = useStyles();
     const { user, setUser } = React.useContext(UserContext);
+    const { store, setStore } = React.useContext(StoreContext);
     const [edit, setEdit] = React.useState(false);
     const [step, setStep] = React.useState(0);
 

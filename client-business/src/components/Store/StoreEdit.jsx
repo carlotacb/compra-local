@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Paper, makeStyles, Typography, TextField, Divider, Checkbox } from "@material-ui/core";
 import { TertiaryButton, PrimaryButton } from "../../shared-components";
+import { StoreContext } from "../../context/StoreContext";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,25 +60,26 @@ export function StoreEdit() {
     const classes = useStyles();
     const [checkbox, setCheckbox] = React.useState(false);
 
+    const { store, setStore } = React.useContext(StoreContext);
     const [storeInfo, setStoreInfo] = React.useState({
-        store_name: "",
-        postal_address: "",
-        phone_number: "",
-        website: "",
-        hmoni: "",
-        hmonf: "",
-        htuei: "",
-        htuef: "",
-        hwedi: "",
-        hwedf: "",
-        hthui: "",
-        hthuf: "",
-        hfrii: "",
-        hfrif: "",
-        hsati: "",
-        hsatf: "",
-        hsuni: "",
-        hsunf: "",
+        name: store["name"],
+        postal_address:store["postal_address"],
+        phone_number:store["phone_number"],
+        website:store["website"],
+        hmoni:store["hmoni"],
+        hmonf:store["hmonf"],
+        htuei:store["htuei"],
+        htuef:store["htuef"],
+        hwedi: store["hwedi"],
+        hwedf: store["hwedf"],
+        hthui: store["hthui"],
+        hthuf: store["hthuf"],
+        hfrii:store["hfrii"],
+        hfrif: store["hfrif"],
+        hsati: store["hsati"],
+        hsatf:store["hsatf"],
+        hsuni: store["hsuni"],
+        hsunf: store["hsunf"],
     })
 
     function handleChangeCheckbox(){
@@ -92,6 +94,16 @@ export function StoreEdit() {
             ...storeInfo,
             [id]: v
         })
+    }
+
+
+    function handleSubmit() {
+        console.log(storeInfo);
+    }
+
+
+    function handleCancel() {
+        
     }
 
 
@@ -179,7 +191,7 @@ export function StoreEdit() {
                             variant="outlined"
                             required
                             autoFocus
-                            id="store_name"
+                            id="name"
                             label="Nom de la empresa"
                             name="company"
                             onChange={(e) => handleChange(e)}
@@ -192,7 +204,7 @@ export function StoreEdit() {
                             variant="outlined"
                             required
 
-                            id="postal_adress"
+                            id="postal_address"
                             label="Adreça postal"
                             name="adress"
                             onChange={(e) => handleChange(e)}
@@ -287,10 +299,10 @@ export function StoreEdit() {
                 </Grid>
                 <Grid item xs={12}>
                     <div className={classes.buttons}>
-                        <PrimaryButton>
+                        <PrimaryButton onClick={()=>handleSubmit()}>
                             GUARDAR
                         </PrimaryButton>
-                        <TertiaryButton>
+                        <TertiaryButton onClick={()=>handleCancel()}>
                             Cancelar
                         </TertiaryButton>
                     </div>
