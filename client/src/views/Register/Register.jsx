@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
+import { useHistory, Redirect } from "react-router-dom";
+
+import sjcl from 'sjcl'
 import { UserContext } from "../../context/UserContext";
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
 import { SpanAlert } from "../../shared-components/Span/SpanAlert";
-
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+import { ApiFactory } from '../../services/ApiFactory';
+import { useCookies } from 'react-cookie';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from "@material-ui/core";
+import { Typography, Grid, Link, Paper, TextField, Button } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,34 +49,59 @@ const useStyles = makeStyles((theme) => ({
 	    alignItems: 'flex-end',
 	    alignContent: 'center',
     },
+    input: {
+        display: 'none',
+    },
+    margins: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(6)
+    }
   }));
 
 export function Register() {
-    const {user, setUser} = useContext(UserContext);
+    const history = useHistory();
+    const [cookies, setCookie] = useCookies(['iusha']);
     const [nomCongnoms, setNomCongonms] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [password2, setPassword2] = useState('');
+    const [address, setAddress] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [image, setImage] = useState('');
     const [error, setError] = useState(false);
     const [errorPW, setErrorPW] = useState(false);
     const classes = useStyles();
 
     const handleRegister = () => {
-        console.log(email + " " + password);
-        if (password !== password2) {
-            setErrorPW(true);
-        } 
-        if (email === "carlota@hackupc.com" && password === "123") {
-            /* REGISTER SUCCES */
-            setError(false);
-            setUser({ nom: nomCongnoms, email: email, password: password });
-            console.log(user)
-        } else {
-            /* REGISTER FAILS */ 
-            setError(true);
-        }   
+
+        const bitArray = sjcl.hash.sha256.hash(password)
+        const hash = sjcl.codec.hex.fromBits(bitArray)
+
+        const data = {
+            "email_address": email,
+            "image": image,
+            "name": nomCongnoms,
+            "password": hash,
+            "phone_number": phoneNumber,
+            "postal_address": address,
+            "type": "CLIENT"
+        }
+
+        const registerAPI = ApiFactory.get('register');
+        registerAPI(data).then((res) => {
+            if(!res["error"]) {
+                setError(false);
+                setCookie('iusha', res.user, { path: '/' });
+                history.push('/in');
+            }
+            else {
+                setError(true);
+            }
+        })   
     }
 
+    if("iusha" in cookies) {
+        return <Redirect to="/in" />
+    }
     const checkPasswords = (value) => {
         if (value != password) {
             setErrorPW(true);
@@ -85,12 +110,21 @@ export function Register() {
         }
     }
 
+    const handleCapture = (target) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            var result = e.target.result;
+            result = result.substring(22);
+            setImage(result);
+        };
+    };
+
     return (
         <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
             <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.paper} elevation={6} square>
                 <form className={classes.form}>
-                    {error ? <SpanAlert message={'error'}><Typography>L'email no es vàlid</Typography></SpanAlert> : null }
                     <TextField 
                         error={error}
                         variant="outlined" 
@@ -137,6 +171,33 @@ export function Register() {
                         id="password2" 
                         onChange={(e)=>checkPasswords(e.target.value)}
                         autoComplete="current-password" />
+                    <TextField 
+                        error={error}
+                        variant="outlined" 
+                        margin="normal" 
+                        required 
+                        fullWidth 
+                        name="phone_number" 
+                        label="Número de telèfon" 
+                        type="number" 
+                        id="phone_number" 
+                        onChange={(e)=>setPhoneNumber(e.target.value)}
+                        autoComplete="current-password" />
+                    <TextField 
+                        error={error}
+                        variant="outlined" 
+                        margin="normal" 
+                        required 
+                        fullWidth 
+                        name="address" 
+                        label="Adreça: Introdueix el carrer, el numero, codi postal i la ciutat" 
+                        type="string" 
+                        id="address" 
+                        onChange={(e)=>setAddress(e.target.value)}
+                        autoComplete="current-password" />
+                    <input accept="image/*" className={classes.input} id="contained-button-file" multiple type="file" onChange={(e) => handleCapture(e.target)}/>
+                    {(image !== '') ? <Typography variant="caption">Has pujat una imatge de perfil</Typography> : null}
+                    <label htmlFor="contained-button-file" className={classes.margins}> <Button variant="outlined" color="primary" component="span"> Penja una foto de perfil </Button> </label>
                     <PrimaryButton onClick={() => handleRegister()}> Registra't </ PrimaryButton>
                     <Grid container className={classes.localGrid}>
                         <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Registra't aquí"} </Link></Typography> 

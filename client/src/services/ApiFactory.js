@@ -8,6 +8,7 @@ import { finishHelp } from './Neighborhood/FinishHelp';
 
 // Login
 import { login } from './User/Login';
+import { register } from './User/Register';
 
 //Profile
 import { updateUserInfo } from './Profile/UpdateUserInfo';
@@ -35,6 +36,7 @@ const endpoints = {
     'getGivenValorations': getGivenValorations,
     'getUserInformation': getUserInformation,
     'login': login,
+    'register': register,
     'getProcesHelper': getProcesHelper,
     'getNeedHelp': getNeedHelp,
     'createOrder': createOrder,
