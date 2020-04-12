@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
 import { ConfirmationDialog } from '..'
+import { UserContext } from '../../context/UserContext';
+import { ApiFactory } from "../../services/ApiFactory";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function HelperPetitionCard(props) {
     const classes = useStyles();
+    const { user } = useContext(UserContext);
     const [ openModal, setOpenModal ] = useState(false);
 
     const getOrderListInformation = () => {
@@ -78,7 +81,7 @@ export function HelperPetitionCard(props) {
                     <Grid item className={classes.shopName}>
                         <Typography variant="h5" className={classes.uppercase}> {response[i].name} </Typography>  
                     </Grid>
-                    <Typography variant="body1"> Direcció: {response[i].postal_adress} </Typography>                         
+                    <Typography variant="body1"> Direcció: {response[i].postal_address} </Typography>                         
                 </Grid>
             )
         }
@@ -87,8 +90,12 @@ export function HelperPetitionCard(props) {
     }
 
     const handleAccept = () => {
-        /* TODO: Accepta l'ajuda */
-        setOpenModal(false)
+        const data = { "order_group_id": parseInt(props.orderID), "user_id": parseInt(user["id"]) }
+
+        const assignHelpAPI = ApiFactory.get('assignHelp');
+        assignHelpAPI(data).then((res) => {
+            if (!res.error) window.location.reload(true);
+        });
     }
 
     return (
@@ -97,7 +104,7 @@ export function HelperPetitionCard(props) {
                 <Grid item xs={8} className={classes.information}>
                     {getOrderListInformation()}
                     <Grid item className={classes.centered}>
-                        <Typography variant="h6"> Direcció Final: {props.user.postal_adress} </Typography>
+                        <Typography variant="h6"> Direcció Final: {props.user.postal_address} </Typography>
                     </Grid>
                     <PrimaryButton onClick={() => setOpenModal(true)}> AJUDAR! </PrimaryButton>
                 </Grid>

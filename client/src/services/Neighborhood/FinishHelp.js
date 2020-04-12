@@ -1,19 +1,19 @@
 import { urlProd } from '../ApiFactory';
 const axios = require('axios');
 
-export function getNeedHelp(lat, long) {
-    const endpoint = '/help';
+export function finishHelp(idStore) {
+    const endpoint = '/order/' + idStore;
 
     return new Promise((resolve, reject) => {
         try {
             axios({
-                method: 'get',
+                method: 'put',
                 url: urlProd + endpoint,
-                params: {
-                    "latitude": lat,
-                    "longitude": long 
+                data: {
+                    "new_status": "DONE"
                 }
             }).then(function(response) {
+                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
@@ -28,6 +28,7 @@ export function getNeedHelp(lat, long) {
                 }
             })
             .catch((err) => {
+                console.log(err.message)
                 resolve({
                     error: true,
                     message: err.message

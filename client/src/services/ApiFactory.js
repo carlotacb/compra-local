@@ -1,12 +1,16 @@
 import { getStoreInfo, searchStores } from './Store/Store';
+
+// Helpers
 import { getProcesHelper } from './Neighborhood/ProcesHelper';
 import { getNeedHelp } from './Neighborhood/NeedHelp';
+import { assignHelp } from './Neighborhood/AssignedHelp';
+import { finishHelp } from './Neighborhood/FinishHelp';
 
 // Login
 import { login } from './User/Login';
 
 //Profile
-import { updateUserInfo } from './Profile/UpdateUserInfo'
+import { updateUserInfo } from './Profile/UpdateUserInfo';
 import { getGivenValorations } from './Profile/GivenValoration';
 import { getRecivedValorations } from './Profile/RecivedValorations';
 import { getUserInformation } from './Profile/UserInformation';
@@ -38,7 +42,9 @@ const endpoints = {
     'changePassword': changePassword,
     'getPendingReviewOrders': getPendingReviewOrders,
     'valorateLocal': valorateLocal,
-    'valorateHelper': valorateHelper
+    'valorateHelper': valorateHelper,
+    'assignHelp': assignHelp,
+    'finishHelp': finishHelp
 }
 
 function get(name) {
