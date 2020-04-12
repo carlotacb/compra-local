@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { useParams } from 'react-router-dom';
 import { Grid } from "@material-ui/core";
 import { OrderCard, OrderHelpCard } from '../../components';
 import { ApiFactory } from "../../services/ApiFactory";
+import { useCookies } from 'react-cookie';
 
 export function ProcessOrders() {
-    const { id } = useParams();
     const [ currentOrders, setCurrentOrders ] = useState([]);
+    const [ cookies ] = useCookies();
 
     React.useEffect(function getStoreInfo() {
         const getCurrentOrdersAPI = ApiFactory.get('getCurrentOrders');
-        getCurrentOrdersAPI(id).then((res) => {
-            setCurrentOrders(res);
+        getCurrentOrdersAPI(cookies.iusha).then((res) => {
+            setCurrentOrders(res.orders);
         });
     }, []);
 
@@ -21,12 +21,14 @@ export function ProcessOrders() {
         const orders = [];
 
         for (var i = 0; i < resp.length; ++i) {
+            const order = resp[i].order_list[0];
+
             if (resp[i].helper_needed) {
-                orders.push(<OrderHelpCard step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket} assigned_helper={resp[i].assigned_helper} helper={resp[i].helper}/>)
-            } else if (resp[i].delivery) {
-                orders.push(<OrderCard delivery={true} step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
+                orders.push(<OrderHelpCard step={order.step} local_name={order.local_name} total={order.total} ticket={order.ticket} assigned_helper={resp[i].assigned_helper} helper={resp[i].helper}/>)
+            } else if (order.delivery) {
+                orders.push(<OrderCard delivery={true} step={order.step} local_name={order.local_name} total={order.total} ticket={order.ticket}/>)
             } else {
-                orders.push(<OrderCard delivery={false} step={resp[i].step} local_name={resp[i].local_name} total={resp[i].total} ticket={resp[i].ticket}/>)
+                orders.push(<OrderCard delivery={false} step={order.step} local_name={order.local_name} total={order.total} ticket={order.ticket}/>)
             }
         }
         return orders
