@@ -12,6 +12,7 @@ import { updateUserInfo } from './Profile/UpdateUserInfo'
 import { getGivenValorations } from './Profile/GivenValoration';
 import { getRecivedValorations } from './Profile/RecivedValorations';
 import { getUserInformation } from './Profile/UserInformation';
+import { changePassword } from './Profile/ChangePassword';
 
 //Orders
 import {createOrder} from './Orders/CreateOrder';
@@ -30,7 +31,8 @@ const endpoints = {
     'getProcesHelper': getProcesHelper,
     'getNeedHelp': getNeedHelp,
     'createOrder': createOrder,
-    'updateUserInfo': updateUserInfo
+    'updateUserInfo': updateUserInfo,
+    'changePassword': changePassword
 }
 
 function get(name) {
