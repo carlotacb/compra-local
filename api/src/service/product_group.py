@@ -22,6 +22,14 @@ def add_dummy_data():
             ProductGroup(name='Passtiseria', local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ')),
             ProductGroup(name='Pa', local_id=local_service.get_id_by_name('El Primo')),
             ProductGroup(name='Passtiseria', local_id=local_service.get_id_by_name('El Primo')),
+            ProductGroup(name='Eines', local_id=local_service.get_id_by_name('Ferreteria J. Valls')),
+            ProductGroup(name='Altres', local_id=local_service.get_id_by_name('Ferreteria J. Valls')),
+            ProductGroup(name='Eines', local_id=local_service.get_id_by_name('Ferreteria Hijano')),
+            ProductGroup(name='Altres', local_id=local_service.get_id_by_name('Ferreteria Hijano')),
+            ProductGroup(name='Eines', local_id=local_service.get_id_by_name('Ferretería Rodríguez')),
+            ProductGroup(name='Altres', local_id=local_service.get_id_by_name('Ferretería Rodríguez')),
+            ProductGroup(name='Medicina', local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert')),
+            ProductGroup(name='Alimentacio', local_id=local_service.get_id_by_name('Cal Juny')),
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()

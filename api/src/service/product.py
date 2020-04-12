@@ -257,6 +257,42 @@ def add_dummy_data():
                 local_id=local_service.get_id_by_name('Ferretería Rodríguez'),
                 product_group_id=product_group_service.get_id_by_name_and_local_name('Eines', 'Ferretería Rodríguez')
             ),
+            Product(
+                name='Paracetamol', 
+                description='Pels simptomes de la grip i refredats', 
+                price=10.5, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
+            ),
+            Product(
+                name='Ibuprofeno', 
+                description='Antiinflamatori', 
+                price=7.75, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
+            ),
+            Product(
+                name='Anitbiòtic', 
+                description='Antivirals bàsics', 
+                price=4.65, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
+            ),
+            Product(
+                name='Aspirina', 
+                description='Medicament per combatre la febre', 
+                price=12.26, 
+                currency=Currency.EUR,
+                price_type=PriceType.UNIT, 
+                local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
+                product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
+            ),
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()
