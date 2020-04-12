@@ -92,50 +92,65 @@ def get_step(order_status):
         return 2
 
 
+def edit_pending_store(order):
+    order.order_group.completed = False
+    order.order_status = OrderStatus.PENDING_STORE
+    if order.order_group.helper_needed:
+        order.order_group.order_group_status = OrderGroupStatus.PENDING_HELPER
+    else:
+        order.order_group.order_group_status = OrderGroupStatus.PENDING_PICKUP
+
+
+def edit_preparing(order):
+    order.order_group.completed = False
+    order.order_status = OrderStatus.PREPARING
+    if order.order_group.helper_needed:
+        order.order_group.order_group_status = OrderGroupStatus.PENDING_HELPER
+    else:
+        order.order_group.order_group_status = OrderGroupStatus.PENDING_PICKUP
+
+
+def edit_ready(order):
+    order.order_group.completed = False
+    if order.order_group.helper_needed:
+        if order.order_group.helper_id:
+            order.order_status = OrderStatus.PENDING_PICKUP
+        else:
+            order.order_status = OrderStatus.PENDING_HELPER
+    elif order.pick_up:
+        order.order_status = OrderStatus.PENDING_PICKUP
+
+
+def edit_on_it(order):
+    order.order_group.completed = False
+    if order.order_group.helper_needed and order.order_group.helper_id:
+        order.order_status = OrderStatus.PICKED_UP
+    elif order.delivery:
+        order.order_status = OrderStatus.DELIVERING
+
+
+def edit_done(order):
+    order.order_status = OrderStatus.COMPLETED
+    order.completed_time = datetime.utcnow()
+    db_session().flush()
+    if all(o == OrderStatus.COMPLETED for o in order_group_service.get_all_order_status(order.order_group_id)):
+        order.order_group.completed = True
+        order.order_group.order_group_status = OrderGroupStatus.COMPLETED
+
+
 def edit(order_id, new_status):
     order = get(order_id)
     if order:
         if new_status == OrderStatusEdit.PENDING_STORE:
-            order.order_group.completed = False
-            order.order_status = OrderStatus.PENDING_STORE
-            if order.order_group.helper_needed:
-                order.order_group.order_group_status = OrderGroupStatus.PENDING_HELPER
-            else:
-                order.order_group.order_group_status = OrderGroupStatus.PENDING_PICKUP
-
+            edit_pending_store(order)
         elif new_status == OrderStatusEdit.PREPARING:
-            order.order_group.completed = False
-            order.order_status = OrderStatus.PREPARING
-            if order.order_group.helper_needed:
-                order.order_group.order_group_status = OrderGroupStatus.PENDING_HELPER
-            else:
-                order.order_group.order_group_status = OrderGroupStatus.PENDING_PICKUP
-
+            edit_preparing(order)
         elif new_status == OrderStatusEdit.READY:
-            order.order_group.completed = False
-            if order.order_group.helper_needed:
-                if order.order_group.helper_id:
-                    order.order_status = OrderStatus.PENDING_PICKUP
-                else:
-                    order.order_status = OrderStatus.PENDING_HELPER
-            elif order.pick_up:
-                order.order_status = OrderStatus.PENDING_PICKUP
-
+            edit_ready(order)
         elif new_status == OrderStatusEdit.ON_IT:
-            order.order_group.completed = False
-            if order.order_group.helper_needed and order.order_group.helper_id:
-                order.order_status = OrderStatus.PICKED_UP
-            elif order.delivery:
-                order.order_status = OrderStatus.DELIVERING
-
+            edit_on_it(order)
         elif new_status == OrderStatusEdit.DONE:
-            order.order_status = OrderStatus.COMPLETED
-            order.completed_time = datetime.utcnow()
-            db_session().flush()
-            if all(o == OrderStatus.COMPLETED for o in order_group_service.get_all_order_status(order.order_group_id)):
-                order.order_group.completed = True
-                order.order_group.order_group_status = OrderGroupStatus.COMPLETED
-
+            edit_done(order)
         db_session().commit()
         return True
     else:
