@@ -85,7 +85,7 @@ def assign(user_id, order_group_object):
     order_group_object.helper_id = user_id
     order_group_object.order_group_status = OrderGroupStatus.PENDING_PICKUP
     db_session().commit()
-    set_order_status_by_group(order_group_object.id, OrderStatus.PENDING_HELPER)
+    set_order_status_by_group(order_group_object.id, OrderStatus.PENDING_PICKUP)
     return True
 
 
