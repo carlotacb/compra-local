@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { OrderCard, OrderHelpCard } from '../../components';
+import { OrderCard, OrderHelpCard, NoInfoCard } from '../../components';
 
 export function ProcessOrders(props) {
 
@@ -19,6 +19,11 @@ export function ProcessOrders(props) {
                 orders.push(<OrderCard delivery={false} step={order.step} local_name={order.local_name} total={order.total} ticket={order.ticket}/>)
             }
         }
+
+        if (orders.length === 0) {
+            orders.push(<NoInfoCard information={"No tens cap comanda en procés actualment"}/>)
+        }
+
         return orders
     }
 

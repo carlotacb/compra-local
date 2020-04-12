@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { PendingReviewCard } from '../../components';
+import { PendingReviewCard, NoInfoCard } from '../../components';
 
 export function PendingReviewOrder(props) {
 
@@ -14,6 +14,10 @@ export function PendingReviewOrder(props) {
             orders.push(<PendingReviewCard local_name={order.local_name} helper_name={order.user_name} type={order.type} order_id={order.order_id} order_group_id={order.order_group_id}/>)
         }
         
+        if (orders.length === 0) {
+            orders.push(<NoInfoCard information={"No tens cap comanda per valorar"}/>)
+        }
+
         return orders
     }
 
