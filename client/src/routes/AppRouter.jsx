@@ -31,9 +31,9 @@ export function AppRouter() {
     React.useEffect(() => {
         if("iusha" in cookies && user === undefined) {
             const getUserAPI = ApiFactory.get("getUserInformation");
-            getUserAPI(cookies.uisha)
+            getUserAPI(cookies.iusha)
                 .then((res)=>{
-                    setUser(res);
+                    setUser(res["user"]);
                 });
         }
     });

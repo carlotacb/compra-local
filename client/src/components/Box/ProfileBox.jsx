@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function ProfileBox(props) {
     const classes = useStyles();
-    const { user, setUser } = useContext(UserContext) 
+    const { user, setUser } = React.useContext(UserContext) 
     const [ cookies ] = useCookies(['uisha']);
     const [ error, setError ] = useState(false);
     const [ editable, setEditable ] = useState(false);
@@ -95,6 +95,10 @@ export function ProfileBox(props) {
     const handleCancel = () => {
         setError(false);
         setOpenModal(false);
+    }
+
+    if(user == undefined){
+        return(<p>Loading ... </p>)
     }
 
     return (
