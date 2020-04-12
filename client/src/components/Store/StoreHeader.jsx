@@ -36,7 +36,7 @@ export function StoreHeader(props) {
 
     return (
         <div className={classes.root}>
-            <Stars value={storeInfo['stars']} />
+            <Stars value={storeInfo['punctuation']} />
             <Typography variant="h2"> {storeInfo['name']} </Typography>
             <div className={classes.tags}>
                 {renderTags()}

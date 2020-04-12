@@ -1,8 +1,8 @@
 import { urlProd } from '../ApiFactory';
 const axios = require('axios');
 
-export function getUserInformation(idUser) {
-    const endpoint = '/user/' + idUser;
+export function getProducts(idStore) {
+    const endpoint = '/admin/' + idStore + '/product'
 
     return new Promise((resolve, reject) => {
         try {
@@ -19,7 +19,7 @@ export function getUserInformation(idUser) {
                 else {
                     resolve({
                         error: false,
-                        user: response.data['response'].user
+                        products: response.data['response'].product_list
                     });
                 }
             })
