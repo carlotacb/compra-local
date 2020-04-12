@@ -29,3 +29,7 @@ def get_id_by_name(name):
 def get(category_id):
     category = db_session().query(Category).filter_by(id=category_id).first()
     return category if category else None
+
+
+def get_all():
+    return db_session().query(Category).all()
