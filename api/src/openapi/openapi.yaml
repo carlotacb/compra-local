@@ -988,6 +988,58 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
+  /order:
+    post:
+      tags:
+        - order
+      summary: Creates an order using its information.
+      description: Invoke this endpoint to create an order using its information.
+      operationId: src.api.order.post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: User indentifier related to the order.
+                local_id:
+                  type: integer
+                  description: Local indentifier related to the order.
+                order_type:
+                  type: string
+                  description: Order type.
+                  enum: ['DELIVER', 'PICK_UP', 'HELPER_NEEDED']
+                product_list:
+                  type: array
+                  description: List of products.
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: integer
+                        description: Product indentifier.
+                      quantity:
+                        type: number
+                        format: float
+                        description: Product quantity.
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
   /order/completed/user/{user_id}:
     get:
       tags:

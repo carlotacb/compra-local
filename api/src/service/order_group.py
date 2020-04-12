@@ -1,4 +1,5 @@
 from sqlalchemy import and_, true, false
+from sqlalchemy.exc import IntegrityError
 
 from src.config import DATE_FORMAT
 from src.db.sqlalchemy import db_session
@@ -156,3 +157,16 @@ def get_helping_by_user(user_id):
         item_dict['total'] = sum(o['total'] for o in item_dict['order_list'])
         helping_order_list.append(item_dict)
     return helping_order_list
+
+
+def create(user_id, local_id, order_type, product_list):
+    try:
+        order_group = OrderGroup()
+        db_session().add(order_group)
+        order = Order()
+        db_session().add(order)
+
+        db_session().commit()
+        return order_group.id, order.id, None
+    except IntegrityError as e:
+        return None, None, str(e.args[0]).replace('\n', ' ')
