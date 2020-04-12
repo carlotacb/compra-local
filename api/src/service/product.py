@@ -93,7 +93,9 @@ def add_dummy_data():
                 currency=Currency.EUR,
                 price_type=PriceType.KILOGRAM, 
                 local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ'),
-                product_group_id=product_group_service.get_id_by_name_and_local_name('Passtiseria', 'FORN DE PA TOÑI DEGUSTACIÓ')
+                product_group_id=product_group_service.get_id_by_name_and_local_name(
+                    'Passtiseria', 'FORN DE PA TOÑI DEGUSTACIÓ'
+                )
             ),
             Product(
                 name='Ensaimades', 
@@ -102,7 +104,9 @@ def add_dummy_data():
                 currency=Currency.EUR,
                 price_type=PriceType.UNIT, 
                 local_id=local_service.get_id_by_name('FORN DE PA TOÑI DEGUSTACIÓ'),
-                product_group_id=product_group_service.get_id_by_name_and_local_name('Passtiseria', 'FORN DE PA TOÑI DEGUSTACIÓ')
+                product_group_id=product_group_service.get_id_by_name_and_local_name(
+                    'Passtiseria', 'FORN DE PA TOÑI DEGUSTACIÓ'
+                )
             ),
             Product(
                 name='Pa de Pagès', 
@@ -264,7 +268,9 @@ def add_dummy_data():
                 currency=Currency.EUR,
                 price_type=PriceType.UNIT, 
                 local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
-                product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
+                product_group_id=product_group_service.get_id_by_name_and_local_name(
+                    'Medicina', 'Farmàcia Valentines Gelabert'
+                )
             ),
             Product(
                 name='Ibuprofeno', 
@@ -273,7 +279,9 @@ def add_dummy_data():
                 currency=Currency.EUR,
                 price_type=PriceType.UNIT, 
                 local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
-                product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
+                product_group_id=product_group_service.get_id_by_name_and_local_name(
+                    'Medicina', 'Farmàcia Valentines Gelabert'
+                )
             ),
             Product(
                 name='Anitbiòtic', 
@@ -282,7 +290,9 @@ def add_dummy_data():
                 currency=Currency.EUR,
                 price_type=PriceType.UNIT, 
                 local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
-                product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
+                product_group_id=product_group_service.get_id_by_name_and_local_name(
+                    'Medicina', 'Farmàcia Valentines Gelabert'
+                )
             ),
             Product(
                 name='Aspirina', 
@@ -291,7 +301,9 @@ def add_dummy_data():
                 currency=Currency.EUR,
                 price_type=PriceType.UNIT, 
                 local_id=local_service.get_id_by_name('Farmàcia Valentines Gelabert'),
-                product_group_id=product_group_service.get_id_by_name_and_local_name('Medicina', 'Farmàcia Valentines Gelabert')
+                product_group_id=product_group_service.get_id_by_name_and_local_name(
+                    'Medicina', 'Farmàcia Valentines Gelabert'
+                )
             ),
             Product(
                 name='Patates xip', 
