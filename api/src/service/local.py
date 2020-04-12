@@ -28,7 +28,104 @@ def add_dummy_data():
                 latitude=41.375191, longitude=2.125832, website=None, phone_number='934400955',
                 pick_up=True, delivery=False, image=image_util.decode_and_resize('test/mock/local_image_2.jpg'),
                 category_id=category_service.get_id_by_name('Farmacia')
-            )
+            ),
+            Local(
+                name='Panet Olzinelles', 
+                description='El millor forn de pa del barri de sants.',
+                postal_address='Carrer Olzinelles, 10, 08014 Barcelona',
+                latitude=41.374300, 
+                longitude=2.136234, 
+                website='panet.cat', 
+                phone_number='672642565',
+                pick_up=True, delivery=False, 
+                image=image_util.decode_and_resize('test/mock/panet.jpg'),
+                category_id=category_service.get_id_by_name('Fleca')
+            ),
+            Local(
+                name='FORN DE PA TOÑI DEGUSTACIÓ', 
+                description='Forn de pa de sants, de tota la vida',
+                postal_address='Baixos, Carrer Olzinelles, 103, 08014 Barcelona',
+                latitude=41.370550, 
+                longitude=2.137626, 
+                website=None, 
+                phone_number='933536486',
+                pick_up=True, delivery=False, 
+                image=image_util.decode_and_resize('test/mock/toni.jpg'),
+                category_id=category_service.get_id_by_name('Fleca')
+            ),
+            Local(
+                name='El Primo', 
+                description='Forn de pa el Primo, vina i esmorza',
+                postal_address='Carrer de Sants, 252, 08028 Barcelona',
+                latitude=41.370550, 
+                longitude=2.137626, 
+                website=None, 
+                phone_number='931265329',
+                pick_up=True, delivery=False, 
+                image=image_util.decode_and_resize('test/mock/primo.jpg'),
+                category_id=category_service.get_id_by_name('Fleca')
+            ),
+            Local(
+                name='Ferreteria J. Valls', 
+                description='Ferreteria valls, tot el que et pugui fer falta',
+                postal_address='Carrer de Sants, 172, 08028 Barcelona',
+                latitude=41.375467, 
+                longitude=2.132898, 
+                website='optimusweb.es', 
+                phone_number='933396001',
+                pick_up=True, delivery=False, 
+                image=image_util.decode_and_resize('test/mock/valls.jpg'),
+                category_id=category_service.get_id_by_name('Ferreteria')
+            ),
+            Local(
+                name='Ferreteria Hijano', 
+                description='Ferreteria de tota la vida',
+                postal_address='Carrer Progrés, 89, 08904 Hospitalet de Llobregat, Barcelona',
+                latitude=41.371972, 
+                longitude=2.121046, 
+                website='cadena88.com', 
+                phone_number='934401879',
+                pick_up=True, delivery=False, 
+                image=image_util.decode_and_resize('test/mock/hijano.jpg'),
+                category_id=category_service.get_id_by_name('Ferreteria')
+            ),
+            Local(
+                name='Ferretería Rodríguez', 
+                description='On trobaràs totes les eines que necessitis',
+                postal_address='Carrer de la Riera Blanca, 105, 08028 Hospitalet de Llobregat, Barcelona',
+                latitude=41.372091, 
+                longitude=2.126644, 
+                website=None, 
+                phone_number='931626903',
+                pick_up=True, delivery=False, 
+                image=image_util.decode_and_resize('test/mock/rodriguez.jpg'),
+                category_id=category_service.get_id_by_name('Ferreteria')
+            ),
+            Local(
+                name='Farmàcia Valentines Gelabert', 
+                description='La teva farmàcia de confiança',
+                postal_address='Carrer de Verdi, 7, 08012 Barcelona',
+                latitude=41.403156, 
+                longitude=2.157599, 
+                website=None, 
+                phone_number='932136301',
+                pick_up=True, delivery=True, 
+                image=image_util.decode_and_resize('test/mock/valentines.jpg'),
+                category_id=category_service.get_id_by_name('Farmacia')
+            ),
+            Local(
+                name='Cal Juny',
+                description='Supermercat de tota la vida',
+                postal_address='Carrer de les Camèlies, 7, 08024 Barcelona',
+                latitude=41.410813,
+                longitude=2.158631,
+                website=None,
+                phone_number='932103020',
+                pick_up=True, delivery=False,
+                image=image_util.decode_and_resize('test/mock/juny.jpg'),
+                category_id=category_service.get_id_by_name('Supermercat')
+            ),
+
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()
