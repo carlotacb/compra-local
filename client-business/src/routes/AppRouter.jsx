@@ -23,6 +23,7 @@ export function AppRouter() {
 
     let match = useRouteMatch();
     const [cookies, setCookie] = useCookies(['iusha-bs']);
+    const [userI, setUserI] = React.useState(0)
     const classes = useStyles();
     const { user, setUser } = React.useContext(UserContext); 
     
@@ -35,9 +36,9 @@ export function AppRouter() {
                     setUser(res);
                 });
         }
-    });
+    },[userI]);
 
-    if( !("iusha-bs" in cookies) || cookies.iusha == undefined) {
+    if( !("iusha-bs" in cookies) || cookies["iusha-bs"] == undefined) {
         return <Redirect to="/login" />
     }
 
@@ -48,10 +49,10 @@ export function AppRouter() {
             </Grid>
             <Grid item xs={10} className={classes.page}>
                 <Switch>
-                    <Route path={`${match.path}/empresa`}>
-                        <p>ñañañ</p>
+                    <Route path={`${match.path}/botiga`}>
+                        <Profile />
                     </Route>
-                    <Route path={`${match.path}/`}>
+                    <Route exact path={`${match.path}/`}>
                         <Orders />
                     </Route>
                 </Switch>

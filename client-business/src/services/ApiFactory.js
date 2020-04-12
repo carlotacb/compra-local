@@ -6,7 +6,7 @@ import { getUserInformation } from './User/UserInformation';
 
 
 
-export const urlProd = "http://api.compralocal.cat"; 
+export const urlProd = "https://api.compralocal.cat"; 
 
 const endpoints = {
     'login': login,

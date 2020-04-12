@@ -87,7 +87,7 @@ export function Login() {
                 getUserAPI(cookies["iusha-bs"])
                 .then((res)=>{
                     setUser(res);
-                    history.push('/in/');
+                    history.push("/in/botiga")
                 });
             }
             else if(res["message"] == "password"){
