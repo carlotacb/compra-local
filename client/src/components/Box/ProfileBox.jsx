@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Grid, makeStyles, Typography, TextField, Avatar } from '@material-ui/core';
 import { ConfirmationDialog } from '../../components';
 import { ApiFactory } from "../../services/ApiFactory";
@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
+import { UserContext } from '../../context/UserContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function ProfileBox(props) {
     const classes = useStyles();
+    const { user, setUser } = useContext(UserContext) 
     const [ cookies ] = useCookies(['uisha']);
     const [ error, setError ] = useState(false);
     const [ editable, setEditable ] = useState(false);
@@ -67,9 +69,9 @@ export function ProfileBox(props) {
 
         updateUserInfoAPI(cookies.iusha, data).then((res) => {
             if (!res.error) {
+                
                 setEditable(false);
                 setError(false);
-
             } 
             else {
                 setError(true);
@@ -100,18 +102,18 @@ export function ProfileBox(props) {
             <Grid item xs={5} className={classes.content}> 
                 <Typography variant="h5"> Nom i congnoms </Typography>
                 {editable ? 
-                    <TextField error={error} id="standard-basic" defaultValue={props.name} onChange={(e) => setNewName(e.target.value)}/> : 
-                    <Typography> {props.name} </Typography> 
+                    <TextField error={error} id="standard-basic" defaultValue={user.name} onChange={(e) => setNewName(e.target.value)}/> : 
+                    <Typography> {user.name} </Typography> 
                 }
                 <Typography variant="h5" className={classes.paddingTop}> Correu electrónic </Typography>
                 {editable ? 
-                    <TextField error={error} id="standard-basic" defaultValue={props.email} onChange={(e) => setNewEmail(e.target.value)}/> : 
-                    <Typography> {props.email} </Typography> 
+                    <TextField error={error} id="standard-basic" defaultValue={user.email} onChange={(e) => setNewEmail(e.target.value)}/> : 
+                    <Typography> {user.email} </Typography> 
                 }
                 <Typography variant="h5" className={classes.paddingTop}> Numero de telefon </Typography>
                 {editable ? 
-                    <TextField error={error} id="standard-basic" defaultValue={props.phone_number} type="number" onChange={(e) => setNewPhone(e.target.value)}/> : 
-                    <Typography> {props.phone_number} </Typography> 
+                    <TextField error={error} id="standard-basic" defaultValue={user.phone_number} type="number" onChange={(e) => setNewPhone(e.target.value)}/> : 
+                    <Typography> {user.phone_number} </Typography> 
                 }
             </Grid>
             <Grid xs={5} className={classes.avatar}>
