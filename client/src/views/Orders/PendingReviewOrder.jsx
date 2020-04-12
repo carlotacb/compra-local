@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { CompletedOrderCard } from '../../components';
+import { PendingReviewCard } from '../../components';
 
 export function PendingReviewOrder(props) {
 
@@ -10,8 +10,9 @@ export function PendingReviewOrder(props) {
         console.log(resp)
 
         for (var i = 0; i < resp.length; ++i) {
-            const order = resp[i].order_list[0];
-            orders.push(<CompletedOrderCard date={order.completed_date} local_name={order.local_name} total={order.total} ticket={order.ticket} />)
+            const order = resp[i];
+            console.log(order)
+            orders.push(<PendingReviewCard local_name={order.local_name} helper_name={order.user_name} type={order.type}/>)
         }
 
         return orders
