@@ -2,8 +2,7 @@ import { urlProd } from '../ApiFactory';
 const axios = require('axios');
 
 export function getUserInformation(idStore) {
-    const endpoint = '/user/' + idStore ;
-    console.log(endpoint)
+    const endpoint = '/user/' + idStore;
 
     return new Promise((resolve, reject) => {
         try {
@@ -11,7 +10,6 @@ export function getUserInformation(idStore) {
                 method: 'get',
                 url: urlProd + endpoint
             }).then(function(response) {
-                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
@@ -26,7 +24,6 @@ export function getUserInformation(idStore) {
                 }
             })
             .catch((err) => {
-                console.log(err.message)
                 resolve({
                     error: true,
                     message: err.message
