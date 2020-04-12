@@ -703,6 +703,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
+  /admin/{local_id}/tags:
+    get:
+      tags:
+        - admin
+      summary: Get all opening hours for a local.
+      description: Invoke this endpoint to get all opening hours for a local.
+      operationId: src.api.local.get_tags
+      parameters:
+        - in: path
+          name: local_id
+          description: Local identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
   /admin/{local_id}/openingHours:
     get:
       tags:
