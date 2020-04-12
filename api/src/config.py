@@ -38,3 +38,5 @@ MAPS_DISTANCES_LIST = [500, 1000, 2000, 5000]
 TAG_LOCAL_PICK_UP = 'A domicili'
 TAG_LOCAL_DELIVERY = 'Per recollir'
 TAG_LOCAL_OPEN = 'Obert ara'
+
+DOCS_HTML_FILE_PATH = 'src/templates/docs.html'
