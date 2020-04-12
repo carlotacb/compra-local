@@ -12,7 +12,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/graphs/contributors/)
 [![GitHub license](https://img.shields.io/github/license/carlotacb/compra-local.svg)](https://github.com/carlotacb/compra-local/blob/master/LICENSE)
 
-[Demo](https://compralocal.cat) | [Client application](https://app.compralocal.cat) | [Admin application](https://admin.compralocal.cat) | | [API documentation](https://api.compralocal.cat/docs)
+[Video demo](https://www.youtube.com/watch?v=-gFv3zRlr0U) | [Demo](https://compralocal.cat) | [Client application](https://app.compralocal.cat) | [Admin application](https://admin.compralocal.cat) | [API documentation](https://api.compralocal.cat/docs)
 
 🛒 Web application for activating local businesses and making your neighborhood a better place
 
