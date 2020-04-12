@@ -10,7 +10,6 @@ export function getCompletedOrders(idStore) {
                 method: 'get',
                 url: urlProd + endpoint
             }).then(function(response) {
-                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
