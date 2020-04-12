@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
-import { VerticalStepper, ValorationDialog } from "../../components";
+import { VerticalStepper } from "../../components";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -72,8 +72,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function OrderHelpCard(props) {
     const classes = useStyles();    
-    const [ openModal, setOpenModal ] = useState(false);
-    const [ openModalHelper, setOpenModalHelper ] = useState(false);
 
     const getCurrentInformation = (currentStep) => {
         switch(currentStep) {
@@ -86,31 +84,8 @@ export function OrderHelpCard(props) {
             case 3:
                 return <div className={classes.secondaryTag}> El teu voluntari ja ha recollit la comanda! </div>;
             case 4:
-                return (
-                    <div className={classes.valorationDistribution}>
-                        <Grid item xs={5}>
-                            <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
-                            <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
-                            <Button variant="contained" color="primary" className={classes.valorationButton} onClick={() => setOpenModal(true)}> ESCRIU VALORACIÓ </Button>
-                        </Grid>
-                        <Grid item xs={5}>
-                            <Typography variant="body1" className={classes.title2}> Que tal el teu voluntari? </Typography>
-                            <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
-                            <Button variant="contained" color="secondary" className={classes.valorationButton} onClick={() => setOpenModalHelper(true)}> ESCRIU VALORACIÓ </Button>
-                        </Grid>
-                    </div> 
-                );
+                return <div className={classes.outlinedTag}> Comanda entregada pel voluntari! No olvidis fer les valoracions! </div>
         }
-    }
-
-    const handleValorateHelper = (punctuation, valoration) =>{
-        console.log(punctuation + " - " + valoration);
-        setOpenModal(false);
-    }
-
-    const handleValorateSell = (punctuation, valoration) =>{
-        console.log(punctuation + " - " + valoration);
-        setOpenModal(false);
     }
 
     const resumcompra = () => {
@@ -159,8 +134,6 @@ export function OrderHelpCard(props) {
                     {resumcompra()}
                 </Grid>
             </Grid>
-            <ValorationDialog open={openModal} title="Valora la teva compra" onAccept={(punct, comm) => handleValorateSell(punct, comm)} onClose={() => setOpenModal(false)} />
-            <ValorationDialog open={openModalHelper} title="Valora al teu voluntari" onAccept={(punct, comm) => handleValorateHelper(punct, comm)} onClose={() => setOpenModalHelper(false)} />
         </Paper>
     )
 }
