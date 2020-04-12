@@ -18,6 +18,7 @@ import { getCompletedOrders } from './Orders/CompletedOrders';
 import { getCurrentOrders } from './Orders/CurrentOrders';
 import { getPendingReviewOrders } from './Orders/PendingReviewOrders';
 import { valorateLocal } from './Orders/valorateLocal';
+import { valorateHelper } from './Orders/valorateHelper';
 
 export const urlProd = "https://api.compralocal.cat";
 
@@ -36,7 +37,8 @@ const endpoints = {
     'updateUserInfo': updateUserInfo,
     'changePassword': changePassword,
     'getPendingReviewOrders': getPendingReviewOrders,
-    'valorateLocal': valorateLocal
+    'valorateLocal': valorateLocal,
+    'valorateHelper': valorateHelper
 }
 
 function get(name) {
