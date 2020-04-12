@@ -2,7 +2,7 @@ import unittest
 import requests
 
 from src.config import PYTHON_MODULE_PORT, MESSAGE_PARAMETERS_REQUIRED, TEST_RUN_CREATIONS, \
-    MESSAGE_CATEGORY_NOT_FOUND, MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_LOCAL_NOT_FOUND, \
+    MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_LOCAL_NOT_FOUND, \
     MESSAGE_ORDER_PRODUCT_LIST_WRONG, MESSAGE_ORDER_PRODUCT_LIST_NOT_FOUND
 
 
@@ -108,6 +108,7 @@ class APIOrderPostTest(unittest.TestCase):
             )
             response = requests.post(self.url, json=request_body).json()
             self.assertEqual(response.get('error'), False)
-            self.assertIsNotNone(response.get('response').get('local_id'))
+            self.assertIsNotNone(response.get('response').get('order_group_id'))
+            self.assertIsNotNone(response.get('response').get('order_id'))
         else:
             self.assertTrue(True)
