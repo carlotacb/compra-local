@@ -10,7 +10,6 @@ export function getProcesHelper(idStore) {
                 method: 'get',
                 url: urlProd + endpoint
             }).then(function(response) {
-                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
@@ -20,12 +19,11 @@ export function getProcesHelper(idStore) {
                 else {
                     resolve({
                         error: false,
-                        list: response.data['response']
+                        list: response.data['response'].helping_order_list
                     });
                 }
             })
             .catch((err) => {
-                console.log(err.message)
                 resolve({
                     error: true,
                     message: err.message

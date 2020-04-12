@@ -14,7 +14,6 @@ export function getNeedHelp(lat, long) {
                     "longitude": long 
                 }
             }).then(function(response) {
-                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
@@ -29,7 +28,6 @@ export function getNeedHelp(lat, long) {
                 }
             })
             .catch((err) => {
-                console.log(err.message)
                 resolve({
                     error: true,
                     message: err.message
