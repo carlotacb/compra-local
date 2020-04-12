@@ -108,7 +108,7 @@ export function PendingReviewCard(props) {
             return (
                 <Grid item xs={12}>
                     <Typography variant="h5" className={classes.title2}> Que tal el teu voluntari? </Typography> 
-                    <Typography variant="body1"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography> 
+                    <Typography variant="body1"> Si vols ajudar a la compra de futurs clients, explica'ns que tal ha sigut l'experiència. </Typography> 
                     <Grid item xs={12} className={classes.information}>
                         <Grid item={8}>
                             <Typography variant="h4" className={classes.uppercase}> {props.helper_name} </Typography>
@@ -123,7 +123,7 @@ export function PendingReviewCard(props) {
             return (
                 <Grid item xs={12}>
                     <Typography variant="h5" className={classes.title}> Com anat la teva compra? </Typography> 
-                    <Typography variant="body1"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography> 
+                    <Typography variant="body1"> Si vols ajudar a la compra de futurs clients, explica'ns que tal ha sigut l'experiència. </Typography> 
                     <Grid item xs={12} className={classes.information}>
                         <Grid item={8}>
                             <Typography variant="h4" className={classes.uppercase}> {props.local_name} </Typography>

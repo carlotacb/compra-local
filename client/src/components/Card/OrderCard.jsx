@@ -64,7 +64,7 @@ export function OrderCard(props) {
             case 2:
                 return <div className={classes.secondaryTag}> Ja pots recollir la teva comanda! </div>;
             case 3:
-                return <div className={classes.outlinedTag}> Comanda completada! No olvidis fer la teva valoració </div>;
+                return <div className={classes.outlinedTag}> Comanda completada! No oblidis fer la teva valoració </div>;
         }
     }
 
