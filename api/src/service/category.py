@@ -13,7 +13,8 @@ def add_dummy_data():
             Category(name='Fleca'),
             Category(name='Ferreteria'),
             Category(name='Cafeteria'),
-            Category(name='Carnisseria')
+            Category(name='Carnisseria'),
+            Category(name='Supermercat')
         ]
         db_session().bulk_save_objects(object_list)
         db_session().commit()
