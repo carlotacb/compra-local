@@ -62,6 +62,7 @@ def get_all(local_id):
         product_list.append(dict(
             id=product_orm.id,
             name=product_orm.name,
+            price=product_orm.price,
             description=product_orm.description,
             currency=product_orm.currency.value,
             price_type=product_orm.price_type.value,
