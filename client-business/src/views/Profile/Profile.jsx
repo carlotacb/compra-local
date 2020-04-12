@@ -85,7 +85,9 @@ export function Profile() {
             className={classes.root}
             justify="center"
         >
-            <Grid item xs={12}>
+            <Grid item xs={12}
+                    className={classes.header}
+            >
                 {
                     (user["local_id"] != null) ?
                     <GroupButton
