@@ -8,7 +8,11 @@ export function getNeedHelp(lat, long) {
         try {
             axios({
                 method: 'get',
-                url: urlProd + endpoint
+                url: urlProd + endpoint,
+                params: {
+                    "latitude": lat,
+                    "longitude": long 
+                }
             }).then(function(response) {
                 console.log(response)
                 if(response.data['error']) {
@@ -20,7 +24,7 @@ export function getNeedHelp(lat, long) {
                 else {
                     resolve({
                         error: false,
-                        orders: response.data['response']
+                        list: response.data['response'].helper_list
                     });
                 }
             })
