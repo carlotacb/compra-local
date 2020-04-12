@@ -31,7 +31,7 @@ export function Profile() {
     React.useEffect(function getRecivedValorations() {
         const getRecivedValorationsAPI = ApiFactory.get('getRecivedValorations');
         getRecivedValorationsAPI(cookies.iusha).then((res) => {
-            setRecivedValorations(res);
+            setRecivedValorations(res.reviews_list);
         });
     }, []);
 
@@ -68,7 +68,9 @@ export function Profile() {
             </Grid>
             <Grid item>
                 <GroupButton buttons={["Rebudes", "Realitzades"]} active={page} onClick={(p) => setPage(p)} />
-                {(page === 0) ? <Valorations response={recivedValorations}/> : <Valorations response={givenValorations}/>}
+                {(page === 0) ? 
+                <Valorations response={recivedValorations}/> : 
+                <Valorations response={givenValorations}/>}
             </Grid>
             <PasswordDialog title={'Canviar el password'} onAccept={(op, np) => handleChangePassword(op, np)} open={openModal} onClose={() => setOpenModal(false)}/>
         </Grid>
