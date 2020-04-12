@@ -4,6 +4,7 @@ import { Grid, Paper, makeStyles, Typography } from "@material-ui/core";
 import { PrimaryButton, GroupButton } from "../../shared-components";
 import { ListView,StoreProfile } from "../../components";
 import { StoreContext } from "../../context/StoreContext";
+import { ProductsTable } from "../../components/Table/ProductsTable";
 
 const useStyles = makeStyles((theme) => ({
     noStore: {
@@ -80,7 +81,7 @@ export function Profile() {
             return <StoreProfile edit={edit} />
         }
         else {
-            return <p> products</p>
+            return <ProductsTable />
         }
     }
 
