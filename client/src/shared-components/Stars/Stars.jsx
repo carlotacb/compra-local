@@ -6,7 +6,6 @@ import StarHalfIcon from '@material-ui/icons/StarHalf';
 export function Stars(props) {
 
     function renderStars(values) {
-        console.log(values);
         var output = [];
         for(var v in values) {
             if (values[v] === 0){
@@ -19,7 +18,6 @@ export function Stars(props) {
                 output.push(<StarHalfIcon/>)
             }
         }
-        console.log(output);
         return output;
     }
     var value = props.value;
