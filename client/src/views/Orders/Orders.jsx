@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Grid } from "@material-ui/core";
 import { GroupButton } from '../../shared-components/';
-import { ProcessOrders, CompletedOrders } from "../../views";
+import { ProcessOrders, CompletedOrders, PendingReviewOrder } from "../../views";
 import { ApiFactory } from "../../services/ApiFactory";
 import { UserContext } from '../../context/UserContext';
 
@@ -10,6 +10,7 @@ export function Orders() {
     const [ page, setPage ] = useState(0);
     const [ completedOrders, setCompletedOrders ] = useState([]);
     const [ currentOrders, setCurrentOrders ] = useState([]);
+    const [ pendingReview, setPendingReview ] = useState([]);
 
     const changePage = (p) => {
         setPage(p)
@@ -28,7 +29,11 @@ export function Orders() {
         getCurrentOrdersAPI(user["id"]).then((res) => {
             setCurrentOrders(res.orders);
         });
-
+        
+        const getPendingReviewAPI = ApiFactory.get('getPendingReviewOrders');
+        getPendingReviewAPI(user["id"]).then((res) => {
+            setPendingReview(res.pending);
+        });
     }, [user]);
 
     if(user === undefined) {
@@ -37,7 +42,7 @@ export function Orders() {
 
     const renderCorrectPage = () => {
         if (page === 0) return(<ProcessOrders currentOrders={currentOrders}/>);
-        else if (page === 1) return (<h1>New element</h1>)
+        else if (page === 1) return (<PendingReviewOrder pendingReview={pendingReview}/>)
         else if (page === 2) return (<CompletedOrders completedOrders={completedOrders} />);
     }
 
