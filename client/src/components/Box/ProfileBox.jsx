@@ -46,23 +46,44 @@ const useStyles = makeStyles((theme) => ({
 export function ProfileBox(props) {
     const classes = useStyles();
     const [ cookies ] = useCookies(['uisha']);
-    const [ editable, setEditable ] = useState(false);
     const [ error, setError ] = useState(false);
+    const [ editable, setEditable ] = useState(false);
+    const [ newName, setNewName ] = useState(props.name);
+    const [ newEmail, setNewEmail ] = useState(props.email);
+    const [ newPhone, setNewPhone ] = useState(props.phone_number);
     const [ openModal, setOpenModal ] = useState(false);
 
     const handleSave = () => {
         const updateUserInfoAPI = ApiFactory.get('updateUserInfo');
 
-        updateUserInfoAPI(cookies.iusha).then((res) => {
+        const data = {
+            "email_address": newEmail,
+            "image": props.image,
+            "name": newName,
+            "phone_number": newPhone
+        }
+
+        console.log(data)
+
+        updateUserInfoAPI(cookies.iusha, data).then((res) => {
             if (!res.error) {
                 setEditable(false);
                 setError(false);
+
             } 
             else {
                 setError(true);
             }
         });     
     }
+
+    const handleEdit = () => {
+        if (newName === "") setNewName(props.name);
+        if (newPhone === "") setNewPhone(props.phone_number);
+        if (newEmail === "") setNewEmail(props.email);
+
+        setEditable(true);
+    } 
 
     const handleAccept = () => {
         setOpenModal(false);
@@ -78,11 +99,20 @@ export function ProfileBox(props) {
         <Grid container className={classes.root} direction="row"> 
             <Grid item xs={5} className={classes.content}> 
                 <Typography variant="h5"> Nom i congnoms </Typography>
-                {editable ? <TextField error={error} id="standard-basic" defaultValue={props.name} /> : <Typography> {props.name} </Typography> }
+                {editable ? 
+                    <TextField error={error} id="standard-basic" defaultValue={props.name} onChange={(e) => setNewName(e.target.value)}/> : 
+                    <Typography> {props.name} </Typography> 
+                }
                 <Typography variant="h5" className={classes.paddingTop}> Correu electrónic </Typography>
-                {editable ? <TextField error={error} id="standard-basic" defaultValue={props.email} /> : <Typography> {props.email} </Typography> }
+                {editable ? 
+                    <TextField error={error} id="standard-basic" defaultValue={props.email} onChange={(e) => setNewEmail(e.target.value)}/> : 
+                    <Typography> {props.email} </Typography> 
+                }
                 <Typography variant="h5" className={classes.paddingTop}> Numero de telefon </Typography>
-                {editable ? <TextField error={error} id="standard-basic" defaultValue={props.phone_number} type="number"/> : <Typography> {props.phone_number} </Typography> }
+                {editable ? 
+                    <TextField error={error} id="standard-basic" defaultValue={props.phone_number} type="number" onChange={(e) => setNewPhone(e.target.value)}/> : 
+                    <Typography> {props.phone_number} </Typography> 
+                }
             </Grid>
             <Grid xs={5} className={classes.avatar}>
                 <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ props.image}/>
@@ -93,7 +123,7 @@ export function ProfileBox(props) {
                         <SaveIcon onClick={() => handleSave()} cursor="pointer" />
                         <CloseIcon onClick={() => setOpenModal(true)} cursor="pointer" />
                     </div> : 
-                    <EditIcon onClick={() => setEditable(true)} cursor="pointer"/> 
+                    <EditIcon onClick={() => handleEdit()} cursor="pointer"/> 
                 }
             </Grid>
             <ConfirmationDialog open={openModal} cancel={() => handleCancel()} accept={() => handleAccept()} title={'Cancelar canvis'} message={'Estas segur de que vols cancelar els canvis? Si canceles els canvis es perdran'}/>
