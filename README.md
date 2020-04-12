@@ -36,6 +36,17 @@ Cal destacar que el codi és el màxim production-ready possible i la majoría d
 
 Podeu trobar més informació sobre l’arquitectura al README del GitHub.
 
+## Testing accounts
+
+Per a poder provar l'applicació sense haver de crear noves comptes, es poden fer servir els seguents usuaris.
+
+|      email     | password | account type | login url                              |
+|:--------------:|:--------:|:------------:|----------------------------------------|
+|  hi@elena.dev  |   elena  |   Botiguera  | https://admin.compralocal.cat/login    |
+| hi@carlota.dev |  carlota |   Botiguera  | https://admin.compralocal.cat/login    |
+|  hi@albert.dev |  albert  |    usuari    | https://app.compralocal.cat/login      |
+|  hi@andreu.dev |  andreu  |    usuari    | https://app.compralocal.cat/login      |
+
 ## Requirements
 
 1. Python 3.7+
