@@ -25,20 +25,20 @@ export function AppRouter() {
     let match = useRouteMatch();
     const [cookies, setCookie] = useCookies();
     const classes = useStyles();
-    const { user, setUser } = React.useContext(UserContext); 
-    
+    const { user, setUser } = React.useContext(UserContext);
+
 
     React.useEffect(() => {
-        if("iusha" in cookies && user === undefined) {
+        if ("iusha" in cookies && user === undefined) {
             const getUserAPI = ApiFactory.get("getUserInformation");
             getUserAPI(cookies.iusha)
-                .then((res)=>{
+                .then((res) => {
                     setUser(res["user"]);
                 });
         }
     });
 
-    if( !("iusha" in cookies) || cookies.iusha == undefined) {
+    if (!("iusha" in cookies) || cookies.iusha == undefined) {
         return <Redirect to="/login" />
     }
 

@@ -1,26 +1,41 @@
+import { urlProd } from '../ApiFactory';
+const axios = require('axios');
 
 
-
-export function searchStores(lat, lon) {
+export function searchStores(userInfo) {
+    const endpoint = '/admin/search'
     return new Promise((resolve, reject) => {
-        resolve([
-            {
-                id: 1,
-                name: 'Bona Fruita Sants',
-                description: 'Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana.',
-                category: 'Fruiteria',
-                punctuation: 4.5,
-                tags: ['Obert ara', 'Per recollir', 'A domicili']
-            },
-            {
-                id: 2,
-                name: 'Bona Fruita Sants',
-                description: 'Fruteria de tota la vida que incentiva el producte de proximitat. Demana la teva cistella per a la setmana.',
-                category: 'Fruiteria',
-                punctuation: 4.5,
-                tags: ['A domicili']
-            },
-        ])
+        try {
+            axios({
+                method: 'get',
+                url: urlProd + endpoint,
+                params: {
+                    'latitude': parseFloat(userInfo["latitude"]),
+                    'longitude': parseFloat(userInfo["longitude"])
+                }
+            }).then(function(response) {
+                if(response.data['error']) {
+                    resolve({
+                        error: true,
+                        message: response.data['message']
+                    });
+                }
+                else {
+                    resolve({
+                        error: false,
+                        local_list: response.data['response'].local_list
+                    });
+                }
+            })
+            .catch((err) => {
+                resolve({
+                    error: true,
+                    message: err.message
+                });
+            });
+        } catch (error) {
+            console.log(error);
+        }
     })
 }
 
