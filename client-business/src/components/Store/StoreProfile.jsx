@@ -5,14 +5,14 @@ import { StoreInfo } from "./StoreInfo";
 
 export function StoreProfile(props) {
     const [edit, setEdit] = React.useState(props.edit);
-    if(edit) {
-        return (
-            <StoreEdit />
-        )
-    }
-    else {
-        return (
-            <StoreInfo />
-        )
-    }
+    
+    return (
+        <Grid container>
+            {
+                edit ?
+                <StoreEdit />:
+                <StoreInfo />
+            }
+        </Grid>
+    )
 }

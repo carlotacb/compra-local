@@ -5,11 +5,14 @@ import { PrimaryButton, GroupButton } from "../../shared-components";
 import { ListView,StoreProfile } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        height: '100%'
-    },
     noStore: {
-        margin: '0 auto',
+        marginTop: theme.spacing(10),
+        '& > div':{
+            marginTop: theme.spacing(2)
+        }
+    },
+    header: {
+        height: 'fit-content',
         marginBottom: theme.spacing(2)
     }
 }));
@@ -48,17 +51,16 @@ export function Profile() {
             <Grid container
                 direction="column"
                 justify="center"
-
+                alignItems="center"
+                className={classes.noStore}
             >
                 <Grid item
-                    className={classes.noStore}
                 >
                     <Typography variant="h6">
                         No tens cap botiga registrada.
                    </Typography>
                 </Grid>
                 <Grid item
-                    className={classes.noStore}
                 >
                     <PrimaryButton
                         onClick={() => handleStoreRegistration()}
@@ -83,7 +85,7 @@ export function Profile() {
     return (
         <Grid container
             className={classes.root}
-            justify="center"
+            alignItems="flex-start"
         >
             <Grid item xs={12}
                     className={classes.header}
@@ -102,7 +104,7 @@ export function Profile() {
                     />
                 }
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
                 {
                     (user["local_id"] == null && edit == false) ?
                     renderToRegistration() :
