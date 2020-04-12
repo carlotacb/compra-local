@@ -77,6 +77,10 @@ def set_order_status_by_group(order_group_id, order_status):
     db_session().commit()
 
 
+def get_all_order_status(order_group_id):
+    return [o.order_status for o in db_session().query(Order).filter_by(order_group_id=order_group_id).all()]
+
+
 def assign(user_id, order_group_object):
     order_group_object.helper_id = user_id
     order_group_object.order_group_status = OrderGroupStatus.PENDING_PICKUP
