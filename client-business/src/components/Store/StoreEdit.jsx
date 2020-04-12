@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Paper, makeStyles, Typography, TextField, Divider, Checkbox } from "@material-ui/core";
 import { TertiaryButton, PrimaryButton } from "../../shared-components";
 import { StoreContext } from "../../context/StoreContext";
+import { ApiFactory } from "../../services/ApiFactory";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(2),
         textAlign: 'center'
     },
-    buttons:{
+    buttons: {
         float: 'right',
         display: 'left',
         alignItems: 'center',
@@ -51,39 +52,51 @@ const useStyles = makeStyles((theme) => ({
     textCenter: {
         marginLeft: theme.spacing(2)
     },
-    checkbox:{
+    checkbox: {
         marginLeft: theme.spacing(1)
     }
 }));
 
-export function StoreEdit() {
+export function StoreEdit(props) {
     const classes = useStyles();
-    const [checkbox, setCheckbox] = React.useState(false);
 
     const { store, setStore } = React.useContext(StoreContext);
-    const [storeInfo, setStoreInfo] = React.useState({
-        name: store["name"],
-        postal_address:store["postal_address"],
-        phone_number:store["phone_number"],
-        website:store["website"],
-        hmoni:store["hmoni"],
-        hmonf:store["hmonf"],
-        htuei:store["htuei"],
-        htuef:store["htuef"],
-        hwedi: store["hwedi"],
-        hwedf: store["hwedf"],
-        hthui: store["hthui"],
-        hthuf: store["hthuf"],
-        hfrii:store["hfrii"],
-        hfrif: store["hfrif"],
-        hsati: store["hsati"],
-        hsatf:store["hsatf"],
-        hsuni: store["hsuni"],
-        hsunf: store["hsunf"],
-    })
+    const [storeInfo, setStoreInfo] = React.useState()
 
-    function handleChangeCheckbox(){
-        setCheckbox(checkbox => !checkbox);
+    React.useEffect(() => {
+        setStoreInfo({
+
+            name: store["name"],
+            postal_address: store["postal_address"],
+            phone_number: store["phone_number"],
+            website: store["website"],
+            description: store["description"],
+            category: store["category"],
+            delivery: store["delivery"],
+            hmoni: store["hmoni"],
+            hmonf: store["hmonf"],
+            htuei: store["htuei"],
+            htuef: store["htuef"],
+            hwedi: store["hwedi"],
+            hwedf: store["hwedf"],
+            hthui: store["hthui"],
+            hthuf: store["hthuf"],
+            hfrii: store["hfrii"],
+            hfrif: store["hfrif"],
+            hsati: store["hsati"],
+            hsatf: store["hsatf"],
+            hsuni: store["hsuni"],
+            hsunf: store["hsunf"]
+
+        })
+    }, [store])
+
+    function handleChangeCheckbox() {
+        var st = storeInfo["delivery"];
+        setStoreInfo({
+            ...storeInfo,
+            "delivery": !st
+        })
     }
 
     function handleChange(e) {
@@ -98,12 +111,26 @@ export function StoreEdit() {
 
 
     function handleSubmit() {
-        console.log(storeInfo);
+
+        for(var i in storeInfo) {
+            store[i] = storeInfo[i];
+        }
+
+        const updateStoreInfoAPI = ApiFactory.get("updateStoreInformation");
+        updateStoreInfoAPI(store)
+            .then((res)=>{
+                setStore(store);
+                if (props.onSubmit) {
+                    props.onSubmit()
+                }
+            })
     }
 
 
     function handleCancel() {
-        
+        if (props.onSubmit) {
+            props.onSubmit()
+        }
     }
 
 
@@ -113,7 +140,7 @@ export function StoreEdit() {
             "Dimarts": ["htuei", "htuef"],
             "Dimecres": ["hwedi", "hwedf"],
             "Dijous": ["hthui", "hthuf"],
-            "Divendres": ["hfrii", "hfri"],
+            "Divendres": ["hfrii", "hfrif"],
             "Dissabte": ["hsati", "hsatf"],
             "Diumenge": ["hsuni", "hsunf"]
         }
@@ -134,8 +161,7 @@ export function StoreEdit() {
                         type="time"
                         className={classes.textField}
                         variant="outlined"
-                        required
-
+                        value={storeInfo[days[i][0]]}
                         id={days[i][0]}
                         name="company"
                         onChange={(e) => handleChange(e)}
@@ -154,8 +180,7 @@ export function StoreEdit() {
                         type="time"
                         className={classes.textField}
                         variant="outlined"
-                        required
-
+                        value={storeInfo[days[i][1]]}
                         id={days[i][1]}
                         name="company"
                         onChange={(e) => handleChange(e)}
@@ -171,7 +196,9 @@ export function StoreEdit() {
         return output;
     }
 
-
+    if(!storeInfo){
+        return <p>Loading ...</p>
+    }
 
     return (
         <Paper
@@ -194,6 +221,7 @@ export function StoreEdit() {
                             id="name"
                             label="Nom de la empresa"
                             name="company"
+                            value={storeInfo["name"]}
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
@@ -203,7 +231,7 @@ export function StoreEdit() {
                             className={classes.textField}
                             variant="outlined"
                             required
-
+                            value={storeInfo["postal_address"]}
                             id="postal_address"
                             label="Adreça postal"
                             name="adress"
@@ -216,7 +244,20 @@ export function StoreEdit() {
                             className={classes.textField}
                             variant="outlined"
                             required
-
+                            value={storeInfo["category"]}
+                            id="category"
+                            label="Categoria"
+                            name="category"
+                            onChange={(e) => handleChange(e)}
+                        />
+                    </div>
+                    <div className={classes.input}>
+                        <TextField
+                            fullWidth
+                            className={classes.textField}
+                            variant="outlined"
+                            required
+                            value={storeInfo["phone_number"]}
                             id="phone_number"
                             label="Telèfon"
                             name="phone"
@@ -228,8 +269,7 @@ export function StoreEdit() {
                             fullWidth
                             className={classes.textField}
                             variant="outlined"
-                            required
-
+                            value={storeInfo["website"]}
                             id="website"
                             label="Pàgina web"
                             name="website"
@@ -244,7 +284,7 @@ export function StoreEdit() {
                             className={classes.textField}
                             variant="outlined"
                             required
-
+                            value={storeInfo["description"]}
                             id="description"
                             label="Descripció de l'empresa"
                             name="company"
@@ -256,7 +296,7 @@ export function StoreEdit() {
                     <div>
                         <Typography variant="body1">
                             <Checkbox
-                                checked={checkbox}
+                                checked={storeInfo["delivery"]}
                                 onChange={handleChangeCheckbox}
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
                                 className={classes.checkbox}
@@ -299,10 +339,10 @@ export function StoreEdit() {
                 </Grid>
                 <Grid item xs={12}>
                     <div className={classes.buttons}>
-                        <PrimaryButton onClick={()=>handleSubmit()}>
+                        <PrimaryButton onClick={() => handleSubmit()}>
                             GUARDAR
                         </PrimaryButton>
-                        <TertiaryButton onClick={()=>handleCancel()}>
+                        <TertiaryButton onClick={() => handleCancel()}>
                             Cancelar
                         </TertiaryButton>
                     </div>

@@ -6,12 +6,16 @@ import { StoreInfo } from "./StoreInfo";
 export function StoreProfile(props) {
     const [edit, setEdit] = React.useState(props.edit);
     
+    function handleEdit() {
+        setEdit(!edit);
+    }
+
     return (
         <Grid container>
             {
                 edit ?
-                <StoreEdit />:
-                <StoreInfo />
+                <StoreEdit onSubmit={()=> handleEdit()}/>:
+                <StoreInfo onEdit={()=> handleEdit()}/>
             }
         </Grid>
     )

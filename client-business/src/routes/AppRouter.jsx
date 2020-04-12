@@ -37,10 +37,11 @@ export function AppRouter() {
             getUserAPI(cookies["iusha-bs"])
                 .then((res)=>{
                     setUser(res["user"]);
-                    if (res["user"]["local_id"] != null) {
+                    if ("local_id" in res["user"] && res["user"]["local_id"] != null) {
                         const getStoreInfomationAPI = ApiFactory.get("getStoreInfomation");
                         getStoreInfomationAPI(res["user"]["local_id"])
                             .then((res) => {
+                                console.log(res);
                                 setStore(res["store"])
                             });
                     }
