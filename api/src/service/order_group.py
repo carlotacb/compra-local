@@ -105,7 +105,7 @@ def get_completed_by_user(user_id):
 
 
 def get_pending_by_user(user_id):
-    completed_order_list = list()
+    pending_order_list = list()
     order_group_list = db_session().query(OrderGroup).filter(and_(
         OrderGroup.user_id == user_id, OrderGroup.completed == false(),
         OrderGroup.order_group_status != OrderGroupStatus.COMPLETED
@@ -129,5 +129,30 @@ def get_pending_by_user(user_id):
                 step=order_service.get_step(order.order_status)
             )
             item_dict['order_list'].append(order_dict)
-        completed_order_list.append(item_dict)
-    return completed_order_list
+        pending_order_list.append(item_dict)
+    return pending_order_list
+
+
+def get_helping_by_user(user_id):
+    helping_order_list = list()
+    order_group_list = db_session().query(OrderGroup).filter(and_(
+        OrderGroup.helper_id == user_id, OrderGroup.completed == false(),
+        OrderGroup.order_group_status != OrderGroupStatus.COMPLETED
+    )).all()
+    for order_group in order_group_list:
+        item_dict = dict(id=order_group.id, user=order_group.user.serialize(), order_list=list())
+        order_list = db_session().query(Order).filter(and_(
+            Order.order_group_id == order_group.id, Order.order_status != OrderStatus.COMPLETED
+        )).all()
+        for order in order_list:
+            order_dict = dict(
+                id=order.id,
+                name=order.local.name,
+                postal_address=order.local.postal_address,
+                total=order_service.compute_total_price(order.id),
+                status=order.order_status.value
+            )
+            item_dict['order_list'].append(order_dict)
+        item_dict['total'] = sum(o['total'] for o in item_dict['order_list'])
+        helping_order_list.append(item_dict)
+    return helping_order_list

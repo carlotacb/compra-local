@@ -1016,6 +1016,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnexpectedError'
 
+  /order/helping/user/{user_id}:
+    get:
+      tags:
+        - order
+      summary: Gets all helping orders from a user.
+      description: Invoke this endpoint to get all helping orders from a user.
+      operationId: src.api.order.user_helping
+      parameters:
+        - in: path
+          name: user_id
+          description: User identifier.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Standard Compra Local API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
   /category:
     get:
       tags:
