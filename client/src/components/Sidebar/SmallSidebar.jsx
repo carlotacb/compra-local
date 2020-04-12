@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
-
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core';
 import StoreIcon from '@material-ui/icons/Store';
 import PersonIcon from '@material-ui/icons/Person';
@@ -23,14 +23,16 @@ const useStyles = makeStyles((theme) => ({
 
 export function SmallSidebar() {
     const classes = useStyles();
+    const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = (e) => {
         setAnchorEl(null);
+        history.push(e.currentTarget.id);   
     };
 
     return (
@@ -45,10 +47,10 @@ export function SmallSidebar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem href="/in/" onClick={handleClose}><StoreIcon /> Comprar</MenuItem>
-                <MenuItem href="/in/compte" onClick={handleClose}><PersonIcon /> El meu compte</MenuItem>
-                <MenuItem href="/in/comandes" onClick={handleClose}><AvTimerIcon /> Comandes</MenuItem>
-                <MenuItem href="/in/veinat" onClick={handleClose}> <GroupIcon /> Veïnat</MenuItem>
+                <MenuItem id="/in/" onClick={(e) =>handleClose(e)}><StoreIcon /> Comprar</MenuItem>
+                <MenuItem id="/in/compte" onClick={(e) =>handleClose(e)}><PersonIcon /> El meu compte</MenuItem>
+                <MenuItem id="/in/comandes" onClick={(e) =>handleClose(e)}><AvTimerIcon /> Comandes</MenuItem>
+                <MenuItem id="/in/veinat" onClick={(e) =>handleClose(e)}> <GroupIcon /> Veïnat</MenuItem>
                 <MenuItem onClick={handleClose}> Ajuda</MenuItem>
                 <MenuItem onClick={handleClose}>Tanca sessió</MenuItem>
             </Menu>
