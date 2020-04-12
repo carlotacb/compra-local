@@ -1,6 +1,15 @@
 import enum
 
 
+class OrderStatusEdit(enum.Enum):
+
+    PENDING_STORE = 'PENDING_STORE'
+    PREPARING = 'PREPARING'
+    READY = 'READY'
+    ON_IT = 'ON_IT'
+    DONE = 'DONE'
+
+
 class OrderStatus(enum.Enum):
 
     COMPLETED = 'COMPLETED'

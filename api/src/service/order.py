@@ -87,3 +87,11 @@ def get_step(order_status):
         return 0
     if order_status == OrderStatus.PENDING_HELPER:
         return 2
+
+
+def edit(order_id, new_status):
+    order = get(order_id)
+    if order:
+        return True
+    else:
+        return False

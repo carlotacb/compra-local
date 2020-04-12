@@ -2,10 +2,11 @@ from flask import request
 
 from src.config import MESSAGE_USER_WRONG_ID, MESSAGE_USER_NOT_FOUND, MESSAGE_PARAMETERS_REQUIRED, \
     MESSAGE_ORDER_PRODUCT_LIST_WRONG, MESSAGE_LOCAL_NOT_FOUND, MESSAGE_ORDER_PRODUCT_LIST_NOT_FOUND, \
-    MESSAGE_ORDER_POST_ERROR, MESSAGE_LOCAL_WRONG_ID
+    MESSAGE_ORDER_POST_ERROR, MESSAGE_LOCAL_WRONG_ID, MESSAGE_ORDER_NOT_FOUND
 from src.enum.order_type import OrderType
 from src.helper import response
 from src.service import local as local_service
+from src.service import order as order_service
 from src.service import order_group as order_group_service
 from src.service import product as product_service
 from src.service import user as user_service
@@ -153,5 +154,23 @@ def local_completed(local_id):
         completed_order_list = order_group_service.get_completed_by_local(local_id)
         # Return instance object
         return response.make(error=False, response=dict(completed_order_list=completed_order_list))
+    except Exception as e:
+        return response.raise_exception(e)
+
+
+def put(order_id):
+    try:
+        # Check input
+        body = request.json
+        required_parameters = ['new_status']
+        if not all(x in body for x in required_parameters):
+            return response.make(error=True, message=MESSAGE_PARAMETERS_REQUIRED)
+        # Get instance
+        order = order_service.get(order_id)
+        if not order:
+            return response.make(error=True, message=MESSAGE_ORDER_NOT_FOUND)
+        # Process
+        edited = order_service.edit(order_id=order_id, new_status=body.get('new_status'))
+        return response.make(error=False, response=dict(edited=edited))
     except Exception as e:
         return response.raise_exception(e)
