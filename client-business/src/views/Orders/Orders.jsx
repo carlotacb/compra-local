@@ -5,12 +5,14 @@ import { ApiFactory } from "../../services/ApiFactory";
 import { StoreContext } from '../../context/StoreContext';
 import { PetitionOrders } from './PetitionsOrders';
 import { ProcessOrders } from "./ProcessOrders";
+import { CompletedOrders } from "./CompletedOrders";
 
 export function Orders() {
     const { store } = useContext(StoreContext);
     const [ page, setPage ] = useState(0);
     const [ petitionOrder, setPetitionOrder ] = useState('');
     const [ processOrders, setProcessOrders ] = useState('');
+    const [ completedOrders, setCompletedOrders ] = useState('');
 
     const changePage = (p) => {
         setPage(p)
@@ -19,7 +21,7 @@ export function Orders() {
     const renderCorrectPage = () => {
         if (page === 0) return(<PetitionOrders information={petitionOrder} />);
         else if (page === 1) return (<ProcessOrders information={processOrders} />)
-        else if (page === 2) return (<p>Que pasa chavales</p>);
+        else if (page === 2) return (<CompletedOrders information={completedOrders} />);
     }
 
     React.useEffect(function getRecivedValorations() {
@@ -33,6 +35,11 @@ export function Orders() {
         const getProgressOrdersAPI = ApiFactory.get('processOrders');
         getProgressOrdersAPI(store["id"]).then((res) => {
             setProcessOrders(res.orders);
+        });
+
+        const getCompletedOrdersAPI = ApiFactory.get('completedOrders');
+        getCompletedOrdersAPI(store["id"]).then((res) => {
+            setCompletedOrders(res.orders);
         });
 
 

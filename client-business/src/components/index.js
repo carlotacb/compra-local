@@ -9,6 +9,7 @@ import { StoreProfile as SP} from './Store/StoreProfile';
 //Orders
 import { PetitionOrderCard as POC } from './Cards/PetitionOrderCard';
 import { ProcessOrderCard as PROC } from './Cards/ProcessOrderCard';
+import { CompletedOrderCard as COC } from './Cards/CompletedOrderCard';
 
 //Dialog
 import { TicketDialog as TD } from './Dialog/TicketDialog';
@@ -23,6 +24,7 @@ export const StoreProfile = SP;
 
 export const PetitionOrderCard = POC;
 export const ProcessOrderCard = PROC;
+export const CompletedOrderCard = COC;
 
 export const TicketDialog = TD;
 export const ConfirmationDialog = CD;
