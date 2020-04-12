@@ -54,8 +54,6 @@ export function Profile() {
         return <p> Loading ....</p>
     }
 
-    console.log(user)
-
     return (
         <Grid container direction="column" justify="space-between">
             <Grid item>
