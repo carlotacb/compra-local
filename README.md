@@ -74,7 +74,7 @@ To run the API, please execute the following commands from the root directory:
     uwsgi --ini uwsgi.ini -H env
     ```
 
-    or as a Python module (only for development mode)
+    or as a Python module (only for debugging)
 
     ```bash
     python3 -m src.connexion
@@ -82,10 +82,10 @@ To run the API, please execute the following commands from the root directory:
 
 ### Run tests
 
-1. Just run the following command
+1. Just run the following command with the `RUN_MODIFICATIONS` flag enabled
 
    ```
-   python3 -m unittest discover -v
+   RUN_MODIFICATIONS=true python3 -m unittest discover -v
    ```
 
 ### Development
