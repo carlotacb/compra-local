@@ -8,6 +8,7 @@ from src.service import category as category_service
 from src.service import local as local_service
 from src.service import user as user_service
 from src.service import opening_hours_item as opening_hours_service
+from src.service import review_local as review_local_service
 
 
 def get(local_id):
@@ -20,7 +21,9 @@ def get(local_id):
         if not local:
             return response.make(error=True, message=MESSAGE_LOCAL_NOT_FOUND)
         # Return instance object
-        return response.make(error=False, response=dict(local=local.serialize()))
+        tags = local_service.get_tags(local_id)
+        average = review_local_service.get_average(local_id)
+        return response.make(error=False, response=dict(local=local.serialize(), tags=tags, average=average))
     except Exception as e:
         return response.raise_exception(e)
 
