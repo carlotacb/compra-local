@@ -43,6 +43,12 @@ def add_dummy_data():
                 postal_address='Carrer de Bassegoda, 11, 08028 Barcelona', latitude=41.375191, longitude=2.125832,
                 type=UserType.business, image=image_util.decode_and_resize('test/mock/user_image_4.jpg'),
                 local_id=local_service.get_id_by_name('Bona Fruita Busquets')
+            ),
+            User(
+                name='Lola', email_address='hi@lola.dev', phone_number='665789002',
+                password='47acf82a48cfa5c340ea536cdd66c75ef85eb8d3fcff468fc7c8abcaceb15ed0',
+                postal_address='Carrer de Bassegoda, 11, 08028 Barcelona', latitude=41.375191, longitude=2.125832,
+                type=UserType.business, image=None
             )
         ]
         db_session().bulk_save_objects(object_list)
