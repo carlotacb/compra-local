@@ -77,6 +77,7 @@ nav {
 }
 
 #FAQs .section-title {
+    text-align: center;
     letter-spacing: 0em;
     font-weight: 600;
     font-size: 48px;
@@ -123,6 +124,7 @@ nav {
 }
 
 #Locals .section-title {
+    text-align: center;
     letter-spacing: 0em;
     font-weight: 600;
     font-size: 48px;
