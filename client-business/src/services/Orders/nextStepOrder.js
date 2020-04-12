@@ -1,16 +1,18 @@
 import { urlProd } from '../ApiFactory';
 const axios = require('axios');
 
-export function processOrders(idStore) {
-    const endpoint = '/order/progress/local/' + idStore;
+export function nextStepOrder(idStore, nextStep) {
+    const endpoint = '/order/' + idStore;
 
     return new Promise((resolve, reject) => {
         try {
             axios({
-                method: 'get',
-                url: urlProd + endpoint
+                method: 'put',
+                url: urlProd + endpoint,
+                data: {
+                    "new_status": nextStep
+                }
             }).then(function(response) {
-                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
@@ -20,7 +22,7 @@ export function processOrders(idStore) {
                 else {
                     resolve({
                         error: false,
-                        orders: response.data['response'].progress_order_list
+                        list: response.data['response']
                     });
                 }
             })

@@ -4,11 +4,13 @@ import { GroupButton } from '../../shared-components/';
 import { ApiFactory } from "../../services/ApiFactory";
 import { StoreContext } from '../../context/StoreContext';
 import { PetitionOrders } from './PetitionsOrders';
+import { ProcessOrders } from "./ProcessOrders";
 
 export function Orders() {
     const { store } = useContext(StoreContext);
     const [ page, setPage ] = useState(0);
     const [ petitionOrder, setPetitionOrder ] = useState('');
+    const [ processOrders, setProcessOrders ] = useState('');
 
     const changePage = (p) => {
         setPage(p)
@@ -16,7 +18,7 @@ export function Orders() {
     
     const renderCorrectPage = () => {
         if (page === 0) return(<PetitionOrders information={petitionOrder} />);
-        else if (page === 1) return (<p>Tu</p>)
+        else if (page === 1) return (<ProcessOrders information={processOrders} />)
         else if (page === 2) return (<p>Que pasa chavales</p>);
     }
 
@@ -26,6 +28,11 @@ export function Orders() {
         const getPetitionOrdersAPI = ApiFactory.get('petitionOrders');
         getPetitionOrdersAPI(store["id"]).then((res) => {
             setPetitionOrder(res.orders);
+        });
+
+        const getProgressOrdersAPI = ApiFactory.get('processOrders');
+        getProgressOrdersAPI(store["id"]).then((res) => {
+            setProcessOrders(res.orders);
         });
 
 

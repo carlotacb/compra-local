@@ -10,6 +10,7 @@ import { getProducts } from './Products/getProducts';
 import { petitionOrders } from './Orders/PetitionOrders';
 import { acceptOrder } from './Orders/AcceptOrder';
 import { processOrders } from './Orders/ProcessOrders';
+import { nextStepOrder } from './Orders/nextStepOrder';
 
 export const urlProd = "https://api.compralocal.cat";
 
@@ -23,7 +24,8 @@ const endpoints = {
     'getProducts': getProducts,
     'petitionOrders': petitionOrders, 
     'acceptOrder': acceptOrder,
-    'processOrders': processOrders
+    'processOrders': processOrders,
+    'nextStepOrder': nextStepOrder
 }
 
 function get(name) {

@@ -47,9 +47,10 @@ export function ProcessOrderCard(props) {
     const [openModal, setOpenModal] = React.useState(false);
     const [openConfirmation, setOpenConfirmation] = React.useState(false);
 
-    const handleAcceptarComanda = () => {
-        const finishHelpAPI = ApiFactory.get('acceptOrder');
-        finishHelpAPI(props.orderID).then((res) => {
+    const handleAcceptarComanda = (nextStep) => {
+        const step = parseNextStep(nextStep);
+        const nextStepAPI = ApiFactory.get('nextStepOrder');
+        nextStepAPI(props.orderID, step).then((res) => {
             if (!res.error) window.location.reload(true);
         });
     }
@@ -69,6 +70,25 @@ export function ProcessOrderCard(props) {
         if (status === "DELIVERING") return "Enviat"
         if (status === "PENDING_STORE") return "Pendent de confirmació"
         if (status === "PENDING_HELPER") return "Pendent d'ajudant"
+    }
+
+    const nextStep = () => {
+        if (props.status === "PENDING_HELPER") return "PREPARING";
+        if (props.status === "PREPARING") return "PENDING_PICKUP";
+        if (props.type === "DELIVERY") {
+            if (props.status === "PENDING_PICKUP") return "DELIVERING";
+            if (props.status === "DELIVERING") return "COMPLETED";
+        }
+        else {
+            if (props.status === "PENDING_PICKUP") return "PICKED_UP";
+            if (props.status === "PICKED_UP") return "COMPLETED"; 
+        }
+    }
+
+    const parseNextStep = (status) => {
+        if (status === "PENDING_PICKUP") return "READY";
+        if (status === "DELIVERING" || status === "PICKED_UP") return "ON_IT"
+        if (status === "COMPLETED") return "DONE"
     }
 
     return (
@@ -92,11 +112,11 @@ export function ProcessOrderCard(props) {
                 <Grid item xs={4} className={classes.buttons}>
                     <Button variant="contained" color="primary" onClick={() => setOpenModal(true)}> VEURE TIQUET </Button>
                     <div className={classes.outlinedTag}> {getStatus(props.status)} </div>
-                    <Button variant="contained" color="secondary" onClick={() => setOpenConfirmation(true)}> Següent pas </Button>
+                    {(props.status === "PENDING_HELPER") ? null : <Button variant="contained" color="secondary" onClick={() => setOpenConfirmation(true)}> Següent pas: {getStatus(nextStep())} </Button>}
                 </Grid>
             </Grid>
             <TicketDialog open={openModal} onClose={() => setOpenModal(false)} ticket={props.ticket} title={'TIQUET'}/>
-            <ConfirmationDialog open={openConfirmation} cancel={() => setOpenConfirmation(false)} accept={() => handleAcceptarComanda()} title={"Passar"} message={"En acceptar la comanda, aquesta passarà a estar en estat preparant i per tant l'usuari esperarà tenir-la disponible per avui."} />
+            <ConfirmationDialog open={openConfirmation} cancel={() => setOpenConfirmation(false)} accept={() => handleAcceptarComanda(nextStep())} title={"Passar"} message={"En acceptar la comanda, aquesta passarà a estar en estat preparant i per tant l'usuari esperarà tenir-la disponible per avui."} />
         </Paper>
     )
 }
