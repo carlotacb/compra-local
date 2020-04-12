@@ -1,6 +1,4 @@
 import { getStoreInfo, searchStores } from './Store/Store';
-import { getCurrentOrders } from './Orders/CurrentOrders';
-import { getCompletedOrders } from './Orders/CompletedOrders';
 import { getProcesHelper } from './Neighborhood/ProcesHelper';
 import { getNeedHelp } from './Neighborhood/NeedHelp';
 
@@ -15,7 +13,12 @@ import { getUserInformation } from './Profile/UserInformation';
 import { changePassword } from './Profile/ChangePassword';
 
 //Orders
-import {createOrder} from './Orders/CreateOrder';
+import { createOrder } from './Orders/CreateOrder';
+import { getCompletedOrders } from './Orders/CompletedOrders';
+import { getCurrentOrders } from './Orders/CurrentOrders';
+import { getPendingReviewOrders } from './Orders/PendingReviewOrders';
+import { valorateLocal } from './Orders/valorateLocal';
+import { valorateHelper } from './Orders/valorateHelper';
 
 export const urlProd = "https://api.compralocal.cat";
 
@@ -32,7 +35,10 @@ const endpoints = {
     'getNeedHelp': getNeedHelp,
     'createOrder': createOrder,
     'updateUserInfo': updateUserInfo,
-    'changePassword': changePassword
+    'changePassword': changePassword,
+    'getPendingReviewOrders': getPendingReviewOrders,
+    'valorateLocal': valorateLocal,
+    'valorateHelper': valorateHelper
 }
 
 function get(name) {

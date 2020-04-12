@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
-import { VerticalStepper, ValorationDialog } from "../../components";
+import { VerticalStepper } from "../../components";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function OrderCard(props) {
     const classes = useStyles();
-    const [openModal, setOpenModal] = React.useState(false);
 
     const getCurrentInformation = (currentStep) => {
         switch(currentStep) {
@@ -65,21 +64,9 @@ export function OrderCard(props) {
             case 2:
                 return <div className={classes.secondaryTag}> Ja pots recollir la teva comanda! </div>;
             case 3:
-                return ( 
-                    <div>
-                        <Typography variant="body1" className={classes.title}> Com ha anat la compra? </Typography>
-                        <Typography variant="body2"> Si vols ajudar a la compra de futurs clients explica’ns que tal ha sigut la experiencia. </Typography>
-                        <Button variant="contained" color="primary" className={classes.valorationButton} onClick={() => setOpenModal(true)}> ESCRIU VALORACIÓ </Button>
-                    </div>
-                );
+                return <div className={classes.outlinedTag}> Comanda completada! No olvidis fer la teva valoració </div>;
         }
     }
-
-    const handleValorateSell = (punctuation, valoration) =>{
-        console.log(punctuation + " - " + valoration);
-        setOpenModal(false);
-    }
-
 
     const resumcompra = () => {
         const ticketAPI = props.ticket;
@@ -117,7 +104,6 @@ export function OrderCard(props) {
                     {resumcompra()}
                 </Grid>
             </Grid>
-            <ValorationDialog open={openModal} title="Valora la teva compra" onAccept={(punct, comm) => handleValorateSell(punct, comm)} onClose={() => setOpenModal(false)} />
         </Paper>
     )
 }

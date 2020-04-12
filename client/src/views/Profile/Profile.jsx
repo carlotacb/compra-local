@@ -3,7 +3,6 @@ import { Grid, Typography, makeStyles } from "@material-ui/core";
 import { SecondaryButton, GroupButton } from '../../shared-components/';
 import { ProfileBox, PasswordDialog } from "../../components";
 import { ApiFactory } from "../../services/ApiFactory";
-import { useCookies } from 'react-cookie';
 import { Valorations } from "./Valorations"
 import { UserContext } from '../../context/UserContext';
 
@@ -14,14 +13,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Profile() {
-
-
     const { user } = React.useContext(UserContext);
-
     const [ page, setPage ] = useState(0);
     const [ recivedValorations, setRecivedValorations ] = useState('');
     const [ givenValorations, setGivenValorations ] = useState('');
-    const [ userInformation, setUserInformation ] = useState('');
     const [ openModal, setOpenModal ] = useState(false);
     const classes = useStyles();
 
@@ -44,10 +39,6 @@ export function Profile() {
             setGivenValorations(res.done_reviews);
         });
 
-        const getUserInformationAPI = ApiFactory.get('getUserInformation');
-        getUserInformationAPI(user["id"]).then((res) => {
-            setUserInformation(res.user);
-        });
     }, [user]);
 
     if(user === undefined) {
