@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
 import { TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { ApiFactory } from "../../services/ApiFactory";
+import { useCookies } from 'react-cookie';
 
 export function PasswordDialog(props) {
+    const [ cookies ] = useCookies(['uisha']);
     const [currentPassword, setCurrentPassword] = React.useState('');
     const [newPassword, setNewPassword] = React.useState();
     const [errorPW, setErrorPW] = useState(false);
+    const [error, setError] = useState(false);
 
     function handleAccept(){
-        props.onAccept(currentPassword, newPassword);
-        setCurrentPassword('');
-        setNewPassword('');
+
+        const changePasswordAPI = ApiFactory.get('changePassword');
+        const data = {
+            "new_password": newPassword,
+            "old_password": currentPassword
+        }
+        changePasswordAPI(cookies.iusha, data).then((res) => {
+            console.log(res)
+            if (res.error) {
+                setError(true)
+            } else {
+                props.onAccept(true);
+            }
+        });
     }
 
     const checkPasswords = (value) => {
@@ -25,6 +40,7 @@ export function PasswordDialog(props) {
             <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
                 <DialogContent>
                     <TextField 
+                        error={error}
                         variant="outlined" 
                         margin="normal" 
                         required 

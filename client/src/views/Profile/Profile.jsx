@@ -21,9 +21,10 @@ export function Profile() {
     const [ openModal, setOpenModal ] = useState(false);
     const classes = useStyles();
 
-    const handleChangePassword = (oldPassword, newPassword) =>{
-        console.log(oldPassword + " - " + newPassword);
-        setOpenModal(false);
+    const handleChangePassword = (close) =>{
+        if (close) {
+            setOpenModal(false);
+        }
     }
 
     React.useEffect(function getRecivedValorations() {

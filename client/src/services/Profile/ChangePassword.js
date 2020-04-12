@@ -10,7 +10,7 @@ export function changePassword(idStore, data) {
             axios({
                 method: 'put',
                 url: urlProd + endpoint,
-                body: data
+                data: data
             }).then(function(response) {
                 console.log(response)
                 if(response.data['error']) {
