@@ -3,7 +3,7 @@ import { getStoreInfo, searchStores } from './Store/Store';
 // Helpers
 import { getProcesHelper } from './Neighborhood/ProcesHelper';
 import { getNeedHelp } from './Neighborhood/NeedHelp';
-import { assignHelp } from './Neighborhood/AssignHelp';
+import { assignHelp } from './Neighborhood/AssignedHelp';
 import { finishHelp } from './Neighborhood/FinishHelp';
 
 // Login
