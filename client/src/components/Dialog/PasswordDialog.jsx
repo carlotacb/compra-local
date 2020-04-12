@@ -14,7 +14,6 @@ export function PasswordDialog(props) {
 
         const changePasswordAPI = ApiFactory.get('changePassword');
         changePasswordAPI(cookies.iusha, currentPassword, newPassword).then((res) => {
-            console.log(res)
             if (res.error) {
                 setError(true)
             } else {

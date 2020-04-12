@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 export function Profile() {
 
 
-    const { user, setUser } = React.useContext(UserContext);
+    const { user } = React.useContext(UserContext);
 
     const [ page, setPage ] = useState(0);
     const [ recivedValorations, setRecivedValorations ] = useState('');
@@ -54,11 +54,13 @@ export function Profile() {
         return <p> Loading ....</p>
     }
 
+    console.log(user)
+
     return (
         <Grid container direction="column" justify="space-between">
             <Grid item>
                 <Typography variant="h1">
-                    Hola {userInformation.name}!
+                    Hola {user.name}!
                 </Typography>
             </Grid>
             <Grid item>

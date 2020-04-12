@@ -66,13 +66,12 @@ export function ProfileBox() {
             "postal_address": user.postal_address
         }
 
-        const newUser = {
-            data,
-            ...user
-        }
-        console.log(data);
+        var newUser = user;
+        newUser["email_address"] = newEmail;
+        newUser["name"] = newName;
+        newUser["phone_number"] = newPhone;
+        
         setUser(newUser);
-        console.log(user);
         updateUserInfoAPI(user["id"], data).then((res) => {
             if (!res.error) {            
                 setEditable(false);
