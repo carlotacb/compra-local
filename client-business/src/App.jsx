@@ -8,13 +8,20 @@ import { theme } from './shared-components/theme';
 
 import { CookiesProvider } from 'react-cookie';
 
+import { PathContext } from './context';
+
 function App() {
-  
+
+  const [path, setPath] = React.useState("/in");
+  const pathproviderValue = React.useMemo(() => ({ path, setPath }), [path, setPath]);
+
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <CookiesProvider>
-          <BaseRouter />
+          <PathContext.Provider value={pathproviderValue}>
+            <BaseRouter />
+          </PathContext.Provider>
         </CookiesProvider>
       </ThemeProvider>
     </Router>
