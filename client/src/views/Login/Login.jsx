@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        justifyContent: 'center',
+        display: 'flex',
+        alignContent: 'center',
+        alignItems: 'center'
     },
     paper: {
         display: 'flex',
@@ -64,6 +68,17 @@ const useStyles = makeStyles((theme) => ({
 	    alignItems: 'flex-end',
 	    alignContent: 'center',
     },
+    info: {
+        padding: theme.spacing(5),
+        backgroundColor: 'white',
+        maxWidth: '25em',
+        height: 'fit-content',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+        transition: 'all 0.3s cubic-bezier(.25,.8,.25,1)'
+    },
+    h5 :{
+        marginBottom: theme.spacing(2)
+    }
   }));
 
 export function Login() {
@@ -96,7 +111,48 @@ export function Login() {
     
     return (
         <Grid container component="main" className={classes.root}>
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
+            <Grid item xs={false} sm={4} md={7} className={classes.image} >
+            <div className={classes.info}>
+                    <Grid container
+                        alignContent="center"
+                    >
+                    <Grid item xs={8}>
+                        <Typography 
+                            className={classes.h5}
+                            variant="h5" 
+                            color="primary">
+                            USUARIS DE PROVA
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="body1">
+                           <b>Usuari 1:</b>
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="body1">
+                           <i>Usuari:</i> hi@albert.dev
+                        </Typography>
+                        <Typography variant="body1">
+                           <i>Contrasenya:</i> albert
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="body1">
+                           <b>Usuari 2:</b>
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="body1">
+                           <i>Usuari:</i> hi@andreu.dev
+                        </Typography>
+                        <Typography variant="body1">
+                           <i>Contrasenya:</i> andreu
+                        </Typography>
+                    </Grid>
+                    </Grid>
+                </div>
+            </Grid>
             <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.paper} elevation={6} square>
                 <form className={classes.form}>
                     {error ? <SpanAlert message={'error'}><Typography>El email o password no son correctes</Typography></SpanAlert> : null }
