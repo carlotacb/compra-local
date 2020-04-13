@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingBottom: {
         paddingBottom: theme.spacing(2), 
+        paddingTop: theme.spacing(1), 
     },
     uppercase: {
         textTransform: 'uppercase',
@@ -157,7 +158,7 @@ export function HelperCard(props) {
                 </Grid>
                 <Grid item xs={3} className={classes.information} direction="column">
                     <Typography variant="h6" className={classes.tag}> Pagament Anticipat </Typography>   
-                    <Typography variant="body1" className={classes.paddingBottom}> Si us plau, contacta amb la persona per saber com aconseguir els diners de manera anticipada. </Typography> 
+                    <Typography variant="caption" className={classes.paddingBottom}> Si us plau, contacta amb la persona per saber com aconseguir els diners de manera anticipada. </Typography> 
                     <Typography variant="body1" className={classes.title}> CLIENT/A: </Typography> 
                     <Grid item className={classes.client}>
                         <Grid item xs={10}>
