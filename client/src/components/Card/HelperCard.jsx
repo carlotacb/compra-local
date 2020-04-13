@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Divider, Grid, Paper, Typography, makeStyles } from '@material-ui/core';
+import { Divider, Grid, Paper, Typography, makeStyles, Avatar } from '@material-ui/core';
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
 import { ConfirmationDialog } from '../../components'
 import { ApiFactory } from "../../services/ApiFactory";
@@ -63,6 +63,19 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
 	    flexDirection: 'row',
 	    justifyContent: 'center',
+    },
+    client: {    
+        display: 'flex',
+	    flexDirection: 'row',      
+	    alignItems: 'center',
+	    alignContent: 'center'
+    },
+    marginLeft: {
+        marginLeft: theme.spacing(3)
+    },
+    avatarSize: {
+        width: '3em',
+        height: '3em'
     }
 }));
 
@@ -73,11 +86,16 @@ export function HelperCard(props) {
     const getHelperInformation = () => {
         const user = props.user;
         return (
-            <>
-                <Typography variant="body1"> Nom: {user.name} </Typography> 
-                <Typography variant="body1"> Correu: {user.email_address} </Typography> 
-                <Typography variant="body1"> Telèfon: {user.phone_number} </Typography> 
-            </>
+            <Grid item direction="row-reverse">
+                <Grid item>
+                    <Avatar src={'data:image/png;base64,'+ user.image}/>
+                </Grid>
+                <Grid item xs={10}>
+                    <Typography variant="body1"> Nom: {user.name} </Typography> 
+                    <Typography variant="body1"> Correu: {user.email_address} </Typography> 
+                    <Typography variant="body1"> Telèfon: {user.phone_number} </Typography> 
+                </Grid>      
+            </Grid>
         );
     }
 
@@ -93,7 +111,7 @@ export function HelperCard(props) {
                         <Typography className={classes.outlinedTag}> {getStatus(response[i].status)} </Typography>     
                     </Grid>
                     <Typography variant="h6"> {response[i].total} €</Typography> 
-                    <Typography variant="body1"> Direcció: {response[i].postal_address} </Typography>                         
+                    <Typography variant="body1"> Adreça: {response[i].postal_address} </Typography>                         
                 </Grid>
             )
             if (response[i].status !== "PICKED_UP") { picked = false }
@@ -109,7 +127,7 @@ export function HelperCard(props) {
         if (status === "PREPARING") return "En preparació"
         if (status === "PENDING_PICKUP") return "Pendent de recollir"
         if (status === "PICKED_UP") return "Recollit"
-        if (status === "CANCELLED") return "Cancelat"
+        if (status === "CANCELLED") return "Cancel·lat"
         if (status === "DELIVERING") return "Enviat"
         if (status === "PENDING_STORE") return "Pendent de confirmació"
         if (status === "PENDING_HELPER") return "Pendent d'ajudant"
@@ -131,17 +149,26 @@ export function HelperCard(props) {
                         <Typography variant="h5"> TOTAL: {props.total} € </Typography>
                     </Grid>
                     <Grid item className={classes.centered}>
-                        <Typography variant="h6"> Direcció Final: {props.user.postal_address} </Typography>
+                        <Typography variant="h6"> Adreça Final: {props.user.postal_address} </Typography>
                     </Grid>
                 </Grid>
-                <Grid item>
+                <Grid item xs={0} alignContent="center">
                     <Divider variant="middle" orientation="vertical" />
                 </Grid>
-                <Grid item xs={3} className={classes.information}>
+                <Grid item xs={3} className={classes.information} direction="column">
                     <Typography variant="h6" className={classes.tag}> Pagament Anticipat </Typography>   
-                    <Typography variant="body1" className={classes.paddingBottom}> Si us plau, contacta amb la persona per saber aconseguir els diners de manera anticipada. </Typography> 
+                    <Typography variant="body1" className={classes.paddingBottom}> Si us plau, contacta amb la persona per saber com aconseguir els diners de manera anticipada. </Typography> 
                     <Typography variant="body1" className={classes.title}> CLIENT/A: </Typography> 
-                    {getHelperInformation()}
+                    <Grid item className={classes.client}>
+                        <Grid item xs={10}>
+                            <Typography variant="body1"> Nom: {props.user.name} </Typography> 
+                            <Typography variant="body1"> Correu: {props.user.email_address} </Typography> 
+                            <Typography variant="body1"> Telèfon: {props.user.phone_number} </Typography> 
+                        </Grid>      
+                        <Grid item xs={2} className={classes.marginLeft}>
+                            <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ props.user.image}/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
             <ConfirmationDialog open={openModal} cancel={() => setOpenModal(false)} accept={() => handleAccept()} title={'Comanda entregada'} message={'Has entregat la comanda al client? si es que no, cancela!'}/>

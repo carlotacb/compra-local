@@ -14,7 +14,7 @@ export function NeedHelp(props) {
         }
 
         if (petitions.length === 0) {
-            petitions.push(<NoInfoCard information={"Genial! Cap dels teus veins necesita la teva ajuda"}/>)
+            petitions.push(<NoInfoCard information={"Genial! Cap dels teus veïns necessita la teva ajuda"}/>)
         }
 
         return petitions;

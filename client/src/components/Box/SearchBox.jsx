@@ -8,8 +8,7 @@ import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
 const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: '30em',
-        padding: theme.spacing(2),
-        backgroundColor: theme.palette.secondary.light
+        padding: theme.spacing(2)
     },
     containerInput: {
         width: 'auto',
