@@ -1,5 +1,7 @@
 import React from "react";
-import { useRouteMatch } from "react-router-dom";
+
+import { useCookies } from 'react-cookie';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from "@material-ui/core";
 import StoreIcon from '@material-ui/icons/Store';
@@ -56,12 +58,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function Sidebar(props) {
-    let match = useRouteMatch();
+    const [cookies, setCookie, removeCookie] = useCookies();
+    const history = useHistory();
     const classes = useStyles();
-    
-    const handleLogout = () => {
-        window.open('https://compralocal.cat/');
+
+    const handleLogout = () => { 
+        removeCookie("iusha");
+        history.push("/login");
     }
+
 
     return (
         <div className={classes.root}>

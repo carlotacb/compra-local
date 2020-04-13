@@ -16,13 +16,13 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
-        
-          <CookiesProvider>
-            <PathContext.Provider value={pathproviderValue}>
+
+        <CookiesProvider>
+          <PathContext.Provider value={pathproviderValue}>
             <BaseRouter />
-            </PathContext.Provider>
-          </CookiesProvider>
-        
+          </PathContext.Provider>
+        </CookiesProvider>
+
       </ThemeProvider>
     </Router>
   );
