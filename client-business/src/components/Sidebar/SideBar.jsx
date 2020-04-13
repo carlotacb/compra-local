@@ -1,6 +1,7 @@
 import React from "react";
-
+import { useCookies } from 'react-cookie';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import StoreIcon from '@material-ui/icons/Store';
 import PersonIcon from '@material-ui/icons/Person';
@@ -57,12 +58,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function Sidebar(props) {
-
+    const [cookies, setCookie, removeCookie] = useCookies();
+    const history = useHistory();
     const classes = useStyles();
 
     const handleLogout = () => {
-        window.open('https://compralocal.cat/');
+        
+        removeCookie("iusha-bs");
+        history.push("/login");
     }
+
 
     return (
         <div className={classes.root}>
