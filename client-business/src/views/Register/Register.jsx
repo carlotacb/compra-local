@@ -77,6 +77,7 @@ export function Register() {
         const registerAPI = ApiFactory.get("register");
         registerAPI(userIn["email"], userIn["name"], userIn["password"])
             .then((res)=> {
+                console.log(res)
                 if(!res["error"]){
                     setCookie('iusha-bs', res["user"], { path: '/' });
                     const getUserAPI = ApiFactory.get("getUserInformation");
