@@ -41,6 +41,7 @@ export function ShopSearch(props) {
                     category={stores[i]["category"]}
                     stars={stores[i]["punctuation"]}
                     tags={stores[i]["tags"]}
+                    image={stores[i]["image"]}
                 />  
             </Grid>
             )
