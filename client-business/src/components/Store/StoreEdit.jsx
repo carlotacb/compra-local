@@ -3,7 +3,7 @@ import { Grid, Paper, makeStyles, Typography, TextField, Divider, Checkbox, Butt
 import { TertiaryButton, PrimaryButton } from "../../shared-components";
 import { StoreContext } from "../../context/StoreContext";
 import { ApiFactory } from "../../services/ApiFactory";
-
+import { UserContext } from "../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,6 +68,7 @@ export function StoreEdit(props) {
     const classes = useStyles();
 
     const { store, setStore } = React.useContext(StoreContext);
+    const { user, setUser } = React.useContext(UserContext);
     const [storeInfo, setStoreInfo] = React.useState()
     const [updatedImage, setUpdatedImage] = React.useState(false)
     const [image, setImage] = React.useState('')
@@ -139,17 +140,31 @@ export function StoreEdit(props) {
             store[i] = storeInfo[i];
         }
 
-        const updateStoreInfoAPI = ApiFactory.get("updateStoreInformation");
-        updateStoreInfoAPI(store)
-            .then((res)=>{
-                console.log(res)
-                setStore(store);
-                if (props.onSubmit) {
-                    props.onSubmit()
-                }
-            }).catch((error) => {
-                console.log(error)
-            });
+        if(user["local_id"] != null) {
+            const updateStoreInfoAPI = ApiFactory.get("updateStoreInformation");
+            updateStoreInfoAPI(store)
+                .then((res)=>{
+                    setStore(store);
+                    if (props.onSubmit) {
+                        props.onSubmit()
+                    }
+                })
+        }
+        else {
+            const createStoreInfoAPI = ApiFactory.get("createStoreInformation");
+            createStoreInfoAPI(user["id"],store)
+                .then((res)=> {
+                    setStore(store);
+                    setUser({
+                        ...user,
+                        "local_id": res["local_id"]
+                    })
+                    if (props.onSubmit) {
+                        props.onSubmit()
+                    }
+                })
+        }
+
     }
 
 

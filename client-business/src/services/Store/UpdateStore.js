@@ -5,7 +5,7 @@ const axios = require('axios');
 export function updateStoreInformation(storeInfo) {
     const endpoint = '/admin/' +  storeInfo["id"];
     var numT = parseInt(storeInfo["phone_number"]);
-    var website = toString(website);
+    var website = toString(storeInfo["website"]);
     return new Promise((resolve, reject) => {
         try {
             axios({
