@@ -73,7 +73,7 @@ export function StoreCard(props) {
             <a onClick={(e) => handleClick(e)} id={props.id} className={classes.button}>
             <Grid container direction="row">
                 <Grid item xs={2}>
-                    <Avatar variant="rounded" className={classes.avatarSize} />
+                    <Avatar variant="rounded" className={classes.avatarSize} src={'data:image/png;base64,'+ props.image}/>
                 </Grid>
                 <Grid item xs={7} className={classes.local}>
                     <Typography variant="h5">
