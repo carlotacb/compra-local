@@ -4,6 +4,7 @@ import { ShopErrorLocation, ShopSearch, ShopStore } from '../views';
 import { StoreContext } from '../context/StoreContext';
 import { ApiFactory } from "../services/ApiFactory";
 import { UserContext } from '../context/UserContext';
+import { Loading } from '../components/Loading/Loading';
 
 export function ShopRouter() {
     const [inS, setIn] = React.useState(1);
@@ -23,6 +24,10 @@ export function ShopRouter() {
             });
         }
     },[user]);
+
+    if (user === undefined) {
+        return (<Loading />)
+    }
 
     // 1. CHECK LOCATION
     const [location, setLocation] = React.useState(true);

@@ -2,8 +2,7 @@ import React from "react";
 import { Typography, Grid, makeStyles } from "@material-ui/core";
 import { SearchBox, ListView, StoreCard } from "../../components";
 import { TertiaryButton } from "../../shared-components";
-
-import { ApiFactory } from "../../services/ApiFactory";
+import { NoInfoCard } from "../../components/Card/NoInfoCard";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,6 +48,11 @@ export function ShopSearch(props) {
                 aux
             )
         }
+
+        if (output.length === 0) {
+            output.push(<NoInfoCard information={"No hi ha cap comerç aprop teu"} />)
+        }
+
         return (
             <ListView>
                 {output}
