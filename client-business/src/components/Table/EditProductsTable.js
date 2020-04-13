@@ -74,19 +74,24 @@ export function EditProductsTable(props) {
         setProduts(aproducts);
     },[props.products]);
 
-
-    function handleCancel(e) {
-        var i = parseInt(e.currentTarget.id);
+    function handleChange(e){
+        var id = e.currentTarget.id;
+        var tags = id.split('-');
+        var i = parseInt(tags[1]);
+        var value = e.currentTarget.value;
         let aProducts = [...products];
-        aProducts[i].edit = false;
+        aProducts[i][tags[0]] = value;
         setProduts(aProducts);
     }
+
 
     function handleSave(e) {
         var i = parseInt(e.currentTarget.id);
         let aProducts = [...products];
         aProducts[i].edit = false;
         setProduts(aProducts);
+
+        //Call api
     }
 
 
@@ -110,18 +115,26 @@ export function EditProductsTable(props) {
                 output.push(
                     <StyledTableRow key={products[i].name} >
                         <StyledTableCell component="th" scope="row">
-                        <TextField value={products[i].name}/>
+                        <TextField value={products[i].name}
+                                    id={"name-" + i}
+                                    onChange={handleChange}
+                        />
                         </StyledTableCell>
                         <StyledTableCell align="left">
                             <TextField value={products[i].description}
                                         multiline
                                         rows={4}
+                                        id={"description-" + i}
+                                        onChange={handleChange}
                             />
                         </StyledTableCell>
                         <StyledTableCell align="right">
                             <TextField 
                                 type="text"
                                 value={products[i].product_group_id}
+                                id={"product_group_id-" + i}
+                                key={i}
+                                onChange={handleChange}
                                 InputProps={{
                                     classes: {
                                         input: classes.normal
@@ -132,6 +145,9 @@ export function EditProductsTable(props) {
                         <StyledTableCell align="right">
                         <TextField 
                             value={products[i].price_type}
+                            id={"price_type-" + i}
+                            key={i}
+                            onChange={handleChange}
                             InputProps={{
                                 classes: {
                                     input: classes.small
@@ -141,6 +157,9 @@ export function EditProductsTable(props) {
                             </StyledTableCell>
                         <StyledTableCell align="right">
                             <TextField type="number" value={products[i].price}
+                                id={"price-"+i}
+                                key={i}
+                                onChange={handleChange}
                                 InputProps={{
                                     classes: {
                                         input: classes.small
@@ -150,12 +169,6 @@ export function EditProductsTable(props) {
                         </StyledTableCell>
                         <StyledTableCell align="right">
                             <div className={classes.inline}>
-                                <IconButton size="small" 
-                                            id={id} 
-                                            className={classes.icon}
-                                            onClick={(e)=>handleCancel(e)}>
-                                    <CancelIcon />
-                                </IconButton>
                                 <IconButton size="small"  id={id} onClick={(e) =>handleSave(e)}>
                                     <SaveAltIcon />
                                 </IconButton>
