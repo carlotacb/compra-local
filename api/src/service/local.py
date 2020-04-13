@@ -239,6 +239,7 @@ def get_from_id_list(local_id_list):
             description=local_orm.description,
             category=None if not local_orm.category_id else local_orm.category.name,
             punctuation=review_local_service.get_average(local_orm.id),
+            image=local_orm.image,
             tags=get_tags(local_orm.id)
         ))
     return local_list
