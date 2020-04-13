@@ -5,14 +5,15 @@ import { StoreContext } from '../../context/';
 import { EditProductsTable } from './EditProductsTable';
 import { ListView } from '../ListView/ListView';
 import { Typography, Grid, IconButton, makeStyles, Button } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import CloseIcon from '@material-ui/icons/Close'
 
 const useStyles = makeStyles((theme) => ({
     title: {
         display:'flex',
         justifyContent: 'space-between',
-        paddingBottom: theme.spacing(2),
+
+        paddingBottom: theme.spacing(1),
         alignContent: 'center',
         alignItems: 'center'
     },
@@ -46,15 +47,6 @@ export function ProductsTable(props) {
         setEdit(!edit);
     }
 
-    var table;
-    if (edit) {
-        table = <EditProductsTable products={products} />;
-    }
-    else {
-        table = <ViewProductTable products={products} />;
-    }
-
-    
 
     return (
         <ListView>
@@ -62,17 +54,11 @@ export function ProductsTable(props) {
                 <Typography variant="h6" color="primary">
                     Llistat dels teus productes disponibles: 
                 </Typography>
-                {
-                    edit ?
-                    <Button className={classes.button} onClick={()=>handleEdit()}>
-                        <CloseIcon /> Parar de editar
-                    </Button> :
-                    <IconButton onClick={()=>handleEdit()}>
-                        <EditIcon /> 
-                    </IconButton> 
-                }
+                <Button className={classes.button} onClick={()=>handleEdit()}>
+                    <AddBoxIcon /> AFEGIR PRODUCTE
+                </Button> 
             </Grid>
-            {table}
+            <EditProductsTable products={products} />
         </ListView>
     )
 }
