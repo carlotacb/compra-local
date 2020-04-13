@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Paper, makeStyles, Typography, TextField, Divider, Checkbox } from "@material-ui/core";
+import { Grid, Paper, makeStyles, Typography, TextField, Divider, Checkbox, Button } from "@material-ui/core";
 import { TertiaryButton, PrimaryButton } from "../../shared-components";
 import { StoreContext } from "../../context/StoreContext";
 import { ApiFactory } from "../../services/ApiFactory";
@@ -54,6 +54,13 @@ const useStyles = makeStyles((theme) => ({
     },
     checkbox: {
         marginLeft: theme.spacing(1)
+    },
+    inputImage: {
+        display: 'none'
+    },
+    margins: {
+        marginTop: theme.spacing(4),
+        marginLeft: theme.spacing(3)
     }
 }));
 
@@ -62,10 +69,11 @@ export function StoreEdit(props) {
 
     const { store, setStore } = React.useContext(StoreContext);
     const [storeInfo, setStoreInfo] = React.useState()
+    const [updatedImage, setUpdatedImage] = React.useState(false)
+    const [image, setImage] = React.useState('')
 
     React.useEffect(() => {
         setStoreInfo({
-
             name: store["name"],
             postal_address: store["postal_address"],
             phone_number: store["phone_number"],
@@ -73,6 +81,7 @@ export function StoreEdit(props) {
             description: store["description"],
             category: store["category"],
             delivery: store["delivery"],
+            image: store["image"],
             hmoni: store["hmoni"],
             hmonf: store["hmonf"],
             htuei: store["htuei"],
@@ -109,9 +118,23 @@ export function StoreEdit(props) {
         })
     }
 
+    const handleCapture = (target) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            var result = e.target.result;
+            result = result.split(",").pop();
+            setUpdatedImage(true);
+            setStoreInfo({
+                ...storeInfo,
+                "image": result
+            })
+        };
+    };
+
 
     function handleSubmit() {
-
+        console.log("test")
         for(var i in storeInfo) {
             store[i] = storeInfo[i];
         }
@@ -119,11 +142,14 @@ export function StoreEdit(props) {
         const updateStoreInfoAPI = ApiFactory.get("updateStoreInformation");
         updateStoreInfoAPI(store)
             .then((res)=>{
+                console.log(res)
                 setStore(store);
                 if (props.onSubmit) {
                     props.onSubmit()
                 }
-            })
+            }).catch((error) => {
+                console.log(error)
+            });
     }
 
 
@@ -303,6 +329,11 @@ export function StoreEdit(props) {
                             />
                             La meva botiga envia comandes
                         </Typography>
+                    </div>
+                    {updatedImage ? <Typography variant="caption" className={classes.margins}>Has pujat una imatge de perfil</Typography> : null}
+                    <div>
+                        <input accept="image/*" className={classes.inputImage} id="contained-button-file" multiple type="file" onChange={(e) => handleCapture(e.target)}/>
+                        <label htmlFor="contained-button-file" className={classes.margins}> <Button variant="outlined" color="primary" component="span"> Penja una foto de perfil </Button> </label>    
                     </div>
                 </Grid>
                 <Grid item xs={12}>
