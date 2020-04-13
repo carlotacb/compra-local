@@ -81,7 +81,7 @@ export function HelperPetitionCard(props) {
                     <Grid item className={classes.shopName}>
                         <Typography variant="h5" className={classes.uppercase}> {response[i].name} </Typography>  
                     </Grid>
-                    <Typography variant="body1"> Direcció: {response[i].postal_address} </Typography>                         
+                    <Typography variant="body1"> Adreça: {response[i].postal_address} </Typography>                         
                 </Grid>
             )
         }
@@ -104,7 +104,7 @@ export function HelperPetitionCard(props) {
                 <Grid item xs={8} className={classes.information}>
                     {getOrderListInformation()}
                     <Grid item className={classes.centered}>
-                        <Typography variant="h6"> Direcció Final: {props.user.postal_address} </Typography>
+                        <Typography variant="h6"> Adreça Final: {props.user.postal_address} </Typography>
                     </Grid>
                     <PrimaryButton onClick={() => setOpenModal(true)}> AJUDAR! </PrimaryButton>
                 </Grid>
@@ -113,7 +113,7 @@ export function HelperPetitionCard(props) {
                 </Grid>
                 <Grid item xs={3} className={classes.information}>
                     <Typography variant="h6" className={classes.tag}> Pagament Anticipat </Typography>   
-                    <Typography variant="body1" className={classes.paddingBottom}> Si us plau, contacta amb la persona per saber aconseguir els diners de manera anticipada. </Typography> 
+                    <Typography variant="body1" className={classes.paddingBottom}> Si us plau, contacta amb la persona per saber com aconseguir els diners de manera anticipada. </Typography> 
                     <Typography variant="body1" className={classes.title}> CLIENT/A: </Typography> 
                     <Typography variant="body1"> Nom: {props.user.name} </Typography> 
                 </Grid>
