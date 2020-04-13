@@ -97,7 +97,7 @@ export function ProfileBox() {
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
             var result = e.target.result;
-            result = result.substring(23);
+            result = result.split(",").pop();
             console.log(result);
             setNewImage(result);
         };
