@@ -13,7 +13,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { IconButton } from "@material-ui/core";
-
+import { ApiFactory } from '../../services/ApiFactory';
+import {UserContext} from '../../context/';
+import { NoDelete } from '../Dialog/NoDelete';
 const StyledTableCell = withStyles((theme) => ({
     root: {
         '& > div': {
@@ -71,7 +73,8 @@ export function EditProductsTable(props) {
     const classes = useStyles();
     const [init, setInit] = React.useState();
     const [products, setProduts] = React.useState([]);
-
+    const { user, setUser } = React.useContext(UserContext);
+    const [error, setError] = React.useState(false);
     React.useEffect(() => {
         let aproducts = [...products];
         for (var i in props.products) {
@@ -94,24 +97,45 @@ export function EditProductsTable(props) {
 
 
     function handleSave(e) {
-        var i = parseInt(e.currentTarget.id);
-        let aProducts = [...products];
-        aProducts[i].edit = false;
-        setProduts(aProducts);
-
+        var id = e.currentTarget.id;
         //Call api
+        const updateProduct = ApiFactory.get('updateProducts');
+        updateProduct(user["local_id"], products[id])
+            .then((res)=>{
+                let aProducts = [...products];
+                aProducts[id].edit = false;
+                setProduts(aProducts);
+            });
     }
 
 
     function handleDelete(e) {
-        var i = parseInt(e.currentTarget.id);
-        let aProducts = [...products];
+        var id = parseInt(e.currentTarget.id);
+        
+        const deleteProductAPI = ApiFactory.get('deleteProduct');
+        deleteProductAPI(user["local_id"], products[id]["id"])
+            .then((res)=> {
+                let aProducts = [...products];
+                if(res["error"]) {
+                    setError(true);
+                    aProducts[id].edit = false;
+                }
+                else {
+                    aProducts.splice(id, 1);
+                }
+                setProduts(aProducts);
+            })
     }
     function handleEdit(e) {
         var i = parseInt(e.currentTarget.id);
         let aProducts = [...products];
         aProducts[i].edit = true;
         setProduts(aProducts);
+    }
+
+
+    function handleClose() {
+        setError(false);
     }
 
     function renderItems() {
@@ -225,7 +249,10 @@ export function EditProductsTable(props) {
 
     return (
         <div className={classes.root}>
-
+            {
+                error &&
+                <NoDelete open={error} onClick={handleClose} />
+            }
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>

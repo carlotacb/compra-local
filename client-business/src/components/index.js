@@ -14,6 +14,7 @@ import { CompletedOrderCard as COC } from './Cards/CompletedOrderCard';
 //Dialog
 import { TicketDialog as TD } from './Dialog/TicketDialog';
 import { ConfirmationDialog as CD } from './Dialog/ConfirmationDialog';
+import { AddProductDialog as APD} from './Dialog/AddProductDialog';
 
 export const Sidebar = S;
 export const ListView = LV;
@@ -28,3 +29,4 @@ export const CompletedOrderCard = COC;
 
 export const TicketDialog = TD;
 export const ConfirmationDialog = CD;
+export const AddProductDialog = APD;

@@ -7,6 +7,7 @@ import { ListView } from '../ListView/ListView';
 import { Typography, Grid, IconButton, makeStyles, Button } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import CloseIcon from '@material-ui/icons/Close'
+import {AddProductDialog} from '../';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -26,7 +27,7 @@ export function ProductsTable(props) {
     const classes = useStyles();
     const [products, setProducts] = React.useState([]);
     const [loadP, setLoadP] = React.useState(0);
-    const [edit, setEdit] = React.useState(false);
+    const [add, setAdd] = React.useState(false);
     const { store, setStore } = React.useContext(StoreContext);
 
     React.useEffect(() => {
@@ -43,18 +44,20 @@ export function ProductsTable(props) {
 
     }, [loadP]);
 
-    function handleEdit(){
-        setEdit(!edit);
+    function handleAdd(){
+        setAdd(!add);
     }
+
 
 
     return (
         <ListView>
+            <AddProductDialog open={add} onClick={handleAdd}/>
             <Grid item xs={12} className={classes.title}>
                 <Typography variant="h6" color="primary">
                     Llistat dels teus productes disponibles: 
                 </Typography>
-                <Button className={classes.button} onClick={()=>handleEdit()}>
+                <Button className={classes.button} onClick={()=>handleAdd()}>
                     <AddBoxIcon /> AFEGIR PRODUCTE
                 </Button> 
             </Grid>
