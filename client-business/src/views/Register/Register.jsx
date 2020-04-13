@@ -84,7 +84,7 @@ export function Register() {
                     getUserAPI(cookies["iusha-bs"])
                     .then((res)=>{
                         setUser(res);
-                        history.push('/in/empresa');
+                        history.push('/in/botiga');
                     });
                     setError(false);
                 }
