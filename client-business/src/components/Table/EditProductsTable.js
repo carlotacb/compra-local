@@ -8,6 +8,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { TextField } from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
+import EditIcon from '@material-ui/icons/Edit';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import { IconButton } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme) => ({
     root: {
@@ -18,7 +22,7 @@ const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
-        
+
     },
     body: {
         fontSize: 14,
@@ -42,41 +46,75 @@ const useStyles = makeStyles({
 
 export function EditProductsTable(props) {
     const classes = useStyles();
+    const [init, setInit] = React.useState();
+    const [products, setProduts] = React.useState([]);
 
-    const rows = props.products;
+    React.useEffect(() => {
+        let aproducts = [...products];
+        for (var i in props.products) {
+            var aux = props.products[i];
+            aux["edit"] = false;
+            aproducts.push(aux);
+        }
+        setProduts(aproducts);
+    }, [init]);
+
+
+    function renderItems() {
+        var output = [];
+        for (var i in products) {
+            var edit = products[i].edit
+            output.push(
+                <StyledTableRow key={products[i].name}>
+                    <StyledTableCell component="th" scope="row">
+                        {products[i].name}
+                    </StyledTableCell>
+                    <StyledTableCell align="left">
+                        <TextField value={products[i].description}></TextField>
+
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{products[i].product_group_id}</StyledTableCell>
+                    <StyledTableCell align="right">{products[i].price_type}</StyledTableCell>
+                    <StyledTableCell align="right">{products[i].price}</StyledTableCell>
+                    {
+                        edit ?
+                            <StyledTableCell align="right">
+                                <IconButton>
+                                    <CancelIcon /> <SaveAltIcon />
+                                </IconButton>
+                            </StyledTableCell> :
+                            <StyledTableCell align="right">
+                                <IconButton>
+                                    <EditIcon />
+                                </IconButton>
+                            </StyledTableCell>
+                    }
+                </StyledTableRow>
+            )
+        }
+        return output;
+    }
 
     return (
-        <div  className={classes.root}>
-            
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell><b>Producte</b></StyledTableCell>
-                        <StyledTableCell><b>Descripció</b></StyledTableCell>
-                        <StyledTableCell align="right"><b>Categoria</b></StyledTableCell>
-                        <StyledTableCell align="right"><b>Unitat</b></StyledTableCell>
-                        <StyledTableCell align="right"><b>Preu / Unitat</b></StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="left">
-                                <TextField value={row.description}></TextField>
+        <div className={classes.root}>
 
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.product_group_id}</StyledTableCell>
-                            <StyledTableCell align="right">{row.price_type}</StyledTableCell>
-                            <StyledTableCell align="right">{row.price}</StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell><b>Producte</b></StyledTableCell>
+                            <StyledTableCell><b>Descripció</b></StyledTableCell>
+                            <StyledTableCell align="right"><b>Categoria</b></StyledTableCell>
+                            <StyledTableCell align="right"><b>Unitat</b></StyledTableCell>
+                            <StyledTableCell align="right"><b>Preu / Unitat</b></StyledTableCell>
+                            <StyledTableCell align="right"><b>Actions</b></StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {renderItems()}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 }

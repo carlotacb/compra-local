@@ -7,7 +7,7 @@ import { StoreContext } from '../../context';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: theme.palette.grey[50],
         padding: theme.spacing(4)
     },
     item: {

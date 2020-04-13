@@ -3,7 +3,7 @@ import { Grid, Paper, makeStyles, Typography, TextField, Divider, Checkbox } fro
 import { TertiaryButton, PrimaryButton } from "../../shared-components";
 import { StoreContext } from "../../context/StoreContext";
 import { ApiFactory } from "../../services/ApiFactory";
-
+import { UserContext } from "../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,6 +61,7 @@ export function StoreEdit(props) {
     const classes = useStyles();
 
     const { store, setStore } = React.useContext(StoreContext);
+    const { user, setUser } = React.useContext(UserContext);
     const [storeInfo, setStoreInfo] = React.useState()
 
     React.useEffect(() => {
@@ -116,14 +117,31 @@ export function StoreEdit(props) {
             store[i] = storeInfo[i];
         }
 
-        const updateStoreInfoAPI = ApiFactory.get("updateStoreInformation");
-        updateStoreInfoAPI(store)
-            .then((res)=>{
-                setStore(store);
-                if (props.onSubmit) {
-                    props.onSubmit()
-                }
-            })
+        if(user["local_id"] != null) {
+            const updateStoreInfoAPI = ApiFactory.get("updateStoreInformation");
+            updateStoreInfoAPI(store)
+                .then((res)=>{
+                    setStore(store);
+                    if (props.onSubmit) {
+                        props.onSubmit()
+                    }
+                })
+        }
+        else {
+            const createStoreInfoAPI = ApiFactory.get("createStoreInformation");
+            createStoreInfoAPI(user["id"],store)
+                .then((res)=> {
+                    setStore(store);
+                    setUser({
+                        ...user,
+                        "local_id": res["local_id"]
+                    })
+                    if (props.onSubmit) {
+                        props.onSubmit()
+                    }
+                })
+        }
+
     }
 
 

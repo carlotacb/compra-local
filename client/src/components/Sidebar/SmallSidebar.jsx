@@ -10,8 +10,6 @@ import StoreIcon from '@material-ui/icons/Store';
 import PersonIcon from '@material-ui/icons/Person';
 import AvTimerIcon from '@material-ui/icons/AvTimer';
 import GroupIcon from '@material-ui/icons/Group';
-import HelpIcon from '@material-ui/icons/Help';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 const useStyles = makeStyles((theme) => ({
