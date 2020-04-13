@@ -1,19 +1,19 @@
 import React, { useContext, useState } from "react";
 import { useHistory, Redirect } from "react-router-dom";
+import { ApiFactory } from '../../services/ApiFactory';
+import { useCookies } from 'react-cookie';
 
-import { UserContext } from "../../context/UserContext";
+// shared-components
 import { SpanAlert } from "../../shared-components/Span/SpanAlert";
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
 
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+// components
+import { LoginInfo } from '../../components';
 
+// material-ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from "@material-ui/core";
-import { ApiFactory } from '../../services/ApiFactory';
-import { useCookies } from 'react-cookie';
+import { Typography, Grid, Paper, TextField, Link } from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,6 +28,16 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignContent: 'center',
         alignItems: 'center'
+    },
+    span: {
+        color: 'white',
+        padding: theme.spacing(1),
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+        backgroundColor: theme.palette.error.light,
+        marginBottom: theme.spacing(1),
+        textAlign: 'center',
+        border: `1px solid ${theme.palette.error.dark}`
     },
     paper: {
         display: 'flex',
@@ -62,125 +72,140 @@ const useStyles = makeStyles((theme) => ({
     localGrid: {
         marginTop: '30px',
         display: 'flex',
-	    flexDirection: 'column',
-	    flexWrap: 'wrap',
-	    justifyContent: 'flex-end',
-	    alignItems: 'flex-end',
-	    alignContent: 'center',
-    },
-    info: {
-        padding: theme.spacing(5),
-        backgroundColor: 'white',
-        maxWidth: '25em',
-        height: 'fit-content',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-        transition: 'all 0.3s cubic-bezier(.25,.8,.25,1)'
-    },
-    h5 :{
-        marginBottom: theme.spacing(2)
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        alignContent: 'center',
     }
-  }));
+}));
 
 export function Login() {
+    const classes = useStyles();
     const history = useHistory();
     const [cookies, setCookie] = useCookies(['iusha']);
 
-    const { user, setUser } = useContext(UserContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(false);
-    const classes = useStyles();
+    const [error, setError] = useState({
+        email: false,
+        password: false
+    });
+    const [userData, setUserData] = React.useState({
+        email: "",
+        password: ""
+    });
+
+
+
 
     const handleLogin = () => {
-        const loginApi = ApiFactory.get('login');
-        loginApi(email, password).then((res) => {
-            if(!res["error"]) {
-                setError(false);
-                setCookie('iusha', res["user"], { path: '/' });
-                history.push('/in');
-            }
-            else if(res["message"] == "password"){
-                setError(true);
-            }
-        })
+        // check inputs
+        if (!userData["email"].includes("@") || !userData["email"].includes(".")) {
+            setError({
+                email: "Vaja, sembla un correu electrònic incorrecte.",
+                password: false
+            });
+            return;
+        }
+
+        const loginAPI = ApiFactory.get('login');
+        loginAPI(userData["email"], userData["password"])
+            .then((res) => {
+                if (!res["error"]) {
+                    setError({
+                        email: false,
+                        password: false
+                    });
+                    setCookie('iusha', res["user"], { path: '/' });
+                    history.push('/in');
+                }
+                else if (res["message"] == "password") {
+                    setError({
+                        email: "El correu o la contrasenya indicada no són correctes.",
+                        password: "El correu o la contrasenya indicada no són correctes."
+                    });
+                }
+                else {
+                    setError({
+                        email: false,
+                        password: false,
+                        unexpected: "Vaja! Hi ha hagut un error inesperat :("
+                    })
+                }
+            });
     }
 
-    if("iusha" in cookies) {
+    function handleChange(e) {
+        var id = e.currentTarget.id;
+        var value = e.currentTarget.value;
+        setUserData({
+            ...userData,
+            [id]: value
+        });
+    }
+
+    function renderErrors() {
+        var existsError = false;
+        var errorsOutput = [];
+
+        for (var i in error) {
+            if(error[i] && !existsError) {
+                existsError = true;
+                errorsOutput.push(
+                    error[i]
+                )
+            }
+        }
+
+        if(!existsError) return;
+        return (
+            <div className={classes.span}>
+                <Typography variant="subtitle1">
+                    {errorsOutput}
+                </Typography >
+            </div >
+        )
+    }
+
+    // You shall not pass
+    if ("iusha" in cookies) {
         return <Redirect to="/in" />
     }
-    
+
     return (
         <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} >
-            <div className={classes.info}>
-                    <Grid container
-                        alignContent="center"
-                    >
-                    <Grid item xs={8}>
-                        <Typography 
-                            className={classes.h5}
-                            variant="h5" 
-                            color="primary">
-                            USUARIS DE PROVA
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="body1">
-                           <b>Usuari 1:</b>
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant="body1">
-                           <i>Usuari:</i> hi@albert.dev
-                        </Typography>
-                        <Typography variant="body1">
-                           <i>Contrasenya:</i> albert
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="body1">
-                           <b>Usuari 2:</b>
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant="body1">
-                           <i>Usuari:</i> hi@andreu.dev
-                        </Typography>
-                        <Typography variant="body1">
-                           <i>Contrasenya:</i> andreu
-                        </Typography>
-                    </Grid>
-                    </Grid>
-                </div>
+                <LoginInfo />
             </Grid>
             <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.paper} elevation={6} square>
                 <form className={classes.form}>
-                    {error ? <SpanAlert message={'error'}><Typography>El email o password no son correctes</Typography></SpanAlert> : null }
-                    <TextField 
-                        error={error}
-                        className = {classes.input}
-                        variant="outlined" 
-                        margin="normal" 
-                        required 
-                        fullWidth 
-                        id="email" 
-                        label="Correu Electrònic" 
-                        name="email" 
-                        autoComplete="email" 
-                        onChange={(e)=>setEmail(e.target.value)}
+                    {
+                        renderErrors()
+                    }
+                    <TextField
+                        error={error["email"]}
+                        className={classes.input}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Correu Electrònic"
+                        name="email"
+                        autoComplete="email"
+                        onChange={(e) => handleChange(e)}
                         autoFocus />
-                    <TextField 
-                        error={error}
-                        className = {classes.input}
-                        variant="outlined" 
-                        margin="normal" 
-                        required 
-                        fullWidth 
-                        name="password" 
-                        label="Contrasenya" 
-                        type="password" 
-                        id="password" 
-                        onChange={(e)=>setPassword(e.target.value)}
+                    <TextField
+                        error={error["password"]}
+                        className={classes.input}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Contrasenya"
+                        type="password"
+                        id="password"
+                        onChange={(e) => handleChange(e)}
                         autoComplete="current-password" />
 
                     <div className={classes.button}>
@@ -195,7 +220,7 @@ export function Login() {
                         </Grid>
                     </Grid>
                     <Grid container className={classes.localGrid}>
-                        <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Incia sessió aquí"} </Link></Typography> 
+                        <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Incia sessió aquí"} </Link></Typography>
                     </Grid>
                 </form>
             </Grid>
