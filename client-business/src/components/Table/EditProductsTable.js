@@ -43,6 +43,14 @@ const useStyles = makeStyles({
     table: {
         minWidth: 700,
     },
+    textField: {
+        marginTop: 0,
+        paddingTop: 0,
+        '& > div': {
+            borderRadius: '0',
+            backgroundColor: 'white'
+        }
+    },
     icon: {
         margin: 0,
         padding: 0
@@ -72,9 +80,9 @@ export function EditProductsTable(props) {
             aproducts.push(aux);
         }
         setProduts(aproducts);
-    },[props.products]);
+    }, [props.products]);
 
-    function handleChange(e){
+    function handleChange(e) {
         var id = e.currentTarget.id;
         var tags = id.split('-');
         var i = parseInt(tags[1]);
@@ -95,7 +103,7 @@ export function EditProductsTable(props) {
     }
 
 
-    function handleDelete(e){
+    function handleDelete(e) {
         var i = parseInt(e.currentTarget.id);
         let aProducts = [...products];
     }
@@ -115,26 +123,32 @@ export function EditProductsTable(props) {
                 output.push(
                     <StyledTableRow key={products[i].name} >
                         <StyledTableCell component="th" scope="row">
-                        <TextField value={products[i].name}
-                                    id={"name-" + i}
-                                    onChange={handleChange}
-                        />
+                            <TextField value={products[i].name}
+                                variant="outlined"
+                                id={"name-" + i}
+                                onChange={handleChange}
+                                className={classes.textField}
+                            />
                         </StyledTableCell>
                         <StyledTableCell align="left">
                             <TextField value={products[i].description}
-                                        multiline
-                                        rows={4}
-                                        id={"description-" + i}
-                                        onChange={handleChange}
+                                variant="outlined"
+                                multiline
+                                rows={4}
+                                id={"description-" + i}
+                                onChange={handleChange}
+                                className={classes.textField}
                             />
                         </StyledTableCell>
                         <StyledTableCell align="right">
-                            <TextField 
+                            <TextField
+                                variant="outlined"
                                 type="text"
                                 value={products[i].product_group_id}
                                 id={"product_group_id-" + i}
                                 key={i}
                                 onChange={handleChange}
+                                className={classes.textField}
                                 InputProps={{
                                     classes: {
                                         input: classes.normal
@@ -143,23 +157,27 @@ export function EditProductsTable(props) {
                             />
                         </StyledTableCell>
                         <StyledTableCell align="right">
-                        <TextField 
-                            value={products[i].price_type}
-                            id={"price_type-" + i}
-                            key={i}
-                            onChange={handleChange}
-                            InputProps={{
-                                classes: {
-                                    input: classes.small
-                                }
-                            }}
-                        />
-                            </StyledTableCell>
-                        <StyledTableCell align="right">
-                            <TextField type="number" value={products[i].price}
-                                id={"price-"+i}
+                            <TextField
+                                variant="outlined"
+                                value={products[i].price_type}
+                                id={"price_type-" + i}
                                 key={i}
                                 onChange={handleChange}
+                                className={classes.textField}
+                                InputProps={{
+                                    classes: {
+                                        input: classes.small
+                                    }
+                                }}
+                            />
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            <TextField type="number" value={products[i].price}
+                            variant="outlined"
+                                id={"price-" + i}
+                                key={i}
+                                onChange={handleChange}
+                                className={classes.textField}
                                 InputProps={{
                                     classes: {
                                         input: classes.small
@@ -169,14 +187,14 @@ export function EditProductsTable(props) {
                         </StyledTableCell>
                         <StyledTableCell align="right">
                             <div className={classes.inline}>
-                                <IconButton size="small"  id={id} onClick={(e) =>handleSave(e)}>
+                                <IconButton size="small" id={id} onClick={(e) => handleSave(e)}>
                                     <SaveAltIcon />
                                 </IconButton>
-                                <IconButton size="small"  id={id} onClick={(e) =>handleDelete(e)}>
+                                <IconButton size="small" id={id} onClick={(e) => handleDelete(e)}>
                                     <DeleteIcon />
                                 </IconButton>
                             </div>
-                        </StyledTableCell> 
+                        </StyledTableCell>
                     </StyledTableRow>
                 )
             }
@@ -194,7 +212,7 @@ export function EditProductsTable(props) {
                         <StyledTableCell align="right">{products[i].price_type}</StyledTableCell>
                         <StyledTableCell align="right">{products[i].price}</StyledTableCell>
                         <StyledTableCell align="right">
-                            <IconButton id={id} onClick={(e)=>handleEdit(e)}>
+                            <IconButton id={id} onClick={(e) => handleEdit(e)}>
                                 <EditIcon />
                             </IconButton>
                         </StyledTableCell>
