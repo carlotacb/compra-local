@@ -77,7 +77,6 @@ export function Login() {
     const classes = useStyles();
 
     const handleLogin = () => {
-
         const loginApi = ApiFactory.get('login');
         loginApi(email, password).then((res) => {
             if(!res["error"]) {
@@ -94,6 +93,7 @@ export function Login() {
     if("iusha" in cookies) {
         return <Redirect to="/in" />
     }
+    
     return (
         <Grid container component="main" className={classes.root}>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />

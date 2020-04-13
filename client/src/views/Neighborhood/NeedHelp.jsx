@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { HelperPetitionCard } from '../../components';
+import { HelperPetitionCard, NoInfoCard } from '../../components';
 
 export function NeedHelp(props) {
 
@@ -11,6 +11,10 @@ export function NeedHelp(props) {
 
         for (var i = 0; i < resp.length; ++i) {
             petitions.push(<HelperPetitionCard user={resp[i].user} orderList={resp[i].order_list} orderID={resp[i].id} />);
+        }
+
+        if (petitions.length === 0) {
+            petitions.push(<NoInfoCard information={"Genial! Cap dels teus veins necesita la teva ajuda"}/>)
         }
 
         return petitions;
