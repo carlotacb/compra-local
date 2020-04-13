@@ -24,6 +24,7 @@ import { CompletedOrderCard as COC } from './Card/CompletedOrderCard'
 import { HelperCard as HC } from './Card/HelperCard'
 import { HelperPetitionCard as HPC } from './Card/HelperPetitionCard'
 import { PendingReviewCard as PRC } from './Card/PendingReviewCard'
+import { NoInfoCard as NIC } from './Card/NoInfoCard'
 
 //Store 
 import { StoreBody as StB } from './Store/StoreBody';
@@ -58,3 +59,4 @@ export const PasswordDialog = PD;
 export const HelperPetitionCard = HPC;
 export const PendingReviewCard = PRC;
 export const Loading = L;
+export const NoInfoCard = NIC;
