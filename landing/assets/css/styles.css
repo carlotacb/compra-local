@@ -58,15 +58,6 @@ nav {
     text-align: center;
 }
 
-.search-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-}
-
 
 /**  FAQs  **/
 
@@ -208,6 +199,8 @@ footer p {
     margin-bottom: 0 !important;
 }
 
+/** Video iFrame **/
+
 .video-container {
     position: relative;
     padding-bottom: 56.25%;
@@ -227,9 +220,14 @@ footer p {
 
 /** Responsive **/ 
 
-@media screen and (min-width: 200px) { 
+@media screen and (min-width: 200px) {
     .title {
         font-size: 2em;
+    }
+
+    #FAQs .section-content .col {
+        padding-left: 4em;
+        padding-right: 4em;
     }
 }
 
@@ -257,33 +255,17 @@ footer p {
         padding-right: 15vh !important;
     }
 
+    #FAQs .section-content .col {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
  }
 
 /* Large devices (desktops, 992px and up) */
 @media screen and (min-width: 992px) { 
     .title {
         font-size: 3.2em;
-    }
-
-    #students h3 {
-        text-align: start;
-    }
-
-    #students .subtitle {
-        text-align: end;
-        margin-right: 3em;
-    }
-
-    #location .info {
-        padding: 2.5em;
-    }
-
-    footer .social-icons {
-        text-align: left;
-    }
-    
-    footer .web-links {
-        text-align: right;
     }
 
  }
@@ -294,10 +276,6 @@ footer p {
         font-size: 4.25em;
     }
 
-    #students .subtitle {
-        margin-right: 4em;
-    }
-
     .summary {
         padding-left: 12em;
         padding-right: 12em;
@@ -306,10 +284,6 @@ footer p {
     footer {
         padding-left: 20vh !important;
         padding-right: 20vh !important;
-    }
-
-    #advent .image {
-        width: 40em;   
     }
     
  }
