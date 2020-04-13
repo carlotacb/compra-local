@@ -4,7 +4,7 @@ import { ApiFactory } from '../../services/ApiFactory';
 import { useCookies } from 'react-cookie';
 
 // shared-components
-import { SpanAlert } from "../../shared-components/Span/SpanAlert";
+import { ErrorAlert } from "../../shared-components/";
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
 
 // components
@@ -94,9 +94,6 @@ export function Login() {
         password: ""
     });
 
-
-
-
     const handleLogin = () => {
         // check inputs
         if (!userData["email"].includes("@") || !userData["email"].includes(".")) {
@@ -143,29 +140,6 @@ export function Login() {
         });
     }
 
-    function renderErrors() {
-        var existsError = false;
-        var errorsOutput = [];
-
-        for (var i in error) {
-            if(error[i] && !existsError) {
-                existsError = true;
-                errorsOutput.push(
-                    error[i]
-                )
-            }
-        }
-
-        if(!existsError) return;
-        return (
-            <div className={classes.span}>
-                <Typography variant="subtitle1">
-                    {errorsOutput}
-                </Typography >
-            </div >
-        )
-    }
-
     // You shall not pass
     if ("iusha" in cookies) {
         return <Redirect to="/in" />
@@ -178,9 +152,7 @@ export function Login() {
             </Grid>
             <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.paper} elevation={6} square>
                 <form className={classes.form}>
-                    {
-                        renderErrors()
-                    }
+                    <ErrorAlert error={error}/>
                     <TextField
                         error={error["email"]}
                         className={classes.input}
