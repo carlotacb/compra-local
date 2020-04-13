@@ -12,9 +12,15 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/carlotacb/compra-local.svg)](https://gitHub.com/carlotacb/compra-local/graphs/contributors/)
 [![GitHub license](https://img.shields.io/github/license/carlotacb/compra-local.svg)](https://github.com/carlotacb/compra-local/blob/master/LICENSE)
 
-[Video demo](https://www.youtube.com/watch?v=-gFv3zRlr0U) | [Demo](https://compralocal.cat) | [Client application](https://app.compralocal.cat) | [Admin application](https://admin.compralocal.cat) | [API documentation](https://api.compralocal.cat/docs)
-
 🛒 Web application for activating local businesses and making your neighborhood a better place
+
+|                            URL                            |                         Description                          |
+| :-------------------------------------------------------: | :----------------------------------------------------------: |
+| [Video demo](https://www.youtube.com/watch?v=-gFv3zRlr0U) | Promotonial video related to the project submitted on the Hackovid hackathon. |
+|            [Landing](https://compralocal.cat)             | Main website for describing the use of the app and redirecting the user to the proper client. |
+|     [Client application](https://app.compralocal.cat)     | Client portal for making purchases and helping your neighbours. |
+|    [Admin application](https://admin.compralocal.cat)     |        Local portal for managing the incoming orders.        |
+|   [API documentation](https://api.compralocal.cat/docs)   | Documentation related to the Backend API used for both clients. |
 
 ## Summary
 
@@ -47,12 +53,21 @@ Per a poder provar l'applicació sense haver de crear noves comptes, es poden fe
 |  hi@albert.dev |  albert  |    usuari    | https://app.compralocal.cat/login      |
 |  hi@andreu.dev |  andreu  |    usuari    | https://app.compralocal.cat/login      |
 
+## Organization
+
+This project was built thanks to a team of 4 members.
+
+[Carlota](https://github.com/carlotacb) and [Elena](https://github.com/elena20ruiz) took the responsability of building the 3 clients (landing, client and local) using pure HTML and Bootstrap for the first one and React Hooks for the rest two. [Andreu](https://github.com/andreugallofre) and [Albert](https://github.com/AlbertSuarez) implemented all the Backend API and made the deployment flawless.
+
+We used almost all the features that GitHub allowed us. We ended up having more than [66 Closed Pull Requests](https://github.com/carlotacb/compra-local/pulls?q=is%3Apr+is%3Aclosed), using [Issues](https://github.com/carlotacb/compra-local/issues?q=is%3Aissue+is%3Aclosed) and [Projects](https://github.com/carlotacb/compra-local/projects), and making the deployments easier using [GitHub Actions](https://github.com/carlotacb/compra-local/actions). Also, we were integrating all the features using [different branches](https://github.com/carlotacb/compra-local/network) for making the parallelism better.
+
 ## Requirements
 
 1. Python 3.7+
 2. NodeJS 13.11+
-3. docker-ce (as provided by docker package repos)
-4. docker-compose (as provided by PyPI)
+3. React 16+ (using Hooks)
+4. docker-ce (as provided by docker package repos)
+5. docker-compose (as provided by PyPI)
 
 ## Usage
 
@@ -65,6 +80,18 @@ To run the whole stack, please execute the following from the root directory:
     ```
 
 ## API
+
+### Stack
+
+This API is being developed using [Python 3.7](https://www.python.org/downloads/release/python-372/) as a programming language. We have used [Flask](http://flask.pocoo.org/) and [OpenAPI](https://swagger.io/docs/specification/about/) (connected themselves with [Connexion](https://connexion.readthedocs.io/en/latest/) library), integrated with [Docker compose](https://docs.docker.com/compose/).
+
+This API is hosted in a [CloudRun](https://cloud.google.com/run) using the related Dockerfile using a [PostgreSQL](https://www.postgresql.org/) database (specified below) deployed in CloudSQL. In local, for testing purposes, we deploy the API using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) and [Nginx](https://www.nginx.com/) using a replica of the production database inside a Docker container.
+
+The code follows the [PEP8](https://www.python.org/dev/peps/pep-0008/) standard, being valided by [Flake8](https://flake8.pycqa.org/en/latest/), and each endpoint is being valided using [unitests](https://docs.python.org/3/library/unittest.html). We ended up having more than 150 tests.
+
+For making the deployment easier between versions, we integrated a pipeline using [GitHub actions](https://github.com/features/actions) for every commit in the master brach which runs the tests and if it success, deploys to CloudRun.
+
+![](docs/images/github_actions.png)
 
 ### Recommendations
 
@@ -123,6 +150,14 @@ To run the API, please execute the following commands from the root directory:
    RUN_MODIFICATIONS=true python3 -m unittest discover -v
    ```
 
+![](docs/images/unittests.png)
+
+### Documentation
+
+Given the fact that we used OpenAPI for making the development easier, we could take advantage to use [ReDoc](https://github.com/Redocly/redoc) for creating a beautiful API documentation. Actually, it was very useful for making the integration with the Frontend side since the UX team was reading this documentation.
+
+![](docs/images/redoc_documentation.png)
+
 ### Development
 
 #### Logging
@@ -164,6 +199,13 @@ This is the database diagram representing the current Compra Local DB
 
 ## Client
 
+### Requirements
+
+1. MaterialUI 4.9.9+
+2. Axios 0.19.2+
+3. React 16.13.1+
+4. SJCL 1.0.8+
+
 ### Available Scripts
 
 In the project directory, you can run (from each of the available clients):
@@ -203,6 +245,38 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+### Screenshots
+
+![](docs/screenshots/screenshot_01.png)
+<br>
+![](docs/screenshots/screenshot_02.png)
+<br>
+![](docs/screenshots/screenshot_03.png)
+<br>
+![](docs/screenshots/screenshot_04.png)
+<br>
+![](docs/screenshots/screenshot_05.png)
+<br>
+![](docs/screenshots/screenshot_06.png)
+<br>
+![](docs/screenshots/screenshot_07.png)
+<br>
+![](docs/screenshots/screenshot_08.png)
+<br>
+![](docs/screenshots/screenshot_09.png)
+<br>
+![](docs/screenshots/screenshot_10.png)
+<br>
+![](docs/screenshots/screenshot_11.png)
+<br>
+![](docs/screenshots/screenshot_12.png)
+<br>
+![](docs/screenshots/screenshot_13.png)
+<br>
+![](docs/screenshots/screenshot_14.png)
+<br>
+![](docs/screenshots/screenshot_15.png)
 
 ## Authors
 
