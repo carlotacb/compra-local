@@ -3,7 +3,7 @@ const axios = require('axios');
 
 
 export function addProduct(idStore, productInfo) {
-    const endpoint = '/admin/' +  idStore + '/product/';
+    const endpoint = '/admin/' + idStore + '/product/';
     var product = {
         currency: 'EUR',
         description: productInfo["description"],
@@ -19,7 +19,7 @@ export function addProduct(idStore, productInfo) {
                 url: urlProd + endpoint,
                 data: product
             }).then(function (response) {
-                if (response.data['error'] || !response.data['response']['edited'] ) {
+                if (response.data['error'] || !response.data['response']['edited']) {
                     resolve({
                         error: true,
                         message: "not updated"
