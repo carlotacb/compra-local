@@ -6,7 +6,7 @@ const axios = require('axios');
 
 
 export function register(username, name, password) {
-    const endpoint = '/user/register';
+    const endpoint = '/user';
 
     return new Promise((resolve, reject) => {
         try {
@@ -23,16 +23,11 @@ export function register(username, name, password) {
                 }
             })
             .then(function(response) {
+                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
                         message: response.data['message']
-                    });
-                }
-                else if (!response.data["response"]["success"]) {
-                    resolve({
-                        error: true,
-                        message: "password"
                     });
                 }
                 else{
