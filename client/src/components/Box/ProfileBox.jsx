@@ -47,7 +47,10 @@ const useStyles = makeStyles((theme) => ({
     },
     bold: {
         fontWeight: 'bold'
-    }
+    },
+    input: {
+        display: 'none',
+    },
 }));
 
 export function ProfileBox() {
@@ -58,13 +61,14 @@ export function ProfileBox() {
     const [ newName, setNewName ] = useState(user.name);
     const [ newEmail, setNewEmail ] = useState(user.email_address);
     const [ newPhone, setNewPhone ] = useState(user.phone_number);
+    const [ newImage, setNewImage ] = useState(user.image);
     const [ openModal, setOpenModal ] = useState(false);
 
     const handleSave = () => {
         const updateUserInfoAPI = ApiFactory.get('updateUserInfo');
         const data = {
             "email_address": newEmail,
-            "image": user.image,
+            "image": newImage,
             "name": newName,
             "phone_number": newPhone,
             "postal_address": user.postal_address
@@ -74,6 +78,7 @@ export function ProfileBox() {
         newUser["email_address"] = newEmail;
         newUser["name"] = newName;
         newUser["phone_number"] = newPhone;
+        newUser["image"] = newImage;
         
         setUser(newUser);
         updateUserInfoAPI(user["id"], data).then((res) => {
@@ -86,6 +91,17 @@ export function ProfileBox() {
             }
         });     
     }
+
+    const handleCapture = (target) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            var result = e.target.result;
+            result = result.substring(23);
+            console.log(result);
+            setNewImage(result);
+        };
+    };
 
     const handleEdit = () => {
         console.log(user)
@@ -124,15 +140,17 @@ export function ProfileBox() {
                 </Grid>
                 <Grid xs={5} className={classes.avatar}>
                     {editable ?
-                        <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}/> : 
-                        <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ user.image}>  
-                            <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-                            <label htmlFor="icon-button-file">
-                                <IconButton color="primary" aria-label="upload picture" component="span">
-                                <PhotoCamera />
-                                </IconButton>
-                            </label>
-                        </Avatar>}
+                        <>
+                        <Typography variant="caption">Fes click a la imatge per canviar la imatge de perfil</Typography>
+                        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={(e) => handleCapture(e.target)}/>
+                        <label htmlFor="icon-button-file">
+                            <IconButton color="primary" aria-label="upload picture" component="span" >
+                                <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ newImage}/>  
+                            </IconButton>
+                        </label>
+                        </>
+                        : <Avatar className={classes.avatarSize} src={'data:image/png;base64,'+ newImage}/> 
+                    }
                     <Typography> {user.postal_address} </Typography>
                 </Grid>
                 <Grid item xs={2} className={classes.editButton}>

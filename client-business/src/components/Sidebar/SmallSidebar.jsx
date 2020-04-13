@@ -45,10 +45,8 @@ export function SmallSidebar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem id="/in/" onClick={(e) =>handleClose(e)}><StoreIcon /> Comprar</MenuItem>
-                <MenuItem id="/in/compte" onClick={(e) =>handleClose(e)}><PersonIcon /> El meu compte</MenuItem>
-                <MenuItem id="/in/comandes" onClick={(e) =>handleClose(e)}><AvTimerIcon /> Comandes</MenuItem>
-                <MenuItem id="/in/veinat" onClick={(e) =>handleClose(e)}> <GroupIcon /> Veïnat</MenuItem>
+                <MenuItem id="/in/" onClick={(e) =>handleClose(e)}><AvTimerIcon /> Comandes</MenuItem>
+                <MenuItem id="/in/botiga" onClick={(e) =>handleClose(e)}><PersonIcon /> La meva botiga</MenuItem>
                 <MenuItem onClick={handleClose}> Ajuda</MenuItem>
                 <MenuItem onClick={handleClose}>Tanca sessió</MenuItem>
             </Menu>
