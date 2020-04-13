@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper, Typography, makeStyles } from '@material-ui/core';
+import { Grid, Paper, Typography, makeStyles, Avatar } from '@material-ui/core';
 import { Stars } from '../../shared-components'
 import { Tag } from '../../shared-components/Tag/Tag';
 import { useHistory, useRouteMatch } from "react-router-dom";
@@ -8,7 +8,9 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        backgroundColor: '#F9F9F9'
+
     },
     button: {
         cursor: 'pointer'
@@ -33,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             paddingRight: theme.spacing(1)
         }
+    },
+    avatarSize: {
+        width: '90%',
+        height: '90%'
     }
 }));
 
@@ -66,10 +72,10 @@ export function StoreCard(props) {
         <Paper className={classes.root}>
             <a onClick={(e) => handleClick(e)} id={props.id} className={classes.button}>
             <Grid container direction="row">
-                <Grid item xs={3}>
-                    IMG
+                <Grid item xs={2}>
+                    <Avatar variant="rounded" className={classes.avatarSize} />
                 </Grid>
-                <Grid item xs={6} className={classes.local}>
+                <Grid item xs={7} className={classes.local}>
                     <Typography variant="h5">
                         {props.name}
                     </Typography>

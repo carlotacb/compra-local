@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
 
     },
     root: {
-        backgroundColor: theme.palette.secondary.light,
         padding: theme.spacing(4),
         overflowY: 'auto',
         overflowX: 'unset',
