@@ -115,7 +115,7 @@ export function Register() {
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
             var result = e.target.result;
-            result = result.substring(22);
+            result = result.split(",").pop();
             setImage(result);
         };
     };
