@@ -63,9 +63,8 @@ export function Sidebar(props) {
     const classes = useStyles();
 
     const handleLogout = () => {
-        
         removeCookie("iusha-bs");
-        history.push("/login");
+        setTimeout(function(){  history.push("/login"); }, 1500);
     }
 
 
