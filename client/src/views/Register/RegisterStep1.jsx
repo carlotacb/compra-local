@@ -29,6 +29,17 @@ const useStyles = makeStyles((theme) => ({
             borderRadius: 0
         }
     },
+    button: {
+        width: 'inherit',
+        display: 'flex',
+        justifyContent: 'center',
+        '& > button': {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(3),
+            width: 'inherit',
+            maxWidth: '15em'
+        }
+    },
     localGrid: {
         marginTop: '30px',
         display: 'flex',
@@ -161,7 +172,7 @@ export function RegisterStep1(props) {
                 className={classes.input}
                 />
 
-            <PrimaryButton onClick={() => handleClick()}> Registra't </ PrimaryButton>
+            <PrimaryButton className={classes.button} onClick={() => handleClick()}> Registra't </ PrimaryButton>
             <Grid container className={classes.localGrid}>
                 <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Registra't aquí"} </Link></Typography>
             </Grid>

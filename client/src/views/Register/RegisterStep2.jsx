@@ -40,10 +40,29 @@ const useStyles = makeStyles((theme) => ({
     imageNone: {
         display: 'none'
     },
+    button : {
+        width: 'inherit',
+        display: 'flex',
+        justifyContent: 'center',
+        '& > button': {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(3),
+            width: 'inherit',
+            maxWidth: '15em'
+        }
+    },
     backbutton: {
         width: '100%',
         display: 'flex',
         margin: theme.spacing(3)
+    },
+    labelImage: {
+        margin: theme.spacing(2),
+        width: '100%',
+        '& > span': {
+            width: '100%'
+        }
+    
     }
 }));
 
@@ -179,13 +198,13 @@ export function RegisterStep2(props) {
                 />
             <input accept="image/*"
                 className={classes.imageNone}
-                id="contained-button-file" 
+                id="contained-button-file"  
                 multiple type="file" 
                 onChange={(e) => handleCapture(e.target)} 
             />
             {(user["image"] !== '') ? <Typography variant="caption">Has pujat una imatge de perfil</Typography> : null}
-            <label htmlFor="contained-button-file" className={classes.margins}> <Button variant="outlined" color="primary" component="span"> Penja una foto de perfil </Button> </label>
-            <PrimaryButton onClick={() => handleClick()}> Registra't </ PrimaryButton>
+            <label htmlFor="contained-button-file" className={classes.labelImage}> <Button variant="outlined" color="primary" component="span"> Penja una foto de perfil </Button> </label>
+            <PrimaryButton className={classes.button} onClick={() => handleClick()}> Registra't </ PrimaryButton>
             <Grid container className={classes.localGrid}>
                 <Typography>Ets un comerç? <Link href="https://admin.compralocal.cat/"> {"Registra't aquí"} </Link></Typography>
             </Grid>

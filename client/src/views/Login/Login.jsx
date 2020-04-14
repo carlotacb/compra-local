@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { ApiFactory } from '../../services/ApiFactory';
 import { useCookies } from 'react-cookie';
