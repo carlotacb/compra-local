@@ -17,13 +17,14 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         backgroundColor: theme.palette.secondary.light,
         height: '100%',
+        boxShadow: '0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20)'
     },
     container:{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: 'inherit',
-        padding: theme.spacing(2),
+        padding: theme.spacing(1),
         paddingRight: theme.spacing(5),
 
     },
@@ -35,20 +36,32 @@ const useStyles = makeStyles((theme) => ({
         listStyleType: 'none'
     },
     button: {
+        width: '100%',
         marginTop: theme.spacing(0.5),
+        borderRadius: 0,
+        justifyContent: 'flex-start',
         '& svg': {
             paddingRight: theme.spacing(1)
-        }
+        },
+        '&:hover': {
+            borderRadius: 0,
+            color: theme.palette.primary.dark
+        },
     },
     buttonBg : {
+        width: '100%',
         marginTop: theme.spacing(0.5),
         backgroundColor: theme.palette.primary.main,
         color: 'white',
         borderRadius: 0,
-        width: 'inherit',
+        justifyContent: 'flex-start',
         '& svg': {
             paddingRight: theme.spacing(1)
-        }
+        },
+        '&:hover': {
+            borderRadius: 0,
+            color: theme.palette.primary.dark
+        },
     },
     itemBottom: {
         marginBottom: theme.spacing(5),
