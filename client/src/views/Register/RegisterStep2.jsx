@@ -3,7 +3,7 @@ import React from 'react';
 // components
 import { Typography, Grid, Link, TextField, makeStyles, Paper, Button } from "@material-ui/core";
 import { PrimaryButton, ErrorAlert } from '../../shared-components/';
-
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
     },
     imageNone: {
         display: 'none'
+    },
+    backbutton: {
+        width: '100%',
+        display: 'flex',
+        margin: theme.spacing(3)
     }
 }));
 
@@ -51,9 +56,9 @@ export function RegisterStep2(props) {
         image: false
     });
     const [user, setUser] = React.useState({
-        phone_number: "",
-        postal_address: "",
-        image: ""
+        phone_number: props.user["phone_number"],
+        postal_address: props.user["postal_address"],
+        image: props.user["image"]
     });
 
     function handleChange(e) {
@@ -128,12 +133,25 @@ export function RegisterStep2(props) {
 
     return (
         <form className={classes.form}>
+            <div className={classes.backbutton}>
+                <Button 
+                    onClick={(user)=>props.onBack(user)} 
+                    startIcon={<ArrowBackIcon />}
+                    color="secondary"
+                    variant="contained"
+                >
+                    <Typography variant="subtitle1">
+                        ENRERE
+                    </Typography>
+                </Button>
+            </div>
             <Typography variant="h4" color="primary" className={classes.title}>
                 <b>Estàs a un pas!</b>
             </Typography>
             <Typography variant="subtitle1" className={classes.subtitle}>
                 Ja quasi està, només queda que omplis les següents dades per poder-te mostrar les botigues més properes o poder ajudar als teus veïns.
             </Typography>
+
             <ErrorAlert error={error} />
             <TextField
                 error={error.phone_number}

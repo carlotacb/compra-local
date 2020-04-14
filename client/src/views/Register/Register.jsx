@@ -52,7 +52,7 @@ export function Register() {
     const classes = useStyles();
     const history = useHistory();
     const [cookies, setCookie] = useCookies(['iusha']);
-
+    const [error, setError] = React.useState(0);
     const [user, setUser] = React.useState({
         name: "",
         email_address: "",
@@ -64,8 +64,8 @@ export function Register() {
     })
 
     const [step, setStep] = React.useState(0);
-    const [error, setError] = useState(false);
-    
+    const [load, setLoad] = useState(false);
+
 
     function handleRegister(aUser) {
 
@@ -101,16 +101,26 @@ export function Register() {
 
 
     function handleSubmit(info) {
-        var aUser = user;
+        var aUser = {...user};
         for(var i in info) {
             aUser[i] = info[i];
         }
         if(step == 0) {
+            setUser(aUser);
             setStep(1);
         }
         else {
             handleRegister(aUser);
         }
+    }
+
+    function handleBack(info) {
+        var aUser = {...user};
+        for(var i in info) {
+            aUser[i] = info[i];
+        }
+        setStep(0);
+        setUser(aUser);
     }
 
     return (
@@ -119,8 +129,8 @@ export function Register() {
             <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.paper} elevation={6} square>
                 {
                     step == 0 ?
-                    <RegisterStep1 onSubmit={(info)=>handleSubmit(info)}/> :
-                    <RegisterStep2 onSubmit={(info)=>handleSubmit(info)}/>
+                    <RegisterStep1 user={user} onSubmit={(info)=>handleSubmit(info)}/> :
+                    <RegisterStep2 user={user} onSubmit={(info)=>handleSubmit(info)} onBack={()=>handleBack()}/>
                 }
             </Grid>
         </ Grid> 

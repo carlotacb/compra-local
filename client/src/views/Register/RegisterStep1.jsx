@@ -48,10 +48,10 @@ export function RegisterStep1(props) {
         rpassword: false
     });
     const [user, setUser] = React.useState({
-        name: "",
-        email_address: "",
-        password: "",
-        rpassword: ""
+        name: props.user["name"],
+        email_address: props.user["email_address"],
+        password: props.user["password"],
+        rpassword: props.user["rpassword"]
     });
 
     function handleClick() {
@@ -102,13 +102,14 @@ export function RegisterStep1(props) {
 
     return (
         <form className={classes.form}>
-            <ErrorAlert error={error} />
+           
             <Typography variant="h4" color="primary" className={classes.title}>
                 <b>Benvingut a <br/> compralocal.cat!</b>
             </Typography>
             <Typography variant="subtitle1"  className={classes.subtitle}>
                 Si us plau, omple el següents camps per registrar la teva botiga dins de la nostre xarxa.
             </Typography>
+            <ErrorAlert error={error} />
             <TextField
                 error={error.name}
                 variant="outlined"
@@ -118,6 +119,7 @@ export function RegisterStep1(props) {
                 label="Nom i congnoms"
                 onChange={(e) => handleChange(e)}
                 autoFocus 
+                value={user["name"]}
                 className={classes.input}
                 />
             <TextField
@@ -129,6 +131,7 @@ export function RegisterStep1(props) {
                 id="email_address"
                 label="Correu Electrònic"
                 autoComplete="email"
+                value={user["email_address"]}
                 onChange={(e) => handleChange(e)}
                 className={classes.input}
                 />
@@ -140,6 +143,7 @@ export function RegisterStep1(props) {
                 label="Contrasenya"
                 type="password"
                 id="password"
+                value={user["password"]}
                 onChange={(e) => handleChange(e)}
                 className={classes.input}
                 />
@@ -152,7 +156,8 @@ export function RegisterStep1(props) {
                 type="password"
                 id="rpassword"
                 onChange={(e) => handleChange(e)}
-                autoComplete="current-password"
+                autoComplete="password"
+                value={user["rpassword"]}
                 className={classes.input}
                 />
 
