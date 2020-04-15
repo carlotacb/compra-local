@@ -6,6 +6,7 @@ import { ApiFactory } from "../../services/ApiFactory";
 import { Valorations } from "./Valorations"
 import { UserContext } from '../../context/UserContext';
 import { Loading } from "../../components/Loading/Loading";
+import { UserInformation, UserInformationEdit } from "../../components/";
 
 const useStyles = makeStyles((theme) => ({
     secondTitle: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function Profile() {
     const { user } = React.useContext(UserContext);
+    const [ edit, setEdit ] = React.useState(false);
     const [ page, setPage ] = useState(0);
     const [ recivedValorations, setRecivedValorations ] = useState('');
     const [ givenValorations, setGivenValorations ] = useState('');
@@ -49,16 +51,13 @@ export function Profile() {
     return (
         <Grid container direction="column" justify="space-between">
             <Grid item>
-                <Typography variant="h1">
-                    Hola {user.name}!
-                </Typography>
+                {
+                    edit ?
+                    <UserInformationEdit /> :
+                    <UserInformation />
+                }
             </Grid>
-            <Grid item>
-                <ProfileBox />
-            </Grid>
-            <Grid item>
-                <SecondaryButton onClick={() => setOpenModal(true)}> Canviar contrasenya </SecondaryButton>
-            </Grid>
+
             <Grid item className={classes.secondTitle}> 
                 <Typography variant="h1"> Les teves valoracions </Typography>
             </Grid>
