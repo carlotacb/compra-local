@@ -4,9 +4,7 @@ import { UserContext } from '../../context';
 import { Grid, Avatar, makeStyles } from '@material-ui/core';
 import { SecondaryButton } from '../../shared-components';
 import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import CloseIcon from '@material-ui/icons/Close';
-import { UserInformationEdit } from '..';
+
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -53,16 +51,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export function UserInformation() {
+export function UserInformation(props) {
     const { user } = React.useContext(UserContext);
-    const [openModal, setOpenModal] = React.useState(false);
-    const [edit, setEdit] = React.useState(false);
     const classes = useStyles();
-
-
-    function handleEdit() {
-        setEdit(!edit);
-    }
+    const [openModal, setOpenModal] = React.useState(false);
 
     function renderFields() {
         const fields = ["name", "email_address", "postal_address", "phone_number"]
@@ -129,26 +121,11 @@ export function UserInformation() {
                 <Typography variant="h1" className={classes.title}>
                     Hola {user.name}!
                 </Typography>
-                {
-                    edit ?
-                        <div>
-                            <IconButton>
-                                <SaveIcon color="primary" onClick={() => handleEdit()} />
-                            </IconButton>
-                            <IconButton>
-                                <CloseIcon onClick={() => handleEdit()} />
-                            </IconButton>
-                        </div> :
-                        <IconButton>
-                            <EditIcon color="primary" onClick={() => handleEdit()} />
-                        </IconButton>
-                }
+                <IconButton>
+                    <EditIcon color="primary" onClick={()=>props.onClick()} />
+                </IconButton>
             </Grid>
-            {
-                edit ?
-                    <UserInformationEdit /> :
-                    renderDataFields()
-            }
+            { renderDataFields() }
         </Grid>
     )
 }

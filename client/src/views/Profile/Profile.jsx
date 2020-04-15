@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 import { SecondaryButton, GroupButton } from '../../shared-components/';
-import { ProfileBox, PasswordDialog } from "../../components";
+import { PasswordDialog } from "../../components";
 import { ApiFactory } from "../../services/ApiFactory";
 import { Valorations } from "./Valorations"
 import { UserContext } from '../../context/UserContext';
 import { Loading } from "../../components/Loading/Loading";
 import { UserInformation, UserInformationEdit } from "../../components/";
+import { UserInformationRouter } from "../../components/UserProfile/UserInformationRouter";
 
 const useStyles = makeStyles((theme) => ({
     secondTitle: {
@@ -16,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function Profile() {
     const { user } = React.useContext(UserContext);
-    const [ edit, setEdit ] = React.useState(false);
     const [ page, setPage ] = useState(0);
     const [ recivedValorations, setRecivedValorations ] = useState('');
     const [ givenValorations, setGivenValorations ] = useState('');
@@ -51,11 +51,7 @@ export function Profile() {
     return (
         <Grid container direction="column" justify="space-between">
             <Grid item>
-                {
-                    edit ?
-                    <UserInformationEdit /> :
-                    <UserInformation />
-                }
+                <UserInformationRouter />
             </Grid>
 
             <Grid item className={classes.secondTitle}> 
