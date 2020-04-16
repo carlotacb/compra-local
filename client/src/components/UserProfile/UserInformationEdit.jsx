@@ -3,6 +3,8 @@ import { UserContext } from '../../context';
 import { Grid, makeStyles, Typography, IconButton, Avatar, TextField } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
+import { checkProfileEdit } from '../../utils/inputs';
+import { ErrorAlert } from '../../shared-components';
 const useStyles = makeStyles((theme) => ({
     avatarContainer: {
         display: 'flex',
@@ -13,8 +15,15 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         width: 'auto',
-        maxWidth: '10em',
         height: 'auto',
+        maxWidth: '10em',
+        minHeight: '10em',
+        maxHeight: '15em',
+        objectFit: 'cover',
+        '& > img': {
+            objectFit: 'cover',
+            objectPosition: '100% 0',
+        },
         bagroundColor: theme.palette.secondary.main,
         [theme.breakpoints.down('sm')]: {
             width: 'auto',
@@ -71,13 +80,18 @@ const useStyles = makeStyles((theme) => ({
 
 export function UserInformationEdit(props) {
     const classes = useStyles();
-    const { user, setUser } = React.useContext(UserContext);
+    const [error, setError]  = React.useState({
+        email_address: false,
+        name: false,
+        phone_number: false,
+        postal_address: false
+    })
     const [userInfo, setUserInfo] = React.useState({
-        "email_address": user["email_address"],
-        "image": user["image"],
-        "name": user["name"],
-        "phone_number": user["phone_number"],
-        "postal_address": user["postal_address"]
+        email_address: props.user["email_address"],
+        image: props.user["image"],
+        name: props.user["name"],
+        phone_number: props.user["phone_number"],
+        postal_address: props.user["postal_address"]
     });
 
     const handleCapture = (target) => {
@@ -101,6 +115,16 @@ export function UserInformationEdit(props) {
             ...userInfo,
             [id]: value
         });
+    }
+
+    function handleSubmit() {
+        var existsErrors = checkProfileEdit(userInfo);
+        if(!existsErrors[0]){
+            props.onClick(userInfo);
+        }
+        else {
+            setError(existsErrors[1]);
+        }
     }
 
 
@@ -140,17 +164,18 @@ export function UserInformationEdit(props) {
         >
             <Grid item xs={12} className={classes.titleContainer}>
                 <Typography variant="h1" className={classes.title}>
-                    Hola {user.name}!
+                    Hola {props.user.name}!
                 </Typography>
                 <div>
                     <IconButton>
-                        <SaveIcon color="primary" onClick={() => props.onClick()} />
+                        <SaveIcon color="primary" onClick={() => handleSubmit()} />
                     </IconButton>
                     <IconButton>
                         <CloseIcon onClick={() => props.onClick()}  />
                     </IconButton>
                 </div>
             </Grid>
+
             <Grid item lg={3} md={5} sm={8} xs={12} className={classes.avatarContainer}>
                 <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={(e) => handleCapture(e.target)} />
                 <label htmlFor="icon-button-file">
@@ -158,7 +183,7 @@ export function UserInformationEdit(props) {
                         <Avatar
                             className={classes.avatar}
                             variant="square"
-                            alt={user["name"]}
+                            alt={props.user["name"]}
                             src={'data:image/png;base64,' + userInfo["image"]} />
                     </IconButton>
                 </label>
@@ -169,6 +194,9 @@ export function UserInformationEdit(props) {
                     justify='space-between'
                     alignItems="center"
                 >
+                    <Grid item xs={12}>
+                        <ErrorAlert error={error} />
+                    </Grid>
                     {renderFields()}
                 </Grid>
             </Grid>

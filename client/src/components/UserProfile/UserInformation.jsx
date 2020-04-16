@@ -32,8 +32,15 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         width: 'auto',
-        maxWidth: '10em',
         height: 'auto',
+        maxWidth: '10em',
+        objectFit: 'cover',
+        minHeight: '10em',
+        maxHeight: '15em',
+        '& > img': {
+            objectFit: 'cover',
+            objectPosition: '100% 0',
+        },
         [theme.breakpoints.down('sm')]: {
             width: 'auto',
             maxWidth: '12em',
@@ -52,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function UserInformation(props) {
-    const { user } = React.useContext(UserContext);
     const classes = useStyles();
     const [openModal, setOpenModal] = React.useState(false);
 
@@ -72,7 +78,7 @@ export function UserInformation(props) {
                         <b>{titles[i]}</b>
                     </Typography>
                     <Typography variant="body1">
-                        {user[fields[i]]}
+                        {props.user[fields[i]]}
                     </Typography>
                 </Grid>
             )
@@ -87,8 +93,8 @@ export function UserInformation(props) {
                 <Avatar
                     className={classes.avatar}
                     variant="square"
-                    alt={user["name"]}
-                    src={'data:image/png;base64,' + user["image"]}
+                    alt={props.user["name"]}
+                    src={'data:image/png;base64,' + props.user["image"]}
                 />
             </Grid>
         )
@@ -119,7 +125,7 @@ export function UserInformation(props) {
         >
             <Grid item xs={12} className={classes.titleContainer}>
                 <Typography variant="h1" className={classes.title}>
-                    Hola {user.name}!
+                    Hola {props.user.name}!
                 </Typography>
                 <IconButton>
                     <EditIcon color="primary" onClick={()=>props.onClick()} />

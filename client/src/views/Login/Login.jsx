@@ -13,6 +13,7 @@ import { LoginInfo } from '../../components';
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Paper, TextField, Link } from "@material-ui/core";
+import { checkLogin } from "../../utils/inputs";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -96,11 +97,11 @@ export function Login() {
 
     const handleLogin = () => {
         // check inputs
-        if (!userData["email"].includes("@") || !userData["email"].includes(".")) {
-            setError({
-                email: "Vaja, sembla un correu electrònic incorrecte.",
-                password: false
-            });
+        var errors = checkLogin(userData);
+        if(errors[0]) {
+            setError(
+                errors[1]
+            );
             return;
         }
 
@@ -108,10 +109,7 @@ export function Login() {
         loginAPI(userData["email"], userData["password"])
             .then((res) => {
                 if (!res["error"]) {
-                    setError({
-                        email: false,
-                        password: false
-                    });
+
                     setCookie('iusha', res["user"], { path: '/' });
                     history.push('/in');
                 }

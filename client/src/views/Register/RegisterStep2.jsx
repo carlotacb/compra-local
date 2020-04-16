@@ -4,6 +4,7 @@ import React from 'react';
 import { Typography, Grid, Link, TextField, makeStyles, Paper, Button } from "@material-ui/core";
 import { PrimaryButton, ErrorAlert } from '../../shared-components/';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { checkRegisterStep2 } from '../../utils/inputs';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -102,50 +103,15 @@ export function RegisterStep2(props) {
     };
 
     function handleClick() {
-        var errorAux = {
-            phone_number: false,
-            postal_address: false,
-            image: false
-        };
-        var existsError = false;
-
         // Check parameters
-        if (user["phone_number"] == "" || user["postal_address"] == "") {
-            errorAux["phone_number"] = "Cap camp pot estar buit";
-            errorAux["postal_address"] = "Cap camp pot estar buit";
-            setError(errorAux);
-            existsError = true;
-            return; 
-        }
-
-        var rPhoneNumber = user["phone_number"].replace("+", "");
-        var sPhoneNumber = rPhoneNumber.replace(/\s/g, "");
-
-        var r = parseInt(rPhoneNumber);
-        if(r === NaN || sPhoneNumber.length < 9) {
-            errorAux["phone_number"] = "El número de telèfon és invalid.";
-            setError(errorAux);
-            existsError = true;
-            return; 
-        }
-
-
-        var lAddress = user["postal_address"].split(" ");
-        if(lAddress.length < 4) {
-            errorAux["postal_address"] = "La adreça sembla incompleta";
-            setError(errorAux);
-            existsError = true;
-            return; 
-        }
-        if(user["image"] == "") {
-            errorAux["image"] = "Eps! Et falta penjar la teva imatge de perfil.";
-            setError(errorAux);
-            existsError = true;
-            return;        
-        }
-
-        if (!existsError) {
+        var existsError = checkRegisterStep2(user);
+        if (!existsError[0]) {
             props.onSubmit(user);
+        }
+        else {
+            setError(
+                existsError[1]
+            )
         }
     }
 

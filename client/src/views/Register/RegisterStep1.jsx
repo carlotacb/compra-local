@@ -3,6 +3,7 @@ import React from 'react';
 // components
 import { Typography, Grid, Link, TextField, makeStyles } from "@material-ui/core";
 import { PrimaryButton, ErrorAlert } from '../../shared-components/';
+import { checkRegisterStep1 } from '../../utils/inputs';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -66,39 +67,14 @@ export function RegisterStep1(props) {
     });
 
     function handleClick() {
-        var errorAux = {
-            name: false,
-            email_password: false,
-            password: false,
-            rpassword: false
-        };
-        var existsError = false;
 
-        // Check parameters
-        if(user["name"] == "" || user["email_address"] == "" 
-            || user["password"] == "" || user["rpassword"] == "") {
-            errorAux["name"] = "Cap camp pot estar buit";
-            errorAux["email_address"] = "Cap camp pot estar buit";
-            errorAux["password"] = "Cap camp pot estar buit";
-            errorAux["rpassword"] = "Cap camp pot estar buit";
-            setError(errorAux);
-            existsError = true;
-            return;
-        }
+        var existsError = checkRegisterStep1(user);
 
-        if(!user["email_address"].includes("@") || !user["email_address"].includes(".")) {
-            errorAux["email_address"] = "Format de l'e-mail incorrecte";
-            setError(errorAux);
-            existsError = true;
-        }
-
-        if(user["password"] != user["rpassword"]) {
-            errorAux["password"] = "Les contrasenyes no coincideixen";
-            errorAux["rpassword"] = true;
-            setError(errorAux);
-        }
-        if (!existsError) {
+        if (!existsError[0]) {
             props.onSubmit(user);
+        }
+        else{
+            setError(existsError[1]);
         }
     }
 
