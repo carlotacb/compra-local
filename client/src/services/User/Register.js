@@ -13,7 +13,6 @@ export function register(data) {
                 data: data
             })
             .then(function(response) {
-                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,

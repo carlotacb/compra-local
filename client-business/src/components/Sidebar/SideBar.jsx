@@ -4,9 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import StoreIcon from '@material-ui/icons/Store';
-import PersonIcon from '@material-ui/icons/Person';
 import AvTimerIcon from '@material-ui/icons/AvTimer';
-import GroupIcon from '@material-ui/icons/Group';
 import HelpIcon from '@material-ui/icons/Help';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
@@ -17,13 +15,14 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         backgroundColor: theme.palette.secondary.light,
         height: '100%',
+        boxShadow: '0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20)'
     },
     container:{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: 'inherit',
-        padding: theme.spacing(2),
+        padding: theme.spacing(1),
         paddingRight: theme.spacing(5),
 
     },
@@ -35,20 +34,32 @@ const useStyles = makeStyles((theme) => ({
         listStyleType: 'none'
     },
     button: {
+        width: '100%',
         marginTop: theme.spacing(0.5),
+        borderRadius: 0,
+        justifyContent: 'flex-start',
         '& svg': {
             paddingRight: theme.spacing(1)
-        }
+        },
+        '&:hover': {
+            borderRadius: 0,
+            color: theme.palette.primary.dark
+        },
     },
     buttonBg : {
+        width: '100%',
         marginTop: theme.spacing(0.5),
         backgroundColor: theme.palette.primary.main,
         color: 'white',
         borderRadius: 0,
-        width: 'inherit',
+        justifyContent: 'flex-start',
         '& svg': {
             paddingRight: theme.spacing(1)
-        }
+        },
+        '&:hover': {
+            borderRadius: 0,
+            color: theme.palette.primary.dark
+        },
     },
     itemBottom: {
         marginBottom: theme.spacing(5),
@@ -63,9 +74,8 @@ export function Sidebar(props) {
     const classes = useStyles();
 
     const handleLogout = () => {
-        
         removeCookie("iusha-bs");
-        history.push("/login");
+        setTimeout(function(){  history.push("/login"); }, 1500);
     }
 
 

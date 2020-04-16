@@ -1,6 +1,9 @@
 import { Sidebar as S } from './Sidebar/SideBar'
 import { ListView as LV } from './ListView/ListView';
 
+//Info
+import { LoginInfo as LI} from './Cards/LoginInfo';
+
 //Store
 import { StoreEdit as SE} from './Store/StoreEdit';
 import { StoreInfo as SI} from './Store/StoreInfo';
@@ -16,8 +19,11 @@ import { TicketDialog as TD } from './Dialog/TicketDialog';
 import { ConfirmationDialog as CD } from './Dialog/ConfirmationDialog';
 import { AddProductDialog as APD} from './Dialog/AddProductDialog';
 
+
 export const Sidebar = S;
 export const ListView = LV;
+
+export const LoginInfo = LI;
 
 export const StoreInfo = SI;
 export const StoreEdit = SE;
