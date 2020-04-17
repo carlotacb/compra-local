@@ -3,6 +3,8 @@ import { Typography, IconButton } from '@material-ui/core';
 import { UserContext } from '../../context';
 import { Grid, Avatar, makeStyles } from '@material-ui/core';
 import { SecondaryButton } from '../../shared-components';
+import { PasswordDialog } from '../../components';
+
 import EditIcon from '@material-ui/icons/Edit';
 
 
@@ -11,20 +13,22 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2),
         textAlign: 'left',
         [theme.breakpoints.down('sm')]: {
-            textAlign: 'left'
+            textAlign: 'left',
+            marginBottom: 0
         }
     },
     titleContainer: {
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     infoContainer: {
         height: '100%',
         marginTop: 0,
         [theme.breakpoints.down('sm')]: {
-            paddingTop: theme.spacing(3),
-            paddingBottom: theme.spacing(3)
-        }
+            padding: theme.spacing(2)
+        },
+        
     },
     avatarContainer: {
         display: 'flex',
@@ -61,6 +65,11 @@ const useStyles = makeStyles((theme) => ({
 export function UserInformation(props) {
     const classes = useStyles();
     const [openModal, setOpenModal] = React.useState(false);
+
+
+    function handleClick() {
+        setOpenModal(!openModal);
+    }
 
     function renderFields() {
         const fields = ["name", "email_address", "postal_address", "phone_number"]
@@ -132,6 +141,7 @@ export function UserInformation(props) {
                 </IconButton>
             </Grid>
             { renderDataFields() }
+            <PasswordDialog open={openModal} onClick={()=>handleClick()}/>
         </Grid>
     )
 }

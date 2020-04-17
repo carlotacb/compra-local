@@ -4,7 +4,7 @@ import React from 'react';
 import { Typography, Grid, Link, TextField, makeStyles, Paper, Button } from "@material-ui/core";
 import { PrimaryButton, ErrorAlert } from '../../shared-components/';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { checkRegisterStep2 } from '../../utils/inputs';
+import { checkRegisterStep2 } from '../../utils/forms/init';
 
 const useStyles = makeStyles((theme) => ({
     title: {

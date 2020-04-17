@@ -20,7 +20,7 @@ export function ErrorAlert(props) {
     var errorsOutput = [];
 
     for (var i in props.error) {
-        if (props.error[i] && !existsError) {
+        if (props.error[i] && props.error[i].length > 0 && !existsError) {
             existsError = true;
             errorsOutput.push(
                 props.error[i]

@@ -1,79 +1,149 @@
 import React, { useState } from 'react';
-import { TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { Typography, makeStyles, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { ApiFactory } from "../../services/ApiFactory";
 import { useCookies } from 'react-cookie';
+import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
+import { ErrorAlert } from '../../shared-components/Span/ErrorAlert';
+import { checkChangePassword } from '../../utils/forms/changePassword';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        borderRadius: 0
+    },
+    textField: {
+        '& > div': {
+            borderRadius: 0
+        }
+    },
+    bottom: {
+        paddding: theme.spacing(2)
+    }
+}));
+
 
 export function PasswordDialog(props) {
     const [ cookies ] = useCookies(['uisha']);
-    const [currentPassword, setCurrentPassword] = React.useState('');
-    const [newPassword, setNewPassword] = React.useState();
-    const [errorPW, setErrorPW] = useState(false);
-    const [error, setError] = useState(false);
+    const classes = useStyles();
+
+    const [passInfo, setPassInfo] = React.useState({
+        current: "",
+        new: "",
+        rnew: ""
+    });
+
+    const [error, setError] = useState({
+        current: false,
+        new: false,
+        rnew: false
+    });
 
     function handleAccept(){
-
+        
+        var existsErrors = checkChangePassword(passInfo);
+        if(existsErrors[0]) {
+            setError(existsErrors[1]);
+            return;
+        }
         const changePasswordAPI = ApiFactory.get('changePassword');
-        changePasswordAPI(cookies.iusha, currentPassword, newPassword).then((res) => {
+        changePasswordAPI(cookies.iusha, passInfo["current"], passInfo["new"]).then((res) => {
             if (res.error) {
-                setError(true)
+                setError({
+                    ...error,
+                    "current": res.message
+                })
             } else {
-                props.onAccept(true);
+                props.onClick();
             }
         });
     }
 
-    const checkPasswords = (value) => {
-        if (value != newPassword) {
-            setErrorPW(true);
-        } else {
-            setErrorPW(false);
+    function handleChange(e) {
+        var id = e.currentTarget.id;
+        var value = e.currentTarget.value;
+
+        setPassInfo({
+            ...passInfo, 
+            [id]: value
+        });
+        if(id == "rnew") {
+            if(value != passInfo["new"]) {
+                setError({
+                    current: false,
+                    new: true,
+                    rnew: true
+                })
+            }
+            else {
+                setError({
+                    current: false,
+                    new: false,
+                    rnew: false
+                })
+            }
         }
     }
 
+
     return (
-        <Dialog fullWidth open={props.open} onClose={props.close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" >
+        <Dialog 
+            fullWidth 
+            open={props.open} 
+            onClose={props.onClick} 
+            aria-labelledby="Modal per canviar la contrasenya" 
+            className={classes.root}
+        >
             <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
                 <DialogContent>
+                    <Typography variant="h6">
+                        Canviar contrasenya
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        Per canviar la teva contrasenya, introdueix la actual i després la nova.
+                    </Typography>
+                    <ErrorAlert error={error} />
                     <TextField 
-                        error={error}
+                        className={classes.textField}
+                        error={error["current"]}
                         variant="outlined" 
                         margin="normal" 
                         required 
                         fullWidth 
-                        name="oldPassword" 
                         label="Contrasenya actual" 
                         type="password" 
-                        id="oldPassword" 
-                        onChange={(e)=>setCurrentPassword(e.target.value)} />
+                        id="current" 
+                        autoFocus
+                        onChange={(e)=>handleChange(e)} />
                     <TextField 
-                        error={errorPW}
+                        className={classes.textField}
+                        error={error["new"]}
                         variant="outlined" 
                         margin="normal" 
                         required 
                         fullWidth 
-                        name="password" 
                         label="Nova contrasenya" 
                         type="password" 
-                        id="password" 
-                        onChange={(e)=>setNewPassword(e.target.value)} />
+                        id="new" 
+                        onChange={(e)=>handleChange(e)}
+                        autoComplete="current-password"
+                      />
                     <TextField 
-                        error={errorPW}
+                        className={classes.textField}
+                        error={error["rnew"]}
                         variant="outlined" 
                         margin="normal" 
                         required 
                         fullWidth 
-                        name="password2" 
                         label="Repeteix la nova contrasenya" 
                         type="password" 
-                        id="password2" 
-                        onChange={(e)=>checkPasswords(e.target.value)}
-                        autoComplete="current-password" />  
+                        id="rnew" 
+                        onChange={(e)=>handleChange(e)} />  
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => handleAccept()} color="primary">
+                <DialogActions className={classes.bottom}>
+                    <PrimaryButton onClick={() => handleAccept()} color="primary">
                         Aceptar
-                    </Button>
-                    <Button onClick={props.onClose} color="primary">
+                    </PrimaryButton>
+                    <Button onClick={props.onClick} color="primary">
                         Cancel·lar
                     </Button>
                 </DialogActions>

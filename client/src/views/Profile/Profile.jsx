@@ -6,7 +6,6 @@ import { ApiFactory } from "../../services/ApiFactory";
 import { Valorations } from "./Valorations"
 import { UserContext } from '../../context/UserContext';
 import { Loading } from "../../components/Loading/Loading";
-import { UserInformation, UserInformationEdit } from "../../components/";
 import { UserInformationRouter } from "../../components/UserProfile/UserInformationRouter";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,8 +48,9 @@ export function Profile() {
     }
 
     return (
-        <Grid container direction="column" justify="space-between">
-            <Grid item>
+        <Grid container direction="column" justify="space-between"
+        >
+            <Grid item >
                 <UserInformationRouter />
             </Grid>
 

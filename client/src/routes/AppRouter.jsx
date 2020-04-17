@@ -16,7 +16,11 @@ const useStyles = makeStyles((theme) => ({
         height: 'inherit'
     },
     page: {
-        padding: theme.spacing(7)
+        padding: theme.spacing(7),
+        [theme.breakpoints.down('sm')]: {
+            padding: theme.spacing(3),
+            paddingTop: theme.spacing(7)
+        }
     },
     buttonMenu: {
         position: 'absolute'
