@@ -91,7 +91,9 @@ export function PasswordDialog(props) {
             open={props.open} 
             onClose={props.onClick} 
             aria-labelledby="Modal per canviar la contrasenya" 
-            className={classes.root}
+            classes={{
+                paper: classes.root
+            } }
         >
             <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
                 <DialogContent>
