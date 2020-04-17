@@ -1,19 +1,18 @@
 import React, { useContext, useState } from "react";
 import { useHistory, Redirect } from "react-router-dom";
-
-import { UserContext } from "../../context/UserContext";
-import { SpanAlert } from "../../shared-components/Span/SpanAlert";
-import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
-
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from "@material-ui/core";
 import { ApiFactory } from '../../services/ApiFactory';
 import { useCookies } from 'react-cookie';
+
+// shared-components
+import { ErrorAlert } from "../../shared-components/";
+import { PrimaryButton } from '../../shared-components/Button/PrimaryButton'
+
+// components
+import { LoginInfo } from '../../components';
+
+// material-ui
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Grid, Paper, TextField, Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,6 +27,16 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignContent: 'center',
         alignItems: 'center'
+    },
+    span: {
+        color: 'white',
+        padding: theme.spacing(1),
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+        backgroundColor: theme.palette.error.light,
+        marginBottom: theme.spacing(1),
+        textAlign: 'center',
+        border: `1px solid ${theme.palette.error.dark}`
     },
     paper: {
         display: 'flex',
@@ -67,121 +76,106 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         alignContent: 'center',
-    },
-    info: {
-        padding: theme.spacing(5),
-        backgroundColor: 'white',
-        maxWidth: '25em',
-        height: 'fit-content',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-        transition: 'all 0.3s cubic-bezier(.25,.8,.25,1)'
-    },
-    h5: {
-        marginBottom: theme.spacing(2)
     }
 }));
 
 export function Login() {
     const history = useHistory();
+    const classes = useStyles();
     const [cookies, setCookie] = useCookies(['iusha']);
 
-    const { user, setUser } = useContext(UserContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(false);
-    const classes = useStyles();
+    const [error, setError] = useState({
+        email: false,
+        password: false
+    });
+    const [userData, setUserData] = React.useState({
+        email: "",
+        password: ""
+    });
 
     const handleLogin = () => {
+        // check inputs
+        if (!userData["email"].includes("@") || !userData["email"].includes(".")) {
+            setError({
+                email: "Vaja, sembla un correu electrònic incorrecte.",
+                password: false
+            });
+            return;
+        }
 
         const loginApi = ApiFactory.get('login');
-        loginApi(email, password).then((res) => {
+        loginApi(userData["email"], userData["password"]).then((res) => {
             if (!res["error"]) {
-                setError(false);
-                setCookie('iusha-bs', res["user"], { path: '/' });
-                history.push("/in/botiga");
-            }
-            else if (res["message"] == "password") {
-                setError(true);
-            }
+                    setError({
+                        email: false,
+                        password: false
+                    });
+                    setCookie('iusha-bs', res["user"], { path: '/' });
+                    history.push('/in');
+                }
+                else if (res["message"] == "password") {
+                    setError({
+                        email: "El correu o la contrasenya indicada no són correctes.",
+                        password: "El correu o la contrasenya indicada no són correctes."
+                    });
+                }
+                else {
+                    setError({
+                        email: false,
+                        password: false,
+                        unexpected: "Vaja! Hi ha hagut un error inesperat :("
+                    });
+                }
         })
     }
 
+    function handleChange(e) {
+        var id = e.currentTarget.id;
+        var value = e.currentTarget.value;
+        setUserData({
+            ...userData,
+            [id]: value
+        });
+    }
+    
+    // You shall not pass
     if ("iusha-bs" in cookies) {
         return <Redirect to="/in" />
     }
     return (
         <Grid container component="main" className={classes.root}>
-            <Grid item xs={false} sm={4} md={7} className={classes.image}>
-                <div className={classes.info}>
-                    <Grid container
-                        alignContent="center"
-                    >
-                        <Grid item xs={8}>
-                            <Typography
-                                className={classes.h5}
-                                variant="h5"
-                                color="primary">
-                                USUARIS DE PROVA
-                        </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="body1">
-                                <b>Usuari 1:</b>
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="body1">
-                                <i>Usuari:</i> hi@carlota.dev
-                        </Typography>
-                            <Typography variant="body1">
-                                <i>Contrasenya:</i> carlota
-                        </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="body1">
-                                <b>Usuari 2:</b>
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="body1">
-                                <i>Usuari:</i> hi@elena.dev
-                        </Typography>
-                            <Typography variant="body1">
-                                <i>Contrasenya:</i> elena
-                        </Typography>
-                        </Grid>
-                    </Grid>
-                </div>
+            <Grid item xs={false} sm={4} md={7} className={classes.image} >
+                <LoginInfo />
             </Grid>
             <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.paper} elevation={6} square>
                 <form className={classes.form}>
-                    {error ? <SpanAlert message={'error'}><Typography>El email o password no son correctes</Typography></SpanAlert> : null}
-                    <TextField
-                        error={error}
-                        className={classes.input}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Correu Electrònic"
-                        name="email"
-                        autoComplete="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        autoFocus />
-                    <TextField
-                        error={error}
-                        className={classes.input}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Contrasenya"
-                        type="password"
-                        id="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        autoComplete="current-password" />
+                <ErrorAlert error={error}/>
+                <TextField
+                    error={error["email"]}
+                    className={classes.input}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Correu Electrònic"
+                    name="email"
+                    autoComplete="email"
+                    onChange={(e) => handleChange(e)}
+                    autoFocus />
+                <TextField
+                    error={error["password"]}
+                    className={classes.input}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Contrasenya"
+                    type="password"
+                    id="password"
+                    onChange={(e) => handleChange(e)}
+                    autoComplete="current-password" />
 
                     <div className={classes.button}>
                         <PrimaryButton onClick={() => handleLogin()}> Entra </ PrimaryButton>

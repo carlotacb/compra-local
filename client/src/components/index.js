@@ -25,6 +25,7 @@ import { HelperCard as HC } from './Card/HelperCard'
 import { HelperPetitionCard as HPC } from './Card/HelperPetitionCard'
 import { PendingReviewCard as PRC } from './Card/PendingReviewCard'
 import { NoInfoCard as NIC } from './Card/NoInfoCard'
+import {LoginInfo as LI} from './Card/LoginInfo';
 
 //Store 
 import { StoreBody as StB } from './Store/StoreBody';
@@ -33,6 +34,10 @@ import { StoreProducts as SP } from './Store/StoreProducts';
 
 // Cart
 import { ShoppingCart as SCart} from './Cart/ShoppingCart';
+
+// User Profile
+import {UserInformation as UI} from './UserProfile/UserInformation';
+import {UserInformationEdit as UIE} from './UserProfile/UserInformationEdit';
 
 export const Sidebar = Sid;
 
@@ -60,3 +65,8 @@ export const HelperPetitionCard = HPC;
 export const PendingReviewCard = PRC;
 export const Loading = L;
 export const NoInfoCard = NIC;
+export const LoginInfo = LI;
+
+// User
+export const UserInformation = UI;
+export const UserInformationEdit = UIE;

@@ -1,9 +1,8 @@
 import { urlProd } from '../ApiFactory';
 const axios = require('axios');
 
-export function updateUserInfo(idStore, data) {
-    const endpoint = '/user/' + idStore ;
-    console.log(endpoint)
+export function updateUserInfo(idUser, data) {
+    const endpoint = '/user/' + idUser ;
 
     return new Promise((resolve, reject) => {
         try {
@@ -12,7 +11,6 @@ export function updateUserInfo(idStore, data) {
                 url: urlProd + endpoint,
                 data: data
             }).then(function(response) {
-                console.log(response)
                 if(response.data['error']) {
                     resolve({
                         error: true,
@@ -22,7 +20,7 @@ export function updateUserInfo(idStore, data) {
                 else {
                     resolve({
                         error: false,
-                        user: response.data['response']
+                        edit: response.data["response"].edited
                     });
                 }
             })

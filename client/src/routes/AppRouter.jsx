@@ -16,7 +16,11 @@ const useStyles = makeStyles((theme) => ({
         height: 'inherit'
     },
     page: {
-        padding: theme.spacing(7)
+        padding: theme.spacing(7),
+        [theme.breakpoints.down('sm')]: {
+            padding: theme.spacing(3),
+            paddingTop: theme.spacing(7)
+        }
     },
     buttonMenu: {
         position: 'absolute'
@@ -99,10 +103,10 @@ export function AppRouter() {
     }
     else {
         return (<Grid container className={classes.root}>
-            <Grid item xs={2}>
+            <Grid item lg={2} md={3} sm={4} xs={0}>
                 <Sidebar path={path} onClick={(e) => handleChangePage(e)} />
             </Grid>
-            <Grid item xs={10} className={classes.page}>
+            <Grid item lg={10} md={8} sm={8} xs={12}className={classes.page}>
                 {renderRouter()}
             </Grid>
         </Grid>)

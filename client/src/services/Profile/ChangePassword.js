@@ -21,6 +21,12 @@ export function changePassword(idStore, oldPW, newPW) {
                 data: data
             }).then(function(response) {
                 if(response.data['error']) {
+                    if("Password" in response.data['message']) {
+                        resolve({
+                            error: true,
+                            message: "El password introduit es incorrecte."
+                        });
+                    }
                     resolve({
                         error: true,
                         message: response.data['message']
