@@ -12,7 +12,11 @@ export function Valorations(props) {
         for (var i = 0; i < response.length; ++i) {
             valorations.push(
                 <Grid item>
-                    <ReviewCard writer={response[i].writer || response[i].destination} punctuation={response[i].punctuation} comment={response[i].comment} />
+                    <ReviewCard 
+                        writer={response[i].writer || response[i].destination} 
+                        punctuation={response[i].punctuation} 
+                        comment={response[i].comment}
+                    />
                 </Grid>
             )
         }

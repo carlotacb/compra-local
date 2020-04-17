@@ -3,7 +3,7 @@ import { UserContext } from '../../context';
 import { Grid, makeStyles, Typography, IconButton, Avatar, TextField } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
-import { checkProfileEdit } from '../../utils/inputs';
+import { checkProfileEdit } from '../../utils/forms/init';
 import { ErrorAlert } from '../../shared-components';
 const useStyles = makeStyles((theme) => ({
     avatarContainer: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             width: 'auto',
             maxWidth: '12em',
-            height: 'fit-content'
+            height: 'fit-content',
         },
         [theme.breakpoints.down('xs')]: {
             maxWidth: '6em',
@@ -44,12 +44,14 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2),
         textAlign: 'left',
         [theme.breakpoints.down('sm')]: {
-            textAlign: 'left'
+            textAlign: 'left',
+            marginBottom: 0
         }
     },
     titleContainer: {
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     input: {
         display: 'none'
@@ -58,8 +60,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         marginTop: 0,
         [theme.breakpoints.down('sm')]: {
-            paddingTop: theme.spacing(3),
-            paddingBottom: theme.spacing(3)
+            padding: theme.spacing(3)
         }
     },
     root: {
@@ -74,18 +75,16 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     fieldContainer: {
-        paddingRight: theme.spacing(3)
+        paddingRight: theme.spacing(3),
+        [theme.breakpoints.down('sm')]: {
+            padding: theme.spacing(0)
+        }
     }
 }));
 
 export function UserInformationEdit(props) {
     const classes = useStyles();
-    const [error, setError]  = React.useState({
-        email_address: false,
-        name: false,
-        phone_number: false,
-        postal_address: false
-    })
+    const [error, setError]  = React.useState(props.error)
     const [userInfo, setUserInfo] = React.useState({
         email_address: props.user["email_address"],
         image: props.user["image"],

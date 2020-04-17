@@ -13,7 +13,7 @@ import { LoginInfo } from '../../components';
 // material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Paper, TextField, Link } from "@material-ui/core";
-import { checkLogin } from "../../utils/inputs";
+import { checkLogin } from "../../utils/forms/init";
 
 
 const useStyles = makeStyles((theme) => ({

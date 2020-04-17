@@ -3,7 +3,7 @@ import React from 'react';
 // components
 import { Typography, Grid, Link, TextField, makeStyles } from "@material-ui/core";
 import { PrimaryButton, ErrorAlert } from '../../shared-components/';
-import { checkRegisterStep1 } from '../../utils/inputs';
+import { checkRegisterStep1 } from '../../utils/forms/init';
 
 const useStyles = makeStyles((theme) => ({
     title: {

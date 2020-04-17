@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
         padding: theme.spacing(2),
-        backgroundColor: '#F9F9F9'
+        backgroundColor: theme.palette.grey[50]
     },
 }));
 
@@ -14,10 +14,10 @@ export function NoInfoCard(props) {
     const classes = useStyles();
 
     return (
-        <Paper className={classes.root}>
+        <Paper className={classes.root} square>
             <Grid container direction="row" justify="center">
                 <Grid item  className={classes.local}>
-                    <Typography variant="h5">
+                    <Typography variant="h6">
                         {props.information}
                     </Typography>
                 </Grid>

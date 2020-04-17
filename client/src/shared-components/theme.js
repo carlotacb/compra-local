@@ -1,4 +1,5 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 const t = createMuiTheme({
     palette: {
@@ -17,7 +18,9 @@ const t = createMuiTheme({
             color: '#9777B5'
         },
         h2: {
-            fontSize: '50pt'
+            fontSize: '28pt',
+            fontWeight: '600',
+            color: grey[800]
         }
     }
 });
