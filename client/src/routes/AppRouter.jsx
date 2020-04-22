@@ -13,7 +13,8 @@ import { SmallSidebar } from '../components/Sidebar/SmallSidebar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: 'inherit'
+        height: 'inherit',
+        backgroundColor: theme.palette.grey[50]
     },
     page: {
         padding: theme.spacing(7),

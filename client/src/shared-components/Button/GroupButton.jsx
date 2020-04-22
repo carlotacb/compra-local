@@ -24,7 +24,7 @@ export function GroupButton(props) {
     const active = props.active;
     const basicStyle= {
         borderRadius: 0,
-        borderBottom: `3px solid white`
+        borderBottom: `3px solid transparent`
     }
 
     const elements = props.buttons;

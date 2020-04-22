@@ -3,19 +3,25 @@ import { grey } from '@material-ui/core/colors';
 
 const t = createMuiTheme({
     palette: {
-      primary: {
-          main: '#9777B5'
+        primary: {
+            light: '#F6E8EA',
+            main: '#EF626C',
+            dark: '#A4243B'
+        },
+        secondary: {
+            main: '#F7C15A',
+            dark: '#A57F60'
+        },
+        dark: {
+            main: '#084C61',
+            dark: '#292F36',
+        },
       },
-      secondary: {
-          light: '#FFFAF7',
-          main: '#F2B880'
-      },
-    },
     typography: {
         h1: {
             fontSize: '30pt',
             fontWeight:'600',
-            color: '#9777B5'
+            color: '#EF626C'
         },
         h2: {
             fontSize: '28pt',

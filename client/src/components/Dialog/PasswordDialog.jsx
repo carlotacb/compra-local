@@ -9,10 +9,11 @@ import { checkChangePassword } from '../../utils/forms/changePassword';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        borderRadius: 0
+        borderRadius: 0,
+        paddingBottom: theme.spacing(2)
     },
     textField: {
-        '& > div': {
+        '& > div': {    
             borderRadius: 0
         }
     },
@@ -100,7 +101,7 @@ export function PasswordDialog(props) {
                     <Typography variant="h6">
                         Canviar contrasenya
                     </Typography>
-                    <Typography variant="subtitle1">
+                    <Typography variant="subtitle2">
                         Per canviar la teva contrasenya, introdueix la actual i després la nova.
                     </Typography>
                     <ErrorAlert error={error} />

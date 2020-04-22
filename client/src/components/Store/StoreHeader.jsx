@@ -6,13 +6,16 @@ import { Stars } from '../../shared-components';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundColor: theme.palette.secondary.light,
-        padding: theme.spacing(2)
+        paddingLeft: theme.spacing(1),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(2)
     },
     tags: {
         display: 'flex',
-        '& > div': {
-            margin: theme.spacing(0.5)
+        textTransform: 'uppercase',
+        '& > h6': {
+            color: theme.palette.primary.dark,
+            margin: theme.spacing(1)
         }
     }
 }));
@@ -26,9 +29,9 @@ export function StoreHeader(props) {
         var output = [];
         for (var i in storeInfo['tags']) {
             output.push(
-                <Tag>
+                <Typography variant="subtitle2">
                     {storeInfo['tags'][i]}
-                </Tag>
+                </Typography>
             );
         }
         return output;
@@ -37,7 +40,7 @@ export function StoreHeader(props) {
     return (
         <div className={classes.root}>
             <Stars value={storeInfo['punctuation']} />
-            <Typography variant="h2"> {storeInfo['name']} </Typography>
+            <Typography variant="h2" color="primary"> {storeInfo['name']} </Typography>
             <div className={classes.tags}>
                 {renderTags()}
             </div>

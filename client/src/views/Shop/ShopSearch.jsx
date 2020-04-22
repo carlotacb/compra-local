@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     item: {
         padding: theme.spacing(1)
     },
+    searchBox: {
+        padding: theme.spacing(1)
+    },
     filter: {
         paddingTop: theme.spacing(2),
         '& > button': {
@@ -18,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     listView: {
-        paddingTop: theme.spacing(2)
+        padding: 0,
+        paddingTop: theme.spacing(2) 
     }
 }));
 
@@ -27,6 +31,11 @@ export function ShopSearch(props) {
     const classes = useStyles();
 
     const stores = props.stores;
+    const buttons = ["OBERT ARA", "A DOMICILI", "PER RECOLLIR"];
+
+    function handleFilterOnClick(e) {
+        console.log("HOLA");
+    }
 
     function renderRestaurants() {
         var output = [];
@@ -61,35 +70,35 @@ export function ShopSearch(props) {
     }
 
     return (
-        <Grid container direction="column" justify="space-between">
-            <Grid item className={classes.item}>
+        <Grid container direction="row" alignItems="center">
+            <Grid item lg={12} className={classes.item}>
                 <Typography variant="h1">
                     Què necessites comprar?
                 </Typography>
             </Grid>
-            <Grid item className={classes.item}>
+            <Grid item lg={6} xs={12} className={classes.searchBox}>
                 <SearchBox
                     label="Cercar per nom"
                 />
             </Grid>
-            <Grid item className={classes.filter}>
+            <Grid item lg={12} className={classes.filter}>
                 <TertiaryButton>
-                    Categoria
+                    <Typography variant="subtitle2">
+                        Categoria
+                    </Typography>
                 </TertiaryButton>
 
-                <TertiaryButton>
-                    Obert ara
-                </TertiaryButton>
-
-                <TertiaryButton>
-                    A domicili
-                </TertiaryButton>
-
-                <TertiaryButton>
-                    Per recollir
-                </TertiaryButton>
+                {
+                    buttons.map(item => 
+                        <TertiaryButton key={item} onClick={(e) => handleFilterOnClick(e)}>
+                            <Typography variant="subtitle2">
+                                {item}
+                            </Typography>
+                        </TertiaryButton>
+                    )
+                }
             </Grid>
-            <Grid item className={classes.listView}>
+            <Grid item lg={12} className={classes.listView}>
                 {renderRestaurants()}
             </Grid>
         </Grid>

@@ -7,8 +7,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
         padding: theme.spacing(2),
-        marginBottom: theme.spacing(3),
-        backgroundColor: '#F9F9F9'
+        marginBottom: theme.spacing(3)
     },
     local: {
         paddingRight: theme.spacing(2),

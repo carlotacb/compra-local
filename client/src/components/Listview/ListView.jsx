@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
 
     },
     root: {
-        padding: theme.spacing(4),
+        padding: 0,
         overflowY: 'auto',
         overflowX: 'unset',
         flexWrap: 'inherit'

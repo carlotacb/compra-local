@@ -9,8 +9,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
         marginBottom:theme.spacing(3),
-        padding: theme.spacing(2),
-        backgroundColor: '#F9F9F9'
+        padding: theme.spacing(2)
     },
     information: {
         display: 'flex',

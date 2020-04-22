@@ -24,7 +24,7 @@ export function ShopStore() {
     return (
         <StoreContext.Provider value={storeProviderValue}>
             <Grid container direction="column">
-                <Grid item>
+                <Grid item> 
                     <StoreHeader/>
                 </Grid> 
                 <Grid item>
