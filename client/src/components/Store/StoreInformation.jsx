@@ -40,7 +40,9 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'right'
     },
     time: {
-        textAlign: 'left'
+        textAlign: 'left',
+        paddingBottom: theme.spacing(0.5),
+        paddingTop: theme.spacing(0.5)
     }
 
 }));
@@ -66,15 +68,15 @@ export function StoreInformation() {
         for (var i in traduccio) {
                 days.push(
                     <Grid item xs={6}>
-                        <Typography variant="subtitle2" className={classes.time}>
-                            {traduccio[i]}
+                        <Typography variant="subtitle1" className={classes.time}>
+                            <i>{traduccio[i]}</i>
                         </Typography>
                     </Grid>
                 )
                 days.push(
                     <Grid item xs={6}>
-                    <Typography variant="subtitle2" className={classes.time}>
-                        {horari[j]}
+                    <Typography variant="subtitle1" className={classes.time}>
+                        {/**horari[j]**/}
                     </Typography>
                     </Grid>
                 )

@@ -11,8 +11,9 @@ import { ProductTypeDict } from '../../services/Dictio/ProductTypeDict';
 
 const useStyles = makeStyles((theme) => ({
     search: {
-        paddingRight: theme.spacing(2),
-        paddingBottom: theme.spacing(2)
+        padding: theme.spacing(2),
+        paddingLeft: 0,
+        paddingBottom: theme.spacing(1)
     },
     dialog: {
         width: '45em'

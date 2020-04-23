@@ -1,11 +1,13 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
-import { Grid } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import { StoreHeader, StoreBody } from "../../components";
 import { StoreContext } from "../../context";
 import { ApiFactory } from "../../services/ApiFactory";
 
+
 export function ShopStore() {
+
     const { id } = useParams();
     
     const [storeInfo, setStoreInfo] = React.useState({});
@@ -23,7 +25,7 @@ export function ShopStore() {
 
     return (
         <StoreContext.Provider value={storeProviderValue}>
-            <Grid container direction="column">
+            <Grid container direction="column" >
                 <Grid item> 
                     <StoreHeader/>
                 </Grid> 

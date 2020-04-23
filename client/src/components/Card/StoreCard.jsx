@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     tags: {
         justifyContent: 'flex-end',
         display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        alignContent: 'flex-start',
         '& div': {
             margin: theme.spacing(0.5)
         }
@@ -74,7 +77,7 @@ export function StoreCard(props) {
                         <b>{props.name}</b>
                     </Typography>
                     <div className={classes.subtitle}>
-                        <Typography variant="subtitle1">
+                        <Typography variant="subtitle2">
                             {props.category}
                         </Typography>
                     </div>

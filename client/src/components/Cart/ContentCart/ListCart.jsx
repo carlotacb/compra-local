@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     cardProduct: {
         display: 'flex',
         alignItems: 'center',
-        marginLeft: `-1em`,
+        marginLeft: `-0.5em`,
     }
 }));
 
