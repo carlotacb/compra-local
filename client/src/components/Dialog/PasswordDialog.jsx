@@ -9,7 +9,7 @@ import { checkChangePassword } from '../../utils/forms/changePassword';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        borderRadius: 0,
+       borderRadius: 0,
         paddingBottom: theme.spacing(2)
     },
     textField: {

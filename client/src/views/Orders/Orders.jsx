@@ -1,10 +1,18 @@
 import React, { useState, useContext } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import { GroupButton } from '../../shared-components/';
 import { ProcessOrders, CompletedOrders, PendingReviewOrder } from "../../views";
 import { ApiFactory } from "../../services/ApiFactory";
 import { UserContext } from '../../context/UserContext';
 import { Loading } from "../../components/Loading/Loading";
+
+const useStyles = makeStyles((theme)=>({
+    header: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginBottom: theme.spacing(1)
+    }
+}));
 
 export function Orders() {
     const { user } = useContext(UserContext);
@@ -12,6 +20,8 @@ export function Orders() {
     const [ completedOrders, setCompletedOrders ] = useState([]);
     const [ currentOrders, setCurrentOrders ] = useState([]);
     const [ pendingReview, setPendingReview ] = useState([]);
+
+    const classes = useStyles();
 
     const changePage = (p) => {
         setPage(p)
@@ -49,9 +59,11 @@ export function Orders() {
 
 
     return (
-        <Grid container direction="column" justify="space-between">
+        <Grid container direction="column">
+            <Grid item className={classes.header}>
+                <GroupButton buttons={["En procés", "Pendents de valorar", "Completades"]} active={page} onClick={(p) => changePage(p)} />
+            </Grid>
             <Grid item>
-                <GroupButton buttons={["Comandes en procés", "Comandes pendents de valorar", "Comandes completades"]} active={page} onClick={(p) => changePage(p)} />
                 {renderCorrectPage()}
             </Grid>
         </Grid>

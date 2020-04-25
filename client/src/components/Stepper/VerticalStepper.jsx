@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   background: {
-    backgroundColor: '#F9F9F9' 
+    backgroundColor: theme.palette.primary.light
   },
   button: {
     marginTop: theme.spacing(1),

@@ -39,8 +39,11 @@ import { ShoppingCart as SCart} from './Cart/ShoppingCart';
 import {UserInformation as UI} from './UserProfile/UserInformation';
 import {UserInformationEdit as UIE} from './UserProfile/UserInformationEdit';
 
-export const Sidebar = Sid;
 
+//Orders
+import {PendingOrder as PnO} from './Orders/PendingOrder';
+
+export const Sidebar = Sid;
 export const SmallSidebar = Sidd;
 export const SearchBox = SB;
 export const ListView = LV;
@@ -66,7 +69,7 @@ export const PendingReviewCard = PRC;
 export const Loading = L;
 export const NoInfoCard = NIC;
 export const LoginInfo = LI;
-
+export const PendingOrder = PnO;
 // User
 export const UserInformation = UI;
 export const UserInformationEdit = UIE;

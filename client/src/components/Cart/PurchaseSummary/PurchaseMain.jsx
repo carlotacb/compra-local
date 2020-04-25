@@ -29,6 +29,9 @@ export function PurchaseMain(props) {
             <Typography variant="h6" color="primary">
                 <b>Informació a confirmar:</b>
             </Typography>
+            <Typography variant="body1">
+                Si us plau, verifica les següents dades abans de confirmar.
+            </Typography>
             <PurchasePersonInfo />
             <PurchaseCartInfo cart={props.cart}/>
             <div className={classes.select}>

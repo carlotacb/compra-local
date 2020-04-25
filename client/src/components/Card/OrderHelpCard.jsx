@@ -5,9 +5,7 @@ import { VerticalStepper } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: theme.spacing(1),
-        marginBottom:theme.spacing(3),
-        padding: theme.spacing(2)
+
     },
     information: {
         display: 'flex',
@@ -112,7 +110,7 @@ export function OrderHelpCard(props) {
     }
 
     return (
-        <Paper className={classes.root}>
+        <Paper square className={classes.root}>
             <Grid container direction="row">
                 <Grid item xs={3}>
                     <VerticalStepper currentStep={props.step} steps={['Compra encomanada', 'Preparació', 'Esperant recollida del voluntari', 'Comanda recollida per voluntari', 'Comanda rebuda']}/>

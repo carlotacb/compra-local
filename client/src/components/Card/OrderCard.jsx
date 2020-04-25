@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
-import { VerticalStepper } from "../../components";
+import { VerticalStepper } from "..";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -83,7 +83,7 @@ export function OrderCard(props) {
     }
 
     return (
-        <Paper className={classes.root}>
+        <Paper square className={classes.root}>
             <Grid container direction="row">
                 <Grid item xs={3}>
                     {props.delivery ?
