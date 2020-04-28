@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Divider, Grid, Paper, Typography, makeStyles, Button } from '@material-ui/core';
-import { VerticalStepper } from "..";
+import { VerticalStepper, VolunteerDialog } from "..";
 import { PrimaryButton } from '../../shared-components/Button/PrimaryButton';
 import { SecondaryButton } from '../../shared-components/Button/SecondaryButton';
 import { TicketDialog} from '../../components';
@@ -9,10 +9,13 @@ const useStyles = makeStyles((theme) => ({
     root:{},
     buttons: {
         display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
         justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        paddingBottom: theme.spacing(2),
-        paddingRight: theme.spacing(2)
+        padding: theme.spacing(2),
+        '& > button': {
+            marginTop: theme.spacing(1)
+        }
     },
     information: {
         padding: theme.spacing(2),
@@ -45,10 +48,15 @@ const useStyles = makeStyles((theme) => ({
 export function PendingOrder(props){
     const classes = useStyles();
     const [openTicket, setOpenTicket] = React.useState(false);
+    const [openVolunteer, setOpenVolunteer ] = React.useState(false);
     function handleOnClick(e){
         var id = e.currentTarget.id;
         if(id == "ticket"){
             setOpenTicket(true);
+            return;
+        }
+        else if(id == "volunteer") {
+            setOpenVolunteer(true);
             return;
         }
     }
@@ -100,8 +108,11 @@ export function PendingOrder(props){
         )
     }
 
-    function getTypeOfOrder(delivery) {
-        if(delivery) {
+    function getTypeOfOrder() {
+        if(props.assigned_helper) {
+            return "Els productes serán enviats a casa teva pel voluntari/a assignat";
+        }
+        else if(props.order.delivery) {
             return "Els productes serán enviats a casa teva per la botiga";
         }
         else {
@@ -115,7 +126,7 @@ export function PendingOrder(props){
                 <Grid item lg={3} sm={12}>
                     <VerticalStepper currentStep={props.order.step} steps={getSteps()}/>
                 </Grid>
-                <Grid item lg={7} sm={12} className={classes.information}>
+                <Grid item lg={6} sm={12} className={classes.information}>
                     <div className={classes.textInformation}>
                         <Typography variant="body1" className={classes.bold}> 
                             <b>Comanda realitzada a: </b>
@@ -127,20 +138,39 @@ export function PendingOrder(props){
                             Preu total de la compra: {props.order.total} € 
                         </Typography> 
                         <Typography variant="body1">
-                            Métode de recollida: {getTypeOfOrder(props.order.delivery)}
+                            Métode de recollida: {getTypeOfOrder()}
                         </Typography>
                     </div>
                     <div className={classes.header}>
                         {getCurrentInformation(props.order.step)}
                     </div>
                 </Grid>
-                <Grid item lg={2} sm={12} className={classes.buttons}>
+                <Grid item lg={3} sm={12} className={classes.buttons}>
+                    {
+                        props.assigned_helper &&
+                        <SecondaryButton id="volunteer" onClick={(e)=>handleOnClick(e)}>
+                            INFORMACIÓ DEL VOLUNTARI
+                        </SecondaryButton>
+                    }
                     <PrimaryButton id="ticket" onClick={(e)=>handleOnClick(e)}>
                         VEURE TICKET
                     </PrimaryButton>
                 </Grid>
             </Grid>
-            <TicketDialog open={openTicket} onClose={() => setOpenTicket(false)} ticket={props.order.ticket} title={'TIQUET'}/>
+            <TicketDialog 
+                open={openTicket} 
+                onClose={() => setOpenTicket(false)} 
+                ticket={props.order.ticket} 
+                title={'Tiquet'}/>
+            {
+                props.assigned_helper &&
+                <VolunteerDialog
+                    open={openVolunteer} 
+                    onClose={() => setOpenVolunteer(false)} 
+                    helper={props.helper} 
+                    title={'Voluntari'}
+                />
+            }
         </Paper>
-    )
+    )   
 }
