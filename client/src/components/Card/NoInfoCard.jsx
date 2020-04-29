@@ -5,8 +5,7 @@ import { Grid, Paper, Typography, makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
-        padding: theme.spacing(2),
-        backgroundColor: theme.palette.grey[50]
+        padding: theme.spacing(2)
     },
 }));
 

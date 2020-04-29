@@ -8,9 +8,7 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
-        padding: theme.spacing(2),
-        backgroundColor: '#F9F9F9'
-
+        padding: theme.spacing(2)
     },
     button: {
         cursor: 'pointer'
@@ -19,27 +17,34 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: theme.spacing(2),
         paddingLeft: theme.spacing(1)
     },
+    avatar: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'flex',
+            justifyContent: 'center',
+            paddingBottom: theme.spacing(1)
+        },
+    },
     tags: {
-        display: 'flex',
-        alignContent: 'flex-start',
-        flexWrap: 'wrap',
-        height: '100%',
         justifyContent: 'flex-end',
-        '& > div': {
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        alignContent: 'flex-start',
+        '& div': {
             margin: theme.spacing(0.5)
         }
     },
     subtitle: {
         display: 'flex',
         flexDirection: 'row',
-        '& > *': {
-            paddingRight: theme.spacing(1)
-        }
+        paddingTop: 0,
+        textTransform: 'uppercase'
     },
     avatarSize: {
-        width: '90%',
-        height: '90%'
-    }
+        width: '8em',
+        height: '5em',
+        objectFit: 'cover'
+    },
 }));
 
 export function StoreCard(props) {
@@ -50,51 +55,49 @@ export function StoreCard(props) {
 
     function handleClick(e) {
         const id = parseInt(e.currentTarget.id);
-        // Redirect to restaurant
+        // Redirect to store page
         history.push(`${match.path}${id}`);
     }
 
-    function renderTags(tags) {
-        var output = [];
-        for (var i in tags) {
-            output.push(
-                <Tag>
-                    <Typography variant="subtitle2">
-                        {tags[i]}
-                    </Typography>
-                </Tag>
-            )
-        }
-        return output;
-    }
+
 
     return (
-        <Paper className={classes.root}>
+        <Paper className={classes.root} square>
             <a onClick={(e) => handleClick(e)} id={props.id} className={classes.button}>
             <Grid container direction="row">
-                <Grid item xs={2}>
-                    <Avatar variant="rounded" className={classes.avatarSize} src={'data:image/png;base64,'+ props.image}/>
+                <Grid item lg={2} md={4} sm={5} xs={12} className={classes.avatar}>
+                    <Avatar 
+                        variant="square" 
+                        className={classes.avatarSize} 
+                        src={'data:image/png;base64,'+ props.image}
+                    />
                 </Grid>
-                <Grid item xs={7} className={classes.local}>
-                    <Typography variant="h5">
-                        {props.name}
+                <Grid item md={6}  sm={12} className={classes.local}>
+                    <Typography variant="h6">
+                        <b>{props.name}</b>
                     </Typography>
                     <div className={classes.subtitle}>
-                        <Typography variant="subtitle">
+                        <Typography variant="subtitle2">
                             {props.category}
                         </Typography>
-                        <div>
-                            <Stars value={props.stars} />
-                        </div>
+                    </div>
+                    <div className={classes.rate}>
+                        <Stars value={props.stars} />
                     </div>
                     <Typography variant="body1">
                         {props.description}
                     </Typography>
                 </Grid>
-                <Grid item xs={3}>
-                    <div className={classes.tags}>
-                        {renderTags(props.tags)}
-                    </div>
+                <Grid item lg={4} sm={12} className={classes.tags}>
+                     {
+                         props.tags.map(item=>
+                            <Tag>
+                                <Typography variant="subtitle2">
+                                    {item}
+                                </Typography>
+                            </Tag>
+                        )
+                     }
                 </Grid>
             </Grid>
             </a>

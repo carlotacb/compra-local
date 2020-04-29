@@ -1,31 +1,78 @@
 import React from 'react';
-import { TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { AcceptConfirmDialog } from './AcceptConfirmDialog';
+import {
+    TextField,
+    Typography,
+    Grid,
+    makeStyles
+} from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
+
+const useStyles = makeStyles((theme) => ({
+    body : {
+        marginTop: theme.spacing(2)
+    },
+    textField: {
+        '& > div': {
+            borderRadius: 0
+        }
+    }
+}));
+
 
 export function ValorationDialog(props) {
-    const [punctuation, setPunctuation] = React.useState(0);
+    const classes = useStyles();
+    const [rateValue, setRateValue] = React.useState(2.5);
     const [comment, setComment] = React.useState();
 
-    function handleAccept(){
-        props.onAccept(punctuation, comment);
-        setPunctuation(0);
+    function handleAccept() {
+        props.onAccept(rateValue, comment);
         setComment('');
+        //TODO: Call api
     }
 
     return (
-        <Dialog fullWidth open={props.open} onClose={props.close} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" >
-            <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
-                <DialogContent>
-                    <TextField autoFocus error={props.error} margin="dense" id="punctuation" label="Valoració del 0 al 5" type="number" defaultValue={0} fullWidth InputProps={{ inputProps: { min: 0, max: 5 } }} onChange={(e) => setPunctuation(e.target.value)}/>
-                    <TextField error={props.error} margin="dense" id="punctuation" label="Comentari" type="text" fullWidth rows={2} onChange={(e) => setComment(e.target.value)} />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => handleAccept()} color="primary">
-                        Aceptar
-                    </Button>
-                    <Button onClick={props.onClose} color="primary">
-                        Cancel·lar
-                    </Button>
-                </DialogActions>
-        </Dialog>
+        <AcceptConfirmDialog
+            open={props.open}
+            title="Valorar l'experència"
+            onAccept={() => handleAccept()}
+            onClose={props.onClose}>
+            <Typography variant="body1">
+                {
+                    props.type == "BUSINESS" ?
+                        "Explica'ns com ha anat el procés de compra amb l'establiment " :
+                        "Explican'ns com ha anat el procés d'enviament amb el/la voluntari/a "
+                }
+                <b>{props.name}</b> !
+                </Typography>
+            <Grid container className={classes.body} justify="space-between">
+                <Grid item lg={8} md={12}>
+                    <Typography component="legend">Fés el teu comentari</Typography>
+                    <TextField
+                        className={classes.textField}
+                        variant="outlined"
+                        fullWidth
+                        multiline
+                        rows={4}
+                        value={comment}
+                        onChange={(event, newValue) => {
+                            setComment(newValue);
+                        }}
+                    />
+                </Grid>
+                <Grid item lg={3} md={12}>
+                    <Typography component="legend">Valoració general</Typography>
+                    <Rating
+                        name="simple-controlled"
+                        value={rateValue}
+                        precision={0.5}
+                        onChange={(event, newValue) => {
+                            setRateValue(newValue);
+                        }}
+                    />
+                </Grid>
+
+            </Grid>
+        </AcceptConfirmDialog>
     )
 }

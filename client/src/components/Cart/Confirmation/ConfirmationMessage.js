@@ -17,7 +17,7 @@ export function ConfirmationOrder(props){
             </Grid>
             <Grid item>
                 <Typography variant="body1">
-                    Pots mirar l'estat de la teva comanda  <Link to="/in/comandes"> aquí </Link>
+                    Pots mirar l'estat de la teva comanda  <Link href="/in/comandes"> aquí </Link>
                 </Typography>
             </Grid>
         </Grid>

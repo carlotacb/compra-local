@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
         padding: theme.spacing(2),
-        backgroundColor: theme.palette.grey[50],
     },
     container: {
         width: '100%',

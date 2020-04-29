@@ -48,7 +48,8 @@ export function Profile() {
     }
 
     return (
-        <Grid container direction="column" justify="space-between"
+        <Grid container direction="column" 
+            justify="space-between"
         >
             <Grid item >
                 <UserInformationRouter />

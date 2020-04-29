@@ -6,9 +6,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { ContentCartMain } from './ContentCart/ContentCartMain';
 import { PurchaseContext } from '../../context';
 const useStyles = makeStyles((theme) => ({
-    root: {
-        width: 'inherit'
-    },
+
     header: {
         display: 'flex',
         alignItems: 'center',

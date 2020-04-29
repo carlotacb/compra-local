@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 
 import { StoreInformation } from './StoreInformation';
 import { GroupButton } from '../../shared-components';
@@ -8,8 +8,13 @@ import { ShoppingCart } from '../';
 import { CartContext } from '../../context/CartContext';
 import { AddProductContext } from '../../context/AddProductContext';
 
-
+const useStyles = makeStyles((theme) => ({
+    groupButtons: {
+        paddingLeft: '-0.5em'
+    }
+}));
 export function StoreBody(props) {
+    const classes = useStyles();
     const [page, setPage] = React.useState(0);
     
 
@@ -43,8 +48,9 @@ export function StoreBody(props) {
                 <GroupButton
                     buttons = {["Produces", "Informació"]}
                     active={page} 
-                    onClick={(p) => setPage(p)}/
-                >
+                    onClick={(p) => setPage(p)}
+                    className={classes.groupbuttons}
+                />
             </Grid>
             <Grid item>
                 <Grid container>

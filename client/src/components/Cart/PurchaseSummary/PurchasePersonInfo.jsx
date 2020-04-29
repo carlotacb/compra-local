@@ -16,22 +16,17 @@ export function PurchasePersonInfo() {
         <Grid container direction="column" className = {classes.root}>
             <Grid item>
                 <Typography variant="body1">
-                    Si us plau, verifica les teves dades abans de confirmar.
-                </Typography>
-            </Grid>
-            <Grid item>
-                <Typography variant="body1">
                     <b>Nom:</b> {user["name"]}
                 </Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1">
-                    <b>Número de telèfon:</b> {user["name"]}
+                    <b>Número de telèfon:</b> {user["phone_number"]}
                 </Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1">
-                    <b>Direcció:</b> Falta ponerla
+                    <b>Direcció:</b> {user["postal_address"]}
                 </Typography>
             </Grid>
         </Grid>
